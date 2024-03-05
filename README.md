@@ -1,2 +1,3 @@
 # TechnologyLine-ecommerce
 Ecommerce Technology Line (deploying in GoDaddy)
+Este proyecto es para liquidacion de sueldos y para hacer los recibos de sueldos. Por ahora se encuentra la primera version solo con html, css y js. Esta version permite al cliente realizar un recibo de sueldo a la vez tipeando dato por dato, y sirve mas que nada por si ocurre un error al imprimir todos, o si se imprimio con un error, (o alguna variable similar) poder imprimir nuevamente el recibo del empleado como corresponde. Proximamente el proyecto va a contar con base de datos y back-end asi se pueden guardar, recuperar, modificar y verificar recibos de sueldos de todos los empleados de la empresa. (tecnologias a integrar, primero node js, mysql, luego actualizar el front con react)
