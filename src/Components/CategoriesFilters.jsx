@@ -2,16 +2,15 @@ import { useState } from "react"
 import { FaAngleUp, FaAngleDown } from 'react-icons/fa'
 
 export default function CategoriesFilter ({ products }) {
-//Arrglar para que reciba el array products filtrado
-    
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const [isBrandOpen, setIsBrandOpen] = useState(false);
-  const [isPriceOpen, setIsPriceOpen] = useState(false);
-  const [selectPrice, setSelectPrice] = useState(prices[0])
-
-  const handleToggleCategory = () => setIsCategoryOpen(!isCategoryOpen);
-  const handleToggleBrand = () => setIsBrandOpen(!isBrandOpen);
-  const handleTogglePrice = () => setIsPriceOpen(!isPriceOpen);
+  //Arreglar para que reciba el array products filtrado
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false)
+  const [isBrandOpen, setIsBrandOpen] = useState(false)
+  const [isPriceOpen, setIsPriceOpen] = useState(false)
+  const [selectPrice, setSelectPrice] = useState(0)
+  
+  const handleToggleCategory = () => setIsCategoryOpen(!isCategoryOpen)
+  const handleToggleBrand = () => setIsBrandOpen(!isBrandOpen)
+  const handleTogglePrice = () => setIsPriceOpen(!isPriceOpen)
   const handleSelectPrice = (e) => setSelectPrice(parseInt(e.target.value))
 
   return (
@@ -30,11 +29,11 @@ export default function CategoriesFilter ({ products }) {
         </header>
 
         <section className={`${isCategoryOpen ? 'hidden' : 'flex'} flex-col gap-y-2`}>
-          {categories.map((categorie, index) => (
+          {/* {categories.map((categorie, index) => (
               <span key={index}>
-                {categorie}
+                {categorie.name}
               </span>
-          ))}
+          ))} */}
           
           <span className="cursor-pointer text-page-lightblue hover:text-page-blue-normal">
             Ver mas...
@@ -47,7 +46,7 @@ export default function CategoriesFilter ({ products }) {
         <header className="flex justify-between items-center py-1">
           <span 
             onClick={handleToggleBrand} 
-            className="font-bold cursor-pointer flex justify-between pr-1 w-full items-center">
+            className="fon/t-bold cursor-pointer flex justify-between pr-1 w-full items-center">
             Marcas
             {isBrandOpen 
               ? <FaAngleUp/> 
@@ -56,7 +55,7 @@ export default function CategoriesFilter ({ products }) {
         </header>
 
         <section className={`${isBrandOpen ? 'hidden' : 'flex'} flex-col gap-y-2`}>
-          {brands.map((brand, index) => (
+          {/* {brands.map((brand, index) => (
             <article 
               key={index}
               className="flex items-center gap-x-3">
@@ -68,7 +67,7 @@ export default function CategoriesFilter ({ products }) {
               </input>
               <label htmlFor={`${brand}-checkbox`}>{brand}</label>
             </article>
-          ))}
+          ))} */}
 
           <span className="cursor-pointer text-page-lightblue hover:text-page-blue-normal">
             Ver mas...
@@ -97,14 +96,14 @@ export default function CategoriesFilter ({ products }) {
             </p>
             <p className="flex flex-col justify-between items-end w-full">
               <span>Maximo</span>
-              <span>{prices.pop()}</span>
+              <span>{0}</span>
             </p>
           </div>
           <input 
             className="w-[90%]"
             type="range" 
-            min={prices[0]} 
-            max={prices.pop()}
+            min={0} 
+            max={100000}
             value={selectPrice}
             onChange={handleSelectPrice}
           />

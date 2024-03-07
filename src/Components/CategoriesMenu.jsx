@@ -1,28 +1,39 @@
 import React, { useState } from "react"
 import { NavLink } from "react-router-dom"
-import jsonproducts from '../Data/products.json'
+import jsonProducts from '../Data/products.json'
 import { FaBars } from 'react-icons/fa'
-import { processProducts } from '../Mocks/processProducts.js'
+import { productsFilter } from '../Mocks/processProducts.js'
 
 export default function CategoriesMenu () {
-  
   const [categoriesHideMenu, setCategoriesHideMenu] = useState(false)
-  
-  const products = processProducts(jsonproducts); 
+
+  const products = productsFilter(jsonProducts)
+
+  console.log(products)
+
+  const selectedCategories = [
+    'Tecnologia',
+    'Electro y Aires',
+    'Informatica',
+    'TV y Audio',
+    'Mas categorias'
+  ]
 
   const handleClickCategories = () => setCategoriesHideMenu(!categoriesHideMenu)
 
   return(
     <>
     {/*Categorias hamburger*/}
-      <div className='group'>
-        <button 
+      <div className='group rounded-full'>
+        <button
           onClick={handleClickCategories} 
           className={`group`}
         >
-          <p className={`${categoriesHideMenu ? 'bg-page-lightblue rounded-full' : ''} group flex items-center gap-x-2 px-2 py-1 pl-3 duration-300 max-md:px-3`}>
-            <FaBars className='mb-[1px]'/>
-            <span className="max-md:hidden">Categorías</span>
+          <p className={`${categoriesHideMenu ? 'bg-page-lightblue rounded-full' : ''} group group-hover:bg-white flex items-center gap-x-2 px-2 py-1 pl-3 duration-300 max-md:px-3 rounded-full`}>
+            <FaBars className='mb-[1px] group-hover:text-black duration-300'/>
+            <span className="max-md:hidden group group-hover:text-black rounded-full p-1 px-2 duration-300">
+              Categorías
+            </span>
           </p>
         </button>
 
@@ -40,33 +51,34 @@ export default function CategoriesMenu () {
                 </NavLink>
               </div>
 
-              {products.categories.map(category => (
-                <div key={category.name} >
+              {products.map(product => (
+                <div key={product.category} >
+                  {console.log("Product:", product)}
                   {/*Mapear Categorias */}
                   <ul 
                     className='flex flex-wrap justify-between py-4'
                   >
                     <li className='hover:text-page-lightblue duration-300 border-b border-page-blue-normal'>
                       <NavLink 
-                        to={`/search/${category.name.toLowerCase()}`} 
+                        to={`/search/${product.category.toLowerCase()}`} 
                         className={'font-semibold'}
                         onClick={handleClickCategories}>
-                        {category.name.toUpperCase()}
+                        {product.category.toUpperCase()}
                       </NavLink>
                     </li>
                   </ul>
 
                   {/*Mapear subcategorias */}
                   <ul className='flex flex-col gap-4 flex-wrap justify-between pl-2'>
-                  {category.subcategories.map(subcategory => (
+                  {products.sub_category.map(subCategory => (
                     <li 
-                      key={subcategory.name} 
+                      key={subCategory} 
                       className='hover:text-page-lightblue text-xs duration-300'
                     >
                       <NavLink 
-                        to={`/search/${category.name.toLowerCase()}/${subcategory.name.toLowerCase()}`}
+                        to={`/search/${product.category.toLowerCase()}/${subCategory.toLowerCase()}`}
                         onClick={handleClickCategories}>
-                        {subcategory.name}
+                        {subCategory}
                       </NavLink>
                     </li>
                   ))}
@@ -79,12 +91,14 @@ export default function CategoriesMenu () {
       </div>
       {/*Categorias for full screen and xl screen */}
       <section className='hidden xl:flex justify-center min-w-[530px] w-full pr-[150px]'>
-        <ul className='flex'>
-          {products.categories.map(category =>(
-            <li key={category.name.toLowerCase()} className='hover:bg-page-lightblue rounded-full p-1 px-2 duration-300'>
+        <ul className='flex gap-x-2'>
+          {selectedCategories.map(category => (
+            <li 
+              key={category.toLowerCase()}
+              className='hover:bg-white hover:text-black rounded-full p-1 px-2 duration-300'>
               <NavLink 
-                to={`/search/${category.name.toLowerCase()}`}>
-                {category.name.charAt(0).toUpperCase() + category.name.slice(1).toLowerCase()}
+                to={`/search/${category.toLowerCase()}`}>
+                {category}
               </NavLink>
             </li>
           ))}
@@ -93,3 +107,12 @@ export default function CategoriesMenu () {
     </>
   )
 }
+
+// {products.categories.map(category =>(
+//   <li key={category.name.toLowerCase()} className='hover:bg-white hover:text-black rounded-full p-1 px-2 duration-300'>
+//     <NavLink 
+//       to={`/search/${category.name.toLowerCase()}`}>
+//       {category.name.charAt(0).toUpperCase() + category.name.slice(1).toLowerCase()}
+//     </NavLink>
+//   </li>
+// ))}

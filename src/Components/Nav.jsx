@@ -33,13 +33,13 @@ export default function Nav() {
 
       {/*Search input*/}
         <form 
-          className='hidden xl:flex gap-2 mr-2 justify-center bg-gray-300 rounded-full items-center px-2'
+          className='hidden xl:flex gap-2 mr-2 justify-center bg-slate-100 border-2 rounded-full items-center px-2'
           onSubmit={handleSubmit}
         >
           <FaSearch/>
           <input 
             type="text" 
-            className='w-full placeholder:text-gray-500 rounded-full bg-gray-300 outline-none px-3 py-1'
+            className='w-full placeholder:text-gray-500 rounded-full bg-slate-100 outline-none px-3 py-1'
             placeholder='Buscar'
             onChange={handleChange}
           />
@@ -52,19 +52,19 @@ export default function Nav() {
       </section>
 
       {/*---Nav bottom Full Screen---*/}
-      <section className='hidden xl:flex z-50 w-full items-center justify-around gap-x-5 bg-marine-100 text-slate-50 text-[15px]'>
+      <section className='hidden xl:flex z-50 w-full items-center justify-around gap-x-5 bg-page-blue-normal text-slate-50 text-[15px]'>
         <article className='w-3/4 flex h-[60px] items-center justify-around min-w-[640px]'>
           <CategoriesMenu/>
         </article>
       </section>
 
       {/*---Nav bottom  MD screen---*/}
-      <section className='xl:hidden flex h-[60px] w-full items-center justify-center gap-x-5 bg-marine-100 text-slate-50 max-md:justify-start max-md:px-20 max-sm:px-10'>
+      <section className='xl:hidden flex h-[60px] w-full items-center justify-center gap-x-5 bg-page-blue-normal text-slate-50 max-md:justify-start max-md:px-20 max-sm:px-10'>
 
         {/* Categorias */}
         <CategoriesMenu/>        
        
-        <article className='flex gap-x-3 bg-gray-300 rounded-full justify-center items-center max-md:w-full'>
+        <article className='flex gap-x-3 bg-slate-100 border-2 rounded-full justify-center items-center max-md:w-full'>
           <form 
             className='flex items-center justify-center rounded-full text-black px-5 w-[500px] max-md:w-full'
             onSubmit={handleSubmit}
@@ -73,7 +73,7 @@ export default function Nav() {
             <input 
               id='search'
               type="text" 
-              className='w-full placeholder:text-gray-500 bg-gray-300 text-black outline-none px-3 py-1 rounded-full'
+              className='w-full placeholder:text-gray-500 bg-slate-100 text-black outline-none px-3 py-1 rounded-full'
               placeholder='Buscar'
               onChange={handleChange}
             />
@@ -95,7 +95,7 @@ export default function Nav() {
       
 //         *Categorias Mobile menu*
 //         <section className='flex flex-col h-full'>
-//           <article className='w-full flex items-center justify-between gap-2 px-6 bg-marine-100 h-[70px]'>
+//           <article className='w-full flex items-center justify-between gap-2 px-6 bg-page-blue-normal h-[70px]'>
 //             <span className='text-white text-2xl font-semibold'>Categorías</span>
 //             <button onClick={handleClickMenuNav}>
 //               <FaTimes className='text-white text-2xl'/>

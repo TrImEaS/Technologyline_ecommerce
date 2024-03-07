@@ -5,36 +5,36 @@ import bannerCard_3 from '../Assets/BannerCards-images/banner-3.jpg'
 
 export default function BannersCards() {
   return (
-    <div className='flex flex-wrap justify-center items-center gap-8 w-3/4'>
-     
-      <article className='flex relative items-center justify-center group text-4xl text-white'>
-        <button className="absolute bottom-2 left-5 w-32 group text-lg rounded bg-page-blue-normal max-sm:w-20 max-sm:text-sm max-sm:left-3 duration-500">
-          VER MAS
-        </button>
+    <div className='flex justify-between items-center gap-3 max-sm:flex-wrap w-4/5'>
+
+      <article className='flex relative items-center justify-center rounded-full group text-4xl text-white      hover:scale-95 duration-500 w-full'>
         <img 
           src={bannerCard_1}
-          className="object-fill w-full h-full rounded-xl shadow-xl group-hover:shadow-page-blue-normal duration-500"
+          className="object-fill w-full h-full rounded-xl shadow-lg group-hover:shadow-page-blue-normal duration-500 group"
         />
-      </article>
-
-      <article className='flex relative items-center justify-center group rounded-full text-4xl text-white'>
-        <button className="absolute bottom-2 left-5 w-32 group text-lg rounded bg-page-blue-normal max-sm:w-20 max-sm:text-sm max-sm:left-3 duration-500">
+        <button className="absolute bottom-[4%] max-xl:bottom-[2%] left-[5%] group text-lg max-xl:text-sm max-md:text-xs max-sm:text-lg font-semibold rounded bg-page-blue-normal duration-500 z-50 opacity-20 group-hover:opacity-100 w-[45%]">
           VER MAS
         </button>
+      </article>
+
+      <article className='flex relative items-center justify-center group rounded-full text-4xl text-white hover:scale-95 duration-500 w-full'>
         <img 
           src={bannerCard_2}
-          className="object-fill w-full h-full rounded-xl shadow-xl group-hover:shadow-page-blue-normal duration-500"
+          className="object-fill w-full h-full rounded-xl shadow-lg group-hover:shadow-page-blue-normal duration-500 group"
         />
-      </article>
-
-      <article className='flex relative items-center justify-center group rounded-full text-4xl text-white'>
-        <button className="absolute bottom-2 left-5 w-32 group text-lg rounded bg-page-blue-normal max-sm:w-20 max-sm:text-sm max-sm:left-3 duration-500">
+        <button className="absolute bottom-[4%] max-xl:bottom-[2%] left-[5%] group text-lg max-xl:text-sm max-md:text-xs max-sm:text-lg font-semibold rounded bg-page-blue-normal duration-500 z-50 opacity-20 group-hover:opacity-100 w-[45%]">
           VER MAS
         </button>
+      </article>
+
+      <article className='flex relative items-center justify-center group rounded-full text-4xl text-white hover:scale-95 duration-500 w-full'>
         <img 
           src={bannerCard_3}
-          className="object-fill w-full h-full rounded-xl shadow-xl group-hover:shadow-page-blue-normal duration-500"
+          className="object-fill w-full h-full rounded-xl shadow-lg group-hover:shadow-page-blue-normal duration-500 group"
         />
+        <button className="absolute bottom-[4%] max-xl:bottom-[2%] left-[5%] group text-lg max-xl:text-sm max-md:text-xs max-sm:text-lg font-semibold rounded bg-page-blue-normal duration-500 z-50 opacity-20 group-hover:opacity-100 w-[45%]">
+          VER MAS
+        </button>
       </article>
     </div>
 

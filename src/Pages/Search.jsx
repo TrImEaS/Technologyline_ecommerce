@@ -1,14 +1,35 @@
 import ProductsSearch from '../Components/ProductsSearch'
 import CategoriesFilters from '../Components/CategoriesFilters.jsx'
-import products from '../Data/products.json'
-import { processProducts } from '../Mocks/processProducts.js'
+import productsJson from '../Data/products.json'
+import { productsFilter } from '../Mocks/processProducts.js'
 import { useState } from 'react'
 
 export default function Search ({ history }) {
   const [filterMenu, setFilterMenu] = useState(false)
-  const filterProducts = processProducts(products)
-  
+  const [filters, setFilters] = useState({
+    category: 'all',
+    minPrice: 0.00
+  })
+
+  const products = productsFilter(productsJson)
+
+  const filterProducts = (products) => {
+    return products.filter(product => {
+      return (
+        product.price >= filters.minPrice &&
+        (
+          filters.category === 'all' ||
+          product.category === filters.category
+        )
+      )
+    })
+  }
+
+  const filteredProducts = filterProducts(products) 
+
+  console.log(filteredProducts)
   const handleFilterMenu = () => setFilterMenu(!filterMenu)
+
   return (
     <section className="flex flex-col w-3/4 py-10">
       <header className="flex w-full justify-between pb-14 max-sm:flex-col">
@@ -49,7 +70,7 @@ export default function Search ({ history }) {
             sm:hidden flex-col gap-y-5 rounded w-[210px] absolute top-[40px] left-[-80px] bg-page-gray-light p-5
             ${filterMenu ? 'hidden' : 'flex'}
             `}>
-              <CategoriesFilters products={filterProducts}/>
+              <CategoriesFilters products={filteredProducts}/>
             </div>
           </div>
 
@@ -60,12 +81,12 @@ export default function Search ({ history }) {
         {/*Aside filters max screen*/}
         <aside className="flex flex-col gap-y-8 w-[20%]">
           <div className='max-sm:hidden flex flex-col gap-y-8'>
-            <CategoriesFilters products={filterProducts}/>
+            <CategoriesFilters products={filteredProducts}/>
           </div>
         </aside>
         
         <section>
-          <ProductsSearch/>
+          <ProductsSearch products={filteredProducts}/>
         </section>
       </main>
 

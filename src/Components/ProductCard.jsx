@@ -19,7 +19,7 @@ export default function ProductCard({ img, price, name, addItemCart }) {
 
       <article className="w-full h-[35%] box-border flex flex-col justify-between">
         <p>{limitedName}</p>
-        <p className="font-bold text-xl">${parseFloat(price).toFixed(2)}</p>
+        <p className="font-bold text-2xl">${parseFloat(price).toFixed(2)}</p>
       </article>
 
       {/* <button 

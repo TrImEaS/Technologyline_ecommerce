@@ -13,11 +13,18 @@ import americanexpressIcon from '../Assets/Some-icons/card-icon5.svg'
 import { MdOutlineEmail } from "react-icons/md"
 
 export default function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
+
   return(
     <div className="flex flex-col justify-center items-center w-full">
       
       {/*Top Footer*/}
-      <section className="w-3/4 bg-page-gray-light h-28 mt-[100px] flex gap-x-5 justify-center items-center max-lg:flex-wrap max-lg:w-full">
+      <section className="w-3/4 bg-page-gray-light h-28 flex gap-x-5 justify-center items-center max-lg:flex-wrap max-lg:w-full">
         <h1 className="font-bold text-[20px] max-sm:text-[16px]">
           No pierdas la oportunidad de suscribirte
         </h1>
@@ -225,20 +232,25 @@ export default function Footer() {
         </div>
             
         <div className="flex w-full justify-evenly max-[1500px]:justify-end gap-x-20 max-[1250px]:pt-8 max-[1250px]:justify-between px-10">
-          <button className="bg-white px-4 py-1 ml-28 max-[1500px]:ml-0 text-sm w-[300px] text-black rounded-full font-semibold hover:bg-page-lightblue duration-300">
+          <button className="bg-white px-4 py-1 ml-28 max-[1500px]:ml-0 text-sm w-[300px] text-black rounded-full font-semibold hover:bg-black hover:text-white duration-300">
             BOTÓN DE ARREPENTIMIENTO
           </button>
 
-          <button className="group text-black flex justify-center items-center rounded-xl w-[70px] border-2 ">
+          <button
+            onClick={scrollToTop} 
+            className="group text-black flex justify-center items-center rounded-xl w-[70px] border-2 ">
             <FaAngleUp className="text-[50px] group-hover:animate-bounce text-white duration-300"/>
           </button>
         </div>
       </article>
 
-      <section className="flex justify-center items-center w-full bg-page-gray-light">
-        <h1 className="font-bold text-gray-800 text-sm py-2">
+      <section className="flex flex-col justify-center items-center w-full bg-page-gray-light">
+        <h1 className="font-bold text-gray-800 py-2">
           ©️ 2024 Technology Line SRL
         </h1>
+        <p className="font-bold text-gray-800 py-2">
+          Las imagenes son a modo ilustrativo. Los precios pueden cambiar sin previo aviso.
+        </p>
       </section>
     </div>
   )

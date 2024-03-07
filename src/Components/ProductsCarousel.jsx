@@ -34,7 +34,7 @@ export default function ProductsCarousel() {
         setNumberOfProducts(4);
       } else if (screenWidth >= 1280) {
         setNumberOfProducts(3);
-      } else if (screenWidth >= 868) {
+      } else if (screenWidth >= 768) {
         setNumberOfProducts(2);
       } else {
         setNumberOfProducts(1);

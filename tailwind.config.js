@@ -15,7 +15,7 @@ export default {
         },
         page:{
           blue:{
-            normal: '#0b4780',
+            normal: '#0686AE',
             dark: '#01386c',
             marine: '#05345b',
             darkMarine: '#042138'
