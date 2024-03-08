@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { FaSearch } from 'react-icons/fa'
 import UserIcons from './UserIcons'
 import CategoriesMenu from './CategoriesMenu'
-import { FaSearch } from 'react-icons/fa'
 
 export default function Nav() {
   const [keyword, setKeyword] = useState('')
@@ -13,7 +13,7 @@ export default function Nav() {
 
   const handleSubmit = e => {
     e.preventDefault()
-    navigate(`/search/${keyword}`)
+    navigate(`/search/?name=${keyword}`)
   }
 
   return (

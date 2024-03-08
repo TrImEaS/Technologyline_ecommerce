@@ -49,7 +49,7 @@ function filterProduct(product) {
   }
 
   // Ignorar si el precio es menor a 1000
-  if (parseInt(product.price) <= 1000) {
+  if (parseInt(product.price) < 1000) {
     return false
   }
 
@@ -64,6 +64,58 @@ export function productsFilter(products) {
   const filterProducts = products.map(transformProduct).filter(filterProduct)
   return filterProducts
 }
+
+
+export function getAllCategories(products) {
+  const categories = []
+  
+  products.forEach((product) => {
+      // Verificar si la categoría ya existe en el resultado
+      let categoriaExistente = categories.find( (cat) => cat.name === product.category )
+    
+      if (!categoriaExistente) {
+        const nuevaCategoria = { name: product.category }
+        categories.push(nuevaCategoria)
+      }
+  })
+
+  return categories
+}
+
+export function getAllSubCategories(products) {
+  const subCategories = []
+  
+  products.forEach((product) => {
+
+    // Verificar si la subcategoría ya existe en la categoría
+    let subcategoriaExistente = subCategories.find( (subcat) => subcat.name === product.sub_category )
+
+    if (!subcategoriaExistente) {
+      const nuevaSubcategoria = { name: product.sub_category }
+      subCategories.push(nuevaSubcategoria)
+    }
+  })
+
+  return subCategories
+}
+
+export function getAllBrands(products) {
+  const brands = []
+
+  products.forEach((product) => {
+    // Verificar si la brand ya existe
+    let brand = brands.find((brand) => brand.name === product.brand )
+
+    if (!brand) {
+      const newBrand = { name: product.brand }
+      brands.push(newBrand)
+    }
+  })
+
+  return brands
+}
+
+
 
 // export function categoriesFilter(products) {
 //   const resultado = {
@@ -109,58 +161,3 @@ export function productsFilter(products) {
 
 //   return resultado
 // }
-
-export function getAllCategories(products) {
-  const categories = []
-  
-  const transformedProducts = products.map(transformProduct).filter(filterProduct)
-
-  transformedProducts.forEach((product) => {
-      // Verificar si la categoría ya existe en el resultado
-      let categoriaExistente = categories.find( (cat) => cat.name === product.category )
-    
-      if (!categoriaExistente) {
-        const nuevaCategoria = { name: product.category }
-        categories.push(nuevaCategoria)
-      }
-  })
-
-  return categories
-}
-
-export function getAllSubCategories(products) {
-  const subCategories = []
-  
-  const transformedProducts = products.map(transformProduct).filter(filterProduct)
-
-  transformedProducts.forEach((product) => {
-
-    // Verificar si la subcategoría ya existe en la categoría
-    let subcategoriaExistente = subCategories.find( (subcat) => subcat.name === product.sub_category )
-
-    if (!subcategoriaExistente) {
-      const nuevaSubcategoria = { name: product.sub_category }
-      subCategories.push(nuevaSubcategoria)
-    }
-  })
-
-  return subCategories
-}
-
-export function getAllBrands(products) {
-  const brands = []
-  
-  const transformedProducts = products.map(transformProduct).filter(filterProduct)
-
-  transformedProducts.forEach((product) => {
-    // Verificar si la brand ya existe
-    let brand = brands.find((brand) => brand.name === product.brand )
-
-    if (!brand) {
-      const newBrand = { name: product.brand }
-      brands.push(newBrand)
-    }
-  })
-
-  return brands
-}

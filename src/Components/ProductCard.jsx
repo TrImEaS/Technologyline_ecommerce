@@ -13,7 +13,7 @@ export default function ProductCard({ img, price, name, addItemCart }) {
           src={`https://www.technologyline.com.ar/products-images/${img}.jpg`} 
           loading="lazy"
           alt="Product-Card" 
-          className="w-full h-full" 
+          className="w-full h-full object-contain" 
         />
       </header>
 

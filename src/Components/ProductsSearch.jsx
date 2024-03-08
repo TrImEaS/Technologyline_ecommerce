@@ -32,17 +32,17 @@ export default function ProductsSearch({ products }) {
   return (
     <section className="flex flex-col w-full h-full">
       {/* Renderizar productos */}
-      <div className="flex flex-wrap w-full justify-around gap-10">
-        {products.slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage).map(
-        (product) => (
-          <ProductCard
-            key={product.ID}
-            img={product.item_code}
-            price={product['L. Precios C/Imp']}
-            name={product.item_desc}
-          />
-        ))}
-      </div>
+        <div className="flex flex-wrap pl-12 w-full gap-10">
+          {products.slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage).map(
+          (product) => (
+            <ProductCard
+              key={product.id}
+              img={product.sku}
+              price={product.price}
+              name={product.name}
+            />
+          ))}
+        </div>
 
       {/* Paginación */}
       <div className="flex w-full justify-center items-center mt-20">

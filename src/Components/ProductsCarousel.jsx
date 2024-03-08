@@ -74,7 +74,7 @@ export default function ProductsCarousel() {
       {/*Product Container*/}
       <div 
         className='flex w-full min-h-[400px] relative items-center justify-around gap-x-2 flex-shrink-0'>
-        {visibleProducts.map((product, index) => (
+        {visibleProducts.map((product) => (
           <ProductCard
             key={product.ID}
             img={product.item_code}

@@ -2,32 +2,44 @@ import ProductsSearch from '../Components/ProductsSearch'
 import CategoriesFilters from '../Components/CategoriesFilters.jsx'
 import productsJson from '../Data/products.json'
 import { productsFilter } from '../Mocks/processProducts.js'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-export default function Search ({ history }) {
+export default function Search () {
+  const queryName = new URLSearchParams(location.search).get('name')
+  const queryCat = new URLSearchParams(location.search).get('category')
+  const querySubCat = new URLSearchParams(location.search).get('sub_category')
+  const queryBrand = new URLSearchParams(location.search).get('brand')
+
+  const [searchFromURL, setSearchFromURL] = useState(false);
   const [filterMenu, setFilterMenu] = useState(false)
   const [filters, setFilters] = useState({
     category: 'all',
-    minPrice: 0.00
+    minPrice: 0.00,
+    search_name: queryName  || '' ,
+    search_category: queryCat || '',
+    search_subCat: querySubCat || '',
+    search_brand: queryBrand || ''
   })
 
   const products = productsFilter(productsJson)
-
   const filterProducts = (products) => {
     return products.filter(product => {
       return (
-        product.price >= filters.minPrice &&
+       parseInt(product.price) >= filters.minPrice &&
         (
           filters.category === 'all' ||
           product.category === filters.category
-        )
+        ) &&
+        product.name.toLowerCase().includes(filters.search_name.toLowerCase()) &&
+        product.category.toLowerCase().includes(filters.search_category.toLowerCase()) &&
+        product.sub_category.toLowerCase().includes(filters.search_subCat.toLowerCase()) &&
+        product.brand.toLowerCase().includes(filters.search_brand.toLowerCase())
       )
     })
   }
 
   const filteredProducts = filterProducts(products) 
 
-  console.log(filteredProducts)
   const handleFilterMenu = () => setFilterMenu(!filterMenu)
 
   return (
@@ -77,9 +89,9 @@ export default function Search ({ history }) {
         </article>
       </header>
 
-      <main className="flex max-sm:flex-col gap-x-5 w-full h-full">
+      <main className="flex max-sm:flex-col gap-x-10 w-full h-full">
         {/*Aside filters max screen*/}
-        <aside className="flex flex-col gap-y-8 w-[20%]">
+        <aside className="flex flex-col gap-y-8 min-w-[20%]">
           <div className='max-sm:hidden flex flex-col gap-y-8'>
             <CategoriesFilters products={filteredProducts}/>
           </div>

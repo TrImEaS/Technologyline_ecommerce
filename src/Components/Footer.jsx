@@ -42,14 +42,14 @@ export default function Footer() {
               placeholder="Ingresa tu mail"
             />
           </div>
-            <button type="button" className="bg-page-lightblue text-page-white py-2 px-3 rounded-lg hover:bg-page-blue-dark duration-300">
-              Suscribir
-            </button>
+          <button type="button" className="bg-page-lightblue text-page-white py-2 px-3 rounded-lg hover:bg-page-blue-dark duration-300">
+            Suscribir
+          </button>
         </form>
       </section>
       
       {/* Mid Footer */}
-      <section className="grid grid-cols-5 max-[1500px]:grid-cols-3 w-full box-border pt-10 pl-[100px] max-[1500px]:pr-[50px] max-md:pl-0 max-md:pr-0 bg-page-blue-normal text-white gap-5 py-3">
+      <section className="relative grid grid-cols-6 max-[1500px]:grid-cols-4 w-full box-border pt-10 pl-[100px] max-[1500px]:pr-[50px] max-md:pl-0 max-md:pr-0 bg-page-blue-normal text-white gap-5 py-3">
         <article className="
         flex flex-col px-1 gap-5
         max-[1500px]:col-span-5 max-[1500px]:flex-row max-[1500px]:items-center
@@ -77,7 +77,7 @@ export default function Footer() {
           </ul>
         </article>
         
-        <article className="flex flex-col gap-y-2 px-1 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4">
+        <article className="flex flex-col gap-y-2 px-1 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
           <h1 className="font-bold">
             Categorías
           </h1>
@@ -101,7 +101,7 @@ export default function Footer() {
           </ul>
         </article>
 
-        <article className="flex flex-col gap-y-2 px-1 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4">
+        <article className="flex flex-col gap-y-2 px-1 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
           <h1 className="font-bold">
             Real Color
           </h1>
@@ -122,7 +122,7 @@ export default function Footer() {
           </ul>
         </article>
 
-        <article className="flex flex-col gap-y-2 px-1 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4">
+        <article className="flex flex-col gap-y-2 px-1 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
           <h1 className="font-bold">
             Ayuda y información
           </h1>
@@ -144,7 +144,7 @@ export default function Footer() {
         </article>
 
 
-        <article className="flex flex-col gap-y-2 px-1 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4">
+        <article className="flex flex-col gap-y-2 px-1 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
         <h1 className="font-bold">
           Usuarios
         </h1>
@@ -164,12 +164,19 @@ export default function Footer() {
             </li>
           </ul> 
         </article>
+        <div className="
+        max-lg:absolute top-10 right-5 
+        max-sm:top-[50rem]">
+          <a href="http://qr.afip.gob.ar/?qr=ZvNKTXvJURZjjL1woDCRkg,," target="_F960AFIPInfo">
+            <img className="rounded-lg" src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg" border="0" width={100}></img>
+          </a>
+        </div>
       </section>
 
 
       {/* Social icons/card icons/ button */}
       <article className="flex w-full justify-between px-[100px] max-md:px-5 max-[1250px]:flex-wrap pt-5 max-[1500px]:pt-8 pb-10 bg-page-blue-normal">
-        <div className="flex w-full gap-x-24 items-center justify-start max-[1500px]:justify-between max-sm:flex-wrap max-sm:justify-center max-sm:gap-y-5 ">
+        <div className="flex w-full gap-x-24 items-center justify-start max-[1500px]:justify-between max-sm:flex-wrap max-sm:justify-start max-sm:gap-y-5 ">
           {/* Social icons */}
           <ul className="flex min-w-[180px] justify-between gap-x-2 items-center text-3xl text-white">
             <li>
