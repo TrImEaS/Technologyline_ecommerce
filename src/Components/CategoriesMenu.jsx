@@ -2,15 +2,14 @@ import React, { useState } from "react"
 import { NavLink } from "react-router-dom"
 import jsonProducts from '../Data/products.json'
 import { FaBars } from 'react-icons/fa'
-import { productsFilter } from '../Mocks/processProducts.js'
+import { productsFilter, getAllCategories } from '../Mocks/processProducts.js'
 
 export default function CategoriesMenu () {
   const [categoriesHideMenu, setCategoriesHideMenu] = useState(false)
-
   const products = productsFilter(jsonProducts)
-
-  console.log(products)
-
+  const uniqueCategories = [...new Set(products.map(product => product.category))];
+  const uniqueSubCategories = [...new Set(products.map(product => product.sub_category))];
+  
   const selectedCategories = [
     'Tecnologia',
     'Electro y Aires',
@@ -51,39 +50,40 @@ export default function CategoriesMenu () {
                 </NavLink>
               </div>
 
-              {products.map(product => (
-                <div key={product.category} >
-                  {console.log("Product:", product)}
-                  {/*Mapear Categorias */}
-                  <ul 
-                    className='flex flex-wrap justify-between py-4'
-                  >
-                    <li className='hover:text-page-lightblue duration-300 border-b border-page-blue-normal'>
-                      <NavLink 
-                        to={`/search/${product.category.toLowerCase()}`} 
-                        className={'font-semibold'}
-                        onClick={handleClickCategories}>
-                        {product.category.toUpperCase()}
-                      </NavLink>
-                    </li>
-                  </ul>
+              {/*Mapear Categorias */}
+              {uniqueCategories.map(category => (
+              <div key={category}>
+                <ul 
+                  className='flex flex-wrap justify-between py-4'
+                >
+                  <li className='hover:text-page-lightblue duration-300 border-b border-page-blue-normal'>
+                    <NavLink 
+                      to={`/search/${category.toLowerCase()}`} 
+                      className={'font-semibold'}
+                      onClick={handleClickCategories}>
+                      {category.toUpperCase()}
+                    </NavLink>
+                  </li>
+                </ul>
 
-                  {/*Mapear subcategorias */}
-                  <ul className='flex flex-col gap-4 flex-wrap justify-between pl-2'>
-                  {products.sub_category.map(subCategory => (
+                {/*Mapear subcategorias */}
+                <ul className='flex flex-col gap-4 flex-wrap justify-between pl-2'>
+                {uniqueSubCategories
+                  .filter(sub_category => products.some(product => product.category === category && product.sub_category === sub_category))
+                  .map(sub_category => (
                     <li 
-                      key={subCategory} 
+                      key={sub_category} 
                       className='hover:text-page-lightblue text-xs duration-300'
                     >
                       <NavLink 
-                        to={`/search/${product.category.toLowerCase()}/${subCategory.toLowerCase()}`}
+                        to={`/search/${category.toLowerCase()}/${sub_category.toLowerCase()}`}
                         onClick={handleClickCategories}>
-                        {subCategory}
+                        {sub_category}
                       </NavLink>
                     </li>
                   ))}
-                  </ul>
-                </div>
+                </ul>
+              </div>
               ))}
             </section>
           </div>

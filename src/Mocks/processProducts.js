@@ -1,19 +1,13 @@
 function transformProduct(product) {
-  const extractNameAndEAN = (itemDesc) => {
-    // Expresión regular para encontrar el EAN
-    const eanRegex = /EAN (\d{13})/;
+  const itemDesc = product.item_desc;
 
-    // Buscar coincidencias en el texto
-    const eanMatch = itemDesc.match(eanRegex);
-
-    // Filtrar el nombre y obtener el EAN si existe
-    const filteredName = itemDesc.replace(eanRegex, '').trim();
-    const ean = eanMatch ? eanMatch[1] : '';
-
-    return { filteredName, ean };
-  }
-
-  const { filteredName, ean } = extractNameAndEAN(product.item_desc);
+  // Expresión regular para extraer el EAN
+  const eanRegex = /EAN:\s*(\d+)/;
+  const eanMatch = itemDesc.match(eanRegex);
+  
+  // Filtrar el nombre y obtener el EAN si existe
+  const filteredName = eanMatch ? itemDesc.replace(eanRegex, '').trim() : itemDesc.trim();
+  const ean = eanMatch ? eanMatch[1] : '';
 
   const {
     ID: id,
@@ -23,8 +17,8 @@ function transformProduct(product) {
     cat_desc: category,
     subcat_desc: sub_category,
     brand_desc: brand,
-  } = product
-  
+  } = product;
+
   return {
     id,
     name: filteredName,
@@ -34,8 +28,8 @@ function transformProduct(product) {
     category,
     sub_category,
     brand,
-    ean: ean,
-  }
+    ean,
+  };
 }
 
 function filterProduct(product) {

@@ -248,7 +248,7 @@ export default function Footer() {
         <h1 className="font-bold text-gray-800 py-2">
           ©️ 2024 Technology Line SRL
         </h1>
-        <p className="font-bold text-gray-800 py-2">
+        <p className="font-bold text-gray-800 text-center p-2 pb-4">
           Las imagenes son a modo ilustrativo. Los precios pueden cambiar sin previo aviso.
         </p>
       </section>
