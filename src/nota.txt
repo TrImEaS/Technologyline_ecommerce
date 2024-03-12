@@ -1,11 +1,12 @@
--Revisar en search.jsx, productSearch.jsx, categoriesFilters.jsx, categoriesMenu.jsx, hay que ver el tema de filtro de marcas, que reciba muchas. Referencia esto: ' http://localhost:5173/search/?brand[]=smartlife&brand[]=hp&brand[]=ariston ' y agregarle funcionalidad al 'Ver mas...'.
 
--Fijarse como queda en mobile y dejarlo lindo
+👌Fijarse como queda en mobile y dejarlo lindo
 
--Darle funcionalidad a precios. Despues ver como queda con dos inputs para valor minimo y maximo del producto.
+👌Darle funcionalidad a precios. Despues ver como queda con dos inputs para valor minimo y maximo del producto.
 
--Darle funcionalidad a ordenar menor valor y mayor valor.
+👌Darle funcionalidad a ordenar menor valor y mayor valor.
 
--Darle sentido al index (INICIO/TECNOLOGIA/TELEVISORES) o sacarlo xd
+😵‍💫Darle sentido al index (INICIO/TECNOLOGIA/TELEVISORES) o sacarlo xd
+
+👌Agregar mini seccion a la hora de buscar mientras vas escribiendo en el input
 
 -Terminar la seccion de producto al tocar uno.

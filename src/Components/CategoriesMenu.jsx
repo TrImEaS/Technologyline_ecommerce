@@ -1,6 +1,6 @@
-import React, { useState } from "react"
-import { NavLink } from "react-router-dom"
 import jsonProducts from '../Data/products.json'
+import { useState } from "react"
+import { NavLink } from "react-router-dom"
 import { FaBars } from 'react-icons/fa'
 import { productsFilter } from '../Mocks/processProducts.js'
 

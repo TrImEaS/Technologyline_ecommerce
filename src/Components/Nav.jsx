@@ -1,50 +1,28 @@
-import { useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { FaSearch } from 'react-icons/fa'
+import { NavLink } from 'react-router-dom'
 import UserIcons from './UserIcons'
 import CategoriesMenu from './CategoriesMenu'
+import SearchInput from '../Components/SearchInput.jsx'
 
 export default function Nav() {
-  const [keyword, setKeyword] = useState('')
-  
-  const navigate = useNavigate()
-
-  const handleChange = e => setKeyword(e.target.value)
-
-  const handleSubmit = e => {
-    e.preventDefault()
-    navigate(`/search/?name=${keyword}`)
-  }
-
   return (
-    <nav className='z-50 flex flex-col w-full relative items-center'>
+    <nav 
+      className='z-50 flex flex-col w-full relative items-center'>
     {/*---Nav top---*/}
-      <section className={`grid grid-cols-2 xl:grid-cols-3 justify-between items-center h-28 w-3/4 px-2 max-md:w-full`}>
+      <section className={`flex gap-x-10 justify-between items-center h-28 w-3/4 px-2 max-md:w-full`}>
       {/*Logo*/}
         <NavLink 
           className='h-[100px] flex items-center max-xl:justify-center'
-          to='/'
-        >
+          to='/'>
           <img 
             src="/logo-tline.png"  
             alt="company-logo"
-            className='w-[180px] pb-3'/>
+            className='w-[200px] max-w-[200px] pb-3'/>
         </NavLink>
 
-      {/*Search input*/}
-        <form 
-          className='hidden xl:flex gap-2 mr-2 justify-center bg-slate-100 border-2 rounded-full items-center px-2'
-          onSubmit={handleSubmit}
-        >
-          <FaSearch/>
-          <input 
-            type="text" 
-            className='w-full placeholder:text-gray-500 rounded-full bg-slate-100 outline-none px-3 py-1'
-            placeholder='Buscar'
-            onChange={handleChange}
-          />
-        </form>
-
+        {/*Search input*/}
+        <div className='max-xl:hidden flex w-[75%]'>
+          <SearchInput/> 
+        </div>
         {/*User items*/}
         <article className='flex gap-x-6 max-sm:gap-x-3 justify-end max-xl:justify-center'>
           <UserIcons/>
@@ -64,48 +42,11 @@ export default function Nav() {
         {/* Categorias */}
         <CategoriesMenu/>        
        
-        <article className='flex gap-x-3 bg-slate-100 border-2 rounded-full justify-center items-center max-md:w-full'>
-          <form 
-            className='flex items-center justify-center rounded-full text-black px-5 w-[500px] max-md:w-full'
-            onSubmit={handleSubmit}
-          >
-            <FaSearch/>
-            <input 
-              id='search'
-              type="text" 
-              className='w-full placeholder:text-gray-500 bg-slate-100 text-black outline-none px-3 py-1 rounded-full'
-              placeholder='Buscar'
-              onChange={handleChange}
-            />
-          </form>
+        <article className='rounded-full w-1/2 max-md:w-full'>
+          <SearchInput/>
         </article>
         
       </section>
     </nav>
   )
 }
-
-// {/*Mobile/MD Menu*/}
-//       {/* <ul className=
-//         {
-//           !menuNav
-//             ? 'hidden' 
-//             : 'absolute xl:hidden text-black bg-gray-300 top-[0px] left-0 min-w-[400px] flex flex-col z-50'
-//         }>
-      
-//         *Categorias Mobile menu*
-//         <section className='flex flex-col h-full'>
-//           <article className='w-full flex items-center justify-between gap-2 px-6 bg-page-blue-normal h-[70px]'>
-//             <span className='text-white text-2xl font-semibold'>Categorías</span>
-//             <button onClick={handleClickMenuNav}>
-//               <FaTimes className='text-white text-2xl'/>
-//             </button>
-//           </article>
-
-//           <article className='bg-gray-300 h-full'>
-//             <button className='flex items-center w-full h-[80px] pl-5 border hover:text-sky-500 border-gray-400 duration-300'>
-//               Todos los productos
-//             </button>
-//           </article>
-//         </section>
-//       </ul> */}

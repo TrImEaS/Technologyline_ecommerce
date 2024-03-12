@@ -84,7 +84,7 @@ export default function ProductsCarousel () {
         <NavLink to={'/search/:auriculares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image1 ? image1 : defaultImage} 
-            className='w-28 h-28 rounded-full border-2 shadow-lg bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
           </img>
           <p>
             <span>AURICULARES</span>
@@ -96,7 +96,7 @@ export default function ProductsCarousel () {
         <NavLink to={'/search/:auriculares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image2 ? image2 : defaultImage} 
-            className='w-28 h-28 rounded-full border-2 shadow-lg bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
           </img>
           <p className='text-center'>
             <span>CELULARES</span>
@@ -108,7 +108,7 @@ export default function ProductsCarousel () {
         <NavLink to={'/search/:auriculares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image3 ? image3 : defaultImage} 
-            className='w-28 h-28 rounded-full border-2 shadow-lg bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
           </img>
           <p className='text-center'>
             <span>CUIDADO PERSONAL</span>
@@ -120,7 +120,7 @@ export default function ProductsCarousel () {
         <NavLink to={'/search/:auriculares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image4 ? image4 : defaultImage} 
-            className='w-28 h-28 rounded-full border-2 shadow-lg bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
           </img>
           <p className='text-center'>
             <span>LAVADO</span>
@@ -132,7 +132,7 @@ export default function ProductsCarousel () {
         <NavLink to={'/search:auriculares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image5 ? image5 : defaultImage} 
-            className='w-28 h-28 rounded-full border-2 shadow-lg bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
           </img>
           <p className='text-center'>
             <span>PEQUEÑOS ELECTRO</span>
@@ -144,7 +144,7 @@ export default function ProductsCarousel () {
         <NavLink to={'/search/:auriculares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image6 ? image6 : defaultImage} 
-            className='w-28 h-28 rounded-full border-2 shadow-lg bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
           </img>
           <p className='text-center'>
             <span>VENTILADORES</span>
@@ -156,7 +156,7 @@ export default function ProductsCarousel () {
         <NavLink to={'/search/:auriculares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image7 ? image7 : defaultImage} 
-            className='w-28 h-28 rounded-full border-2 shadow-lg bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
           </img>
           <p className='text-center'>
             <span>PARLANTES</span>

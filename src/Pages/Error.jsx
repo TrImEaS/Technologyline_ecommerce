@@ -5,7 +5,7 @@ export default function Error() {
   const navigate = useNavigate()
 
   return (
-    <div className='flex relative flex-col min-h-[520px] justify-between gap-2 py-7'>
+    <div className='flex relative flex-col min-h-[520px] justify-between gap-2 py-7 px-3'>
       <img 
         src="404-error.jpg"
         className='absolute bottom-5 w-full h-[450px]'

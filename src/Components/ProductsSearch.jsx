@@ -1,12 +1,18 @@
-import React, { useState } from "react"
+import { useState, useEffect } from "react"
+import { useLocation } from "react-router-dom"
 import ProductCard from "./ProductCard"
 
 
 export default function ProductsSearch({ products }) {
   const [currentPage, setCurrentPage] = useState(1)
-  const productsPerPage = 9
+  const [productsPerPage, setProductsPerPage] = useState(9)
   const maxPageButtons = 5
-  const handlePageChange = (newPage) => setCurrentPage(newPage)
+  const location = useLocation();
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage)
+    window.scrollTo(0, 0)
+  }
   const totalPages = Math.ceil(products.length / productsPerPage)
 
   const getPagesToShow = () => {
@@ -28,22 +34,68 @@ export default function ProductsSearch({ products }) {
     return pages
   }
 
+  useEffect(() => {
+    const handleResize = () => {  
+      const screenWidth = window.innerWidth;
+      
+           if (screenWidth >= 2100) { setProductsPerPage(15) } 
+      else if (screenWidth >= 1680) { setProductsPerPage(12) }
+      else { setProductsPerPage(9) }   
+    }
+    // Ajusta el número de productos al cargar inicialmente
+    handleResize()
 
+    // Agrega un listener para el evento de cambio de tamaño de la ventana
+    window.addEventListener('resize', handleResize);
+    
+
+    setCurrentPage(1)
+
+    // Limpia el listener al desmontar el componente
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    }
+  }, [location])
+  
   return (
-    <section className="flex flex-col w-full h-full">
+    <section className="flex flex-col w-full rounded-lg p-2">
       {/* Renderizar productos */}
-        <div className="flex flex-wrap pl-12 w-full gap-10">
-          {products.slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage).map(
-          (product) => (
-            <ProductCard
-              key={product.id}
-              img={product.sku}
-              price={product.price}
-              name={product.name}
-            />
-          ))}
+      {products.length === 0 && (
+        <div className="text-pretty flex flex-col gap-y-3">
+          <p className="text-xl font-semibold">No se han encontrado resultados para tu búsqueda.</p>
+          <p className="font-semibold">Sugerencias:</p>
+          <ul className="list-disc px-5">
+            <li>Asegúrate de que todas las palabras estén escritas correctamente.</li>
+            <li>Prueba diferentes palabras clave.</li>
+            <li>Prueba palabras clave más generales.</li>
+            <li>Prueba menos palabras clave.</li>
+          </ul>
         </div>
+      )}
 
+      {/* Renderizar productos */}
+      {products.length > 0 && (
+        <div className="flex w-full justify-center min-h-[500px]">
+          <div className="
+            grid grid-cols-5 gap-5
+            max-[2100px]:grid-cols-4
+            max-[1680px]:grid-cols-3
+            max-lg:grid-cols-2
+            max-sm:grid-cols-1">
+            {products.slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage).map(
+              (product) => (
+                <ProductCard
+                  key={product.id}
+                  sku={product.sku}
+                  img={product.sku}
+                  price={product.price}
+                  name={product.name}
+                />
+              )
+            )}
+          </div>
+        </div>
+      )}
       {/* Paginación */}
       <div className="flex w-full justify-center items-center mt-20">
         
@@ -78,7 +130,7 @@ export default function ProductsSearch({ products }) {
         )}
 
         {/* Última página */}
-        {currentPage < totalPages && (
+        {currentPage < totalPages && totalPages > maxPageButtons && (
           <span onClick={() => handlePageChange(totalPages)} className="cursor-pointer mx-2 p-2 bg-gray-200">
             {totalPages}
           </span>

@@ -3,68 +3,124 @@ import CategoriesFilters from '../Components/CategoriesFilters.jsx'
 import productsJson from '../Data/products.json'
 import { productsFilter } from '../Mocks/processProducts.js'
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
 export default function Search () {
-  const queryName = new URLSearchParams(location.search).get('name')
-  const queryCat = new URLSearchParams(location.search).get('category')
-  const querySubCat = new URLSearchParams(location.search).get('sub_category')
-  const queryBrand = new URLSearchParams(location.search).get('brand')
-
-  const [searchFromURL, setSearchFromURL] = useState(false);
+  const location = useLocation()
   const [filterMenu, setFilterMenu] = useState(false)
+  const [sortOption, setSortOption] = useState('default')
   const [filters, setFilters] = useState({
     category: 'all',
     minPrice: 0.00,
-    search_name: queryName  || '' ,
-    search_category: queryCat || '',
-    search_subCat: querySubCat || '',
-    search_brand: queryBrand || ''
+    maxPrice: 99999999999.00,
+    search_name: '' ,
+    search_category: '',
+    search_subCat: '',
+    search_brand: '',
+    search: '',
   })
 
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search)
+    
+    setFilters((prevState) => ({
+      ...prevState,
+      search_name: queryParams.get('name') || '',
+      search_category: queryParams.get('category') || '',
+      search_subCat: queryParams.get('sub_category') || '',
+      search_brand: queryParams.get('brand') || '',
+      search: queryParams.get('search') || ''
+    }))
+    
+    const queryCat = queryParams.get('sub_category') || queryParams.get('category') || ''
+    const queryBrand = queryParams.get('brand') || ''
+    const categories = 
+    (queryCat.charAt(0).toUpperCase() + queryCat.slice(1).toLowerCase()) + 
+    '/' +
+    (queryBrand.charAt(0).toUpperCase() + queryBrand.slice(1).toLowerCase())
+  }, [location.search])
+
   const products = productsFilter(productsJson)
+
   const filterProducts = (products) => {
-    return products.filter(product => {
+    const sortedProducts = products.sort((a, b) => {
+      switch (sortOption) {
+        case 'min':
+          return parseFloat(a.price) - parseFloat(b.price)
+        case 'max':
+          return parseFloat(b.price) - parseFloat(a.price)
+        default:
+          return 0
+      }
+    })
+    
+    return sortedProducts.filter(product => {
       return (
-       parseInt(product.price) >= filters.minPrice &&
+        parseFloat(product.price) >= filters.minPrice 
+        &&
+        parseFloat(product.price) <= filters.maxPrice 
+        &&
         (
           filters.category === 'all' ||
           product.category === filters.category
-        ) &&
-        product.name.toLowerCase().includes(filters.search_name.toLowerCase()) &&
-        product.category.toLowerCase().includes(filters.search_category.toLowerCase()) &&
-        product.sub_category.toLowerCase().includes(filters.search_subCat.toLowerCase()) &&
-        product.brand.toLowerCase().includes(filters.search_brand.toLowerCase())
+        ) 
+        &&
+        product.name.toUpperCase().includes(filters.search_name.toUpperCase()) 
+        &&
+        product.category.toUpperCase().includes(filters.search_category.toUpperCase()) 
+        &&
+        product.sub_category.toUpperCase().includes(filters.search_subCat.toUpperCase()) 
+        &&
+        (filters.search_brand.length === 0 || filters.search_brand.includes(product.brand.toLowerCase())) 
+        &&
+        (
+          product.name.toLowerCase().includes(filters.search.toLowerCase()) ||
+          product.sub_category.toLowerCase().includes(filters.search.toLowerCase())
+        )
       )
     })
   }
-
+  
   const filteredProducts = filterProducts(products) 
+  const handleResetFilters = () => {
 
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      search_category: '',
+      search_subCat: '',
+      search_brand: '',
+      category: 'all',
+      minPrice: 0.00,
+      maxPrice: 99999999999.00,
+    }))
+  }
   const handleFilterMenu = () => setFilterMenu(!filterMenu)
 
   return (
-    <section className="flex flex-col w-3/4 py-10">
-      <header className="flex w-full justify-between pb-14 max-sm:flex-col">
+    <section className="flex flex-col w-3/4 items-center py-10">
+      <header className="flex w-4/5 justify-end pb-14 max-sm:flex-col">
         <article className="flex items-center max-sm:justify-center">
-          <p>INICIO/TECNOLOGÍA/TELEVISORES</p>
+          {/* <p>INICIO{filters.category ? '/TODOS LOS PRODUCTOS' : filters.category }</p> */}
         </article>
 
         <article className="flex gap-x-2 items-center max-sm:justify-center">
           <select 
             name="filter"
-            className="px-2 py-1 border-2 border-black rounded-lg">
+            className="px-2 py-1 border-2 font-bold border-black rounded-lg"
+            onChange={(e) => setSortOption(e.target.value)}
+            value={sortOption}>
             <option
-              className='max-sm:text-sm' 
+              className='max-[1366px]:text-sm' 
               value="default">
               Orden por defecto
             </option>
             <option
-              className='max-sm:text-sm' 
+              className='max-[1366px]:text-sm'
               value="min">
               Menor precio
             </option>
             <option
-              className='max-sm:text-sm' 
+              className='max-[1366px]:text-sm' 
               value="max">
               Mayor precio
             </option>
@@ -72,32 +128,38 @@ export default function Search () {
           
           {/*Aside filters for mobile*/}
           <div 
-            className='sm:hidden relative flex'>
+            className='max-[1366px]:text-sm max-[1366px]:flex hidden relative z-10'>
             <span 
-              className='text-black border-2 border-black px-2 py-1 rounded-lg cursor-pointer'
+              className='text-black border-2 border-black px-2 py-1 font-bold rounded-lg cursor-pointer'
               onClick={handleFilterMenu}>
               Filtros
             </span>
             <div className={`
-            sm:hidden flex-col gap-y-5 rounded w-[210px] absolute top-[40px] left-[-80px] bg-page-gray-light p-5
-            ${filterMenu ? 'hidden' : 'flex'}
+            flex-col gap-y-5 rounded w-[210px] absolute top-[40px] left-[-80px] bg-white border-2 p-5
+            ${filterMenu ? 'flex' : 'hidden'}
             `}>
-              <CategoriesFilters products={filteredProducts}/>
+              <CategoriesFilters onFilterChange={setFilters} products={filteredProducts}/>
+              <button onClick={handleResetFilters} className='h-10 flex items-center justify-center bg-white rounded-lg hover:bg-black hover:text-white duration-500 active:text-sm active:duration-0 font-bold border border-black'>
+                Limpiar Filtros
+              </button>
             </div>
           </div>
 
         </article>
       </header>
 
-      <main className="flex max-sm:flex-col gap-x-10 w-full h-full">
+      <main className="flex max-lg:flex-col gap-x-3 w-full h-full">
         {/*Aside filters max screen*/}
-        <aside className="flex flex-col gap-y-8 min-w-[20%]">
-          <div className='max-sm:hidden flex flex-col gap-y-8'>
-            <CategoriesFilters products={filteredProducts}/>
+        <aside className="max-[1366px]:hidden flex flex-col gap-y-8 min-w-[15%] w-[15%] pt-2">
+          <div className='max-[1366px]:hidden flex flex-col gap-y-8'>
+            <CategoriesFilters onFilterChange={setFilters} products={filteredProducts}/>
+            <button onClick={handleResetFilters} className='h-10 flex items-center justify-center bg-white rounded-lg hover:bg-black hover:text-white duration-500 active:text-sm active:duration-0 font-bold border border-black'>
+              Limpiar Filtros
+            </button>
           </div>
         </aside>
         
-        <section>
+        <section className='w-full'>
           <ProductsSearch products={filteredProducts}/>
         </section>
       </main>

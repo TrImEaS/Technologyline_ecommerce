@@ -1,27 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import ProductCard from './ProductCard';
-import products from '../Data/products.json';
+import { useState, useEffect } from 'react'
+import ProductCard from './ProductCard'
 
 //Los dots si el numero de productos que se muestra es impar, se rompe al final
 // si es par no se rompe, arreglar en futuro C:
 
-export default function ProductsCarousel() {
-  const [images, setImages] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [numberOfProducts, setNumberOfProducts] = useState(5);
-
-  const newProducts = products.filter((product) => product['DEPO. TOTAL DISPO.'] > 3);
-
-  const someProducts = newProducts.slice(1, 21)
-
-  const visibleProducts = someProducts.slice(currentIndex, currentIndex + numberOfProducts);
+export default function ProductsCarousel({ filterProducts }) {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [numberOfProducts, setNumberOfProducts] = useState(5)
+  const products = filterProducts
+  const visibleProducts = products.slice(currentIndex, currentIndex + numberOfProducts);
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => Math.max(prevIndex - numberOfProducts, 0));
   }
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => Math.min(prevIndex + numberOfProducts, someProducts.length - numberOfProducts));
+    setCurrentIndex((prevIndex) => Math.min(prevIndex + numberOfProducts, products.length - numberOfProducts));
   }
 
   useEffect(() => {
@@ -67,7 +61,7 @@ export default function ProductsCarousel() {
       <button
         className='absolute text-4xl right-[-30px] z-[9999] h-[397px] w-10 hover:bg-gray-300 duration-500 active:text-5xl active:duration-75'
         onClick={handleNext}
-        disabled={currentIndex === someProducts.length - numberOfProducts}>
+        disabled={currentIndex === products.length - numberOfProducts}>
         {`>`}
       </button>
 
@@ -76,17 +70,18 @@ export default function ProductsCarousel() {
         className='flex w-full min-h-[400px] relative items-center justify-around gap-x-2 flex-shrink-0'>
         {visibleProducts.map((product) => (
           <ProductCard
-            key={product.ID}
-            img={product.item_code}
-            price={product['L. Precios C/Imp']}
-            name={product.item_desc}
+            key={product.id}
+            sku={product.sku}
+            img={product.sku}
+            price={product.price}
+            name={product.name}
           ></ProductCard>
         ))}
       </div>
 
       {/*Dots*/}
       <div className='flex mt-5 justify-center'>
-        {Array(Math.ceil(someProducts.length / numberOfProducts)).fill(null).map((_, dotIndex) => (
+        {Array(Math.ceil(products.length / numberOfProducts)).fill(null).map((_, dotIndex) => (
           <div
             key={dotIndex}
             className={`w-2 h-2 mx-1 rounded-full bg-gray-300 

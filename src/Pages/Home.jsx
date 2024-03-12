@@ -6,9 +6,15 @@ import CategoriesCarousel from '../Components/CategoriesCarousel'
 import homeicon1 from '../Assets/Some-icons/home-icon1.svg'
 import homeicon2 from '../Assets/Some-icons/home-icon3.svg'
 import homeicon3 from '../Assets/Some-icons/home-icon2.svg'
+import jsonProducts from '../Data/products.json'
+import { productsFilter } from '../Mocks/processProducts.js'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 
 export default function Home() {
+  const products = productsFilter(jsonProducts)
+  const saleProducts = products.filter(product => product.brand.toLowerCase().includes('gama') && parseFloat(product.price) < 50000.00)
+  const newProducts = products.filter(product => parseFloat(product.price) > 1000000)
+  const recomendProducts = products.filter(product => product.name.toLowerCase().includes('tv') && !product.name.toLowerCase().includes('ventilador'))
 
   return (
     <>
@@ -62,7 +68,7 @@ export default function Home() {
             <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4'>
               OFERTAS
             </h1>
-              <ProductsCarousel/>
+              <ProductsCarousel filterProducts={saleProducts}/>
           </section>
 
           {/*Products news carousel*/}
@@ -70,7 +76,7 @@ export default function Home() {
             <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4'>
               NOVEDADES
             </h1> 
-              <ProductsCarousel/>
+              <ProductsCarousel filterProducts={newProducts}/>
           </section>
 
           {/*Products recomendations carousel*/}
@@ -78,7 +84,7 @@ export default function Home() {
             <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4'>
               TE RECOMENDAMOS
             </h1>
-              <ProductsCarousel/>
+              <ProductsCarousel filterProducts={recomendProducts}/>
           </section>
         </div>
         
