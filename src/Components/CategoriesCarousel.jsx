@@ -81,7 +81,7 @@ export default function ProductsCarousel () {
   return(
     <Slider {...settings}>
       <div>
-        <NavLink to={'/search/:auriculares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
+        <NavLink to={'/search/?sub_category=auriculares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image1 ? image1 : defaultImage} 
             className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
@@ -93,7 +93,7 @@ export default function ProductsCarousel () {
       </div>
 
       <div>
-        <NavLink to={'/search/:auriculares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
+        <NavLink to={'/search/?sub_category=celulares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image2 ? image2 : defaultImage} 
             className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
@@ -105,7 +105,7 @@ export default function ProductsCarousel () {
       </div>
 
       <div>
-        <NavLink to={'/search/:auriculares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
+        <NavLink to={'/search/?sub_category=cuidado personal'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image3 ? image3 : defaultImage} 
             className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
@@ -117,7 +117,7 @@ export default function ProductsCarousel () {
       </div>
 
       <div>
-        <NavLink to={'/search/:auriculares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
+        <NavLink to={'/search/?sub_category=lavado'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image4 ? image4 : defaultImage} 
             className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
@@ -129,7 +129,7 @@ export default function ProductsCarousel () {
       </div>
 
       <div>
-        <NavLink to={'/search:auriculares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
+        <NavLink to={'/search/?sub_category=pequeños electro'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image5 ? image5 : defaultImage} 
             className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
@@ -141,7 +141,7 @@ export default function ProductsCarousel () {
       </div>
 
       <div>
-        <NavLink to={'/search/:auriculares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
+        <NavLink to={'/search/?sub_category=ventilacion'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image6 ? image6 : defaultImage} 
             className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
@@ -153,7 +153,7 @@ export default function ProductsCarousel () {
       </div>
 
       <div>
-        <NavLink to={'/search/:auriculares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
+        <NavLink to={'/search/?sub_category=parlantes'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image7 ? image7 : defaultImage} 
             className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
