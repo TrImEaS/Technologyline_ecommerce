@@ -15,7 +15,7 @@ export default function ProductCard({ img, price, name, sku }) {
       className="flex flex-col box-border items-center justify-between bg-white p-2 drop-shadow-xl hover:border-[#333] duration-500 border-2 rounded-xl hover:cursor-pointer min-h-[400px] h-[400px] w-[270px] min-w-[270px]">
       <header className="w-full h-[50%] box-border">
         <img 
-          src={`https://www.technologyline.com.ar/products-images/${img}.jpg` } 
+          src={`https://www.technologyline.com.ar/products-images/${img}.jpg`} 
           loading="lazy"
           alt={name}
           className={`w-full h-full object-contain`} 

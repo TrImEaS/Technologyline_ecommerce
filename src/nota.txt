@@ -9,4 +9,16 @@
 
 👌Agregar mini seccion a la hora de buscar mientras vas escribiendo en el input
 
--Terminar la seccion de producto al tocar uno.
+👌Terminar la seccion de producto al tocar uno.
+
+-Mejorar seccion producto
+
+-Agregar a filtros, orden por A-Z y Z-A
+
+-Agregar index funcional en search que falta
+
+-Corregir ver mas en banner card (centrar)
+
+-Agregar funcionalidad en footer (links)
+
+-Agregar funcionalidad suscribir
