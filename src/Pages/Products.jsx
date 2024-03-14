@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import { productsFilter } from '../Mocks/processProducts.js'
 import { useNavigate } from 'react-router-dom'
 import productsJson from '../Data/products.json'
@@ -9,12 +9,9 @@ const maxImages = 4
 export default function Products () {
   const [product, setProduct] = useState('')
   const [selectedImg, setSelectedImg] = useState('')
-  const [zoom, setZoom] = useState(false)
   const [loadedImages, setLoadedImages] = useState([])
-  const formattedPrice = parseFloat(product.price).toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })
+  const [zoom, setZoom] = useState(false)
+  const formattedPrice = parseInt(product.price).toLocaleString(undefined)
 
   let cat = product.sub_category || ''
   let name = product.name || ''
@@ -27,8 +24,8 @@ export default function Products () {
   .sort((a, b) => parseFloat(b.price) - parseFloat(a.price)).slice(0,10)
 
   useEffect(() => {
-    const productQuery = new URLSearchParams(location.search).get('product');
-    const newProduct = products.find(product => product.sku === productQuery);
+    const productQuery = new URLSearchParams(location.search).get('product')
+    const newProduct = products.find(product => product.sku === productQuery)
 
     if (!newProduct) {
       navigate('/error')
@@ -39,26 +36,45 @@ export default function Products () {
     // loadImages();
   }, [location.search, navigate])
 
-  const handleZoomImage = () => setZoom(!zoom)
+  const handleZoomImage = () => {
+    if(zoom){ 
+      setZoom(false)
+      document.body.style.overflowY = 'visible'
+    }
+    else{
+      setZoom(true)
+      document.documentElement.scrollTop = 0
+      document.body.style.overflowY = 'hidden'
+    }
+    
+  }
 
 
   return (
-    <section className='flex flex-col h-full w-3/4 pb-[30px] gap-y-5'>
-      <header className='w-full flex max-sm:flex-col justify-center items-center gap-x-10 min-h-[450px]'>
+    <section className={`flex flex-col items-center h-full w-[75%] gap-y-14 py-16`}>
+      <header className='w-full flex max-md:flex-col justify-center items-center min-h-[450px] gap-x-10'>
         {/*Item Image section*/} 
-        <section className={'flex w-1/2 max-sm:w-full justify-center items-center h-full border border-[#444] rounded-xl pb-5 max-w-[330px]'}>
-
+        <section
+            onClick={handleZoomImage}
+            className={`flex w-[40%] max-sm:w-full justify-center items-center h-full border border-[#444] rounded-xl pb-5 max-w-[330px] ${
+            zoom ? 'cursor-zoom-out' : 'cursor-zoom-in'
+          }`}
+        >
           <article
-            onClick={handleZoomImage} 
-            className={`w-[70%] h-[300px] flex p-5 items-center justify-center rounded-lg`}>
-            <img 
+            className={`w-full h-[300px] flex p-5 items-center justify-center rounded-lg
+            ${
+              zoom ? 'absolute z-[9999999] bg-[#111] h-screen w-screen top-0 right-[0] max-sm:min-w-[390px] max-sm:min-h-[650px]  rounded-none' : ''
+            }`}
+          >
+            <span className='text-4xl absolute top-5 right-5 text-white'>x</span>
+            <img
               src={`https://www.technologyline.com.ar/products-images/${product.sku}.jpg`}
-              className='rounded-lg cursor-zoom-in w-full h-full object-cover'
+              className={`rounded-lg ${zoom ? 'cursor-zoom-out' : 'cursor-zoom-in'} w-full h-full object-contain`}
             />
           </article>
         </section>
           
-        <section className='flex flex-col gap-y-8 w-1/2 max-sm:w-full justify-center items-center py-5 h-full'>
+        <section className='flex flex-col gap-y-6 w-[40%] justify-center items-start py-5 h-full max-sm:w-full'>
           <div className='min-h-[250px] flex flex-col gap-y-3'>
             <h1 className='font-semibold text-2xl'>
               {product.name}
@@ -80,11 +96,11 @@ export default function Products () {
                   {product.stock}
                 </span>
               </div>
-              <span></span>
+              <span>EAN: {product.ean}</span>
             </div>
           </div>
 
-          <div className='flex items-center gap-x-10 pl-[5px]'>
+          <div className='w-[65%]'>
             <button className='rounded-lg border border-black font-bold hover:bg-black hover:text-white duration-300 px-3 py-2'>
               Consultar Articulo
             </button>
@@ -92,7 +108,22 @@ export default function Products () {
         </section>
       </header>
 
-      <section className='flex flex-col gap-y-10'>
+      <section className='flex flex-col w-full gap-y-10'>
+        
+        {/* Seccion de descripcion */}
+        
+        <div className='w-full flex flex-col gap-y-10'>
+          <span className='text-3xl font-bold max-sm:text-2xl'>
+            Tambien te recomendamos
+          </span>
+          <ProductsCarousel filterProducts={recomendProducts}/>
+        </div>
+
+      </section>
+    </section>
+  )
+}
+
         {/* <div className='flex flex-col w-full bg-page-gray-light rounded-lg font-bold'>
           <div className='flex p-2 gap-x-3'>
             <span>Descripción</span>
@@ -114,15 +145,3 @@ export default function Products () {
             </p>
           </div>
         </div> */}
-
-
-        <section className='w-full flex flex-col h-[500px] gap-y-10'>
-          <span className='text-3xl font-bold max-sm:text-xl'>
-            Tambien te recomendamos
-          </span>
-          <ProductsCarousel filterProducts={recomendProducts}/>
-        </section>
-      </section>
-    </section>
-  )
-}

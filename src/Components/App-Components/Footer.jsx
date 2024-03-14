@@ -1,16 +1,16 @@
-import React from "react"
 import { 
   FaFacebook,
   FaInstagram, 
   FaTiktok,
   FaAngleUp 
 } from 'react-icons/fa'
-import naranjaIcon from '../Assets/Some-icons/card-icon1.svg'
-import visaIcon from '../Assets/Some-icons/card-icon2.svg'
-import mastercardIcon from '../Assets/Some-icons/card-icon3.svg'
-import cabalIcon from '../Assets/Some-icons/card-icon4.svg'
-import americanexpressIcon from '../Assets/Some-icons/card-icon5.svg'
+import naranjaIcon from '../../Assets/Some-icons/card-icon1.svg'
+import visaIcon from '../../Assets/Some-icons/card-icon2.svg'
+import mastercardIcon from '../../Assets/Some-icons/card-icon3.svg'
+import cabalIcon from '../../Assets/Some-icons/card-icon4.svg'
+import americanexpressIcon from '../../Assets/Some-icons/card-icon5.svg'
 import { MdOutlineEmail } from "react-icons/md"
+import { NavLink } from "react-router-dom"
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -56,23 +56,29 @@ export default function Footer() {
         max-md:flex-wrap max-md:pl-10"
         >
           <img 
-            src="/logo-tline.png"
-            className="rounded-3xl p-4 bg-white h-[140px] w-[340px]"
+            src="/logo-tline.svg"
+            className="rounded-3xl h-[140px] object-cover w-[300px]"
           />
-          <ul className="flex flex-col  text-page-gray-light max-[1500px]:justify-center">
+          <ul className="flex flex-col text-page-gray-light max-[1500px]:justify-center max-[1500px]:pt-10">
             <li>
             </li>
 
             <li>
-              <span>Informe: lorem isupasdasda</span>
+              <span>
+                Informe: lorem isupasdasda
+              </span>
             </li>
 
             <li>
-              <span>Tel.: 1111111111</span>
+              <span>
+                Tel.: 1111111111
+              </span>
             </li>
 
             <li>
-              <span>E-mail: realcolor@real-color.com.ar</span>
+              <span>
+                E-mail: realcolor@real-color.com.ar
+              </span>
             </li>
           </ul>
         </article>
@@ -84,19 +90,28 @@ export default function Footer() {
 
           <ul className="text-page-gray-light flex flex-col gap-y-1">
             <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Electrodomésticos</a>
+              <NavLink to={`/search/?category=electrodomesticos`} 
+                className="hover:text-page-blue-darkMarine duration-300">
+                Electrodomésticos
+              </NavLink>
             </li>
             <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Informática</a>
+              <NavLink to={`/search/?category=informatica`} 
+                className="hover:text-page-blue-darkMarine duration-300">
+                Informática
+              </NavLink>
             </li>
             <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Mas Categorías</a>
+              <NavLink to={`/search/?category=tecnologia`} 
+                className="hover:text-page-blue-darkMarine duration-300">
+                Tecnología
+              </NavLink>
             </li>
             <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Tecnología</a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Sección Outlet</a>
+              <NavLink to={`/search/?category=mas categorias`} 
+                className="hover:text-page-blue-darkMarine duration-300">
+                Mas Categorías
+              </NavLink>
             </li>
           </ul>
         </article>
@@ -108,16 +123,29 @@ export default function Footer() {
 
           <ul className="text-page-gray-light flex flex-col gap-y-1">
             <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Sobre nosotros</a>
+              <NavLink 
+                to={`/others/about_us`}
+                className="hover:text-page-blue-darkMarine duration-300">
+                Sobre nosotros
+              </NavLink>
             </li>
             <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Trabajá con nosotros</a>
+              <a 
+                className="duration-300 opacity-50">
+                Trabajá con nosotros
+              </a>
             </li>
             <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Sucursales</a>
+              <a 
+                className="opacity-50 duration-300">
+                Sucursales
+              </a>
             </li>
             <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Venta a mayoristas</a>
+              <a 
+                className="opacity-50 duration-300">
+                Venta a mayoristas
+              </a>
             </li>
           </ul>
         </article>
@@ -129,38 +157,63 @@ export default function Footer() {
           
           <ul className="text-page-gray-light flex flex-col gap-y-1">
             <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Centro de ayuda</a>
+              <a 
+                className="opacity-50 duration-300">
+                Centro de ayuda
+              </a>
             </li>
             <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Garantía</a>
+              <NavLink 
+                to={`/others/garantia`}
+                className="hover:text-page-blue-darkMarine duration-300">
+                Garantia
+              </NavLink>
             </li>
             <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Políticas de cambio y devolución</a>
+              <a 
+                className="opacity-50 duration-300">
+                Políticas de cambio y devolución
+              </a>
             </li>
             <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Nuestro blog</a>
+              <a 
+                className="opacity-50 duration-300">
+                Nuestro blog
+              </a>
             </li>
           </ul>
         </article>
 
 
         <article className="flex flex-col gap-y-2 px-1 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
-        <h1 className="font-bold">
+        <h1 className="font-bold opacity-50">
           Usuarios
         </h1>
           
           <ul className="text-page-gray-light flex flex-col gap-y-1">
             <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Login</a>
+              <a 
+                className="opacity-50 duration-300">
+                Login
+              </a>
             </li>
             <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Registrarse</a>
+              <a 
+                className="opacity-50 duration-300">
+                Registrarse
+              </a>
             </li>
             <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Opciones</a>
+              <a 
+                className="opacity-50 duration-300">
+                Opciones
+              </a>
             </li>
             <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">Mis pedidos</a>
+              <a 
+                className="opacity-50 duration-300">
+                Mis pedidos
+              </a>
             </li>
           </ul> 
         </article>
@@ -169,7 +222,8 @@ export default function Footer() {
         max-sm:top-[50rem]">
           <a href="http://qr.afip.gob.ar/?qr=ZvNKTXvJURZjjL1woDCRkg,," target="_F960AFIPInfo">
             <img className="rounded-lg" src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg" border="0" width={100}></img>
-          </a>
+          
+        </a>
         </div>
       </section>
 
@@ -179,20 +233,20 @@ export default function Footer() {
         <div className="flex w-full gap-x-24 items-center justify-start max-[1500px]:justify-between max-sm:flex-wrap max-sm:justify-start max-sm:gap-y-5 ">
           {/* Social icons */}
           <ul className="flex min-w-[180px] justify-between gap-x-2 items-center text-3xl text-white">
-            <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">
+            <li className="rounded-full opacity-50 duration-300">
+              <a>
                 <FaFacebook/>
               </a>
             </li>
 
-            <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">
+            <li className="rounded-full opacity-50 duration-300">
+              <a>
                 <FaInstagram/>
               </a>
             </li>
 
-            <li>
-              <a href="#" className="hover:text-page-lightblue duration-300">
+            <li className="rounded-full opacity-50 duration-300">
+              <a>
                 <FaTiktok/>
               </a>
             </li>

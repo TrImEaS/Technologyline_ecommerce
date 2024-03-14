@@ -1,8 +1,8 @@
-import jsonProducts from '../Data/products.json'
+import jsonProducts from '../../Data/products.json'
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
 import { FaBars } from 'react-icons/fa'
-import { productsFilter } from '../Mocks/processProducts.js'
+import { productsFilter } from '../../Mocks/processProducts.js'
 
 export default function CategoriesMenu () {
   const [categoriesHideMenu, setCategoriesHideMenu] = useState(false)

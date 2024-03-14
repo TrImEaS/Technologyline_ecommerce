@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Carousel } from 'react-responsive-carousel'
-import banner1 from '../Assets/BannerCarousel-images/banner1.jpg'
-import banner2 from '../Assets/BannerCarousel-images/banner2.jpg'
-import bannerMobile_1 from '../Assets/BannerCarousel-images/banner-mobile.png'
-import bannerMobile_2 from '../Assets/BannerCarousel-images/banner-mobile2.png'
+import banner1 from '../../Assets/BannerCarousel-images/banner1.jpg'
+import banner2 from '../../Assets/BannerCarousel-images/banner2.jpg'
+import bannerMobile_1 from '../../Assets/BannerCarousel-images/banner-mobile.png'
+import bannerMobile_2 from '../../Assets/BannerCarousel-images/banner-mobile2.png'
 // import  from '../Assets/BannerCarousel-images/banner3.jpg'
 
 export default function BannerCarousel() {

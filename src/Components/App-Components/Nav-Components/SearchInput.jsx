@@ -1,8 +1,8 @@
 import { FaSearch } from 'react-icons/fa'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
-import { productsFilter } from '../Mocks/processProducts'
-import productsJson from '../Data/products.json'
+import { productsFilter } from '../../../Mocks/processProducts'
+import productsJson from '../../../Data/products.json'
 
 export default function SearchInput() {
   const [keyword, setKeyword] = useState('')

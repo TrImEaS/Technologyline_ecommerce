@@ -4,10 +4,7 @@ export default function ProductCard({ img, price, name, sku }) {
   const imageNotFound = 'https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg'
   const maxNameLength = 50
   const limitedName = name.length > maxNameLength ? `${name.substring(0, maxNameLength)}...`: name
-  const formattedPrice = parseFloat(price).toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })
+  const formattedPrice = parseInt(price).toLocaleString(undefined)
   
   return(
     <NavLink

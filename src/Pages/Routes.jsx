@@ -5,6 +5,7 @@ import Login from "./Login"
 import Cart from "./Cart"
 import Favorites from "./Favorites"
 import Products from './Products'
+import Others from './Others.jsx'
 
 
 export { 
@@ -14,5 +15,6 @@ export {
   Login, 
   Cart, 
   Favorites,
-  Products
+  Products,
+  Others
 }

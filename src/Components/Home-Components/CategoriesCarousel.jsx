@@ -5,14 +5,14 @@ import { FaAngleLeft } from "react-icons/fa"
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import image1 from '../Assets/CategoriesCarousel-images/AURI301N_D.jpg'
-import image2 from '../Assets/CategoriesCarousel-images/CEL1283.jpg'
-import image3 from '../Assets/CategoriesCarousel-images/GAMA6390.jpg'
-import image4 from '../Assets/CategoriesCarousel-images/LAB6B-3.jpg'
-import image5 from '../Assets/CategoriesCarousel-images/LAB146.jpg'
-import image6 from '../Assets/CategoriesCarousel-images/LAB535_A.jpg'
-import image7 from '../Assets/CategoriesCarousel-images/PAR4299-2.jpg'
-import defaultimage from '../Assets/CategoriesCarousel-images/default.webp'
+import image1 from '../../Assets/CategoriesCarousel-images/AURI301N_D.jpg'
+import image2 from '../../Assets/CategoriesCarousel-images/CEL1283.jpg'
+import image3 from '../../Assets/CategoriesCarousel-images/GAMA6390.jpg'
+import image4 from '../../Assets/CategoriesCarousel-images/LAB6B-3.jpg'
+import image5 from '../../Assets/CategoriesCarousel-images/LAB146.jpg'
+import image6 from '../../Assets/CategoriesCarousel-images/LAB535_A.jpg'
+import image7 from '../../Assets/CategoriesCarousel-images/PAR4299-2.jpg'
+import defaultimage from '../../Assets/CategoriesCarousel-images/default.webp'
 
 
 export default function ProductsCarousel () {

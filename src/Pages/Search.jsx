@@ -1,9 +1,9 @@
-import ProductsSearch from '../Components/ProductsSearch'
-import CategoriesFilters from '../Components/CategoriesFilters.jsx'
+import ProductsSearch from '../Components/Search-Components/ProductsSearch.jsx'
+import CategoriesFilters from '../Components/Search-Components/CategoriesFilters.jsx'
 import productsJson from '../Data/products.json'
 import { productsFilter } from '../Mocks/processProducts.js'
 import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Outlet } from 'react-router-dom'
 
 export default function Search () {
   const location = useLocation()
@@ -49,6 +49,10 @@ export default function Search () {
           return parseFloat(a.price) - parseFloat(b.price)
         case 'max':
           return parseFloat(b.price) - parseFloat(a.price)
+        case 'A-Z':
+          return a.name.localeCompare(b.name)
+        case 'Z-A':
+          return b.name.localeCompare(a.name)
         default:
           return 0
       }
@@ -124,6 +128,16 @@ export default function Search () {
               value="max">
               Mayor precio
             </option>
+            <option
+              className='max-[1366px]:text-sm' 
+              value="A-Z">
+              A-Z
+            </option>
+            <option
+              className='max-[1366px]:text-sm' 
+              value="Z-A">
+              Z-A
+            </option>
           </select>
           
           {/*Aside filters for mobile*/}
@@ -164,6 +178,7 @@ export default function Search () {
         </section>
       </main>
 
+      <Outlet/>
     </section>
   )    
 }

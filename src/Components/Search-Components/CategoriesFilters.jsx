@@ -2,7 +2,7 @@ import { useState } from "react"
 import { NavLink } from "react-router-dom"
 import { FaAngleUp, FaAngleDown } from 'react-icons/fa'
 import { GoTriangleRight } from "react-icons/go"
-import { getAllSubCategories, getAllBrands } from '../Mocks/processProducts.js'
+import { getAllSubCategories, getAllBrands } from '../../Mocks/processProducts.js'
 
 
 export default function CategoriesFilters ({ products, onFilterChange }) {

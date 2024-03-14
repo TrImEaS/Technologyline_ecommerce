@@ -11,14 +11,21 @@
 
 👌Terminar la seccion de producto al tocar uno.
 
--Mejorar seccion producto
+👌Agregar zoom funcional.
 
--Agregar a filtros, orden por A-Z y Z-A
+👌Corregir ver mas en banner card (centrar)
+
+
+👌Agregar a filtros, orden por A-Z y Z-A
 
 -Agregar index funcional en search que falta
 
--Corregir ver mas en banner card (centrar)
+-Agregar funcionalidad en footer (links) {
+  fijarse google maps, terminar la seccion sucursales
+}
 
--Agregar funcionalidad en footer (links)
+Cuando tenga api de productos (backend) {
+  -Agregar funcionalidad al boton suscribir
 
--Agregar funcionalidad suscribir
+  -Mejorar seccion products para mostrar todas las imagenes, descripcion y especificaciones del mismo
+}

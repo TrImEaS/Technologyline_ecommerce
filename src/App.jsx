@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react"
 import { Route, Routes, useLocation } from "react-router-dom"
-import { Home, Error, Search, Products } from './Pages/Routes.jsx'
+import { Home, Error, Search, Products, Others } from './Pages/Routes.jsx'
+import { About_Us, Garantia, Sucursales } from './Components/Others-Components/Components.jsx'
 import { FaWhatsapp } from "react-icons/fa"
-import Nav from './Components/Nav'
-import Footer from "./Components/Footer.jsx"
+import Nav from './Components/App-Components/Nav.jsx'
+import Footer from "./Components/App-Components/Footer.jsx"
 
-function ScrollToTopOnLocationChange() {
-  const location = useLocation()
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [location])
-
-  return null
-}
+// const Home = lazy(() => import('./Pages/Home'));
+// const Error = lazy(() => import('./Pages/Error'));
+// const Search = lazy(() => import('./Pages/Search')); 
+// const Products = lazy(() => import('./Pages/Products'));
+// <Suspense fallback={<div>Loading...</div>}></Suspense>
 
 function App() {
   const [demoBtn, setDemoBtn] = useState(false)
@@ -21,11 +18,10 @@ function App() {
 
   return (
     <>
-    {
-    demoBtn ?
-      <main className="relative flex flex-col items-center font-body justify-between bg-white text-black min-h-screen min-w-[390px] h-full p-0 m-0">
+    {demoBtn ?
+      <main className={`relative flex flex-col items-center font-body justify-between bg-white text-black min-h-screen min-w-[390px] h-full p-0 m-0`}>
         <ScrollToTopOnLocationChange />
-        <Nav></Nav>
+        <Nav/>
         <Routes>
           <Route
             path="/"
@@ -47,6 +43,25 @@ function App() {
             <Route path=":category/:subcategory/*" element={<Search />} />
             <Route path=":category/:subcategory/:brand" element={<Search />} />
           </Route>
+
+          <Route 
+            path="/others" 
+            element={<Others/>}>
+
+            <Route 
+              path="about_us"
+              element={<About_Us/>}/>
+
+            <Route 
+              path="garantia"
+              element={<Garantia/>}/>
+            
+            <Route 
+              path="sucursales"
+              element={<Sucursales/>}/>
+
+         </Route>
+         
 
           <Route
             path="*"
@@ -77,6 +92,15 @@ function App() {
     }
   </>
   )
+}
+function ScrollToTopOnLocationChange() {
+  const location = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location])
+
+  return null
 }
 
 export default App
