@@ -22,10 +22,11 @@ export default function Others () {
               Garantia
             </NavLink>
           </li>
-          <li className="text-center opacity-50 bg-page-gray-light font-semibold rounded-full w-[250px] px-5 py-1">
-            <span>
-            Centro de ayuda
-            </span>
+          <li className="hover:bg-black hover:text-white text-center bg-page-gray-light font-semibold rounded-full w-[250px] px-5 py-1 duration-300">
+            <NavLink 
+              to={'/others/centro_de_ayuda'}>
+              Centro de ayuda
+            </NavLink>
           </li>
           <li className="hover:bg-black hover:text-white text-center bg-page-gray-light font-semibold rounded-full w-[250px] px-5 py-1 duration-300">
             <NavLink 

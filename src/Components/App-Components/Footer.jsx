@@ -136,10 +136,11 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <a 
-                className="opacity-50 duration-300">
-                Sucursales
-              </a>
+              <NavLink 
+                to={`/others/sucursales`}
+                className="hover:text-page-blue-darkMarine duration-300">
+                Sucursales  
+              </NavLink>
             </li>
             <li>
               <a 
@@ -157,10 +158,10 @@ export default function Footer() {
           
           <ul className="text-page-gray-light flex flex-col gap-y-1">
             <li>
-              <a 
-                className="opacity-50 duration-300">
+              <NavLink to={`/others/centro_de_ayuda`} 
+                className="hover:text-page-blue-darkMarine duration-300">
                 Centro de ayuda
-              </a>
+              </NavLink>
             </li>
             <li>
               <NavLink 

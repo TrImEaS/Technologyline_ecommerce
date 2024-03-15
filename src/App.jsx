@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Route, Routes, useLocation } from "react-router-dom"
 import { Home, Error, Search, Products, Others } from './Pages/Routes.jsx'
-import { About_Us, Garantia, Sucursales } from './Components/Others-Components/Components.jsx'
+import { About_Us, Garantia, Sucursales, Centro_de_ayuda } from './Components/Others-Components/Components.jsx'
 import { FaWhatsapp } from "react-icons/fa"
 import Nav from './Components/App-Components/Nav.jsx'
 import Footer from "./Components/App-Components/Footer.jsx"
@@ -60,6 +60,9 @@ function App() {
               path="sucursales"
               element={<Sucursales/>}/>
 
+            <Route 
+              path="centro_de_ayuda"
+              element={<Centro_de_ayuda/>}/>
          </Route>
          
 
