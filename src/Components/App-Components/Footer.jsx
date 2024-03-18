@@ -21,7 +21,7 @@ export default function Footer() {
   }
 
   return(
-    <div className="flex flex-col justify-center items-center w-full">
+    <div className="flex flex-col justify-center items-center w-full z-[9999]">
       
       {/*Top Footer*/}
       <section className="w-3/4 bg-page-gray-light h-28 flex gap-x-5 justify-center items-center max-lg:flex-wrap max-lg:w-full">
@@ -130,10 +130,11 @@ export default function Footer() {
               </NavLink>
             </li>
             <li>
-              <a 
-                className="duration-300 opacity-50">
-                Trabajá con nosotros
-              </a>
+            <NavLink 
+                to={`/others/trabaja_con_nosotros`}
+                className="hover:text-page-blue-darkMarine duration-300">
+                Trabaja con nosotros
+              </NavLink>
             </li>
             <li>
               <NavLink 
@@ -143,10 +144,11 @@ export default function Footer() {
               </NavLink>
             </li>
             <li>
-              <a 
-                className="opacity-50 duration-300">
+            <NavLink 
+                to={`/others/mayoristas`}
+                className="hover:text-page-blue-darkMarine duration-300">
                 Venta a mayoristas
-              </a>
+              </NavLink>
             </li>
           </ul>
         </article>
@@ -171,16 +173,11 @@ export default function Footer() {
               </NavLink>
             </li>
             <li>
-              <a 
-                className="opacity-50 duration-300">
-                Políticas de cambio y devolución
-              </a>
-            </li>
-            <li>
-              <a 
-                className="opacity-50 duration-300">
-                Nuestro blog
-              </a>
+              <NavLink 
+                to={`/others/politicas_de_devolucion`}
+                className="hover:text-page-blue-darkMarine duration-300">
+                Politicas de devolucion
+              </NavLink>
             </li>
           </ul>
         </article>

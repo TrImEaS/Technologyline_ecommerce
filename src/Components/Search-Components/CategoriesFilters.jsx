@@ -55,7 +55,9 @@ export default function CategoriesFilters ({ products, onFilterChange }) {
             <div 
               key={category.name} 
               className="flex cursor-pointer group">
-              <NavLink className={'flex hover:text-page-blue-normal duration-300 items-center gap-x-1'} to={`${window.location.pathname}${window.location.search ? `${window.location.search}&` : '/?'}sub_category=${category.name.toLowerCase()}`}>
+              <NavLink 
+                className={'flex hover:text-page-blue-normal duration-300 items-center gap-x-1'} 
+                to={`${window.location.pathname}${window.location.search ? `${window.location.search}&` : '/?'}sub_category=${category.name.toLowerCase()}`}>
                 <span><GoTriangleRight/></span>
                 <span className="group-hover">
                   {category.name.charAt(0).toUpperCase() + category.name.slice(1).toLowerCase()}

@@ -3,7 +3,7 @@ import CategoriesFilters from '../Components/Search-Components/CategoriesFilters
 import productsJson from '../Data/products.json'
 import { productsFilter } from '../Mocks/processProducts.js'
 import { useState, useEffect } from 'react'
-import { useLocation, Outlet } from 'react-router-dom'
+import { useLocation, Outlet, NavLink } from 'react-router-dom'
 
 export default function Search () {
   const location = useLocation()
@@ -103,8 +103,41 @@ export default function Search () {
   return (
     <section className="flex flex-col w-3/4 items-center py-10">
       <header className="flex w-4/5 justify-end pb-14 max-sm:flex-col">
-        <article className="flex items-center max-sm:justify-center">
-          {/* <p>INICIO{filters.category ? '/TODOS LOS PRODUCTOS' : filters.category }</p> */}
+        <article className="flex items-center w-full max-sm:justify-center">
+          <div>
+            <NavLink
+              className={'group font-semibold hover:text-page-lightblue duration-300'} 
+              to={'/search'}>
+              INICIO
+              <span className='group-hover:text-black'>/</span>
+            </NavLink>
+
+            {filters.search_category ?
+              <NavLink
+                className={'group font-semibold hover:text-page-lightblue duration-300'} 
+                to={`/${filters.search_category}`}>
+                {filters.search_category.toLocaleUpperCase()}
+                <span className='group-hover:text-black'>/</span>
+              </NavLink>
+            : ''}
+
+            {filters.search_subCat ? 
+            <NavLink
+              className={'group font-semibold hover:text-page-lightblue duration-300'}
+              to={filters.search_category ? `&sub_category=${filters.search_subCat.toLowerCase()}` : `?sub_category=${filters.search_subCat.toLowerCase()}`}>
+              {filters.search_subCat.toLocaleUpperCase()}
+              <span className='group-hover:text-black'>/</span>
+            </NavLink> 
+            :''}
+            
+            {filters.search_brand ? 
+            <NavLink
+              className={'font-semibold hover:text-page-lightblue duration-300'}
+              to={`${window.location.pathname}${window.location.search ? `${window.location.search}&` : '/?'}brand=${filters.search_brand.toLowerCase()}`}>
+              {filters.search_brand.toLocaleUpperCase()}
+            </NavLink> 
+            :''}
+          </div>
         </article>
 
         <article className="flex gap-x-2 items-center max-sm:justify-center">
@@ -148,11 +181,10 @@ export default function Search () {
               onClick={handleFilterMenu}>
               Filtros
             </span>
-            <div className={`
-            flex-col gap-y-5 rounded w-[210px] absolute top-[40px] left-[-80px] bg-white border-2 p-5
-            ${filterMenu ? 'flex' : 'hidden'}
-            `}>
-              <CategoriesFilters onFilterChange={setFilters} products={filteredProducts}/>
+            <div className={`flex-col gap-y-5 rounded w-[210px] absolute top-[40px] left-[-80px] bg-white border-2 p-5 ${filterMenu ? 'flex' : 'hidden'}`}>
+              <CategoriesFilters 
+                onFilterChange={setFilters} 
+                products={filteredProducts}/>
               <button onClick={handleResetFilters} className='h-10 flex items-center justify-center bg-white rounded-lg hover:bg-black hover:text-white duration-500 active:text-sm active:duration-0 font-bold border border-black'>
                 Limpiar Filtros
               </button>
@@ -166,7 +198,9 @@ export default function Search () {
         {/*Aside filters max screen*/}
         <aside className="max-[1366px]:hidden flex flex-col gap-y-8 min-w-[15%] w-[15%] pt-2">
           <div className='max-[1366px]:hidden flex flex-col gap-y-8'>
-            <CategoriesFilters onFilterChange={setFilters} products={filteredProducts}/>
+            <CategoriesFilters 
+              onFilterChange={setFilters} 
+              products={filteredProducts}/>
             <button onClick={handleResetFilters} className='h-10 flex items-center justify-center bg-white rounded-lg hover:bg-black hover:text-white duration-500 active:text-sm active:duration-0 font-bold border border-black'>
               Limpiar Filtros
             </button>
