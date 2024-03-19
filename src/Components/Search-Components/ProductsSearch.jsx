@@ -61,9 +61,13 @@ export default function ProductsSearch({ products }) {
     <section className="flex flex-col w-full rounded-lg p-2">
       {/* Renderizar productos */}
       {products.length === 0 && (
-        <div className="text-pretty flex flex-col gap-y-3">
-          <p className="text-xl font-semibold">No se han encontrado resultados para tu búsqueda.</p>
-          <p className="font-semibold">Sugerencias:</p>
+        <div className="text-pretty flex flex-col gap-y-3 px-10">
+          <p className="text-xl font-semibold">
+            No se han encontrado resultados para tu búsqueda.
+          </p>
+          <p className="font-semibold">
+            Sugerencias:
+          </p>
           <ul className="list-disc px-5">
             <li>Asegúrate de que todas las palabras estén escritas correctamente.</li>
             <li>Prueba diferentes palabras clave.</li>

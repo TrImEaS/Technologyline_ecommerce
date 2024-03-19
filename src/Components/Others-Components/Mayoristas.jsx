@@ -13,50 +13,50 @@ export default function Mayoristas () {
       </article>
 
       <article className="flex flex-col gap-5">
-        <p className="flex flex-col">
+        <div className="flex flex-col">
           <h1 className="text-xl font-bold">
             AMPLIA VARIEDAD DE MARCAS Y PRODUCTOS:
           </h1>
           <span className="text-pretty">
             Comprendiendo productos de gama baja, media y alta.
           </span>
-        </p>
+        </div>
 
-        <p className="flex flex-col">
+        <div className="flex flex-col">
           <h1 className="text-xl font-bold">
             PRODUCTOS CON GARANTÍA:
           </h1>
           <span className="text-pretty">
             Poseemos el respaldo y garantía oficial de todas las marcas que comercializamos.
           </span>
-        </p>
+        </div>
 
-        <p className="flex flex-col">
+        <div className="flex flex-col">
           <h1 className="text-xl font-bold">
             OPCIONES DE PAGO:
           </h1>
           <span className="text-pretty">
             Línea de Crédito, Cuenta Corriente, Transferencia bancaria, etc.
           </span>
-        </p>
+        </div>
         
-        <p className="flex flex-col">
+        <div className="flex flex-col">
           <h1 className="text-xl font-bold">
             LOGÍSTICA:
           </h1>
           <span className="text-pretty">
             Entregas a nivel nacional dentro de las 48 horas.
           </span>
-        </p>
+        </div>
 
-        <p className="flex flex-col">
+        <div className="flex flex-col">
           <h1 className="text-xl font-bold">
             INFORMACIÓN ACTUALIZADA:
           </h1>
           <span className="text-pretty">
             Web con actualización diaria e e-mail marketing semanal con novedades y ofertas.
           </span>
-        </p>
+        </div>
       </article>
 
       <article>

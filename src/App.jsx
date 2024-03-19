@@ -88,7 +88,9 @@ function App() {
       </main>
     : 
       <div className="h-screen w-screen flex flex-col gap-10 justify-center items-center bg-[#333] text-white">
-        <span className="text-3xl font-bold">Esto es una demo, la pagina esta en progreso...</span>
+        <span className="text-3xl text-center w-4/5 font-bold">
+          Esto es una demo, la pagina esta en progreso...
+        </span>
         <button
           id="btn"
           className="bg-white text-black font-bold p-5 rounded-3xl duration-500"

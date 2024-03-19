@@ -49,11 +49,8 @@ export default function Footer() {
       </section>
       
       {/* Mid Footer */}
-      <section className="relative grid grid-cols-6 max-[1500px]:grid-cols-4 w-full box-border pt-10 pl-[100px] max-[1500px]:pr-[50px] max-md:pl-0 max-md:pr-0 bg-page-blue-normal text-white gap-5 py-3">
-        <article className="
-        flex flex-col px-1 gap-5
-        max-[1500px]:col-span-5 max-[1500px]:flex-row max-[1500px]:items-center
-        max-md:flex-wrap max-md:pl-10"
+      <section className="relative grid items-center justify-center grid-cols-6 max-[1500px]:grid-cols-4 w-full box-border pt-10 pl-[100px] max-[1500px]:pr-[50px] max-md:pl-0 max-md:pr-0 bg-page-blue-normal text-white gap-5 py-3">
+        <article className="flex flex-col px-1 max-[1500px]:col-span-5 max-[1500px]:flex-row max-[1500px]:items-center max-md:flex-wrap max-md:pl-10"
         >
           <img 
             src="/logo-tline.svg"
@@ -83,7 +80,7 @@ export default function Footer() {
           </ul>
         </article>
         
-        <article className="flex flex-col gap-y-2 px-1 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
+        <article className="min-h-[140px] max-lg:min-h-[200px] max-sm:min-h-[0] flex flex-col gap-y-2 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
           <h1 className="font-bold">
             Categorías
           </h1>
@@ -116,7 +113,7 @@ export default function Footer() {
           </ul>
         </article>
 
-        <article className="flex flex-col gap-y-2 px-1 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
+        <article className="min-h-[140px] max-lg:min-h-[200px] max-sm:min-h-[0]  flex flex-col gap-y-2 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
           <h1 className="font-bold">
             Real Color
           </h1>
@@ -153,7 +150,7 @@ export default function Footer() {
           </ul>
         </article>
 
-        <article className="flex flex-col gap-y-2 px-1 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
+        <article className="min-h-[140px] max-lg:min-h-[200px] max-sm:min-h-[0] flex flex-col gap-y-2 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
           <h1 className="font-bold">
             Ayuda y información
           </h1>
@@ -183,7 +180,7 @@ export default function Footer() {
         </article>
 
 
-        <article className="flex flex-col gap-y-2 px-1 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
+        <article className="min-h-[140px] max-lg:min-h-[200px] max-sm:min-h-[0] max-sm:pb-6 flex flex-col gap-y-2 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
         <h1 className="font-bold opacity-50">
           Usuarios
         </h1>

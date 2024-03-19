@@ -26,7 +26,7 @@ export default function Centro_de_ayuda () {
             placeholder="Escriba aqui su nombre completo" />
         </section>
         
-        <section className="flex gap-5 w-full">
+        <section className="flex gap-5 max-sm:flex-col w-full">
           <div className="flex flex-col w-full">
             <label htmlFor="name-help">
               Telefono

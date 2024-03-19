@@ -1,8 +1,8 @@
-import jsonProducts from '../../Data/products.json'
+import jsonProducts from '../../../Data/products.json'
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
 import { FaBars } from 'react-icons/fa'
-import { productsFilter } from '../../Mocks/processProducts.js'
+import { productsFilter } from '../../../Mocks/processProducts.js'
 
 export default function CategoriesMenu () {
   const [categoriesHideMenu, setCategoriesHideMenu] = useState(false)
@@ -40,7 +40,7 @@ export default function CategoriesMenu () {
           <div className='absolute flex items-center justify-center min-h-[300px] p-10 mt-[15px] z-50 max-xl:w-4/6 bg-slate-100 min-w-[300px]'>
             <section className='grid grid-cols-3 max-xl:grid-cols-2 max-md:grid-cols-1 justify-center gap-x-10 gap-y-2 text-black'>
               
-              <div className='w-full h-12 col-span-3 max-xl:col-span-2 max-md:col-span-1 border-b-2 border-page-blue-dark'>
+              <div className='w-full h-12 col-span-3 max-xl:col-span-2 max-md:col-span-1 border-b-[4px] border-page-lightblue'>
                 <NavLink 
                   to={'/search'} 
                   onClick={handleClickCategories} 
@@ -50,17 +50,17 @@ export default function CategoriesMenu () {
               </div>
 
               {/*Mapear Categorias */}
-              {uniqueCategories.map(category => (
+              {uniqueCategories.map((category, index) => (
               <div key={category}>
                 <ul 
                   className='flex flex-wrap justify-between py-4'
                 >
-                  <li className='hover:text-page-lightblue duration-300 border-b border-page-blue-normal'>
+                  <li className='hover:text-page-lightblue duration-300 border-b-[3px] border-page-blue-normal'>
                     <NavLink 
                       to={`/search/?category=${category.toLowerCase()}`} 
                       className={'font-semibold'}
                       onClick={handleClickCategories}>
-                      {category.toUpperCase()}
+                      {selectedCategories[index].toUpperCase()}
                     </NavLink>
                   </li>
                 </ul>

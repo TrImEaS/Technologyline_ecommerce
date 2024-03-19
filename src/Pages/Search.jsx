@@ -100,6 +100,7 @@ export default function Search () {
   }
   const handleFilterMenu = () => setFilterMenu(!filterMenu)
 
+  {/*Componente search*/}
   return (
     <section className="flex flex-col w-3/4 items-center py-10">
       <header className="flex w-4/5 justify-end pb-14 max-sm:flex-col">
@@ -111,6 +112,15 @@ export default function Search () {
               INICIO
               <span className='group-hover:text-black'>/</span>
             </NavLink>
+
+            {filters.search ?
+              <NavLink
+                className={'group font-semibold hover:text-page-lightblue duration-300'} 
+                to={`/${filters.search}`}>
+                {filters.search.toLocaleUpperCase()}
+                <span className='group-hover:text-black'>/</span>
+              </NavLink>
+            : ''}
 
             {filters.search_category ?
               <NavLink

@@ -12,7 +12,7 @@ export default function Trabaja_con_nosotros () {
       </article>
 
       <article className="flex flex-col gap-3 justify-center items-center w-full">
-        <div className="flex gap-5 w-full">
+        <div className="flex max-sm:flex-col gap-5 w-full">
           <div className="flex flex-col w-full">
             <label htmlFor="name_work-with-us">
               Nombre
@@ -36,7 +36,7 @@ export default function Trabaja_con_nosotros () {
           </div>
         </div>
 
-        <div className="flex gap-5 w-full">
+        <div className="flex max-sm:flex-col gap-5 w-full">
           <div className="flex flex-col w-full">
             <label htmlFor="phone_work-with-us">
               Teléfono
@@ -66,7 +66,7 @@ export default function Trabaja_con_nosotros () {
             Adjunta tu cv
           </label>
           <input 
-            className="border-2 border-black rounded-lg p-2 w-[360px]" 
+            className="border-2 border-black rounded-lg p-2 w-full" 
             type="file"
             id="cv_work-with-us"
             placeholder="Selecciona un archivo"/>

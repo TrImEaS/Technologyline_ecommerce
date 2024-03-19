@@ -2,7 +2,7 @@ import GoogleMap from '../GoogleMap.jsx'
 
 export default function Sucursales() {
   return (
-    <section className='flex w-full h-[400px] gap-10'>
+    <section className='flex max-sm:flex-col w-full min-h-[400px] gap-10'>
       <div className='w-full h-full flex flex-col justify-center items-center gap-y-2'>
         <GoogleMap longitud={-34.612692533970275} latitud={-58.43802934631814}/>
         <article className='flex flex-col justify-center items-center'>

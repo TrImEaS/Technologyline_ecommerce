@@ -6,7 +6,7 @@ import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import image1 from '../../Assets/CategoriesCarousel-images/AURI301N_D.jpg'
-import image2 from '../../Assets/CategoriesCarousel-images/CEL1283.jpg'
+// import image2 from '../../Assets/CategoriesCarousel-images/CEL1283.jpg'
 import image3 from '../../Assets/CategoriesCarousel-images/GAMA6390.jpg'
 import image4 from '../../Assets/CategoriesCarousel-images/LAB6B-3.jpg'
 import image5 from '../../Assets/CategoriesCarousel-images/LAB146.jpg'
@@ -92,7 +92,7 @@ export default function ProductsCarousel () {
         </NavLink>
       </div>
 
-      <div>
+      {/* <div>
         <NavLink to={'/search/?sub_category=celulares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image2 ? image2 : defaultImage} 
@@ -102,7 +102,7 @@ export default function ProductsCarousel () {
             <span>CELULARES</span>
           </p>
         </NavLink>
-      </div>
+      </div> */}
 
       <div>
         <NavLink to={'/search/?sub_category=cuidado personal'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>

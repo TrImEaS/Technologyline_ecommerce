@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import UserIcons from './Nav-Components/UserIcons.jsx'
-import CategoriesMenu from '../Search-Components/CategoriesMenu.jsx'
+import CategoriesMenu from './Nav-Components/CategoriesMenu.jsx'
 import SearchInput from './Nav-Components/SearchInput.jsx'
 
 export default function Nav() {
