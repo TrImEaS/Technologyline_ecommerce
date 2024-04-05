@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from 'react'
+import React, { useState, useEffect } from 'react'
 import { productsFilter } from '../Mocks/processProducts.js'
 import { useNavigate } from 'react-router-dom'
 import productsJson from '../Data/products.json'
@@ -33,33 +33,28 @@ export default function Products () {
       setProduct(newProduct)
     }
 
-    // loadImages();
   }, [location.search, navigate])
 
   const handleZoomImage = () => {
-    if(zoom){ 
+    if(zoom) { 
       setZoom(false)
       document.body.style.overflowY = 'visible'
     }
-    else{
+    else {
       setZoom(true)
       document.documentElement.scrollTop = 0
       document.body.style.overflowY = 'hidden'
     }
-    
   }
 
-
   return (
-    <section className={`flex flex-col items-center h-full w-[75%] gap-y-14 py-16`}>
-      <header className='w-full flex max-md:flex-col justify-center items-center min-h-[450px] gap-x-10'>
+    <section className={`flex flex-col items-center h-full w-[75%] gap-y-14 py-14 max-md:pt-10`}>
+
+      <header className='w-full flex max-md:flex-col justify-center items-center gap-x-10 sm:p-10 bg-[#efeeee] rounded-3xl'>
         {/*Item Image section*/} 
         <section
-            onClick={handleZoomImage}
-            className={`flex w-[40%] max-sm:w-full justify-center items-center h-full border border-[#444] rounded-xl pb-5 max-w-[330px] ${
-            zoom ? 'cursor-zoom-out' : 'cursor-zoom-in'
-          }`}
-        >
+          onClick={handleZoomImage}
+          className={`flex w-[40%] max-md:w-full justify-center items-center h-full border-3 border-[#444] rounded-xl pb-5 max-w-[330px] ${zoom ? 'cursor-zoom-out' : 'cursor-zoom-in'}`}>
           <article
             className={`w-full h-[300px] flex p-5 items-center justify-center rounded-lg
             ${
@@ -68,14 +63,14 @@ export default function Products () {
           >
             <span className='text-4xl absolute top-5 right-5 text-white'>x</span>
             <img
-              src={`https://www.technologyline.com.ar/products-images/${product.sku}.jpg`}
+              src={product.img}
               className={`rounded-lg ${zoom ? 'cursor-zoom-out' : 'cursor-zoom-in'} w-full h-full object-contain`}
             />
           </article>
         </section>
           
-        <section className='flex flex-col gap-y-6 w-[40%] justify-center items-start py-5 h-full max-sm:w-full'>
-          <div className='min-h-[250px] flex flex-col gap-y-3'>
+        <section className='flex flex-col w-[40%] justify-center items-start py-5 h-full max-md:w-full'>
+          <div className='min-h-[250px] flex flex-col gap-y-2'>
             <h1 className='font-semibold text-2xl'>
               {product.name}
             </h1>
@@ -84,7 +79,7 @@ export default function Products () {
               {product.sku}
             </span>
 
-            <div className='flex flex-col w-full gap-y-6 justify-center'>
+            <div className='flex flex-col w-full gap-y-3 justify-center'>
               <h2 className='text-2xl font-semibold'>
                 {`$${formattedPrice}`}
               </h2>
@@ -108,10 +103,30 @@ export default function Products () {
         </section>
       </header>
 
+      <div className='flex flex-col w-full bg-page-gray-light rounded-lg font-bold'>
+        <div className='flex p-2 gap-x-3'>
+          <span>Descripción</span>
+          <span>|</span>
+          <span>Especificaciones</span>
+        </div>
+        <div className='p-2 bg-gray-100'>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam ipsa, eligendi, 
+            velit maxime expedita reprehenderit magnam qui mollitia ex voluptate doloremque alias. 
+            Architecto incidunt perferendis consequuntur harum consectetur enim cumque!
+          </p>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam ipsa, eligendi, 
+          velit maxime expedita reprehenderit magnam qui mollitia ex voluptate doloremque alias. 
+          Architecto incidunt perferendis consequuntur harum consectetur enim cumque!
+          </p>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam ipsa, eligendi, 
+          velit maxime expedita reprehenderit magnam qui mollitia ex voluptate doloremque alias. 
+          Architecto incidunt perferendis consequuntur harum consectetur enim cumque!
+          </p>
+        </div>
+      </div>
+
       <section className='flex flex-col w-full gap-y-10'>
-        
         {/* Seccion de descripcion */}
-        
         <div className='w-full flex flex-col gap-y-10'>
           <span className='text-3xl font-bold max-sm:text-2xl'>
             Tambien te recomendamos
@@ -123,25 +138,3 @@ export default function Products () {
     </section>
   )
 }
-
-        {/* <div className='flex flex-col w-full bg-page-gray-light rounded-lg font-bold'>
-          <div className='flex p-2 gap-x-3'>
-            <span>Descripción</span>
-            <span>|</span>
-            <span>Especificaciones</span>
-          </div>
-          <div className='p-2 bg-gray-100'>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam ipsa, eligendi, 
-              velit maxime expedita reprehenderit magnam qui mollitia ex voluptate doloremque alias. 
-              Architecto incidunt perferendis consequuntur harum consectetur enim cumque!
-            </p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam ipsa, eligendi, 
-            velit maxime expedita reprehenderit magnam qui mollitia ex voluptate doloremque alias. 
-            Architecto incidunt perferendis consequuntur harum consectetur enim cumque!
-            </p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam ipsa, eligendi, 
-            velit maxime expedita reprehenderit magnam qui mollitia ex voluptate doloremque alias. 
-            Architecto incidunt perferendis consequuntur harum consectetur enim cumque!
-            </p>
-          </div>
-        </div> */}

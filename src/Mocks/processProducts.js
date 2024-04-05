@@ -1,13 +1,13 @@
 function transformProduct(product) {
-  const itemDesc = product.item_desc;
+  const itemDesc = product.item_desc
 
   // Expresión regular para extraer el EAN
-  const eanRegex = /EAN:\s*(\d+)/;
-  const eanMatch = itemDesc.match(eanRegex);
+  const eanRegex = /EAN:\s*(\d+)/
+  const eanMatch = itemDesc.match(eanRegex)
   
   // Filtrar el nombre y obtener el EAN si existe
-  const filteredName = eanMatch ? itemDesc.replace(eanRegex, '').trim() : itemDesc.trim();
-  const ean = eanMatch ? eanMatch[1] : '';
+  const filteredName = eanMatch ? itemDesc.replace(eanRegex, '').trim() : itemDesc.trim()
+  const ean = eanMatch ? eanMatch[1] : ''
 
   const {
     ID: id,
@@ -17,19 +17,21 @@ function transformProduct(product) {
     cat_desc: category,
     subcat_desc: sub_category,
     brand_desc: brand,
-  } = product;
+    IMAGEN: img,
+  } = product
 
   return {
     id,
     name: filteredName,
     sku,
     price,
+    img,
     stock,
     category,
     sub_category,
     brand,
     ean,
-  };
+  }
 }
 
 function filterProduct(product) {
