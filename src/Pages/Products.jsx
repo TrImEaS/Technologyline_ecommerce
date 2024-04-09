@@ -3,14 +3,13 @@ import { productsFilter } from '../Mocks/processProducts.js'
 import { useNavigate } from 'react-router-dom'
 import productsJson from '../Data/products.json'
 import ProductsCarousel from '../Components/ProductsCarousel.jsx'
-
-const maxImages = 4
+import ImageSlider from '../Components/Products/ImageSlider.jsx'
+import Spinner from '../Components/Products/Spinner.jsx'
 
 export default function Products () {
   const [product, setProduct] = useState('')
-  const [selectedImg, setSelectedImg] = useState('')
   const [loadedImages, setLoadedImages] = useState([])
-  const [zoom, setZoom] = useState(false)
+  const [loadingImages, setLoadingImages] = useState(false)
   const formattedPrice = parseInt(product.price).toLocaleString(undefined)
 
   let cat = product.sub_category || ''
@@ -30,46 +29,90 @@ export default function Products () {
     if (!newProduct) {
       navigate('/error')
     } else {
+      setLoadingImages(true)
       setProduct(newProduct)
     }
 
   }, [location.search, navigate])
 
-  const handleZoomImage = () => {
-    if(zoom) { 
-      setZoom(false)
-      document.body.style.overflowY = 'visible'
+  useEffect(() => {
+    const loadImages = async (product) => {
+      const images = []
+      const baseUrl = '../../products-images'
+  
+      // Cargar la imagen principal
+      const mainImage = `${baseUrl}/${product.sku}.jpg`
+      if (await imageExists(mainImage)) {
+        images.push(mainImage)
+      }
+  
+      // Cargar las imágenes adicionales
+      for (let i = 1; i <= 10; i++) {
+        const additionalImage = `${baseUrl}/${product.sku}_${i}.jpg`
+        if (await imageExists(additionalImage)) {
+          images.push(additionalImage)
+        } else {
+          // Si la imagen no existe, se detiene el bucle
+          break
+        }
+      }
+  
+      setLoadedImages(images)
+      setLoadingImages(false)
     }
-    else {
-      setZoom(true)
-      document.documentElement.scrollTop = 0
-      document.body.style.overflowY = 'hidden'
+  
+    if (product) {
+      loadImages(product)
     }
+  }, [product])
+
+  const imageExists = (url) => {
+    return new Promise((resolve) => {
+      const img = new Image()
+      img.onload = () => {
+        resolve(true) // La imagen se ha cargado correctamente
+      }
+      img.onerror = () => {
+        resolve(false) // La imagen no se pudo cargar
+      }
+      img.src = url
+    })
+  }
+
+  const getStockQuantity = () => {
+    const quantity = product.stock
+    if(quantity < 5){
+      return (
+        <span className='text-red-600'>
+          Muy Bajo
+        </span>
+        )
+    }
+
+    if(quantity < 10){
+      return (
+        <span className='text-orange-400 font-semibold'>
+          Bajo
+        </span>
+        )
+    }
+
+    return (
+      <span className='text-green-600 font-semibold'>
+        Existente
+      </span>
+    )
   }
 
   return (
-    <section className={`flex flex-col items-center h-full w-[75%] gap-y-14 py-14 max-md:pt-10`}>
+    <section className={`flex flex-col items-center h-full w-[90%] gap-y-14 py-14 max-md:pt-10`}>
 
-      <header className='w-full flex max-md:flex-col justify-center items-center gap-x-10 sm:p-10 bg-[#efeeee] rounded-3xl'>
-        {/*Item Image section*/} 
-        <section
-          onClick={handleZoomImage}
-          className={`flex w-[40%] max-md:w-full justify-center items-center h-full border-3 border-[#444] rounded-xl pb-5 max-w-[330px] ${zoom ? 'cursor-zoom-out' : 'cursor-zoom-in'}`}>
-          <article
-            className={`w-full h-[300px] flex p-5 items-center justify-center rounded-lg
-            ${
-              zoom ? 'absolute z-[9999999] bg-[#111] h-screen w-screen top-0 right-[0] max-sm:min-w-[390px] max-sm:min-h-[650px]  rounded-none' : ''
-            }`}
-          >
-            <span className='text-4xl absolute top-5 right-5 text-white'>x</span>
-            <img
-              src={product.img}
-              className={`rounded-lg ${zoom ? 'cursor-zoom-out' : 'cursor-zoom-in'} w-full h-full object-contain`}
-            />
-          </article>
+      <header className='w-full h-full flex max-md:flex-col justify-center sm:p-5 bg-[#f2f2f2] rounded-3xl py-5'>
+        <section className='w-[55%] max-sm:w-full h-full'>
+        {loadingImages ? <Spinner /> : <ImageSlider loadedImages={loadedImages}/>}
         </section>
-          
-        <section className='flex flex-col w-[40%] justify-center items-start py-5 h-full max-md:w-full'>
+
+        <section className='flex flex-col w-[45%] justify-start max-sm:px-10 items-start py-5 h-full max-md:w-full'>
           <div className='min-h-[250px] flex flex-col gap-y-2'>
             <h1 className='font-semibold text-2xl'>
               {product.name}
@@ -85,10 +128,10 @@ export default function Products () {
               </h2>
               <div className='flex gap-x-5 text-xl w-full items-center'>
                 <span>
-                  Cantidad:
+                  Stock:
                 </span>
                 <span className='font-bold'>
-                  {product.stock}
+                  {getStockQuantity()}
                 </span>
               </div>
               <span>EAN: {product.ean}</span>

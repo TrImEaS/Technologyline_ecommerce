@@ -5,7 +5,7 @@ import { GoTriangleRight } from "react-icons/go"
 import { getAllSubCategories, getAllBrands } from '../../Mocks/processProducts.js'
 
 
-export default function CategoriesFilters ({ products, onFilterChange }) {
+export default function CategoriesFilters ({ products, onFilterChange, onChange }) {
   //Arreglar para que reciba el array products filtrado
   const [isCategoryOpen, setIsCategoryOpen] = useState(false)
   const [isBrandOpen, setIsBrandOpen] = useState(false)

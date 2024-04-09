@@ -11,6 +11,40 @@ export default function ProductCard({ img, price, name, sku }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
+  useEffect(() => {
+    const loadImage = async (sku) => {
+      setLoading(true)
+
+      const baseUrl = '../../products-images'
+      const mainImage = `${baseUrl}/${sku}.jpg`
+      if (await imageExists(mainImage)) {
+        setImageSrc(img)
+        setLoading(false)
+      }
+      else {
+        setImageSrc(imageNotFound)
+        setLoading(false)
+      }
+    }
+
+    if (sku) {
+      loadImage(sku)
+    }
+  }, [sku])
+
+  const imageExists = async (url) => {
+    return new Promise((resolve) => {
+      const img = new Image()
+      img.onload = () => {
+        resolve(true)
+      }
+      img.onerror = () => {
+        resolve(false)
+      }
+      img.src = url
+    })
+  }
+
   const handleImageLoad = () => {
     setLoading(false)
   }
@@ -19,24 +53,6 @@ export default function ProductCard({ img, price, name, sku }) {
     setLoading(false)
     setError(true)
   }
-
-  useEffect(() => {
-    fetch(`https://technologyline.com.ar/products-images/${img}.jpg`)
-      .then(response => {
-        if (response.ok) {
-          setImageSrc(`https://technologyline.com.ar/products-images/${img}.jpg`)
-          setLoading(false)
-        } else {
-          setLoading(false)
-          setError(true)
-        }
-      })
-      .catch(error => {
-        console.error('Error checking image:', error)
-        setLoading(false)
-        setError(true)
-      })
-  }, [img])
 
   return(
     <NavLink
@@ -48,15 +64,15 @@ export default function ProductCard({ img, price, name, sku }) {
           <img 
             src={img} 
             alt="Image not found"
-            loading="lazy" 
-            className={`w-full h-full object-cover rounded-lg`}/>
+            loading="eager" 
+            className={`w-full h-full object-contain rounded-lg`}/>
         }
         {!loading && !error && (
           <img 
             src={imageSrc}
             onLoad={handleImageLoad}
             onError={handleImageError}
-            loading="lazy"
+            loading="eager"
             alt={name}
             className={`w-full h-full object-contain rounded-lg`} 
           />

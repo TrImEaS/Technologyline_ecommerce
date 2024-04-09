@@ -31,13 +31,8 @@ export default function Search () {
       search_brand: queryParams.get('brand') || '',
       search: queryParams.get('search') || ''
     }))
-    
-    const queryCat = queryParams.get('sub_category') || queryParams.get('category') || ''
-    const queryBrand = queryParams.get('brand') || ''
-    const categories = 
-    (queryCat.charAt(0).toUpperCase() + queryCat.slice(1).toLowerCase()) + 
-    '/' +
-    (queryBrand.charAt(0).toUpperCase() + queryBrand.slice(1).toLowerCase())
+
+    setFilterMenu(false)
   }, [location.search])
 
   const products = productsFilter(productsJson)
@@ -85,9 +80,7 @@ export default function Search () {
     })
   }
   
-  const filteredProducts = filterProducts(products) 
   const handleResetFilters = () => {
-
     setFilters((prevFilters) => ({
       ...prevFilters,
       search_category: '',
@@ -98,6 +91,9 @@ export default function Search () {
       maxPrice: 99999999999.00,
     }))
   }
+
+  const filteredProducts = filterProducts(products) 
+
   const handleFilterMenu = () => setFilterMenu(!filterMenu)
 
   {/*Componente search*/}
@@ -116,7 +112,7 @@ export default function Search () {
             {filters.search ?
               <NavLink
                 className={'group font-semibold hover:text-page-lightblue duration-300'} 
-                to={`/${filters.search}`}>
+                to={`/search/${filters.search}`}>
                 {filters.search.toLocaleUpperCase()}
                 <span className='group-hover:text-black'>/</span>
               </NavLink>
@@ -125,7 +121,7 @@ export default function Search () {
             {filters.search_category ?
               <NavLink
                 className={'group font-semibold hover:text-page-lightblue duration-300'} 
-                to={`/${filters.search_category}`}>
+                to={`/search/?category=${filters.search_category}`}>
                 {filters.search_category.toLocaleUpperCase()}
                 <span className='group-hover:text-black'>/</span>
               </NavLink>
@@ -134,7 +130,7 @@ export default function Search () {
             {filters.search_subCat ? 
             <NavLink
               className={'group font-semibold hover:text-page-lightblue duration-300'}
-              to={filters.search_category ? `&sub_category=${filters.search_subCat.toLowerCase()}` : `?sub_category=${filters.search_subCat.toLowerCase()}`}>
+              to={filters.search_category ?  `?&sub_category=${filters.search_subCat.toLowerCase()}` : `?sub_category=${filters.search_subCat.toLowerCase()}`}>
               {filters.search_subCat.toLocaleUpperCase()}
               <span className='group-hover:text-black'>/</span>
             </NavLink> 
@@ -193,7 +189,7 @@ export default function Search () {
             </span>
             <div className={`flex-col gap-y-5 rounded w-[210px] absolute top-[40px] left-[-80px] bg-white border-2 p-5 ${filterMenu ? 'flex' : 'hidden'}`}>
               <CategoriesFilters 
-                onFilterChange={setFilters} 
+                onFilterChange={setFilters}
                 products={filteredProducts}/>
               <button onClick={handleResetFilters} className='h-10 flex items-center justify-center bg-white rounded-lg hover:bg-black hover:text-white duration-500 active:text-sm active:duration-0 font-bold border border-black'>
                 Limpiar Filtros

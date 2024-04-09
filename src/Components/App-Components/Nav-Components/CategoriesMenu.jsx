@@ -1,11 +1,12 @@
 import jsonProducts from '../../../Data/products.json'
-import { useState } from "react"
-import { NavLink } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { useLocation, NavLink } from "react-router-dom"
 import { FaBars } from 'react-icons/fa'
 import { productsFilter } from '../../../Mocks/processProducts.js'
 
 export default function CategoriesMenu () {
   const [categoriesHideMenu, setCategoriesHideMenu] = useState(false)
+  const location = useLocation()
   const products = productsFilter(jsonProducts)
   const uniqueCategories = [...new Set(products.map(product => product.category))]
   const uniqueSubCategories = [...new Set(products.map(product => product.sub_category))]
@@ -16,6 +17,10 @@ export default function CategoriesMenu () {
     'Informatica',
     'Tecnologia'
   ]
+
+  useEffect(() => {
+    setCategoriesHideMenu(false)
+  }, [location.search]);
 
   const handleClickCategories = () => setCategoriesHideMenu(!categoriesHideMenu)
 

@@ -30,3 +30,21 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.slider-container {
+  max-width: 700px; /* Establece el ancho máximo */
+  min-width: 300px; /* Establece el ancho mínimo */
+  width: 70%; /* Establece el ancho en un 80% del ancho de su contenedor principal */
+  margin: 0 auto; /* Centra el contenedor horizontalmente */
+}
+
+.dots-slider {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.large-cursor {
+  cursor: pointer;
+  width: 32px; /* Ajusta el ancho del cursor */
+  height: 32px; /* Ajusta la altura del cursor */
+}
