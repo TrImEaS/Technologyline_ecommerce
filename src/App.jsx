@@ -19,14 +19,14 @@ function App() {
   }, [])
 
   return (
-    <main className=' relative flex flex-col items-center font-body justify-between bg-white text-black min-h-screen min-w-[390px] h-full p-0 m-0'>
+    <main className='relative flex flex-col items-center font-body justify-between bg-white text-black min-h-screen min-w-[390px] h-full p-0 m-0'>
       <ScrollToTopOnLocationChange />
       <Nav/>
       <Routes>
         <Route path="/" element={<Home/>}/>
         
         <Route path="/products" element={<Products/>}>
-          <Route path=":product" element={<Products/>}/>
+          <Route path=":product/*" element={<Products/>}/>
         </Route>
 
         <Route path="/search" element={<Search />}>

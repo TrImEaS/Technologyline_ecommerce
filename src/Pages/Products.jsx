@@ -81,10 +81,10 @@ export default function Products () {
 
   const getStockQuantity = () => {
     const quantity = product.stock
-    if(quantity < 5){
+    if(quantity === 3){
       return (
         <span className='text-red-600'>
-          Muy Bajo
+          Ultima unidad
         </span>
         )
     }
@@ -92,7 +92,7 @@ export default function Products () {
     if(quantity < 10){
       return (
         <span className='text-orange-400 font-semibold'>
-          Bajo
+          Ultimas unidades
         </span>
         )
     }

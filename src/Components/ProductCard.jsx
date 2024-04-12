@@ -18,7 +18,7 @@ export default function ProductCard({ img, price, name, sku }) {
       const baseUrl = '../../products-images'
       const mainImage = `${baseUrl}/${sku}.jpg`
       if (await imageExists(mainImage)) {
-        setImageSrc(img)
+        setImageSrc(mainImage)
         setLoading(false)
       }
       else {
@@ -62,7 +62,7 @@ export default function ProductCard({ img, price, name, sku }) {
         {loading && <Spinner />}
         {error && 
           <img 
-            src={img} 
+            src={imageSrc} 
             alt="Image not found"
             loading="eager" 
             className={`w-full h-full object-contain rounded-lg`}/>

@@ -11,11 +11,11 @@ export default function CategoriesMenu () {
   const uniqueCategories = [...new Set(products.map(product => product.category))]
   const uniqueSubCategories = [...new Set(products.map(product => product.sub_category))]
   const selectedCategories = [
+    'Informatica',
     'Electro y Aires',
+    'Tecnologia',
     'TV y Audio',
     'Mas categorias',
-    'Informatica',
-    'Tecnologia'
   ]
 
   useEffect(() => {
