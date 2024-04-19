@@ -1,27 +1,81 @@
-import { 
-  FaFacebook,
-  FaInstagram, 
-  FaTiktok,
-  FaAngleUp 
-} from 'react-icons/fa'
 import naranjaIcon from '../../Assets/Some-icons/card-icon1.svg'
 import visaIcon from '../../Assets/Some-icons/card-icon2.svg'
 import mastercardIcon from '../../Assets/Some-icons/card-icon3.svg'
 import cabalIcon from '../../Assets/Some-icons/card-icon4.svg'
 import americanexpressIcon from '../../Assets/Some-icons/card-icon5.svg'
+import Swal from 'sweetalert2'
 import { MdOutlineEmail } from "react-icons/md"
 import { NavLink } from "react-router-dom"
+import { FaFacebook, FaInstagram, FaTiktok, FaAngleUp } from 'react-icons/fa'
+import { useState } from 'react'
 
 export default function Footer() {
+  const [email, setEmail] = useState('')
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     })
   }
+  
+  const handleSubscribe = async (e) => {
+    e.preventDefault()
 
+    const emailPattern = /\S+@\S+\.\S+/
+    if (!emailPattern.test(email)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al subscribirse',
+        text: 'Se requiere que el valor sea tipo email: example@hotmail.com'
+      })
+      return
+    }
+  
+    Swal.fire({
+      title: 'Subscribiendo...',
+      allowOutsideClick: false,  
+      showConfirmButton: false, 
+      willOpen: () => {
+        Swal.showLoading()
+      }
+    })
+
+    fetch('https://technologyline.com.ar/api/clients/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email })
+    })
+    .then(response => {
+      if (response.status === 409) {
+        Swal.fire({
+          icon: 'info',
+          title: 'Ya se encuentra subscrito, muchas gracias!'
+        })
+      }
+      else if (response.ok) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Subscrito correctamente, muchas gracias!'
+        })
+      } else {
+        console.error('Error al subscribirse, intente nuevamente!')
+        Swal.fire({
+          icon: 'error',
+          title: 'Ocurrió un error al subscribirse, ¡inténtelo nuevamente!'
+        })
+      }
+    })
+    .catch(error => {
+      console.error('Error del servidor:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Ocurrió un error al subscribirse, ¡inténtelo nuevamente!'
+      })
+    })
+  }
+  
   return(
-    <div className="flex flex-col justify-center items-center w-full z-[9999]">
+    <div className="flex flex-col justify-center items-center w-full">
       
       {/*Top Footer*/}
       <section className="w-3/4 bg-page-gray-light h-28 flex gap-x-5 justify-center items-center max-lg:flex-wrap max-lg:w-full">
@@ -29,7 +83,7 @@ export default function Footer() {
           No pierdas la oportunidad de suscribirte
         </h1>
         <form 
-          action="none"
+          onSubmit={handleSubscribe}
           className="flex rounded-lg"
         >
           <div className="flex bg-page-white justify-center items-center rounded-md">
@@ -39,10 +93,14 @@ export default function Footer() {
             <input 
               type="email" 
               className="rounded-md outline-none px-2 w-[200px]"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
               placeholder="Ingresa tu mail"
             />
           </div>
-          <button type="button" className="bg-page-lightblue text-page-white py-2 px-3 rounded-lg hover:bg-page-blue-dark duration-300">
+          <button 
+            type='submit'
+            className="bg-page-lightblue text-page-white py-2 px-3 rounded-lg hover:bg-page-blue-dark duration-300">
             Suscribir
           </button>
         </form>
@@ -50,11 +108,13 @@ export default function Footer() {
       
       {/* Mid Footer */}
       <section className="relative grid items-center justify-center grid-cols-6 max-[1500px]:grid-cols-4 w-full box-border pt-10 pl-[100px] max-[1500px]:pr-[50px] max-md:pl-0 max-md:pr-0 bg-page-blue-normal text-white gap-5 py-3">
-        <article className="flex flex-col px-1 max-[1500px]:col-span-5 max-[1500px]:flex-row max-[1500px]:items-center max-md:flex-wrap max-md:pl-10"
+        <article className="flex flex-col px-1 
+        max-[1500px]:col-span-5 max-[1500px]:flex-row max-[1500px]:items-center 
+        max-[900px]:flex-col max-[900px]:gap-0 max-[900px]:pb-10 max-md:pl-10 max-sm:pl-[10px]"
         >
           <img 
             src="/logo-tline.svg"
-            className="rounded-3xl h-[140px] object-cover w-[300px]"
+            className="rounded-3xl h-[140px] object-cover w-[300px] pr-10 max-[900px]:object-cover max-[900px]:w-[350px]"
           />
           <ul className="flex flex-col text-page-gray-light max-[1500px]:justify-center max-[1500px]:pt-10">
             <li>
@@ -87,11 +147,11 @@ export default function Footer() {
 
           <ul className="text-page-gray-light flex flex-col gap-y-1">
             <li>
-              <NavLink to={`/search/?category=electrodomesticos`} 
+              <NavLink to={`/search/?category=electro y aires`} 
                 className="hover:text-page-blue-darkMarine duration-300">
                 Electrodomésticos
               </NavLink>
-            </li>
+            </li> 
             <li>
               <NavLink to={`/search/?category=informatica`} 
                 className="hover:text-page-blue-darkMarine duration-300">
@@ -213,7 +273,7 @@ export default function Footer() {
           </ul> 
         </article>
         <div className="
-        max-lg:absolute top-10 right-5 
+        min-[900px]:absolute top-10 right-5 pr-5
         max-sm:top-[50rem]">
           <a href="http://qr.afip.gob.ar/?qr=ZvNKTXvJURZjjL1woDCRkg,," target="_F960AFIPInfo">
             <img className="rounded-lg" src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg" border="0" width={100}></img>

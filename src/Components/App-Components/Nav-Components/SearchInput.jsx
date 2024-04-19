@@ -1,8 +1,7 @@
 import { FaSearch } from 'react-icons/fa'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
-import { productsFilter } from '../../../Mocks/processProducts'
-import productsJson from '../../../Data/products.json'
+import Spinner from '../../Products/Spinner'
 
 export default function SearchInput() {
   const [keyword, setKeyword] = useState('')
@@ -26,6 +25,10 @@ export default function SearchInput() {
       setSearchMenu(false)
     }
   }
+
+  useEffect(() => {
+    setSearchMenu(false)
+  }, [location.search, navigate])
 
   useEffect(() =>{
     document.addEventListener('click', handleClickOutside)
@@ -55,19 +58,43 @@ export default function SearchInput() {
 }
 
 function SearchResults({ keyword }) {
-  const products = productsFilter(productsJson)
+  const [products, setProducts] = useState(null)
+  const [loading, setLoading] = useState(true)
+  
+  useEffect(() => {
+    (async function () {
+      try {
+        const response = await fetch('https://technologyline.com.ar/api/products');
+        if (!response.ok) {
+          throw new Error('Error al obtener productos');
+        }
+        const data = await response.json();
+        setProducts(data);
+        setLoading(false);
+      } 
+      catch (err) {
+        console.log(err)
+      }
+    })()
+  }, [])
+
+  if(loading){
+    return(
+      <section className='flex flex-col absolute top-10 gap-2 w-full max-h-[500px] bg-white border-2 rounded-lg z-[9999] overflow-y-auto p-3 h-[500px]'>
+        <Spinner />
+      </section>
+    )
+  }
+
   const maxNameLength = 50
-  const formattedPrice = (price) => parseFloat(price).toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })
+  const formattedPrice = (price) => parseFloat(price).toLocaleString(undefined)
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(keyword.toLowerCase()) ||
     product.sub_category.toLowerCase().includes(keyword.toLowerCase())
   )
   return (
-    <section id='hiddenMenuSearch' className={`flex flex-col absolute top-10 gap-2 w-full max-h-[500px] bg-white border-2 rounded-lg z-[9999] overflow-y-auto p-3 ${filteredProducts.length === 0 ? 'h-14' : 'h-[500px]'}`}>
+    <section className={`flex flex-col absolute top-10 gap-2 w-full max-h-[500px] bg-white border-2 rounded-lg z-[9999] overflow-y-auto p-3 ${filteredProducts.length === 0 ? 'h-14' : 'h-[500px]'}`}>
     {filteredProducts.length === 0 
     ? (
       <div>
@@ -84,9 +111,10 @@ function SearchResults({ keyword }) {
           className="flex box-border items-center justify-between bg-white p-1 hover:border-[#333] duration-500 border-2 rounded-xl hover:cursor-pointer z-[99999] w-full min-h-[150px] max-h-[150px] drop-shadow-lg">
           <header className="w-[50%] h-full box-border">
             <img 
-              src={`https://www.technologyline.com.ar/products-images/${product.sku}.jpg`} 
-              loading="lazy"
+              src={product.img_base} 
+              loading="eager"
               alt={product.name}
+              onError={(e) => e.target.src = 'page-icon.jpeg'}
               className="w-full h-full object-contain" 
             />
           </header>

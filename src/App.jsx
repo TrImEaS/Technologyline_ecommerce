@@ -49,8 +49,9 @@ function App() {
       </Routes>
       <a 
         href="https://wa.me/" 
+        id='wpp-icon'
         className={`flex fixed justify-center items-center bottom-[125px] right-5 cursor-pointer w-12 h-12 bg-[#25d366] rounded-2xl duration-300 hover:w-14 hover:h-14
-        max-sm:absolute max-sm:bottom-[293px] max-sm:right-[26%] max-sm:bg-transparent z-[999999]"
+        max-sm:absolute max-sm:bottom-[293px] max-sm:right-[26%] max-sm:bg-transparent"
         target="_blank`}>
         <FaWhatsapp className="text-white text-[40px]"/>
       </a>

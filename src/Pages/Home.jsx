@@ -5,18 +5,38 @@ import CategoriesCarousel from '../Components/Home-Components/CategoriesCarousel
 import homeicon1 from '../Assets/Some-icons/home-icon1.svg'
 import homeicon2 from '../Assets/Some-icons/home-icon3.svg'
 import homeicon3 from '../Assets/Some-icons/home-icon2.svg'
-import jsonProducts from '../Data/products.json'
-import { productsFilter } from '../Mocks/processProducts.js'
+import Spinner from '../Components/Products/Spinner.jsx'
+import { useEffect, useState } from 'react'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 
-// <Suspense>fallback={<div>Loading...</div>}></Suspense>
-
 export default function Home() {
-  const products = productsFilter(jsonProducts)
-  const saleProducts = products.filter(product => product.brand.toLowerCase().includes('gama') && parseFloat(product.price) < 50000.00)
-  const newProducts = products.filter(product => parseFloat(product.price) > 1000000)
-  const recomendProducts = products.filter(product => product.name.toLowerCase().includes('tv') && !product.name.toLowerCase().includes('ventilador'))
+  const [products, setProducts] = useState(null)
+  const [loading, setLoading] = useState(true)
 
+  useEffect(() => {
+    (async function () {
+      try {
+        const response = await fetch('https://technologyline.com.ar/api/products');
+        if (!response.ok) {
+          throw new Error('Error al obtener productos');
+        }
+        const data = await response.json();
+        setProducts(data);
+        setLoading(false);
+      } 
+      catch (err) {
+        console.log(err)
+      }
+    })()
+  }, [])
+
+  if(loading){
+    return(<Spinner/>)
+  }
+
+  const saleProducts = products.filter(product => product.brand.toLowerCase().includes('gama') && parseFloat(product.price) < 50000.00).slice(0,9)
+  const newProducts = products.filter(product => parseFloat(product.price) > 1000000).slice(0,9)
+  const recomendProducts = products.filter(product => product.sub_category.toLowerCase().includes('televisores') && !product.name.toLowerCase().includes('ventilador') && !product.name.toLowerCase().includes('control')).slice(0,9)
   return (
       <div 
         name='home' 
@@ -63,8 +83,8 @@ export default function Home() {
         </section>
 
         {/*Products sale carousel*/}
-        <div className='flex flex-col gap-y-20 w-3/4'>
-          <section className='flex flex-col justify-center w-full gap-y-10'>
+        <div className='flex flex-col gap-y-20 w-[82%] max-sm:w-[71%]'>
+          <section className='relative flex flex-col justify-center w-full gap-y-10'>
             <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4'>
               OFERTAS
             </h1>
@@ -72,7 +92,7 @@ export default function Home() {
           </section>
 
           {/*Products news carousel*/}
-          <section className='flex flex-col justify-center w-full gap-y-10'>
+          <section className='relative flex flex-col justify-center w-full gap-y-10'>
             <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4'>
               NOVEDADES
             </h1> 
@@ -80,7 +100,7 @@ export default function Home() {
           </section>
 
           {/*Products recomendations carousel*/}
-          <section className='flex flex-col justify-center w-full gap-y-10'>
+          <section className='relative flex flex-col justify-center w-full gap-y-10'>
             <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4'>
               TE RECOMENDAMOS
             </h1>

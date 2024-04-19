@@ -1,26 +1,49 @@
-import jsonProducts from '../../../Data/products.json'
 import { useState, useEffect } from "react"
 import { useLocation, NavLink } from "react-router-dom"
 import { FaBars } from 'react-icons/fa'
-import { productsFilter } from '../../../Mocks/processProducts.js'
+import Spinner from "../../Products/Spinner"
 
 export default function CategoriesMenu () {
   const [categoriesHideMenu, setCategoriesHideMenu] = useState(false)
   const location = useLocation()
-  const products = productsFilter(jsonProducts)
-  const uniqueCategories = [...new Set(products.map(product => product.category))]
-  const uniqueSubCategories = [...new Set(products.map(product => product.sub_category))]
-  const selectedCategories = [
-    'Informatica',
-    'Electro y Aires',
-    'Tecnologia',
-    'TV y Audio',
-    'Mas categorias',
-  ]
+  const [products, setProducts] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    setCategoriesHideMenu(false)
+    (async function () {
+      try {
+        const response = await fetch('https://technologyline.com.ar/api/products');
+        if (!response.ok) {
+          throw new Error('Error al obtener productos');
+        }
+        const data = await response.json();
+        setProducts(data);
+        setLoading(false);
+      } 
+      catch (err) {
+        console.log(err)
+      }
+    })()
+  }, [])
+
+  useEffect(() => {
+    setCategoriesHideMenu(false);
   }, [location.search]);
+
+  if(loading){
+    return(<Spinner/>)
+  }
+
+  const uniqueCategories = [...new Set(products.map(product => product.category))]
+  const uniqueSubCategories = [...new Set(products.map(product => product.sub_category))]
+
+  const selectedCategories = [
+    'Informatica',
+    'TV y Audio',
+    'Tecnologia',
+    'Electro y Aires',
+    'Mas categorias',
+  ]
 
   const handleClickCategories = () => setCategoriesHideMenu(!categoriesHideMenu)
 
@@ -42,10 +65,10 @@ export default function CategoriesMenu () {
 
         {/*Categorias hide menu */}
         {categoriesHideMenu ?
-          <div className='absolute flex items-center justify-center min-h-[300px] p-10 mt-[15px] z-50 max-xl:w-4/6 bg-slate-100 min-w-[300px]'>
-            <section className='grid grid-cols-3 max-xl:grid-cols-2 max-md:grid-cols-1 justify-center gap-x-10 gap-y-2 text-black'>
+          <div className='absolute flex items-center justify-center rounded-lg min-h-[300px] p-10 mt-[15px] max-w-[1300px] z-[99999999] max-xl:w-4/6 bg-slate-100 min-w-[300px]'>
+            <section className='flex flex-wrap justify-evenly gap-5 text-black'>
               
-              <div className='w-full h-12 col-span-3 max-xl:col-span-2 max-md:col-span-1 border-b-[4px] border-page-lightblue'>
+              <div className='w-full h-12 border-b-[4px] border-page-lightblue'>
                 <NavLink 
                   to={'/search'} 
                   onClick={handleClickCategories} 
@@ -56,7 +79,7 @@ export default function CategoriesMenu () {
 
               {/*Mapear Categorias */}
               {uniqueCategories.map((category, index) => (
-              <div key={category}>
+              <div className="max-md:w-full min-w-[280px]" key={category}>
                 <ul 
                   className='flex flex-wrap justify-between py-4'
                 >
@@ -77,8 +100,7 @@ export default function CategoriesMenu () {
                   .map(sub_category => (
                     <li 
                       key={sub_category} 
-                      className='hover:text-page-lightblue text-xs duration-300'
-                    >
+                      className='hover:text-page-lightblue text-xs duration-300'>
                       <NavLink 
                         to={`/search/?category=${category.toLowerCase()}&sub_category=${sub_category.toLowerCase()}`}
                         onClick={handleClickCategories}>

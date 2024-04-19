@@ -1,82 +1,44 @@
-import { useEffect, useState } from "react"
-import { NavLink } from "react-router-dom"
 import Spinner from './Products/Spinner'
+import { NavLink } from "react-router-dom"
+import { useEffect, useState } from "react"
 
-export default function ProductCard({ img, price, name, sku }) {
-  const imageNotFound = 'https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg'
+export default function ProductCard({ price, name, sku, img }) {
   const maxNameLength = 50
   const limitedName = name.length > maxNameLength ? `${name.substring(0, maxNameLength)}...`: name
-  const formattedPrice = parseInt(price).toLocaleString(undefined)
-  const [imageSrc, setImageSrc] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
+  const formattedPrice = parseFloat(price).toLocaleString(undefined)
+  const [imageLoaded, setImageLoaded] = useState(false)
 
   useEffect(() => {
-    const loadImage = async (sku) => {
-      setLoading(true)
+    const image = new Image()
+    image.src = img
 
-      const baseUrl = '../../products-images'
-      const mainImage = `${baseUrl}/${sku}.jpg`
-      if (await imageExists(mainImage)) {
-        setImageSrc(mainImage)
-        setLoading(false)
-      }
-      else {
-        setImageSrc(imageNotFound)
-        setLoading(false)
-      }
+    image.onload = () => {
+      setImageLoaded(true)
     }
 
-    if (sku) {
-      loadImage(sku)
+    image.onerror = () => {
+      setImageLoaded(true)
     }
-  }, [sku])
 
-  const imageExists = async (url) => {
-    return new Promise((resolve) => {
-      const img = new Image()
-      img.onload = () => {
-        resolve(true)
-      }
-      img.onerror = () => {
-        resolve(false)
-      }
-      img.src = url
-    })
-  }
-
-  const handleImageLoad = () => {
-    setLoading(false)
-  }
-
-  const handleImageError = () => {
-    setLoading(false)
-    setError(true)
-  }
+    return () => {
+      image.onload = null
+      image.onerror = null
+    }
+  }, [img])
 
   return(
     <NavLink
       to={`/products/?product=${sku}`} 
-      className="flex flex-col box-border items-center justify-between bg-white p-2 drop-shadow-xl hover:border-[#333] duration-500 border-2 rounded-xl hover:cursor-pointer min-h-[400px] h-[400px] w-[270px] min-w-[270px]">
+      className="flex flex-col box-border items-center justify-between bg-white p-2 ml-3 max-[350px]:ml-1 drop-shadow-xl hover:border-[#333] duration-500 border-2 rounded-xl hover:cursor-pointer min-h-[400px] h-[400px] w-[270px] min-w-[270px]">
       <header className="w-full h-[55%] box-border">
-        {loading && <Spinner />}
-        {error && 
-          <img 
-            src={imageSrc} 
-            alt="Image not found"
-            loading="eager" 
-            className={`w-full h-full object-contain rounded-lg`}/>
-        }
-        {!loading && !error && (
-          <img 
-            src={imageSrc}
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-            loading="eager"
-            alt={name}
-            className={`w-full h-full object-contain rounded-lg`} 
-          />
-        )}
+        {!imageLoaded && <Spinner />}
+        <img 
+          src={img}
+          alt={name}
+          loading="eager" 
+          className={`w-full h-full object-contain rounded-lg ${imageLoaded ? '' : 'hidden'}`}
+          onError={(e) => e.target.src = 'page-icon.jpeg'}
+        />
       </header>
 
       <article className="w-full h-[35%] box-border flex flex-col justify-between">

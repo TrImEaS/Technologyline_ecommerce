@@ -1,44 +1,50 @@
-import React, { useState, useEffect } from 'react'
-import { productsFilter } from '../Mocks/processProducts.js'
-import { useNavigate } from 'react-router-dom'
-import productsJson from '../Data/products.json'
+import React from 'react'
 import ProductsCarousel from '../Components/ProductsCarousel.jsx'
 import ImageSlider from '../Components/Products/ImageSlider.jsx'
 import Spinner from '../Components/Products/Spinner.jsx'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function Products () {
-  const [product, setProduct] = useState('')
   const [loadedImages, setLoadedImages] = useState([])
   const [loadingImages, setLoadingImages] = useState(false)
-  const formattedPrice = parseInt(product.price).toLocaleString(undefined)
-
-  let cat = product.sub_category || ''
-  let name = product.name || ''
+  const [product, setProduct] = useState(null)
+  const [products, setProducts] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [descriptionMenu, setDescriptionMenu] = useState('desc')
+  const productQuery = new URLSearchParams(location.search).get('product')
   const navigate = useNavigate()
-  const products = productsFilter(productsJson)
-  const recomendProducts = products
-  .filter(
-    product => product.sub_category.toLowerCase().includes(cat.toLowerCase()) && 
-    !product.name.toLowerCase().includes(name.toLowerCase()))
-  .sort((a, b) => parseFloat(b.price) - parseFloat(a.price)).slice(0,10)
 
   useEffect(() => {
-    const productQuery = new URLSearchParams(location.search).get('product')
-    const newProduct = products.find(product => product.sku === productQuery)
-
-    if (!newProduct) {
-      navigate('/error')
-    } else {
-      setLoadingImages(true)
-      setProduct(newProduct)
-    }
-
+    
+    (async function () {
+      try {
+        const response = await fetch('https://technologyline.com.ar/api/products');
+        if (!response.ok) {
+          throw new Error('Error al obtener productos');
+        }
+        const data = await response.json();
+        const newProduct = data.find(product => product.sku === productQuery)
+        if (!newProduct) {
+          navigate('/error')
+        } 
+        else {
+          setLoadingImages(true)
+          setProduct(newProduct)
+          setProducts(data)
+          setLoading(false);
+        }
+      } 
+      catch (err) {
+        console.log(err)
+      }
+    })()
   }, [location.search, navigate])
-
+  
   useEffect(() => {
     const loadImages = async (product) => {
       const images = []
-      const baseUrl = '../../products-images'
+      const baseUrl = 'https://technologyline.com.ar/products-images'
   
       // Cargar la imagen principal
       const mainImage = `${baseUrl}/${product.sku}.jpg`
@@ -65,7 +71,7 @@ export default function Products () {
       loadImages(product)
     }
   }, [product])
-
+  
   const imageExists = (url) => {
     return new Promise((resolve) => {
       const img = new Image()
@@ -79,7 +85,20 @@ export default function Products () {
     })
   }
 
-  const getStockQuantity = () => {
+  if(loading){
+    return(<Spinner/>)
+  }
+
+  const formattedPrice = parseInt(product.price).toLocaleString(undefined)
+  let cat = product.sub_category || ''
+  let name = product.name || ''
+  const recomendProducts = products
+  .filter(
+    product => product.sub_category.toLowerCase().includes(cat.toLowerCase()) && 
+    !product.name.toLowerCase().includes(name.toLowerCase()))
+  .sort((a, b) => parseFloat(b.price) - parseFloat(a.price)).slice(0,9)
+
+  const handleStockQuantity = () => {
     const quantity = product.stock
     if(quantity === 3){
       return (
@@ -104,16 +123,31 @@ export default function Products () {
     )
   }
 
-  return (
-    <section className={`flex flex-col items-center h-full w-[90%] gap-y-14 py-14 max-md:pt-10`}>
+  const handleAddViewToProduct = async () => {
+    await fetch(`https://technologyline.com.ar/api/products/addView/${product.id}`,{
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(response => {
+      if(!response.ok){
+        return console.log('Error al sumar una view')
+      }
+      console.log('view updated')
+    })
+    .catch(e => console.error('Error al sumar view al producto: ', e))
 
-      <header className='w-full h-full flex max-md:flex-col justify-center sm:p-5 bg-[#f2f2f2] rounded-3xl py-5'>
+  }
+
+  return (
+    <section className={`flex flex-col items-center h-full w-full gap-y-14 py-14 max-md:pt-10`}>
+
+      <header className='w-[90%] h-full flex max-md:flex-col justify-center sm:p-5 bg-[#f2f2f2] rounded-3xl py-5'>
         <section className='w-[55%] max-sm:w-full h-full'>
         {loadingImages ? <Spinner /> : <ImageSlider loadedImages={loadedImages}/>}
         </section>
 
-        <section className='flex flex-col w-[45%] justify-start max-sm:px-10 items-start py-5 h-full max-md:w-full'>
-          <div className='min-h-[250px] flex flex-col gap-y-2'>
+        <section className='flex flex-col w-[45%] justify-start max-sm:px-10 items-start py-8 h-full max-md:w-full'>
+          <div className='min-h-[200px] flex flex-col gap-y-2'>
             <h1 className='font-semibold text-2xl'>
               {product.name}
             </h1>
@@ -131,44 +165,52 @@ export default function Products () {
                   Stock:
                 </span>
                 <span className='font-bold'>
-                  {getStockQuantity()}
+                  {handleStockQuantity()}
                 </span>
               </div>
-              <span>EAN: {product.ean}</span>
+              <span>{product.ean && 'EAN: ' + product.ean}</span>
             </div>
           </div>
 
           <div className='w-[65%]'>
-            <button className='rounded-lg border border-black font-bold hover:bg-black hover:text-white duration-300 px-3 py-2'>
+            <button 
+            onClick={handleAddViewToProduct}
+            className='rounded-xl border-2 border-black font-bold hover:bg-black hover:text-white active:text-sm active:duration-0 duration-300 w-[190px] h-[50px]'>
               Consultar Articulo
             </button>
           </div>
         </section>
       </header>
 
-      <div className='flex flex-col w-full bg-page-gray-light rounded-lg font-bold'>
+      <div className='flex flex-col w-[82%] bg-page-gray-light rounded-lg font-bold'>
         <div className='flex p-2 gap-x-3'>
-          <span>Descripción</span>
-          <span>|</span>
-          <span>Especificaciones</span>
+          <span 
+            onClick={() => setDescriptionMenu('desc')}          
+            className={`${descriptionMenu === 'desc' ? 'bg-white' : ''} hover:font-bold hover:bg-white rounded-xl px-2 py-1 duration-300 cursor-pointer`}>
+            Descripción
+          </span>
+          <span className='py-1'>|</span>
+          <span 
+            onClick={() => setDescriptionMenu('spec')}
+            className={`${descriptionMenu === 'spec' ? 'bg-white' : ''} hover:font-bold hover:bg-white rounded-xl px-2 py-1 duration-300 cursor-pointer`}>
+            Especificaciones
+          </span>
         </div>
-        <div className='p-2 bg-gray-100'>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam ipsa, eligendi, 
-            velit maxime expedita reprehenderit magnam qui mollitia ex voluptate doloremque alias. 
-            Architecto incidunt perferendis consequuntur harum consectetur enim cumque!
-          </p>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam ipsa, eligendi, 
-          velit maxime expedita reprehenderit magnam qui mollitia ex voluptate doloremque alias. 
-          Architecto incidunt perferendis consequuntur harum consectetur enim cumque!
-          </p>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam ipsa, eligendi, 
-          velit maxime expedita reprehenderit magnam qui mollitia ex voluptate doloremque alias. 
-          Architecto incidunt perferendis consequuntur harum consectetur enim cumque!
-          </p>
+        <div className='p-2 bg-gray-100 min-h-[100px]'>
+          {descriptionMenu === 'desc' 
+          ?
+            <p>
+              {product.description ? '' : 'Este articulo no posee descripciones.'}
+            </p>
+          :
+            <p>
+              {product.specifications ? '' : 'Este articulo no posee especificaciones.'}
+            </p>
+          }
         </div>
       </div>
 
-      <section className='flex flex-col w-full gap-y-10'>
+      <section className='flex flex-col gap-y-10 w-[82%] max-sm:w-[70%]'>
         {/* Seccion de descripcion */}
         <div className='w-full flex flex-col gap-y-10'>
           <span className='text-3xl font-bold max-sm:text-2xl'>

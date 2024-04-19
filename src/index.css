@@ -6,6 +6,10 @@
   background-color: skyblue;
 }
 
+#wpp-icon {
+  z-index: 9999;
+}
+
 #btn:hover {
   filter: drop-shadow(white 1px 1px 15px ) ;
 }

@@ -1,14 +1,11 @@
 import ProductsSearch from '../Components/Search-Components/ProductsSearch.jsx'
 import CategoriesFilters from '../Components/Search-Components/CategoriesFilters.jsx'
-import productsJson from '../Data/products.json'
-import { productsFilter } from '../Mocks/processProducts.js'
 import { useState, useEffect } from 'react'
 import { useLocation, Outlet, NavLink } from 'react-router-dom'
+import Spinner from '../Components/Products/Spinner.jsx'
 
 export default function Search () {
   const location = useLocation()
-  const [filterMenu, setFilterMenu] = useState(false)
-  const [sortOption, setSortOption] = useState('default')
   const [filters, setFilters] = useState({
     category: 'all',
     minPrice: 0.00,
@@ -19,6 +16,27 @@ export default function Search () {
     search_brand: '',
     search: '',
   })
+  const [filterMenu, setFilterMenu] = useState(false)
+  const [sortOption, setSortOption] = useState('default')
+  const [products, setProducts] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    (async function () {
+      try {
+        const response = await fetch('https://technologyline.com.ar/api/products');
+        if (!response.ok) {
+          throw new Error('Error al obtener productos');
+        }
+        const data = await response.json();
+        setProducts(data);
+        setLoading(false);
+      } 
+      catch (err) {
+        console.log(err)
+      }
+    })()
+  }, [])
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search)
@@ -34,8 +52,10 @@ export default function Search () {
 
     setFilterMenu(false)
   }, [location.search])
-
-  const products = productsFilter(productsJson)
+  
+  if(loading){
+    return(<Spinner/>)
+  }
 
   const filterProducts = (products) => {
     const sortedProducts = products.sort((a, b) => {
@@ -99,8 +119,8 @@ export default function Search () {
   {/*Componente search*/}
   return (
     <section className="flex flex-col w-3/4 items-center py-10">
-      <header className="flex w-4/5 justify-end pb-14 max-sm:flex-col">
-        <article className="flex items-center w-full max-sm:justify-center">
+      <header className="flex w-4/5 justify-end gap-y-5 pb-14 max-sm:flex-col max-sm:w-full max-sm:items-center max-sm:pb-8">
+        <article className="flex items-center w-full max-sm:w-4/5">
           <div>
             <NavLink
               className={'group font-semibold hover:text-page-lightblue duration-300'} 
@@ -199,23 +219,23 @@ export default function Search () {
 
         </article>
       </header>
-
+      
       <main className="flex max-lg:flex-col gap-x-3 w-full h-full">
-        {/*Aside filters max screen*/}
-        <aside className="max-[1366px]:hidden flex flex-col gap-y-8 min-w-[15%] w-[15%] pt-2">
-          <div className='max-[1366px]:hidden flex flex-col gap-y-8'>
-            <CategoriesFilters 
-              onFilterChange={setFilters} 
-              products={filteredProducts}/>
-            <button onClick={handleResetFilters} className='h-10 flex items-center justify-center bg-white rounded-lg hover:bg-black hover:text-white duration-500 active:text-sm active:duration-0 font-bold border border-black'>
-              Limpiar Filtros
-            </button>
-          </div>
-        </aside>
-        
-        <section className='w-full'>
-          <ProductsSearch products={filteredProducts}/>
-        </section>
+      {/*Aside filters max screen*/}
+      <aside className="max-[1366px]:hidden flex flex-col gap-y-8 min-w-[15%] w-[15%] pt-2">
+        <div className='max-[1366px]:hidden flex flex-col gap-y-8'>
+          <CategoriesFilters 
+            onFilterChange={setFilters} 
+            products={filteredProducts}/>
+          <button onClick={handleResetFilters} className='h-10 flex items-center justify-center bg-white rounded-lg hover:bg-black hover:text-white duration-500 active:text-sm active:duration-0 font-bold border border-black'>
+            Limpiar Filtros
+          </button>
+        </div>
+      </aside>
+      
+      <section className='w-full'>
+        <ProductsSearch products={filteredProducts}/>
+      </section>
       </main>
 
       <Outlet/>

@@ -2,21 +2,18 @@ import { useState } from "react"
 import { NavLink } from "react-router-dom"
 import { FaAngleUp, FaAngleDown } from 'react-icons/fa'
 import { GoTriangleRight } from "react-icons/go"
-import { getAllSubCategories, getAllBrands } from '../../Mocks/processProducts.js'
 
-
-export default function CategoriesFilters ({ products, onFilterChange, onChange }) {
-  //Arreglar para que reciba el array products filtrado
+export default function CategoriesFilters ({ products, onFilterChange }) {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false)
   const [isBrandOpen, setIsBrandOpen] = useState(false)
   const [isPriceOpen, setIsPriceOpen] = useState(false)
-  const [minPrice, setMinPrice] = useState(0)
-  const [maxPrice, setMaxPrice] = useState(0)
+  const [minPrice, setMinPrice] = useState('')
+  const [maxPrice, setMaxPrice] = useState('')
   const [visibleCategories, setVisibleCategories] = useState(5)
   const [visibleBrands, setVisibleBrands] = useState(5)
-  
-  const categories = getAllSubCategories(products)
-  const brands = getAllBrands(products)
+
+  const categories = [...new Set(products.map(product => product.sub_category))]
+  const brands = [...new Set(products.map(product => product.brand))]
 
   const handleToggleCategory = () => setIsCategoryOpen(!isCategoryOpen)
   const handleToggleBrand = () => setIsBrandOpen(!isBrandOpen)
@@ -53,14 +50,14 @@ export default function CategoriesFilters ({ products, onFilterChange, onChange 
         <section className={`${isCategoryOpen ? 'hidden' : 'flex'} flex-col gap-y-2`}>
           {categories.slice(0, visibleCategories).map((category) => (
             <div 
-              key={category.name} 
+              key={category} 
               className="flex cursor-pointer group">
               <NavLink 
                 className={'flex hover:text-page-blue-normal duration-300 items-center gap-x-1'} 
-                to={`${window.location.pathname}${window.location.search ? `${window.location.search}&` : '/?'}sub_category=${category.name.toLowerCase()}`}>
+                to={`${window.location.pathname}${window.location.search ? `${window.location.search}&` : '/?'}sub_category=${category.toLowerCase()}`}>
                 <span><GoTriangleRight/></span>
                 <span className="group-hover">
-                  {category.name.charAt(0).toUpperCase() + category.name.slice(1).toLowerCase()}
+                  {category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()}
                 </span>
               </NavLink>
             </div>
@@ -93,12 +90,12 @@ export default function CategoriesFilters ({ products, onFilterChange, onChange 
         <section className={`${isBrandOpen ? 'hidden' : 'flex'} flex-col gap-y-2`}>
           {brands.slice(0, visibleBrands).map((brand) => (
             <div 
-              key={brand.name} 
+              key={brand} 
               className="flex cursor-pointer group">
-              <NavLink className={'flex hover:text-page-blue-normal duration-300 items-center gap-x-1'} to={`${window.location.pathname}${window.location.search ? `${window.location.search}&` : '/?'}brand=${brand.name.toLowerCase()}`}>
+              <NavLink className={'flex hover:text-page-blue-normal duration-300 items-center gap-x-1'} to={`${window.location.pathname}${window.location.search ? `${window.location.search}&` : '/?'}brand=${brand.toLowerCase()}`}>
                 <span><GoTriangleRight/></span>
                 <span className="group-hover">
-                  {brand.name.charAt(0).toUpperCase() + brand.name.slice(1).toLowerCase()}
+                  {brand.charAt(0).toUpperCase() + brand.slice(1).toLowerCase()}
                 </span>
               </NavLink>
             </div>
