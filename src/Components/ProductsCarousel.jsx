@@ -32,10 +32,13 @@ export default function ProductsCarousel({ filterProducts }) {
 
   const settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 3000,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
+    pauseOnDotsHover: true,
     nextArrow: <NextArrow/>,
     prevArrow: <PrevArrow/>,
     responsive: [
@@ -56,7 +59,7 @@ export default function ProductsCarousel({ filterProducts }) {
         }
       },
       {
-        breakpoint: 425,
+        breakpoint: 525,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1

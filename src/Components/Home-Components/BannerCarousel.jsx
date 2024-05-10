@@ -2,20 +2,23 @@ import { useEffect, useState } from 'react'
 import { Carousel } from 'react-responsive-carousel'
 import banner1 from '../../Assets/BannerCarousel-images/banner1.jpg'
 import banner2 from '../../Assets/BannerCarousel-images/banner2.jpg'
-import bannerMobile_1 from '../../Assets/BannerCarousel-images/banner-mobile.png'
-import bannerMobile_2 from '../../Assets/BannerCarousel-images/banner-mobile2.png'
+import banner3 from '../../Assets/BannerCarousel-images/banner3.jpg'
+import bannerMobile_1 from '../../Assets/BannerCarousel-images/banner-mobile.jpg'
+import bannerMobile_2 from '../../Assets/BannerCarousel-images/banner-mobile2.jpg'
+import bannerMobile_3 from '../../Assets/BannerCarousel-images/banner-mobile3.jpg'
 
 export default function BannerCarousel() {
   const screenWidth = window.innerWidth;
   const mobileScreen = 768
   const [currentBanner1, setCurrentBanner1] = useState(window.innerWidth < mobileScreen ? bannerMobile_1 : banner1)
   const [currentBanner2, setCurrentBanner2] = useState(window.innerWidth < mobileScreen ? bannerMobile_2 : banner2)
-  // const [currentBanner3, setCurrentBanner3] = useState(window.innerWidth < mobileScreen ? bannerMobile_3 : banner3)
+  const [currentBanner3, setCurrentBanner3] = useState(window.innerWidth < mobileScreen ? bannerMobile_3 : banner3)
 
   useEffect(() => {
     const handleResize = () => {
       setCurrentBanner1(window.innerWidth < mobileScreen ? bannerMobile_1 : banner1)
       setCurrentBanner2(window.innerWidth < mobileScreen ? bannerMobile_2 : banner2)
+      setCurrentBanner3(window.innerWidth < mobileScreen ? bannerMobile_3 : banner3)
     }
 
     window.addEventListener('resize', handleResize);
@@ -28,7 +31,7 @@ export default function BannerCarousel() {
         autoPlay={5000}
         infiniteLoop
         stopOnHover
-        transitionTime={500}
+        transitionTime={300}
         showThumbs={0}
         swipeable
         emulateTouch
@@ -55,9 +58,12 @@ export default function BannerCarousel() {
             loading="lazy"
           />
         </div>
-        {/* <div>
-          <img src={''} alt="" />
-        </div> */}
+        <div className="w-full h-full">
+          <img 
+            src={currentBanner3}
+            className="h-full w-full object-fill"
+            loading="lazy"/>
+        </div>
       </Carousel>
     </section>
   )

@@ -89,7 +89,7 @@ export default function Products () {
     return(<Spinner/>)
   }
 
-  const formattedPrice = parseInt(product.price).toLocaleString(undefined)
+  const formattedPrice = parseFloat(product.price).toLocaleString(undefined)
   let cat = product.sub_category || ''
   let name = product.name || ''
   const recomendProducts = products
@@ -141,7 +141,7 @@ export default function Products () {
   return (
     <section className={`flex flex-col items-center h-full w-full gap-y-14 py-14 max-md:pt-10`}>
 
-      <header className='w-[90%] h-full flex max-md:flex-col justify-center sm:p-5 bg-[#f2f2f2] rounded-3xl py-5'>
+      <header className='w-[90%] h-full flex max-md:flex-col justify-center sm:p-5 rounded-3xl py-5'>
         <section className='w-[55%] max-sm:w-full h-full'>
         {loadingImages ? <Spinner /> : <ImageSlider loadedImages={loadedImages}/>}
         </section>
@@ -182,17 +182,17 @@ export default function Products () {
         </section>
       </header>
 
-      <div className='flex flex-col w-[82%] bg-page-gray-light rounded-lg font-bold'>
+      <div className='flex flex-col w-[82%] bg-blue-400 rounded-lg font-bold border shadow-lg'>
         <div className='flex p-2 gap-x-3'>
           <span 
             onClick={() => setDescriptionMenu('desc')}          
-            className={`${descriptionMenu === 'desc' ? 'bg-white' : ''} hover:font-bold hover:bg-white rounded-xl px-2 py-1 duration-300 cursor-pointer`}>
+            className={`${descriptionMenu === 'desc' ? 'text-white' : ''} hover:font-bold hover:text-white rounded-xl px-2 py-1 duration-300 cursor-pointer`}>
             Descripción
           </span>
           <span className='py-1'>|</span>
           <span 
             onClick={() => setDescriptionMenu('spec')}
-            className={`${descriptionMenu === 'spec' ? 'bg-white' : ''} hover:font-bold hover:bg-white rounded-xl px-2 py-1 duration-300 cursor-pointer`}>
+            className={`${descriptionMenu === 'spec' ? 'text-white' : ''} hover:font-bold hover:text-white rounded-xl px-2 py-1 duration-300 cursor-pointer`}>
             Especificaciones
           </span>
         </div>
@@ -218,6 +218,14 @@ export default function Products () {
           </span>
           <ProductsCarousel filterProducts={recomendProducts}/>
         </div>
+
+        <div className='w-full flex flex-col gap-y-10'>
+          <span className='text-3xl font-bold max-sm:text-2xl'>
+            Ofertas recomendadas
+          </span>
+          <ProductsCarousel filterProducts={recomendProducts}/>
+        </div>
+
 
       </section>
     </section>

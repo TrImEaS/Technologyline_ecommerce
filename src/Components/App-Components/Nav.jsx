@@ -6,7 +6,7 @@ import SearchInput from './Nav-Components/SearchInput.jsx'
 export default function Nav() {
   return (
     <nav 
-      className='z-50 flex flex-col w-full relative items-center'>
+      className='z-50 flex flex-col w-full relative items-center bg-blue-400'>
     {/*---Nav top---*/}
       <section className={`flex gap-x-10 justify-between items-center h-28 w-3/4 px-2 max-md:w-full`}>
       {/*Logo*/}
@@ -14,7 +14,7 @@ export default function Nav() {
           className='h-[100px] flex items-center max-xl:justify-center'
           to='/'>
           <img 
-            src="/logo-tline.png"  
+            src="/logo-tline.svg"  
             alt="company-logo"
             className='w-[200px] max-w-[200px] pb-3'/>
         </NavLink>

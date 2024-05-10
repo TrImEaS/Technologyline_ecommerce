@@ -6,7 +6,7 @@ export default function Mayoristas () {
           Venta Mayorista
         </h1>
         <p className="text-pretty">
-          Real Color dispone de un canal de venta a empresas que proporciona a través de sus ejecutivos de cuenta y personal técnico
+          Technology Line dispone de un canal de venta a empresas que proporciona a través de sus ejecutivos de cuenta y personal técnico
           calificado un servicio personalizado y pensado para cada cliente. Ofreciendo un abanico de beneficios que nos destacan
           como una opción importante a la hora de elegir para su empresa un Proveedor Integral de Tecnología.
         </p>
@@ -45,7 +45,7 @@ export default function Mayoristas () {
             LOGÍSTICA:
           </h1>
           <span className="text-pretty">
-            Entregas a nivel nacional dentro de las 48 horas.
+            Entregas a nivel nacional dentro de las 72 horas.
           </span>
         </div>
 

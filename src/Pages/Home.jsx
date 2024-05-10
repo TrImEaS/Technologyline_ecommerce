@@ -12,6 +12,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"
 export default function Home() {
   const [products, setProducts] = useState(null)
   const [loading, setLoading] = useState(true)
+  let saleProducts
+  let newProducts
+  let recomendProducts
 
   useEffect(() => {
     (async function () {
@@ -30,19 +33,18 @@ export default function Home() {
     })()
   }, [])
 
-  if(loading){
-    return(<Spinner/>)
+  if(!loading){
+    saleProducts = products.filter(product => product.brand.toLowerCase().includes('gama') && parseFloat(product.price) < 50000.00).slice(0,9)
+    newProducts = products.filter(product => parseFloat(product.price) > 1000000).slice(0,9)
+    recomendProducts = products.filter(product => product.sub_category.toLowerCase().includes('televisores') && !product.name.toLowerCase().includes('ventilador') && !product.name.toLowerCase().includes('control')).slice(0,9)  
   }
 
-  const saleProducts = products.filter(product => product.brand.toLowerCase().includes('gama') && parseFloat(product.price) < 50000.00).slice(0,9)
-  const newProducts = products.filter(product => parseFloat(product.price) > 1000000).slice(0,9)
-  const recomendProducts = products.filter(product => product.sub_category.toLowerCase().includes('televisores') && !product.name.toLowerCase().includes('ventilador') && !product.name.toLowerCase().includes('control')).slice(0,9)
   return (
       <div 
         name='home' 
         className={`flex flex-col items-center gap-10 min-h-screen h-full w-full pb-20`}>
+        
         <BannerCarousel/>
-
         {/*Banners*/}
         <section className='flex flex-col items-center w-full gap-y-10'>
           <BannersCards/>
@@ -78,11 +80,14 @@ export default function Home() {
         </section>
 
         {/*Categories*/}
-        <section className='w-4/5 my-5'>
+        <section className='w-4/5'>
           <CategoriesCarousel/>
         </section>
 
         {/*Products sale carousel*/}
+        {
+        loading ? <Spinner/>
+        :
         <div className='flex flex-col gap-y-20 w-[82%] max-sm:w-[71%]'>
           <section className='relative flex flex-col justify-center w-full gap-y-10'>
             <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4'>
@@ -107,7 +112,7 @@ export default function Home() {
               <ProductsCarousel filterProducts={recomendProducts}/>
           </section>
         </div>
-        
+        }
       </div>
   )
 }

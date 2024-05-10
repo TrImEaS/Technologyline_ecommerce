@@ -8,6 +8,8 @@ export default function CategoriesMenu () {
   const location = useLocation()
   const [products, setProducts] = useState(null)
   const [loading, setLoading] = useState(true)
+  let uniqueCategories
+  let uniqueSubCategories
 
   useEffect(() => {
     (async function () {
@@ -34,8 +36,10 @@ export default function CategoriesMenu () {
     return(<Spinner/>)
   }
 
-  const uniqueCategories = [...new Set(products.map(product => product.category))]
-  const uniqueSubCategories = [...new Set(products.map(product => product.sub_category))]
+  if(!loading){
+    uniqueCategories = [...new Set(products.map(product => product.category))]
+    uniqueSubCategories = [...new Set(products.map(product => product.sub_category))]
+  }
 
   const selectedCategories = [
     'Informatica',

@@ -107,140 +107,143 @@ export default function Footer() {
       </section>
       
       {/* Mid Footer */}
-      <section className="relative grid items-center justify-center grid-cols-6 max-[1500px]:grid-cols-4 w-full box-border pt-10 pl-[100px] max-[1500px]:pr-[50px] max-md:pl-0 max-md:pr-0 bg-page-blue-normal text-white gap-5 py-3">
-        <article className="flex flex-col px-1 
-        max-[1500px]:col-span-5 max-[1500px]:flex-row max-[1500px]:items-center 
-        max-[900px]:flex-col max-[900px]:gap-0 max-[900px]:pb-10 max-md:pl-10 max-sm:pl-[10px]"
-        >
+      <section className="relative flex items-center justify-around w-full box-border bg-page-blue-normal text-white gap-5 py-3">
+
+        <article className="flex flex-col justify-center px-1 gap-x-5 max-[1500px]:items-center max-[900px]:flex-col max-[900px]:pb-10 max-sm:pl-[10px]">
           <img 
             src="/logo-tline.svg"
-            className="rounded-3xl h-[140px] object-cover w-[300px] pr-10 max-[900px]:object-cover max-[900px]:w-[350px]"
+            className="rounded-3xl h-[140px] object-cover min-w-[300px] max-[900px]:object-cover max-[900px]:w-[350px]"
           />
-          <ul className="flex flex-col text-page-gray-light max-[1500px]:justify-center max-[1500px]:pt-10">
-            <li>
-            </li>
-
-            <li>
-              <span>
-                Informe: lorem isupasdasda
-              </span>
-            </li>
-
-            <li>
-              <span>
-                Tel.: 1111111111
-              </span>
-            </li>
-
-            <li>
-              <span>
-                E-mail: realcolor@real-color.com.ar
-              </span>
-            </li>
-          </ul>
-        </article>
-        
-        <article className="min-h-[140px] max-lg:min-h-[200px] max-sm:min-h-[0] flex flex-col gap-y-2 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
-          <h1 className="font-bold">
-            Categorías
-          </h1>
-
-          <ul className="text-page-gray-light flex flex-col gap-y-1">
-            <li>
-              <NavLink to={`/search/?category=electro y aires`} 
-                className="hover:text-page-blue-darkMarine duration-300">
-                Electrodomésticos
-              </NavLink>
-            </li> 
-            <li>
-              <NavLink to={`/search/?category=informatica`} 
-                className="hover:text-page-blue-darkMarine duration-300">
-                Informática
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={`/search/?category=tecnologia`} 
-                className="hover:text-page-blue-darkMarine duration-300">
-                Tecnología
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={`/search/?category=mas categorias`} 
-                className="hover:text-page-blue-darkMarine duration-300">
-                Mas Categorías
-              </NavLink>
-            </li>
+          <ul className="flex flex-col text-page-gray-light min-w-[300px] max-[1500px]:justify-center pt-8">
+            <span className='flex font-bold w-full pb-2 text-white'>
+              ¡CONTACTANOS!
+            </span>
+            <span>
+              Lunes a Viernes de 09:00hs a 18:30hs
+            </span>
+            <span>
+              Tel.: 11 3369-0584
+            </span>
+            <span>
+              E-mail: pcamioc@real-color.com.ar
+            </span>
           </ul>
         </article>
 
-        <article className="min-h-[140px] max-lg:min-h-[200px] max-sm:min-h-[0]  flex flex-col gap-y-2 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
-          <h1 className="font-bold">
-            Real Color
-          </h1>
+        <div className='flex w-full max-md:flex-col items-center justify-center max-md:gap-0 pt-14'>
+          <article className="min-w-[200px] min-h-[140px]  max-lg:min-h-[200px] max-sm:min-h-[0] flex flex-col gap-y-1 text-page-gray-light">
+            <h1 className="font-bold text-white">
+              Categorías
+            </h1>
+            <NavLink to={`/search/?category=electro y aires`} className="hover:text-white duration-300">
+              Electrodomésticos
+            </NavLink>
+            <NavLink to={`/search/?category=informatica`} className="hover:text-white duration-300">
+              Informática
+            </NavLink>
+            <NavLink to={`/search/?category=tecnologia`} className="hover:text-white duration-300">
+              Tecnología
+            </NavLink>
+            <NavLink to={`/search/?category=mas categorias`} className="hover:text-white duration-300">
+              Mas Categorías
+            </NavLink>
+          </article>
 
-          <ul className="text-page-gray-light flex flex-col gap-y-1">
-            <li>
-              <NavLink 
-                to={`/others/about_us`}
-                className="hover:text-page-blue-darkMarine duration-300">
-                Sobre nosotros
-              </NavLink>
-            </li>
-            <li>
-            <NavLink 
-                to={`/others/trabaja_con_nosotros`}
-                className="hover:text-page-blue-darkMarine duration-300">
-                Trabaja con nosotros
-              </NavLink>
-            </li>
-            <li>
-              <NavLink 
-                to={`/others/sucursales`}
-                className="hover:text-page-blue-darkMarine duration-300">
-                Sucursales  
-              </NavLink>
-            </li>
-            <li>
-            <NavLink 
-                to={`/others/mayoristas`}
-                className="hover:text-page-blue-darkMarine duration-300">
-                Venta a mayoristas
-              </NavLink>
-            </li>
+          {/*Company description*/}
+          <article className="min-w-[200px] min-h-[140px] max-lg:min-h-[200px] max-sm:min-h-[0] flex flex-col text-page-gray-light gap-y-1">
+            <h1 className="font-bold text-white">
+              Technology Line
+            </h1>
+            <NavLink to={`/others/about_us`} className="hover:text-white duration-300">
+              Sobre nosotros
+            </NavLink>
+            <NavLink to={`/others/mayoristas`} className="hover:text-white duration-300">
+              Venta a mayoristas
+            </NavLink>
+            <span to={`/others/trabaja_con_nosotros`} className="text-[#ebebe446] duration-300 cursor-default">
+              Trabaja con nosotros
+            </span>
+          </article>
+
+          {/*Other information*/}
+          <article className="min-w-[200px] min-h-[140px] max-lg:min-h-[200px] max-sm:min-h-[0] flex flex-col gap-y-1 text-page-gray-light">
+            <h1 className="font-bold text-white">
+              Ayuda y información
+            </h1>
+            <NavLink to={`/others/centro_de_ayuda`} className="hover:text-white duration-300">
+              Centro de ayuda
+            </NavLink>
+            <NavLink to={`/others/garantia`} className="hover:text-white duration-300">
+              Garantia
+            </NavLink>
+            <NavLink to={`/others/politicas_de_devolucion`} className="hover:text-white duration-300">
+              Politicas de devolucion
+            </NavLink>
+          </article>
+        </div>
+      </section>
+
+
+      {/* Social icons/card icons/ button */}
+      <article className="flex w-full justify-between px-[100px] max-md:px-5 max-[1250px]:flex-wrap pt-5 max-[1500px]:pt-8 pb-10 bg-page-blue-normal">
+        <div className="flex w-full gap-x-24 items-center justify-start max-[1500px]:justify-between max-sm:flex-wrap max-sm:justify-start max-sm:gap-y-5 ">
+          {/* Card icons */}
+          <ul className="flex text-3xl justify-between items-end min-w-[200px] w-[300px] ml-[110px] max-[1500px]:ml-0 gap-x-4">
+            <img 
+              src={visaIcon} 
+              width={50}/>
+            <img 
+              src={mastercardIcon}
+              width={50}/>
+            <img 
+              src={americanexpressIcon}
+              width={50}/>
+            <img 
+              src={cabalIcon}
+              width={50}/>
+            <img 
+              src={naranjaIcon}
+              width={50}/>
           </ul>
-        </article>
-
-        <article className="min-h-[140px] max-lg:min-h-[200px] max-sm:min-h-[0] flex flex-col gap-y-2 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
-          <h1 className="font-bold">
-            Ayuda y información
-          </h1>
           
-          <ul className="text-page-gray-light flex flex-col gap-y-1">
-            <li>
-              <NavLink to={`/others/centro_de_ayuda`} 
-                className="hover:text-page-blue-darkMarine duration-300">
-                Centro de ayuda
-              </NavLink>
-            </li>
-            <li>
-              <NavLink 
-                to={`/others/garantia`}
-                className="hover:text-page-blue-darkMarine duration-300">
-                Garantia
-              </NavLink>
-            </li>
-            <li>
-              <NavLink 
-                to={`/others/politicas_de_devolucion`}
-                className="hover:text-page-blue-darkMarine duration-300">
-                Politicas de devolucion
-              </NavLink>
-            </li>
-          </ul>
-        </article>
+          <div>
+            <a href="http://qr.afip.gob.ar/?qr=ZvNKTXvJURZjjL1woDCRkg,," target="_F960AFIPInfo">
+              <img className="rounded-lg" src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg" border="0" width={60}></img>
+            </a>
+          </div>
+        </div>
+            
+        <div className="flex justify-evenly items-center max-[1500px]:justify-end gap-x-20 max-[1250px]:pt-8 max-[1250px]:justify-between px-10">
+          <button className="bg-white px-4 h-14 py-1 max-[1500px]:ml-0 text-sm w-[300px] text-black rounded-full font-semibold hover:bg-black hover:text-white duration-300">
+            BOTÓN DE ARREPENTIMIENTO
+          </button>
 
+          <button
+            onClick={scrollToTop} 
+            className="group text-black flex justify-center items-center rounded-xl w-16 h-16 border-2 ">
+            <FaAngleUp className="text-[50px] group-hover:animate-bounce text-white duration-300"/>
+          </button>
 
-        <article className="min-h-[140px] max-lg:min-h-[200px] max-sm:min-h-[0] max-sm:pb-6 flex flex-col gap-y-2 max-md:col-span-2 max-md:pl-10 max-sm:col-span-4 w-full">
+          <a href='https://www.instagram.com/realcolorar/' className="rounded-full">
+            <FaInstagram className='text-5xl text-white duration-300 hover:text-black hover:scale-110'/>
+          </a>
+        </div>
+      </article>
+
+      <section className="flex flex-col justify-center items-center w-full bg-page-gray-light">
+        <h1 className="font-bold text-gray-800 py-2">
+          ©️ 2024 Technology Line SRL
+        </h1>
+        <p className="font-bold text-gray-800 text-center p-2 pb-4">
+          Las imagenes son a modo ilustrativo. Los precios pueden cambiar sin previo aviso.
+        </p>
+      </section>
+    </div>
+  )
+}
+
+{/*Userconfig 
+        <article className="min-h-[140px] max-lg:min-h-[200px] max-sm:min-h-[0] max-sm:pb-6 flex flex-col gap-y-2 max-md:col-span-2 max-sm:col-span-4 w-full">
         <h1 className="font-bold opacity-50">
           Usuarios
         </h1>
@@ -271,103 +274,4 @@ export default function Footer() {
               </a>
             </li>
           </ul> 
-        </article>
-        <div className="
-        min-[900px]:absolute top-10 right-5 pr-5
-        max-sm:top-[50rem]">
-          <a href="http://qr.afip.gob.ar/?qr=ZvNKTXvJURZjjL1woDCRkg,," target="_F960AFIPInfo">
-            <img className="rounded-lg" src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg" border="0" width={100}></img>
-          
-        </a>
-        </div>
-      </section>
-
-
-      {/* Social icons/card icons/ button */}
-      <article className="flex w-full justify-between px-[100px] max-md:px-5 max-[1250px]:flex-wrap pt-5 max-[1500px]:pt-8 pb-10 bg-page-blue-normal">
-        <div className="flex w-full gap-x-24 items-center justify-start max-[1500px]:justify-between max-sm:flex-wrap max-sm:justify-start max-sm:gap-y-5 ">
-          {/* Social icons */}
-          <ul className="flex min-w-[180px] justify-between gap-x-2 items-center text-3xl text-white">
-            <li className="rounded-full opacity-50 duration-300">
-              <a>
-                <FaFacebook/>
-              </a>
-            </li>
-
-            <li className="rounded-full opacity-50 duration-300">
-              <a>
-                <FaInstagram/>
-              </a>
-            </li>
-
-            <li className="rounded-full opacity-50 duration-300">
-              <a>
-                <FaTiktok/>
-              </a>
-            </li>
-          </ul>
-
-
-          {/* Card icons */}
-          <ul className="flex text-3xl justify-between items-end min-w-[300px] w-[300px] ml-[110px] max-[1500px]:ml-0 gap-x-4">
-            <li>
-              <img 
-                src={visaIcon} 
-                width={70}                
-              />
-            </li>
-
-            <li>
-              <img 
-                src={mastercardIcon}
-                width={70}                
-              />
-            </li>
-
-            <li>
-              <img 
-                src={americanexpressIcon}
-                width={70}                
-              />
-            </li>
-
-            <li>
-              <img 
-                src={cabalIcon}
-                width={70}
-              />
-            </li>
-
-            <li>
-              <img 
-                src={naranjaIcon}
-                width={70}
-              />
-            </li>
-          </ul>
-        </div>
-            
-        <div className="flex w-full justify-evenly max-[1500px]:justify-end gap-x-20 max-[1250px]:pt-8 max-[1250px]:justify-between px-10">
-          <button className="bg-white px-4 py-1 ml-28 max-[1500px]:ml-0 text-sm w-[300px] text-black rounded-full font-semibold hover:bg-black hover:text-white duration-300">
-            BOTÓN DE ARREPENTIMIENTO
-          </button>
-
-          <button
-            onClick={scrollToTop} 
-            className="group text-black flex justify-center items-center rounded-xl w-[70px] border-2 ">
-            <FaAngleUp className="text-[50px] group-hover:animate-bounce text-white duration-300"/>
-          </button>
-        </div>
-      </article>
-
-      <section className="flex flex-col justify-center items-center w-full bg-page-gray-light">
-        <h1 className="font-bold text-gray-800 py-2">
-          ©️ 2024 Technology Line SRL
-        </h1>
-        <p className="font-bold text-gray-800 text-center p-2 pb-4">
-          Las imagenes son a modo ilustrativo. Los precios pueden cambiar sin previo aviso.
-        </p>
-      </section>
-    </div>
-  )
-}
+        </article> */}

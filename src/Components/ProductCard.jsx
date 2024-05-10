@@ -6,30 +6,13 @@ export default function ProductCard({ price, name, sku, img }) {
   const maxNameLength = 50
   const limitedName = name.length > maxNameLength ? `${name.substring(0, maxNameLength)}...`: name
   const formattedPrice = parseFloat(price).toLocaleString(undefined)
-  const [imageLoaded, setImageLoaded] = useState(false)
+  const [imageLoaded, setImageLoaded] = useState(true)
 
-  useEffect(() => {
-    const image = new Image()
-    image.src = img
-
-    image.onload = () => {
-      setImageLoaded(true)
-    }
-
-    image.onerror = () => {
-      setImageLoaded(true)
-    }
-
-    return () => {
-      image.onload = null
-      image.onerror = null
-    }
-  }, [img])
 
   return(
     <NavLink
       to={`/products/?product=${sku}`} 
-      className="flex flex-col box-border items-center justify-between bg-white p-2 ml-3 max-[350px]:ml-1 drop-shadow-xl hover:border-[#333] duration-500 border-2 rounded-xl hover:cursor-pointer min-h-[400px] h-[400px] w-[270px] min-w-[270px]">
+      className="flex flex-col box-border items-center my-2 justify-between bg-white p-2 mx-auto max-[430px]:ml-4 max-[375px]:ml-1 hover:drop-shadow-md hover:border-[#333] duration-500 border-2 rounded-xl hover:cursor-pointer min-h-[400px] h-[400px] w-[270px] min-w-[270px]">
       <header className="w-full h-[55%] box-border">
         {!imageLoaded && <Spinner />}
         <img 

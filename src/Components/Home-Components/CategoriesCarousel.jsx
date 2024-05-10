@@ -5,7 +5,7 @@ import { FaAngleLeft } from "react-icons/fa"
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import image1 from '../../Assets/CategoriesCarousel-images/AURI301N_D.jpg'
+import image1 from '../../Assets/CategoriesCarousel-images/TV.jpg'
 // import image2 from '../../Assets/CategoriesCarousel-images/CEL1283.jpg'
 import image3 from '../../Assets/CategoriesCarousel-images/GAMA6390.jpg'
 import image4 from '../../Assets/CategoriesCarousel-images/LAB6B-3.jpg'
@@ -84,34 +84,22 @@ export default function ProductsCarousel () {
         <NavLink to={'/search/?sub_category=auriculares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image1 ? image1 : defaultImage} 
-            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[4px] shadow-xl bg-marine-100'>
           </img>
           <p>
-            <span>AURICULARES</span>
+            <span>TELEVISORES</span>
           </p>
         </NavLink>
       </div>
-
-      {/* <div>
-        <NavLink to={'/search/?sub_category=celulares'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
-          <img 
-            src={image2 ? image2 : defaultImage} 
-            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
-          </img>
-          <p className='text-center'>
-            <span>CELULARES</span>
-          </p>
-        </NavLink>
-      </div> */}
-
+      
       <div>
-        <NavLink to={'/search/?sub_category=cuidado personal'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
+        <NavLink to={'/search/?sub_category=parlantes'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
-            src={image3 ? image3 : defaultImage} 
-            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
+            src={image7 ? image7 : defaultImage} 
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[3px] shadow-xl bg-marine-100'>
           </img>
           <p className='text-center'>
-            <span>CUIDADO PERSONAL</span>
+            <span>PARLANTES</span>
           </p>
         </NavLink>
       </div>
@@ -120,7 +108,7 @@ export default function ProductsCarousel () {
         <NavLink to={'/search/?sub_category=lavado'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image4 ? image4 : defaultImage} 
-            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[4px] shadow-xl bg-marine-100'>
           </img>
           <p className='text-center'>
             <span>LAVADO</span>
@@ -132,7 +120,7 @@ export default function ProductsCarousel () {
         <NavLink to={'/search/?sub_category=pequeños electro'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image5 ? image5 : defaultImage} 
-            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[4px] shadow-xl bg-marine-100'>
           </img>
           <p className='text-center'>
             <span>PEQUEÑOS ELECTRO</span>
@@ -144,7 +132,7 @@ export default function ProductsCarousel () {
         <NavLink to={'/search/?sub_category=ventilacion'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image6 ? image6 : defaultImage} 
-            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[4px] shadow-xl bg-marine-100'>
           </img>
           <p className='text-center'>
             <span>VENTILADORES</span>
@@ -153,13 +141,13 @@ export default function ProductsCarousel () {
       </div>
 
       <div>
-        <NavLink to={'/search/?sub_category=parlantes'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
+        <NavLink to={'/search/?sub_category=cuidado personal'} className='flex flex-col items-center justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
-            src={image7 ? image7 : defaultImage} 
-            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-2 shadow-lg bg-marine-100'>
+            src={image3 ? image3 : defaultImage} 
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[4px] shadow-xl bg-marine-100'>
           </img>
           <p className='text-center'>
-            <span>PARLANTES</span>
+            <span>CUIDADO PERSONAL</span>
           </p>
         </NavLink>
       </div>

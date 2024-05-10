@@ -3,18 +3,18 @@ export default function Centro_de_ayuda () {
     <section className="flex flex-col gap-10">
       <article className="flex flex-col gap-5">
         <p>
-          En nuestro Centro de Ayuda si tenes algún inconveniente o consulta sobre tu compra, contáctanos al 11-3227-6985.
+          En nuestro Centro de Ayuda si tenes algún inconveniente o consulta sobre tu compra, contáctanos al 11 3369-0584.
         </p>
         <p className="font-semibold">
           Nuestros horarios de atención son de lunes a viernes de 9 a 17hs, con excepción de los feriados.
-          Te pedimos que tengas tu facturade la compra en tu mano, vamos a solicitártelo para poder analizar tu caso.
+          Te pedimos que tengas tu factura de la compra en tu mano, vamos a solicitártelo para poder analizar tu caso.
         </p>
-        <p>
+        {/* <p>
           También podes escribirnos completando el formulario de abajo, y un agente se estará comunicando con vos dentro de las próximas 48hs hábiles.
-        </p>
+        </p> */}
       </article>
 
-      <form 
+      {/* <form 
         className="flex flex-col gap-5 justify-center items-center">
         <section className="flex flex-col w-full">
           <label htmlFor="name-help">
@@ -60,7 +60,7 @@ export default function Centro_de_ayuda () {
         <button className="w-[200px] border-2 border-black py-3 rounded-lg hover:text-white hover:bg-black duration-300">
           Enviar
         </button>
-      </form>
+      </form> */}
     </section>
   )
 }

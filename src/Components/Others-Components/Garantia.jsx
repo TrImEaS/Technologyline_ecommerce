@@ -17,7 +17,7 @@ export default function Garantia () {
           Para realizar cambios de productos adquiridos:
         </span>
         <p>
-          Deberá acercarse a la sucursal por donde ha retirado el producto
+          Deberá acercarse a la central para que se verifique el producto y se determine si es apto para cambio, si es asi se procedera con el mismo.
         </p>
       </div>
       
