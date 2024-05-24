@@ -2,6 +2,7 @@ import { FaSearch } from 'react-icons/fa'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import Spinner from '../../Products/Spinner'
+import saleImg from '../../../Assets/hotsale-icon.svg'
 
 export default function SearchInput() {
   const [keyword, setKeyword] = useState('')
@@ -87,7 +88,19 @@ function SearchResults({ keyword }) {
   }
 
   const maxNameLength = 50
-  const formattedPrice = (price) => parseFloat(price).toLocaleString(undefined)
+  const formattedPrice = (price) => parseFloat(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+
+  const totalDiscount = (price, discount) => {
+    // Convertir los precios a números
+    const normalPrice = parseFloat(price);
+    const discountedPrice = parseFloat(discount);
+  
+    // Calcular el porcentaje de descuento
+    const percentage = ((normalPrice - discountedPrice) / normalPrice) * 100;
+  
+    // Devolver el porcentaje como un número entero
+    return Math.round(percentage);
+  }
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(keyword.toLowerCase()) ||
@@ -109,7 +122,13 @@ function SearchResults({ keyword }) {
           to={`/products/?product=${product.sku}`}
           key={product.id} 
           className="flex box-border items-center justify-between bg-white p-1 hover:border-[#333] duration-500 border-2 rounded-xl hover:cursor-pointer z-[99999] w-full min-h-[150px] max-h-[150px] drop-shadow-lg">
-          <header className="w-[50%] h-full box-border">
+          <header className="relative w-[50%] h-full box-border">
+            {product.discount > 0
+            ?
+              <img className="absolute h-10 w-10 right-5" src={saleImg} alt="" />
+            :
+              ''
+            }
             <img 
               src={product.img_base} 
               loading="eager"
@@ -123,7 +142,18 @@ function SearchResults({ keyword }) {
             <p className='text-sm'>
               {product.name.length > maxNameLength ? `${product.name.substring(0, maxNameLength)}...`: product.name}
             </p>
-            <p className="font-bold">${formattedPrice(product.price)}</p>
+            {product.discount 
+            ? 
+              <div>
+                <div className='flex items-center gap-x-1'>
+                  <p className="text-sm line-through">${formattedPrice(product.price)}</p>
+                  <span className='text-sm mb-1 bg-orange-400 text-white px-2 rounded-full'>{totalDiscount(product.price, product.discount)}% OFF</span>
+                </div>
+                <p className="font-bold text-2xl">${formattedPrice(product.discount)}</p>
+              </div>
+            : 
+              <p className="font-bold text-2xl">${formattedPrice(product.price)}</p>
+            }
           </article>
         </NavLink>
       ))

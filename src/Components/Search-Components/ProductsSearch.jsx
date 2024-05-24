@@ -95,6 +95,7 @@ export default function ProductsSearch({ products }) {
                   img={product.img_base}
                   price={product.price}
                   name={product.name}
+                  discount={product.discount}
                 />
               )
             )}
