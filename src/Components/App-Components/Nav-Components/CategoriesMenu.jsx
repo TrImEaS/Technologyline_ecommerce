@@ -5,9 +5,9 @@ import Spinner from "../../Products/Spinner"
 
 export default function CategoriesMenu () {
   const [categoriesHideMenu, setCategoriesHideMenu] = useState(false)
-  const location = useLocation()
   const [products, setProducts] = useState(null)
   const [loading, setLoading] = useState(true)
+  const location = useLocation()
   let uniqueCategories
   let uniqueSubCategories
 
@@ -32,6 +32,14 @@ export default function CategoriesMenu () {
     setCategoriesHideMenu(false);
   }, [location.search]);
 
+  const selectedCategories = [
+    'Electro y Aires',
+    'Mas categorias',
+    'TV y Audio',
+    'Informatica',
+    'Tecnologia',
+  ]
+
   if(loading){
     return(<Spinner/>)
   }
@@ -40,14 +48,6 @@ export default function CategoriesMenu () {
     uniqueCategories = [...new Set(products.map(product => product.category))]
     uniqueSubCategories = [...new Set(products.map(product => product.sub_category))]
   }
-
-  const selectedCategories = [
-    'Informatica',
-    'TV y Audio',
-    'Tecnologia',
-    'Electro y Aires',
-    'Mas categorias',
-  ]
 
   const handleClickCategories = () => setCategoriesHideMenu(!categoriesHideMenu)
 
@@ -69,7 +69,7 @@ export default function CategoriesMenu () {
 
         {/*Categorias hide menu */}
         {categoriesHideMenu ?
-          <div className='absolute flex items-center justify-center rounded-lg min-h-[300px] p-10 mt-[15px] max-w-[1300px] z-[99999999] max-xl:w-4/6 bg-slate-100 min-w-[300px]'>
+          <div className='absolute flex items-center justify-center rounded-lg min-h-[300px] p-10 mt-[15px] max-w-[1000px] z-[99999999] max-xl:w-4/6 bg-slate-100 min-w-[300px]'>
             <section className='flex flex-wrap justify-evenly gap-5 text-black'>
               
               <div className='w-full h-12 border-b-[4px] border-page-lightblue'>
@@ -92,7 +92,7 @@ export default function CategoriesMenu () {
                       to={`/search/?category=${category.toLowerCase()}`} 
                       className={'font-semibold'}
                       onClick={handleClickCategories}>
-                      {selectedCategories[index].toUpperCase()}
+                      {category.toUpperCase()}
                     </NavLink>
                   </li>
                 </ul>

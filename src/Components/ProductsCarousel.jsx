@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
-export default function ProductsCarousel({ filterProducts }) {
+export default function ProductsCarousel({ filterProducts, rows, style }) {
   const NextArrow = (props) =>{
     const { onClick, style, className } = props 
     return (
@@ -30,46 +30,50 @@ export default function ProductsCarousel({ filterProducts }) {
 
   const products = filterProducts;
 
+  console.log(filterProducts.length > 4 ? 4 : filterProducts.length)
+
   const settings = {
     dots: true,
     infinite: true,
     autoplay: true,
     autoplaySpeed: 3000,
+    rows: rows,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: filterProducts.length > 4 ? 4 : filterProducts.length,
+    slidesToScroll: filterProducts.length > 4 ? 4 : filterProducts.length,
     pauseOnDotsHover: true,
+    class: 'spinner-container',
     nextArrow: <NextArrow/>,
     prevArrow: <PrevArrow/>,
     responsive: [
       {
         breakpoint: 1025,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: filterProducts.length > 3 ? 3 : filterProducts.length,
+          slidesToScroll: filterProducts.length > 3 ? 3 : filterProducts.length,
           dots: true
         }
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: filterProducts.length > 2 ? 2 : filterProducts.length,
+          slidesToScroll: filterProducts.length > 2 ? 2 : filterProducts.length,
           initialSlide: 2
         }
       },
       {
         breakpoint: 525,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
+          slidesToShow: filterProducts.length > 1 ? 1 : filterProducts.length,
+          slidesToScroll: filterProducts.length > 1 ? 1 : filterProducts.length
         }
       }
     ]
   };
 
   return (
-    <Slider {...settings}>
+    <Slider className={`${style}`} {...settings}>
       {products.map((product) => (
         <ProductCard
           key={product.id}
@@ -78,6 +82,7 @@ export default function ProductsCarousel({ filterProducts }) {
           img={product.img_base}
           price={product.price}
           name={product.name}
+          discount={product.discount}
         />
       ))}
     </Slider>

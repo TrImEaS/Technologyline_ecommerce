@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import Slider from "react-slick"
 import Spinner from './Spinner.jsx'
+import page_icon from '../../Assets/page-icon.jpeg'
 
 export default function ImageSlider({ loadedImages }) {
   const [nav1, setNav1] = useState(null)
@@ -9,7 +10,6 @@ export default function ImageSlider({ loadedImages }) {
   const [showSecondSlider, setShowSecondSlider] = useState(true)
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const imageNotFound = 'https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg';
 
   let sliderRef1 = useRef(null)
   let sliderRef2 = useRef(null)
@@ -39,87 +39,80 @@ export default function ImageSlider({ loadedImages }) {
     document.body.style.overflowY = 'visible'
   }
   
-  const handleImageLoad = () => {
-    setLoading(false)
-  }
-
   const handleImageError = () => {
-    setLoading(false)
     setError(true)
+    setLoading(false)
   }
 
   return (
-    <div className="slider-container min-h-[300px]">
-      {loadedImages.length === 1 ? (
-        <div onClick={() => handleZoomImage(loadedImages[0])}>
-          {loading && <Spinner />}
-          {!loading && !error && (
-            <img
-              src={loadedImages[0]}
-              onLoad={handleImageLoad}
+    <div className=" min-h-[300px]">
+      {loadedImages.length === 1 
+      ? (
+        <div className="h-full flex items-center justify-center" onClick={() => handleZoomImage(loadedImages[0])}>
+          {loading 
+          ? <Spinner />
+          : <img
+              src={error ? page_icon : loadedImages[0]}
               onError={handleImageError}
               loading="eager"
               alt="Image 1"
               className="object-contain rounded-lg cursor-zoom-in min-h-[300px]"
             />
-          )}
-          {error && (
-            <img
-              src={imageNotFound}
-              alt="Image not found"
-              loading="eager"
-              className="object-contain rounded-lg min-h-[300px]"
-            />
-          )}
+        }
         </div>
-      ) : (
-        <Slider
-          asNavFor={showSecondSlider ? nav2 : null}
-          ref={(slider) => (sliderRef1 = slider)}
-          arrows={false}
-          // Configuración adicional del Slider para manejar el estado de carga y error
-          beforeChange={(oldIndex, newIndex) => {
-            setLoading(true);
-            setError(false);
-          }}
-          afterChange={(currentSlide) => {
-            setLoading(false);
-          }}
-        >
-          {loadedImages.map((image, index) => (
-            <div key={index} onClick={() => handleZoomImage(image)}>
-              <img
-                src={image}
-                loading="eager"
-                alt={`Image ${index + 1}`}
-                className="object-contain rounded-lg cursor-pointer"
-              />
-            </div>
-          ))}
-        </Slider>
+      ) 
+      : (
+        <div className="slider-container">
+          <Slider
+            asNavFor={showSecondSlider ? nav2 : null}
+            ref={(slider) => (sliderRef1 = slider)}
+            arrows={false}
+            beforeChange={(oldIndex, newIndex) => {
+              setLoading(true);
+              setError(false);
+            }}
+            afterChange={(currentSlide) => {
+              setLoading(false);
+            }}
+          >
+            {loadedImages.map((image, index) => (
+              <div key={index} onClick={() => handleZoomImage(image)}>
+                <img
+                  src={image}
+                  loading="eager"
+                  alt={`Image ${index + 1}`}
+                  className="object-cover rounded-lg max-w-[450px] w-full cursor-pointer"
+                />
+              </div>
+            ))}
+          </Slider>
+        </div>
       )}
 
       {showSecondSlider && (
-        <Slider
-          asNavFor={nav1}
-          ref={(slider) => (sliderRef2 = slider)}
-          slidesToShow={3}
-          swipeToSlide={true}
-          focusOnSelect={true}
-          arrows={false}
-          className="dots-slider"
-        >
-          {loadedImages.map((image, index) => (
-            <div className="cursor-pointer" key={index}>
-              <img
-                src={image}
-                loading="eager"
-                alt={`Image ${index + 1}`}
-                className="object-contain rounded-lg"
-              />
-            </div>
-          ))}
-        </Slider>
+        <div className="slider-container">
+          <Slider
+            asNavFor={nav1}
+            ref={(slider) => (sliderRef2 = slider)}
+            slidesToShow={3}
+            swipeToSlide={true}
+            focusOnSelect={true}
+            arrows={false}
+            dots={true}
+            className="dots-slider"
+          >
+            {loadedImages.map((image, index) => (
+              <div className="cursor-pointer border border-black rounded-3xl" key={index}>
+                <img
+                  src={image}
+                  loading="eager"
+                  alt={`Image ${index + 1}`}
+                  className="object-contain rounded-lg"
+                />
+              </div>
+            ))}
+          </Slider>
+        </div>
       )}
 
       {zoomedImage && (

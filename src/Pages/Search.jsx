@@ -211,9 +211,9 @@ export default function Search () {
               <CategoriesFilters 
                 onFilterChange={setFilters}
                 products={filteredProducts}/>
-              <button onClick={handleResetFilters} className='h-10 flex items-center justify-center bg-white rounded-lg hover:bg-black hover:text-white duration-500 active:text-sm active:duration-0 font-bold border border-black'>
-                Limpiar Filtros
-              </button>
+                <button onClick={handleResetFilters} className='h-10 flex items-center justify-center bg-white rounded-lg hover:bg-black hover:text-white duration-500 active:text-sm active:duration-0 font-bold border border-black'>
+                  Limpiar Filtros
+                </button>
             </div>
           </div>
 
@@ -237,7 +237,6 @@ export default function Search () {
         <ProductsSearch products={filteredProducts}/>
       </section>
       </main>
-
       <Outlet/>
     </section>
   )    

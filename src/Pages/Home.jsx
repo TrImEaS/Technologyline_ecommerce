@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import ProductsCarousel from '../Components/ProductsCarousel'
 import BannersCards from '../Components/Home-Components/BannersCards.jsx'
 import BannerCarousel from '../Components/Home-Components/BannerCarousel.jsx'
@@ -6,12 +7,12 @@ import homeicon1 from '../Assets/Some-icons/home-icon1.svg'
 import homeicon2 from '../Assets/Some-icons/home-icon3.svg'
 import homeicon3 from '../Assets/Some-icons/home-icon2.svg'
 import Spinner from '../Components/Products/Spinner.jsx'
-import { useEffect, useState } from 'react'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 
 export default function Home() {
   const [products, setProducts] = useState(null)
   const [loading, setLoading] = useState(true)
+  let hotSale
   let saleProducts
   let newProducts
   let recomendProducts
@@ -33,10 +34,49 @@ export default function Home() {
     })()
   }, [])
 
+  useEffect(() => {
+    try {
+      fetch('https://technologyline.com.ar/api/clients/addView',{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'} 
+      })
+      .then(res => {
+        if(!res.ok){
+          throw new Error('Bad request')
+        }
+        return res.json()
+      })
+      .then(data => console.log('Success: ', data))
+      .catch(e => console.error('Error: ', e))
+    } 
+    catch (err) {
+      console.log(err)
+    }
+  }, [])
+
+
   if(!loading){
-    saleProducts = products.filter(product => product.brand.toLowerCase().includes('gama') && parseFloat(product.price) < 50000.00).slice(0,9)
-    newProducts = products.filter(product => parseFloat(product.price) > 1000000).slice(0,9)
-    recomendProducts = products.filter(product => product.sub_category.toLowerCase().includes('televisores') && !product.name.toLowerCase().includes('ventilador') && !product.name.toLowerCase().includes('control')).slice(0,9)  
+    saleProducts = products.filter(product => 
+      product.brand.toLowerCase().includes('gama') && 
+      parseFloat(product.price) < 50000.00).slice(0,9)
+    
+    newProducts = products.filter(product => 
+      parseFloat(product.price) > 1000000).slice(0,9)
+    
+    recomendProducts = products.filter(product => 
+      product.sub_category.toLowerCase().includes('televisores') && 
+      !product.name.toLowerCase().includes('ventilador') && 
+      !product.name.toLowerCase().includes('control')).slice(0,9) 
+    
+    hotSale = products.filter(product => 
+      product.sub_category.toLowerCase().includes('lavarropas') ||
+      product.sub_category.toLowerCase().includes('heladeras') ||
+      product.name.toLowerCase().includes('tv 60 lg') ||
+      product.sub_category.toLowerCase().includes('televisores') ||
+      product.name.toLowerCase().includes('planchita') ||
+      product.name.toLowerCase().includes('secador') ||
+      product.name.toLowerCase().includes('cocina') ||
+      product.sub_category.toLowerCase().includes('notebook'))
   }
 
   return (
@@ -90,27 +130,29 @@ export default function Home() {
         :
         <div className='flex flex-col gap-y-20 w-[82%] max-sm:w-[71%]'>
           <section className='relative flex flex-col justify-center w-full gap-y-10'>
-            <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4'>
-              OFERTAS
-            </h1>
-              <ProductsCarousel filterProducts={saleProducts}/>
+            <div className='font-bold text-3xl max-[680px]:w-full w-full flex justify-center'>
+              <h1 id='hotSale-sale' className='rounded-full flex justify-center items-center w-[500px] max-sm:text-2xl bg-black h-[70px] text-white'>
+               OFERTAS HOT-SALE
+              </h1>
+            </div>
+              <ProductsCarousel style={'pb-14'} rows={2} filterProducts={hotSale}/>
           </section>
 
           {/*Products news carousel*/}
-          <section className='relative flex flex-col justify-center w-full gap-y-10'>
+          {/* <section className='relative flex flex-col justify-center w-full gap-y-10'>
             <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4'>
               NOVEDADES
             </h1> 
               <ProductsCarousel filterProducts={newProducts}/>
-          </section>
+          </section> */}
 
           {/*Products recomendations carousel*/}
-          <section className='relative flex flex-col justify-center w-full gap-y-10'>
+          {/* <section className='relative flex flex-col justify-center w-full gap-y-10'>
             <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4'>
               TE RECOMENDAMOS
             </h1>
               <ProductsCarousel filterProducts={recomendProducts}/>
-          </section>
+          </section> */}
         </div>
         }
       </div>

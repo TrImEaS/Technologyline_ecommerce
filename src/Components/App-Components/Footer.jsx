@@ -107,12 +107,11 @@ export default function Footer() {
       </section>
       
       {/* Mid Footer */}
-      <section className="relative flex items-center justify-around w-full box-border bg-page-blue-normal text-white gap-5 py-3">
-
-        <article className="flex flex-col justify-center px-1 gap-x-5 max-[1500px]:items-center max-[900px]:flex-col max-[900px]:pb-10 max-sm:pl-[10px]">
+      <section className="relative flex items-center justify-center max-lg:flex-col w-full box-border bg-page-blue-normal text-white gap-5 pt-5">
+        <article className="flex w-full flex-col justify-center px-1 gap-x-5 items-center max-[900px]:flex-col max-[900px]:pb-10 max-sm:pl-[10px]">
           <img 
             src="/logo-tline.svg"
-            className="rounded-3xl h-[140px] object-cover min-w-[300px] max-[900px]:object-cover max-[900px]:w-[350px]"
+            className="rounded-3xl h-[140px] object-cover min-w-[300px] max-w-[300px] max-[900px]:object-cover max-[900px]:w-[350px]"
           />
           <ul className="flex flex-col text-page-gray-light min-w-[300px] max-[1500px]:justify-center pt-8">
             <span className='flex font-bold w-full pb-2 text-white'>
@@ -125,13 +124,13 @@ export default function Footer() {
               Tel.: 11 3369-0584
             </span>
             <span>
-              E-mail: pcamioc@real-color.com.ar
+              E-mail: pcamio@real-color.com.ar
             </span>
           </ul>
         </article>
 
-        <div className='flex w-full max-md:flex-col items-center justify-center max-md:gap-0 pt-14'>
-          <article className="min-w-[200px] min-h-[140px]  max-lg:min-h-[200px] max-sm:min-h-[0] flex flex-col gap-y-1 text-page-gray-light">
+        <div className='flex w-full max-md:flex-col items-center justify-center max-md:gap-0 pb-5 pr-24 max-sm:gap-y-5'>
+          <article className="min-w-[200px] min-h-[140px] max-lg:min-h-[170px] max-sm:min-h-[0] flex flex-col gap-y-1 text-page-gray-light">
             <h1 className="font-bold text-white">
               Categorías
             </h1>
@@ -150,7 +149,7 @@ export default function Footer() {
           </article>
 
           {/*Company description*/}
-          <article className="min-w-[200px] min-h-[140px] max-lg:min-h-[200px] max-sm:min-h-[0] flex flex-col text-page-gray-light gap-y-1">
+          <article className="min-w-[200px] min-h-[140px] max-lg:min-h-[170px] max-sm:min-h-[0] flex flex-col text-page-gray-light gap-y-1">
             <h1 className="font-bold text-white">
               Technology Line
             </h1>
@@ -166,7 +165,7 @@ export default function Footer() {
           </article>
 
           {/*Other information*/}
-          <article className="min-w-[200px] min-h-[140px] max-lg:min-h-[200px] max-sm:min-h-[0] flex flex-col gap-y-1 text-page-gray-light">
+          <article className="min-w-[200px] min-h-[140px] max-lg:min-h-[170px] max-sm:min-h-[0] flex flex-col gap-y-1 text-page-gray-light">
             <h1 className="font-bold text-white">
               Ayuda y información
             </h1>
@@ -176,8 +175,11 @@ export default function Footer() {
             <NavLink to={`/others/garantia`} className="hover:text-white duration-300">
               Garantia
             </NavLink>
-            <NavLink to={`/others/politicas_de_devolucion`} className="hover:text-white duration-300">
-              Politicas de devolucion
+            <NavLink to={`/others/about_us`} className="hover:text-white duration-300">
+              Sobre nosotros
+            </NavLink>
+            <NavLink to={`/others/mayoristas`} className="hover:text-white duration-300">
+              Venta a mayoristas
             </NavLink>
           </article>
         </div>
@@ -185,48 +187,39 @@ export default function Footer() {
 
 
       {/* Social icons/card icons/ button */}
-      <article className="flex w-full justify-between px-[100px] max-md:px-5 max-[1250px]:flex-wrap pt-5 max-[1500px]:pt-8 pb-10 bg-page-blue-normal">
-        <div className="flex w-full gap-x-24 items-center justify-start max-[1500px]:justify-between max-sm:flex-wrap max-sm:justify-start max-sm:gap-y-5 ">
+      <article className="flex w-full justify-center items-center px-[100px] max-md:px-5 max-[1250px]:flex-wrap pt-5 max-[1500px]:pt-8 bg-page-blue-normal">
+        <div className="flex w-[320px] gap-x-24 items-center justify-start max-[1500px]:justify-between max-sm:flex-wrap max-sm:justify-start max-sm:gap-y-5">
           {/* Card icons */}
           <ul className="flex text-3xl justify-between items-end min-w-[200px] w-[300px] ml-[110px] max-[1500px]:ml-0 gap-x-4">
-            <img 
-              src={visaIcon} 
-              width={50}/>
-            <img 
-              src={mastercardIcon}
-              width={50}/>
-            <img 
-              src={americanexpressIcon}
-              width={50}/>
-            <img 
-              src={cabalIcon}
-              width={50}/>
-            <img 
-              src={naranjaIcon}
-              width={50}/>
+            <img src={visaIcon} width={50}/>
+            <img src={mastercardIcon} width={50}/>
+            <img src={americanexpressIcon} width={50}/>
+            <img src={cabalIcon} width={50}/>
+            <img src={naranjaIcon} width={50}/>
           </ul>
-          
-          <div>
-            <a href="http://qr.afip.gob.ar/?qr=ZvNKTXvJURZjjL1woDCRkg,," target="_F960AFIPInfo">
-              <img className="rounded-lg" src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg" border="0" width={60}></img>
-            </a>
-          </div>
         </div>
             
-        <div className="flex justify-evenly items-center max-[1500px]:justify-end gap-x-20 max-[1250px]:pt-8 max-[1250px]:justify-between px-10">
-          <button className="bg-white px-4 h-14 py-1 max-[1500px]:ml-0 text-sm w-[300px] text-black rounded-full font-semibold hover:bg-black hover:text-white duration-300">
-            BOTÓN DE ARREPENTIMIENTO
-          </button>
+        <div className="flex justify-evenly items-center max-[1500px]:justify-end gap-x-5 max-sm:px-0 max-[1250px]:pt-8 max-[1250px]:justify-between px-10 pb-5">
+          <div className='flex gap-x-5'>
+            <button className="bg-white px-4 h-14 py-1 max-[1500px]:ml-0 text-sm w-[300px] max-sm:w-[150px] max-sm:h-18 text-black rounded-full font-semibold hover:bg-black hover:text-white duration-300">
+              BOTÓN DE ARREPENTIMIENTO
+            </button>
 
-          <button
-            onClick={scrollToTop} 
-            className="group text-black flex justify-center items-center rounded-xl w-16 h-16 border-2 ">
-            <FaAngleUp className="text-[50px] group-hover:animate-bounce text-white duration-300"/>
-          </button>
-
+            <button
+              onClick={scrollToTop} 
+              className="group text-black flex justify-center items-center rounded-xl w-16 h-16 border-2 ">
+              <FaAngleUp className="text-[50px] group-hover:animate-bounce text-white duration-300"/>
+            </button>
+          </div>
           <a href='https://www.instagram.com/realcolorar/' className="rounded-full">
             <FaInstagram className='text-5xl text-white duration-300 hover:text-black hover:scale-110'/>
           </a>
+                    
+          <div>
+            <a href="http://qr.afip.gob.ar/?qr=ZvNKTXvJURZjjL1woDCRkg,," target="_F960AFIPInfo">
+              <img className="rounded-lg min-w-[30px] max-w-[60px]" src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg" border="0"></img>
+            </a>
+          </div>
         </div>
       </article>
 
@@ -243,7 +236,7 @@ export default function Footer() {
 }
 
 {/*Userconfig 
-        <article className="min-h-[140px] max-lg:min-h-[200px] max-sm:min-h-[0] max-sm:pb-6 flex flex-col gap-y-2 max-md:col-span-2 max-sm:col-span-4 w-full">
+        <article className="min-h-[140px] max-lg:min-h-[170px] max-sm:min-h-[0] max-sm:pb-6 flex flex-col gap-y-2 max-md:col-span-2 max-sm:col-span-4 w-full">
         <h1 className="font-bold opacity-50">
           Usuarios
         </h1>

@@ -10,6 +10,34 @@
   z-index: 9999;
 }
 
+#hotsale {
+  z-index: 9999;
+}
+
+#hotSale-sale {
+  background-image: url(./Assets/fire.gif);
+  background-position: center;
+}
+
+@keyframes moveRight {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-hot-sale {
+  display: flex;
+  animation: moveRight 15s linear infinite;
+}
+
+.hot-sale-banner {
+  height: 38px; 
+  object-fit: cover;
+}
+
 #btn:hover {
   filter: drop-shadow(white 1px 1px 15px ) ;
 }
@@ -39,11 +67,12 @@
   max-width: 700px; /* Establece el ancho máximo */
   min-width: 300px; /* Establece el ancho mínimo */
   width: 70%; /* Establece el ancho en un 80% del ancho de su contenedor principal */
-  margin: 0 auto; /* Centra el contenedor horizontalmente */
+  margin: 0 auto;
+  padding-bottom: 10px; /* Centra el contenedor horizontalmente */
 }
 
 .dots-slider {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 }
 

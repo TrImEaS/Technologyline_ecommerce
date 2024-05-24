@@ -70,7 +70,7 @@ export default function Mayoristas () {
         </p>
       </article>
 
-      <form className="flex flex-col gap-y-10 w-full justify-center items-center">
+      {/* <form className="flex flex-col gap-y-10 w-full justify-center items-center">
         <article className="flex flex-col gap-3 justify-center items-center w-full">
           <div className="flex gap-5 w-full">
             <div className="flex flex-col w-full">
@@ -145,7 +145,7 @@ export default function Mayoristas () {
             Enviar
           </button>
         </article>
-      </form>
+      </form> */}
     </section>
   )
 }

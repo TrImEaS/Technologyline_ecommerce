@@ -13,6 +13,7 @@ export default function ProductsSearch({ products }) {
     setCurrentPage(newPage)
     window.scrollTo(0, 0)
   }
+
   const totalPages = Math.ceil(products.length / productsPerPage)
 
   const getPagesToShow = () => {
@@ -38,7 +39,7 @@ export default function ProductsSearch({ products }) {
     const handleResize = () => {  
       const screenWidth = window.innerWidth;
       
-           if (screenWidth >= 2100) { setProductsPerPage(15) } 
+      if (screenWidth >= 2100) { setProductsPerPage(15) } 
       else if (screenWidth >= 1680) { setProductsPerPage(12) }
       else { setProductsPerPage(9) }   
     }
