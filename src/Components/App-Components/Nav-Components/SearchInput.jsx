@@ -2,7 +2,7 @@ import { FaSearch } from 'react-icons/fa'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import Spinner from '../../Products/Spinner'
-import saleImg from '../../../Assets/hotsale-icon.svg'
+import saleImg from '../../../Assets/sale-icon.svg'
 
 export default function SearchInput() {
   const [keyword, setKeyword] = useState('')
@@ -104,6 +104,7 @@ function SearchResults({ keyword }) {
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(keyword.toLowerCase()) ||
+    product.sku.toLowerCase().includes(keyword.toLowerCase()) ||
     product.sub_category.toLowerCase().includes(keyword.toLowerCase())
   )
   return (
@@ -121,7 +122,7 @@ function SearchResults({ keyword }) {
         <NavLink 
           to={`/products/?product=${product.sku}`}
           key={product.id} 
-          className="flex box-border items-center justify-between bg-white p-1 hover:border-[#333] duration-500 border-2 rounded-xl hover:cursor-pointer z-[99999] w-full min-h-[150px] max-h-[150px] drop-shadow-lg">
+          className="flex box-border items-center justify-between bg-white p-1 duration-500 border-2 rounded-sm hover:cursor-pointer z-[99999] w-full min-h-[150px] max-h-[150px] shadow-border">
           <header className="relative w-[50%] h-full box-border">
             {product.discount > 0
             ?
@@ -139,8 +140,9 @@ function SearchResults({ keyword }) {
           </header>
 
           <article className="w-[50%] h-full box-border flex flex-col justify-between">
-            <p className='text-sm'>
-              {product.name.length > maxNameLength ? `${product.name.substring(0, maxNameLength)}...`: product.name}
+            <p className='flex flex-col text-sm'>
+              <span className='text-xs text-gray-500'>SKU: {product.sku}</span>
+              <span>{product.name.length > maxNameLength ? `${product.name.substring(0, maxNameLength)}...`: product.name}</span>
             </p>
             {product.discount 
             ? 

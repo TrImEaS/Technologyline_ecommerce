@@ -8,7 +8,7 @@ export default function BannersCards() {
   return (
     <div className='flex justify-between items-center gap-3 max-sm:flex-wrap w-4/5'>
 
-      <article className='flex relative items-center justify-center rounded-full group text-4xl text-white hover:scale-95 duration-500 w-full z-10'>
+      <article className='flex select-none relative items-center justify-center rounded-full group text-4xl text-white hover:scale-95 duration-500 w-full z-10'>
         <img 
           src={bannerCard_1}
           className="object-fill w-full h-full rounded-xl shadow-lg group-hover:shadow-page-blue-darkMarine duration-500 group"
@@ -18,7 +18,7 @@ export default function BannersCards() {
         </NavLink>
       </article>
 
-      <article className='flex relative items-center justify-center group rounded-full text-4xl text-white hover:scale-95 duration-500 w-full z-10'>
+      <article className='flex select-none relative items-center justify-center group rounded-full text-4xl text-white hover:scale-95 duration-500 w-full z-10'>
         <img 
           src={bannerCard_2}
           className="object-fill w-full h-full rounded-xl shadow-lg group-hover:shadow-page-blue-darkMarine duration-500 group"
@@ -28,7 +28,7 @@ export default function BannersCards() {
         </NavLink>
       </article>
 
-      <article className='flex relative items-center justify-center group rounded-full text-4xl text-white hover:scale-95 duration-500 w-full z-10'>
+      <article className='flex select-none relative items-center justify-center group rounded-full text-4xl text-white hover:scale-95 duration-500 w-full z-10'>
         <img 
           src={bannerCard_3}
           className="object-fill w-full h-full rounded-xl shadow-lg group-hover:shadow-page-blue-darkMarine duration-500 group"

@@ -129,7 +129,7 @@ export default function Footer() {
           </ul>
         </article>
 
-        <div className='flex w-full max-md:flex-col items-center justify-center max-md:gap-0 pb-5 pr-24 max-sm:gap-y-5'>
+        <div className='flex w-full max-md:flex-col items-center justify-center max-md:gap-0 pb-5 pr-24 max-lg:pr-0 max-sm:gap-y-5 max-sm:pr-24'>
           <article className="min-w-[200px] min-h-[140px] max-lg:min-h-[170px] max-sm:min-h-[0] flex flex-col gap-y-1 text-page-gray-light">
             <h1 className="font-bold text-white">
               Categorías
@@ -188,7 +188,7 @@ export default function Footer() {
 
       {/* Social icons/card icons/ button */}
       <article className="flex w-full justify-center items-center px-[100px] max-md:px-5 max-[1250px]:flex-wrap pt-5 max-[1500px]:pt-8 bg-page-blue-normal">
-        <div className="flex w-[320px] gap-x-24 items-center justify-start max-[1500px]:justify-between max-sm:flex-wrap max-sm:justify-start max-sm:gap-y-5">
+        <div className="flex w-[400px] gap-x-24 items-center justify-start max-[1500px]:justify-between max-sm:flex-wrap max-sm:justify-start max-sm:gap-y-5">
           {/* Card icons */}
           <ul className="flex text-3xl justify-between items-end min-w-[200px] w-[300px] ml-[110px] max-[1500px]:ml-0 gap-x-4">
             <img src={visaIcon} width={50}/>

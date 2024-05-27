@@ -8,14 +8,14 @@ import homeicon2 from '../Assets/Some-icons/home-icon3.svg'
 import homeicon3 from '../Assets/Some-icons/home-icon2.svg'
 import Spinner from '../Components/Products/Spinner.jsx'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
+import BrandsCarrousel from '../Components/Home-Components/BrandsCarrousel.jsx'
 
 export default function Home() {
   const [products, setProducts] = useState(null)
   const [loading, setLoading] = useState(true)
-  let hotSale
-  let saleProducts
-  let newProducts
-  let recomendProducts
+  let firstCarrousel
+  let secondCarrousel
+  let thirdCarrousel
 
   useEffect(() => {
     (async function () {
@@ -27,6 +27,7 @@ export default function Home() {
         const data = await response.json();
         setProducts(data);
         setLoading(false);
+        document.title = `Home | Technology Line`
       } 
       catch (err) {
         console.log(err)
@@ -56,33 +57,42 @@ export default function Home() {
 
 
   if(!loading){
-    saleProducts = products.filter(product => 
-      product.brand.toLowerCase().includes('gama') && 
-      parseFloat(product.price) < 50000.00).slice(0,9)
+    firstCarrousel = products.filter(product => 
+      product.sub_category.toLowerCase().includes('calefones') || 
+      product.sub_category.toLowerCase().includes('aires') ||
+      product.sub_category.toLowerCase().includes('calefaccion'))
+      .sort((a,b) => parseFloat(b.price) - parseFloat(a.price))
     
-    newProducts = products.filter(product => 
-      parseFloat(product.price) > 1000000).slice(0,9)
+    secondCarrousel = products.filter(product => 
+      product.sub_category.toLowerCase().includes('televisores') || 
+      product.sub_category.toLowerCase().includes('notebook') || 
+      product.sub_category.toLowerCase().includes('auriculares') || 
+      product.sub_category.toLowerCase().includes('tv') &&
+      !product.name.toLowerCase().includes('control'))
     
-    recomendProducts = products.filter(product => 
-      product.sub_category.toLowerCase().includes('televisores') && 
+    thirdCarrousel = products.filter(product => 
+      product.sub_category.toLowerCase().includes('cocina') || 
+      product.sub_category.toLowerCase().includes('coccion') || 
+      product.sub_category.toLowerCase().includes('electrodomesticos') || 
+      product.sub_category.toLowerCase().includes('heladeras') && 
       !product.name.toLowerCase().includes('ventilador') && 
-      !product.name.toLowerCase().includes('control')).slice(0,9) 
+      !product.name.toLowerCase().includes('control'))
     
-    hotSale = products.filter(product => 
-      product.sub_category.toLowerCase().includes('lavarropas') ||
-      product.sub_category.toLowerCase().includes('heladeras') ||
-      product.name.toLowerCase().includes('tv 60 lg') ||
-      product.sub_category.toLowerCase().includes('televisores') ||
-      product.name.toLowerCase().includes('planchita') ||
-      product.name.toLowerCase().includes('secador') ||
-      product.name.toLowerCase().includes('cocina') ||
-      product.sub_category.toLowerCase().includes('notebook'))
+    // hotSale = products.filter(product => 
+    //   product.sub_category.toLowerCase().includes('lavarropas') ||
+    //   product.sub_category.toLowerCase().includes('heladeras') ||
+    //   product.name.toLowerCase().includes('tv 60 lg') ||
+    //   product.sub_category.toLowerCase().includes('televisores') ||
+    //   product.name.toLowerCase().includes('planchita') ||
+    //   product.name.toLowerCase().includes('secador') ||
+    //   product.name.toLowerCase().includes('cocina') ||
+    //   product.sub_category.toLowerCase().includes('notebook'))
   }
 
   return (
       <div 
         name='home' 
-        className={`flex flex-col items-center gap-10 min-h-screen h-full w-full pb-20`}>
+        className={`flex flex-col items-center gap-10 min-h-screen h-full w-full pb-5`}>
         
         <BannerCarousel/>
         {/*Banners*/}
@@ -129,32 +139,36 @@ export default function Home() {
         loading ? <Spinner/>
         :
         <div className='flex flex-col gap-y-20 w-[82%] max-sm:w-[71%]'>
+          {/*Products sale carousel*/}
           <section className='relative flex flex-col justify-center w-full gap-y-10'>
-            <div className='font-bold text-3xl max-[680px]:w-full w-full flex justify-center'>
-              <h1 id='hotSale-sale' className='rounded-full flex justify-center items-center w-[500px] max-sm:text-2xl bg-black h-[70px] text-white'>
-               OFERTAS HOT-SALE
-              </h1>
-            </div>
-              <ProductsCarousel style={'pb-14'} rows={2} filterProducts={hotSale}/>
+            <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4 text-page-blue-normal'>
+              OFERTAS CLIMATIZACION
+            </h1>
+            <ProductsCarousel style={'pb-5'} rows={1} filterProducts={firstCarrousel}/>
           </section>
 
           {/*Products news carousel*/}
-          {/* <section className='relative flex flex-col justify-center w-full gap-y-10'>
-            <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4'>
-              NOVEDADES
+          <section className='relative flex flex-col justify-center w-full gap-y-10'>
+            <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4 text-page-blue-normal'>
+              OFERTAS TECNOLOGIA
             </h1> 
-              <ProductsCarousel filterProducts={newProducts}/>
-          </section> */}
+              <ProductsCarousel style={'pb-5'} rows={1} filterProducts={secondCarrousel}/>
+          </section>
 
           {/*Products recomendations carousel*/}
-          {/* <section className='relative flex flex-col justify-center w-full gap-y-10'>
-            <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4'>
-              TE RECOMENDAMOS
+          <section className='relative flex flex-col justify-center w-full gap-y-10'>
+            <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4 text-page-blue-normal'>
+              OFERTAS PARA HOGAR
             </h1>
-              <ProductsCarousel filterProducts={recomendProducts}/>
-          </section> */}
+              <ProductsCarousel style={'pb-5'} rows={1} filterProducts={thirdCarrousel}/>
+          </section>
         </div>
         }
+
+        <section className='w-3/4 h-fit flex flex-col gap-y-5 pt-10'>
+          <span className='font-bold text-2xl w-full'>Conoce nuestras marcas</span>
+          <div><BrandsCarrousel/></div>
+        </section>
       </div>
   )
 }

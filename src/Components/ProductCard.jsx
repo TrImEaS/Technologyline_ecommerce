@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 import { useState } from "react"
 import page_icon from '../Assets/page-icon.jpeg'
-import saleImg from '../Assets/hotsale-icon.svg'
+import saleImg from '../Assets/sale-icon.svg'
 
 export default function ProductCard({ price, name, sku, img, discount }) {
   const [imageError, setImageError] = useState(false)
@@ -31,7 +31,7 @@ export default function ProductCard({ price, name, sku, img, discount }) {
   return(
     <NavLink
       to={`/products/?product=${sku}`} 
-      className="flex flex-col box-border items-center my-2 justify-between bg-white p-2 mx-auto max-[430px]:ml-4 max-[375px]:ml-1 hover:drop-shadow-md hover:border-[#333] duration-500 border-2 rounded-xl hover:cursor-pointer min-h-[400px] h-[400px] w-[270px] min-w-[270px]">
+      className="flex flex-col box-border items-center my-2 justify-between bg-white p-2 mx-auto max-[430px]:ml-4 max-[375px]:ml-1 duration-300 hover:cursor-pointer min-h-[400px] h-[400px] w-[270px] min-w-[270px] shadow-border border-2 rounded-md">
       <header className="relative w-full h-[55%] box-border">
         {discount > 0
         ?
@@ -49,7 +49,10 @@ export default function ProductCard({ price, name, sku, img, discount }) {
       </header>
 
       <article className="w-full h-[35%] box-border flex flex-col justify-between">
-        <p>{limitedName}</p>
+        <p className="flex flex-col">
+          <span className='text-xs text-gray-500'>SKU: {sku}</span>
+          <span>{limitedName}</span>
+        </p> 
         {discount 
         ? 
           <div>

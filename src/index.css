@@ -6,6 +6,10 @@
   background-color: skyblue;
 }
 
+.shadow-border:hover {
+  filter: drop-shadow(0px 0px 4px #949494);
+}
+
 #wpp-icon {
   z-index: 9999;
 }

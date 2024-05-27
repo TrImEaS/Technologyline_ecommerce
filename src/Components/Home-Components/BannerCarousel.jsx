@@ -48,31 +48,31 @@ export default function BannerCarousel() {
             />
           </div>  
         ))} */}
-        <div className="w-full h-full">
+        {/* <div className="w-full h-full">
           <img 
             src={currentBanner1}
             className="h-full w-full object-fill"
             loading="eager"
           />
-        </div>
+        </div> */}
         <div className="w-full h-full">
           <img 
             src={currentBanner2}
-            className="h-full w-full object-fill"
+            className="h-full w-full object-fill select-none"
             loading="lazy"
           />
         </div>
         <div className="w-full h-full">
           <img 
             src={currentBanner3}
-            className="h-full w-full object-fill"
+            className="h-full w-full object-fill select-none"
             loading="eager"
           />
         </div>
         <div className="w-full h-full">
           <img 
             src={currentBanner4}
-            className="h-full w-full object-fill"
+            className="h-full w-full object-fill select-none"
             loading="eager"/>
         </div>
       </Carousel>

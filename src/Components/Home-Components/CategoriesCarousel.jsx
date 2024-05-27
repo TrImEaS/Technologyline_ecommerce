@@ -11,7 +11,7 @@ import image4 from '../../Assets/CategoriesCarousel-images/img3.jpg'
 import image5 from '../../Assets/CategoriesCarousel-images/img4.jpg'
 import image6 from '../../Assets/CategoriesCarousel-images/img5.jpg'
 import image7 from '../../Assets/CategoriesCarousel-images/img2.jpg'
-import hotsale_icon from '../../Assets/hotsale-icon.svg'
+import hotsale_icon from '../../Assets/sale-icon.svg'
 
 export default function ProductsCarousel () {
 
@@ -87,20 +87,20 @@ export default function ProductsCarousel () {
           <p>
             <span>TELEVISORES</span>
           </p>
-          <img className='h-10 w-10 absolute top-0 right-0' src={hotsale_icon} alt="" />
+          {/* <img className='h-10 w-10 absolute top-0 right-0' src={hotsale_icon} alt="" /> */}
         </NavLink>
       </div>
       
       <div>
-        <NavLink to={'/search/?search=planchita'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
+        <NavLink to={'/search/?search=calefaccion'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={image7 ? image7 : defaultImage} 
             className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[3px] shadow-xl bg-marine-100'>
           </img>
           <p className='text-center'>
-            <span>PLANCHITAS</span>
+            <span>CALEFACCION</span>
           </p>
-          <img className='h-10 w-10 absolute top-0 right-0' src={hotsale_icon} alt="" />
+          {/* <img className='h-10 w-10 absolute top-0 right-0' src={hotsale_icon} alt="" /> */}
         </NavLink>
       </div>
 
@@ -113,7 +113,7 @@ export default function ProductsCarousel () {
           <p className='text-center'>
             <span>LAVADO</span>
           </p>
-          <img className='h-10 w-10 absolute top-0 right-0' src={hotsale_icon} alt="" />
+          {/* <img className='h-10 w-10 absolute top-0 right-0' src={hotsale_icon} alt="" /> */}
         </NavLink>
       </div>
 
@@ -126,7 +126,7 @@ export default function ProductsCarousel () {
           <p className='text-center'>
             <span>COCINAS</span>
           </p>
-          <img className='h-10 w-10 absolute top-0 right-0' src={hotsale_icon} alt="" />
+          {/* <img className='h-10 w-10 absolute top-0 right-0' src={hotsale_icon} alt="" /> */}
         </NavLink>
       </div>
 
@@ -139,7 +139,7 @@ export default function ProductsCarousel () {
           <p className='text-center'>
             <span>HELADERAS</span>
           </p>
-          <img className='h-10 w-10 absolute top-0 right-0' src={hotsale_icon} alt="" />
+          {/* <img className='h-10 w-10 absolute top-0 right-0' src={hotsale_icon} alt="" /> */}
         </NavLink>
       </div>
 
@@ -152,7 +152,7 @@ export default function ProductsCarousel () {
           <p className='text-center'>
             <span>SECADOR</span>
           </p>
-          <img className='h-10 w-10 absolute top-0 right-0' src={hotsale_icon} alt="" />
+          {/* <img className='h-10 w-10 absolute top-0 right-0' src={hotsale_icon} alt="" /> */}
         </NavLink>
       </div>
     </Slider>

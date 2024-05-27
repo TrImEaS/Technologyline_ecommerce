@@ -1,6 +1,12 @@
+import { useEffect } from "react"
 import { NavLink, Outlet } from "react-router-dom"
 
 export default function Others () {
+
+  useEffect(() => {
+    document.title = `Acerca de nosotros | Technology Line`
+  }, [])
+
   return (
     <section className="flex max-md:flex-col py-10 max-md:gap-0 gap-10 min-h-screen w-4/5">
       <div className="flex justify-center items-center w-[30%] h-[600px] max-md:h-full">

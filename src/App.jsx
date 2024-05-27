@@ -1,6 +1,5 @@
 import Nav from './Components/App-Components/Nav.jsx'
 import Footer from "./Components/App-Components/Footer.jsx"
-import HotSale from './Components/HotSale.jsx'
 import { FaWhatsapp } from "react-icons/fa"
 import { useEffect } from "react"
 import { Route, Routes, useLocation } from "react-router-dom"
@@ -13,7 +12,6 @@ function App() {
   return (
     <main className='relative flex flex-col items-center font-body justify-between bg-white text-black min-h-screen min-w-[390px] h-full p-0 m-0'>
       <ScrollToTopOnLocationChange />
-      <HotSale/>
       <Nav/>
       <Routes>
         <Route path="/" element={<Home/>}/>

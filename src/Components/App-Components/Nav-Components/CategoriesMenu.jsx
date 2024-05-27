@@ -108,7 +108,7 @@ export default function CategoriesMenu () {
                       <NavLink 
                         to={`/search/?category=${category.toLowerCase()}&sub_category=${sub_category.toLowerCase()}`}
                         onClick={handleClickCategories}>
-                        {sub_category}
+                        {sub_category.replace(';', ',')}
                       </NavLink>
                     </li>
                   ))}

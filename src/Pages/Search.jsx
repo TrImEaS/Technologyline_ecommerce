@@ -31,6 +31,7 @@ export default function Search () {
         const data = await response.json();
         setProducts(data);
         setLoading(false);
+        document.title = `Buscar | Technology Line`
       } 
       catch (err) {
         console.log(err)

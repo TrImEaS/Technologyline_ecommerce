@@ -30,8 +30,6 @@ export default function ProductsCarousel({ filterProducts, rows, style }) {
 
   const products = filterProducts;
 
-  console.log(filterProducts.length > 4 ? 4 : filterProducts.length)
-
   const settings = {
     dots: true,
     infinite: true,
@@ -65,6 +63,7 @@ export default function ProductsCarousel({ filterProducts, rows, style }) {
       {
         breakpoint: 525,
         settings: {
+          dots: false,
           slidesToShow: filterProducts.length > 1 ? 1 : filterProducts.length,
           slidesToScroll: filterProducts.length > 1 ? 1 : filterProducts.length
         }

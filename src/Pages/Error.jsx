@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function Error() {
   const navigate = useNavigate()
+
+  useEffect(() => {
+    document.title = `No se ha encontrado la ruta | Technology Line`
+  }, [location.search, navigate])
 
   return (
     <div className='flex relative flex-col min-h-[520px] justify-between gap-2 py-7 px-3'>

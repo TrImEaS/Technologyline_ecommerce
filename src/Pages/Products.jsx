@@ -2,7 +2,7 @@ import React from 'react'
 import ProductsCarousel from '../Components/ProductsCarousel.jsx'
 import ImageSlider from '../Components/Products/ImageSlider.jsx'
 import Spinner from '../Components/Products/Spinner.jsx'
-import saleImg from '../Assets/hotsale-icon.svg'
+import saleImg from '../Assets/sale-icon.svg'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -94,7 +94,7 @@ export default function Products () {
 
   const formattedPrice = parseFloat(product.price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
   const formattedDiscount = parseFloat(product.discount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-  const message = encodeURIComponent(`Hola me comunico desde la pagina Technology-Line, me interesaria saber mas informacion acerca de este articulo: ${product.sku} - ${product.name}`)
+  const message = encodeURIComponent(`Hola me comunico desde la pagina Technology-Line, me interesaria saber mas informacion acerca de este articulo: ${product.sku} - ${product.name} - ${product.price}`)
 
   const totalDiscount = (price, discount) => {
     // Convertir los precios a números
@@ -113,8 +113,8 @@ export default function Products () {
   let cat = product.sub_category || ''
   let name = product.name || ''
   const recomendProducts = products
-  .filter(
-    product => product.sub_category.toLowerCase().includes(cat.toLowerCase()) && 
+  .filter(product => 
+    product.sub_category.toLowerCase().includes(cat.toLowerCase()) && 
     !product.name.toLowerCase().includes(name.toLowerCase()))
   .sort((a, b) => parseFloat(b.price) - parseFloat(a.price)).slice(0,9)
 
