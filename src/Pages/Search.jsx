@@ -126,7 +126,7 @@ export default function Search () {
             <NavLink
               className={'group font-semibold hover:text-page-lightblue duration-300'} 
               to={'/search'}>
-              INICIO
+              TODOS
               <span className='group-hover:text-black'>/</span>
             </NavLink>
 
@@ -149,20 +149,20 @@ export default function Search () {
             : ''}
 
             {filters.search_subCat ? 
-            <NavLink
-              className={'group font-semibold hover:text-page-lightblue duration-300'}
-              to={filters.search_category ?  `?&sub_category=${filters.search_subCat.toLowerCase()}` : `?sub_category=${filters.search_subCat.toLowerCase()}`}>
-              {filters.search_subCat.toLocaleUpperCase()}
-              <span className='group-hover:text-black'>/</span>
-            </NavLink> 
+              <NavLink
+                className={'group font-semibold hover:text-page-lightblue duration-300'}
+                to={filters.search_category ?  `?&sub_category=${filters.search_subCat.toLowerCase()}` : `?sub_category=${filters.search_subCat.toLowerCase()}`}>
+                {filters.search_subCat.toLocaleUpperCase()}
+                <span className='group-hover:text-black'>/</span>
+              </NavLink> 
             :''}
             
             {filters.search_brand ? 
-            <NavLink
-              className={'font-semibold hover:text-page-lightblue duration-300'}
-              to={`${window.location.pathname}${window.location.search ? `${window.location.search}&` : '/?'}brand=${filters.search_brand.toLowerCase()}`}>
-              {filters.search_brand.toLocaleUpperCase()}
-            </NavLink> 
+              <NavLink
+                className={'font-semibold hover:text-page-lightblue duration-300'}
+                to={`${window.location.pathname}${window.location.search ? `${window.location.search}&` : '/?'}brand=${filters.search_brand.toLowerCase()}`}>
+                {filters.search_brand.toLocaleUpperCase()}
+              </NavLink> 
             :''}
           </div>
         </article>
@@ -172,30 +172,21 @@ export default function Search () {
             name="filter"
             className="px-2 py-1 border-2 font-bold border-black rounded-lg"
             onChange={(e) => setSortOption(e.target.value)}
-            value={sortOption}>
-            <option
-              className='max-[1366px]:text-sm' 
-              value="default">
+            value={sortOption}
+          >
+            <option className='max-[1366px]:text-sm' value="default">
               Orden por defecto
             </option>
-            <option
-              className='max-[1366px]:text-sm'
-              value="min">
+            <option className='max-[1366px]:text-sm' value="min">
               Menor precio
             </option>
-            <option
-              className='max-[1366px]:text-sm' 
-              value="max">
+            <option className='max-[1366px]:text-sm' value="max">
               Mayor precio
             </option>
-            <option
-              className='max-[1366px]:text-sm' 
-              value="A-Z">
+            <option className='max-[1366px]:text-sm' value="A-Z">
               A-Z
             </option>
-            <option
-              className='max-[1366px]:text-sm' 
-              value="Z-A">
+            <option className='max-[1366px]:text-sm' value="Z-A">
               Z-A
             </option>
           </select>
@@ -208,7 +199,8 @@ export default function Search () {
               onClick={handleFilterMenu}>
               Filtros
             </span>
-            <div className={`flex-col gap-y-5 rounded w-[210px] absolute top-[40px] left-[-80px] bg-white border-2 p-5 ${filterMenu ? 'flex' : 'hidden'}`}>
+
+            <div className={`flex-col gap-y-5 rounded w-[210px] h-[330px] overflow-x-hidden absolute top-[40px] left-[-80px] bg-white border-2 p-3 ${filterMenu ? 'flex' : 'hidden'}`}>
               <CategoriesFilters 
                 onFilterChange={setFilters}
                 products={filteredProducts}/>

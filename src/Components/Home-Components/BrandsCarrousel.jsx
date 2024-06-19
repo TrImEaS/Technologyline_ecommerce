@@ -20,6 +20,7 @@ export default function BrandsCarrousel() {
     slidesToShow: 7,
     slidesToScroll: 1,
     initialSlide: 0,
+    draggable: false,
     responsive: [
       {
         breakpoint: 1024,

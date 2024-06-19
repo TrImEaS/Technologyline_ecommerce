@@ -35,16 +35,14 @@ export default function CategoriesFilters ({ products, onFilterChange }) {
   return (
     <>
       {/*Categories*/}
-      <div className="flex flex-col gap-y-2 border-t border-black">
+      <div className="flex flex-col gap-y-2 border-t-[3px] border-page-lightblue">
         <header className="flex justify-between items-center py-1">
-          <span 
+          <p 
             onClick={handleToggleCategory} 
             className="font-bold cursor-pointer flex justify-between pr-1 w-full items-center">
             Categoría
-            {isCategoryOpen 
-              ? <FaAngleUp/> 
-              : <FaAngleDown/>}
-          </span>
+            <span className="text-page-lightblue text-lg">{isCategoryOpen ? <FaAngleUp/> : <FaAngleDown/>}</span>
+          </p>
         </header>
 
         <section className={`${isCategoryOpen ? 'hidden' : 'flex'} flex-col gap-y-2`}>
@@ -53,9 +51,9 @@ export default function CategoriesFilters ({ products, onFilterChange }) {
               key={category} 
               className="flex cursor-pointer group">
               <NavLink 
-                className={'flex hover:text-page-blue-normal duration-300 items-center gap-x-1'} 
+                className={'flex hover:text-page-blue-normal duration-300 items-center'} 
                 to={`${window.location.pathname}${window.location.search ? `${window.location.search}&` : '/?'}sub_category=${category.toLowerCase()}`}>
-                <span><GoTriangleRight/></span>
+                <span className="text-page-lightblue text-2xl"><GoTriangleRight/></span>
                 <span className="group-hover">
                   {category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()}
                 </span>
@@ -75,25 +73,23 @@ export default function CategoriesFilters ({ products, onFilterChange }) {
       </div>
 
       {/*Brands*/}
-      <div className="flex flex-col gap-y-2 border-t border-black">
+      <div className="flex flex-col gap-y-2 border-t-[3px] border-page-lightblue">
         <header className="flex justify-between items-center py-1">
-          <span 
+          <p 
             onClick={handleToggleBrand} 
             className="font-bold cursor-pointer flex justify-between pr-1 w-full items-center">
             Marcas
-            {isBrandOpen 
-              ? <FaAngleUp/> 
-              : <FaAngleDown/>}
-          </span>
+            <span className="text-page-lightblue text-lg">{isBrandOpen ? <FaAngleUp/> : <FaAngleDown/>}</span>
+          </p>
         </header>
-
+ 
         <section className={`${isBrandOpen ? 'hidden' : 'flex'} flex-col gap-y-2`}>
           {brands.slice(0, visibleBrands).map((brand) => (
             <div 
               key={brand} 
               className="flex cursor-pointer group">
-              <NavLink className={'flex hover:text-page-blue-normal duration-300 items-center gap-x-1'} to={`${window.location.pathname}${window.location.search ? `${window.location.search}&` : '/?'}brand=${brand.toLowerCase()}`}>
-                <span><GoTriangleRight/></span>
+              <NavLink className={'flex hover:text-page-blue-normal duration-300 items-center'} to={`${window.location.pathname}${window.location.search ? `${window.location.search}&` : '/?'}brand=${brand.toLowerCase()}`}>
+                <span className="text-page-lightblue text-2xl"><GoTriangleRight/></span>
                 <span className="group-hover">
                   {brand.charAt(0).toUpperCase() + brand.slice(1).toLowerCase()}
                 </span>
@@ -112,16 +108,14 @@ export default function CategoriesFilters ({ products, onFilterChange }) {
       </div>
 
       {/*Prices hidden(hasta que se arregle)*/}
-      <div className="flex flex-col gap-y-2 border-t border-black w-full">
+      <div className="flex flex-col gap-y-2 border-t-[3px] border-page-lightblue w-full">
         <header className="flex flex-col justify-between items-center py-1 w-full">
-          <span 
+          <p 
             onClick={handleTogglePrice} 
             className="font-bold cursor-pointer flex justify-between pr-1 w-full items-center">
             Precios
-            {isPriceOpen 
-              ? <FaAngleUp/> 
-              : <FaAngleDown/>}
-          </span>
+            <span className="text-page-lightblue text-lg">{isPriceOpen ? <FaAngleUp/> : <FaAngleDown/>}</span>
+          </p>
         </header>
 
         <form

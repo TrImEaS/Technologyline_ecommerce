@@ -108,7 +108,7 @@ function SearchResults({ keyword }) {
     product.sub_category.toLowerCase().includes(keyword.toLowerCase())
   )
   return (
-    <section className={`flex flex-col absolute top-10 gap-2 w-full max-h-[500px] bg-white border-2 rounded-lg z-[9999] overflow-y-auto p-3 ${filteredProducts.length === 0 ? 'h-14' : 'h-[500px]'}`}>
+    <section className={`flex flex-col absolute top-10 gap-2 w-full max-h-[500px] min-h-[100px] bg-white border-2 rounded-lg z-[9999] overflow-y-auto p-3 ${filteredProducts.length === 0 ? 'h-14' : 'h-[500px]'}`}>
     {filteredProducts.length === 0 
     ? (
       <div>
@@ -122,21 +122,16 @@ function SearchResults({ keyword }) {
         <NavLink 
           to={`/products/?product=${product.sku}`}
           key={product.id} 
-          className="flex box-border items-center justify-between bg-white p-1 duration-500 border-2 rounded-sm hover:cursor-pointer z-[99999] w-full min-h-[150px] max-h-[150px] shadow-border">
+          className="flex box-border items-center justify-between bg-white p-1 duration-500 border-2 rounded-sm hover:cursor-pointer z-[99999] w-full min-h-[180px] max-h-[150px] shadow-border">
           <header className="relative w-[50%] h-full box-border">
-            {product.discount > 0
-            ?
-              <img className="absolute h-10 w-10 right-5" src={saleImg} alt="" />
-            :
-              ''
-            }
+            { product.discount > 0 ? <img className="absolute h-10 w-10 right-5" src={saleImg} alt="" /> : '' }
+            
             <img 
               src={product.img_base} 
               loading="eager"
               alt={product.name}
               onError={(e) => e.target.src = 'page-icon.jpeg'}
-              className="w-full h-full object-contain" 
-            />
+              className="w-full h-full object-contain" />
           </header>
 
           <article className="w-[50%] h-full box-border flex flex-col justify-between">
@@ -154,7 +149,7 @@ function SearchResults({ keyword }) {
                 <p className="font-bold text-2xl">${formattedPrice(product.discount)}</p>
               </div>
             : 
-              <p className="font-bold text-2xl">${formattedPrice(product.price)}</p>
+              <p className="font-bold text-2xl max-sm:text-sm">${formattedPrice(product.price)}</p>
             }
           </article>
         </NavLink>

@@ -3,9 +3,10 @@ import ProductsCarousel from '../Components/ProductsCarousel.jsx'
 import ImageSlider from '../Components/Products/ImageSlider.jsx'
 import Spinner from '../Components/Products/Spinner.jsx'
 import saleImg from '../Assets/sale-icon.svg'
+import DOMPurify from 'dompurify'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Products () {
   const [loadedImages, setLoadedImages] = useState([])
@@ -157,6 +158,24 @@ export default function Products () {
     .catch(e => console.error('Error al sumar view al producto: ', e))
   }
 
+  const manipulateHTML = (html) => {
+    // Crear un contenedor temporal para el HTML
+    const container = document.createElement('div');
+    container.innerHTML = html;
+  
+    // Seleccionar todos los elementos <a>
+    const links = container.querySelectorAll('a');
+  
+    links.forEach(link => {
+      // Opción 1: Reemplazar <a> con <span>
+      const span = document.createElement('span');
+      span.innerHTML = link.innerHTML;
+      link.parentNode.replaceChild(span, link);
+    });
+  
+    return container.innerHTML;
+  }
+
   return (
     <section className={`flex flex-col items-center h-full w-full gap-y-10 pb-14 max-md:pt-10`}>
       <header className='w-[90%] relative h-full flex max-md:flex-col max-md:items-center sm:p-5 rounded-3xl py-5'>
@@ -219,36 +238,44 @@ export default function Products () {
         </section>
       </header>
 
-      <div className='flex flex-col max-sm:w-[90%] w-[83%] bg-blue-400 rounded-lg font-bold border shadow-lg'>
+      <div className='flex flex-col max-sm:w-[90%] w-[83%] bg-blue-400 rounded-lg border shadow-lg'>
         <div className='flex p-2 gap-x-3'>
           <span 
             onClick={() => setDescriptionMenu('desc')}          
-            className={`${descriptionMenu === 'desc' ? 'text-white' : ''} hover:font-bold hover:text-white rounded-xl px-2 py-1 duration-300 cursor-pointer`}>
+            className={`${descriptionMenu === 'desc' ? 'text-white' : ''} font-bold hover:text-white rounded-xl px-2 py-1 duration-300 cursor-pointer`}>
             Descripción
           </span>
           <span className='py-1'>|</span>
           <span 
             onClick={() => setDescriptionMenu('spec')}
-            className={`${descriptionMenu === 'spec' ? 'text-white' : ''} hover:font-bold hover:text-white rounded-xl px-2 py-1 duration-300 cursor-pointer`}>
+            className={`${descriptionMenu === 'spec' ? 'text-white' : ''} font-bold hover:text-white rounded-xl px-2 py-1 duration-300 cursor-pointer`}>
             Especificaciones
           </span>
         </div>
         <div className='p-2 bg-gray-100 min-h-[100px]'>
-          {descriptionMenu === 'desc' 
-            ? <p>{product.description ? '' : 'Este articulo no posee descripciones.'}</p>
-            : <p>{product.specifications ? '' : 'Este articulo no posee especificaciones.'}</p>
+          {
+            descriptionMenu === 'desc' 
+            ? <section className='flex flex-col px-4 py-2'>
+                <article dangerouslySetInnerHTML={{ __html: product.description ? DOMPurify.sanitize(manipulateHTML(product.description)) : 'Este articulo no posee descripciones.' }} />
+              </section>
+            : <section className='flex flex-col px-4 py-2'>
+                <article dangerouslySetInnerHTML={{ __html: product.specifications ? DOMPurify.sanitize(manipulateHTML(product.specifications)) : 'Este articulo no posee descripciones.' }} />
+              </section>
           }
         </div>
       </div>
 
       <section className='flex flex-col gap-y-10 w-[82%] max-sm:w-[70%]'>
         {/* Seccion de descripcion */}
-        <div className='w-full flex flex-col gap-y-10'>
-          <span className='text-3xl font-bold max-sm:text-2xl'>
-            Tambien te recomendamos
-          </span>
-          <ProductsCarousel rows={1} filterProducts={recomendProducts}/>
-        </div>
+        { recomendProducts.length > 0 ?
+          <div className='w-full flex flex-col gap-y-10'>
+            <span className='text-3xl font-bold max-sm:text-2xl'>
+              Tambien te recomendamos
+            </span>
+            <ProductsCarousel rows={1} filterProducts={recomendProducts}/>
+          </div>
+          : ''
+        }
       </section>
     </section>
   )

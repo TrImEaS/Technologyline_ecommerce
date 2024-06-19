@@ -201,8 +201,11 @@ export default function Footer() {
             
         <div className="flex justify-evenly items-center max-[1500px]:justify-end gap-x-5 max-sm:px-0 max-[1250px]:pt-8 max-[1250px]:justify-between px-10 pb-5">
           <div className='flex gap-x-5'>
-            <button className="bg-white px-4 h-14 py-1 max-[1500px]:ml-0 text-sm w-[300px] max-sm:w-[150px] max-sm:h-18 text-black rounded-full font-semibold hover:bg-black hover:text-white duration-300">
+            {/* <button className="bg-white px-4 h-14 py-1 max-[1500px]:ml-0 text-sm w-[300px] max-sm:w-[150px] max-sm:h-18 text-black rounded-full font-semibold hover:bg-black hover:text-white duration-300">
               BOTÓN DE ARREPENTIMIENTO
+            </button> */}
+
+            <button className="px-4 h-14 cursor-default py-1 max-[1500px]:ml-0 text-sm w-[300px] max-sm:w-[150px] max-sm:h-18 text-black rounded-full font-semibold duration-300">
             </button>
 
             <button
@@ -211,7 +214,7 @@ export default function Footer() {
               <FaAngleUp className="text-[50px] group-hover:animate-bounce text-white duration-300"/>
             </button>
           </div>
-          <a href='https://www.instagram.com/realcolorar/' className="rounded-full">
+          <a href='https://www.instagram.com/realcoloroficial/' className="rounded-full">
             <FaInstagram className='text-5xl text-white duration-300 hover:text-black hover:scale-110'/>
           </a>
                     

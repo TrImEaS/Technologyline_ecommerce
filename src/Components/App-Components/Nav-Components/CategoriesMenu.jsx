@@ -33,10 +33,10 @@ export default function CategoriesMenu () {
   }, [location.search]);
 
   const selectedCategories = [
-    'Electro y Aires',
-    'Mas categorias',
-    'TV y Audio',
     'Informatica',
+    'Electro y Aires',
+    'TV y Audio',
+    'Mas categorias',
     'Tecnologia',
   ]
 
@@ -68,25 +68,23 @@ export default function CategoriesMenu () {
         </button>
 
         {/*Categorias hide menu */}
-        {categoriesHideMenu ?
-          <div className='absolute flex items-center justify-center rounded-lg min-h-[300px] p-10 mt-[15px] max-w-[1000px] z-[99999999] max-xl:w-4/6 bg-slate-100 min-w-[300px]'>
-            <section className='flex flex-wrap justify-evenly gap-5 text-black'>
-              
-              <div className='w-full h-12 border-b-[4px] border-page-lightblue'>
+        {categoriesHideMenu 
+        ? (
+          <div className='absolute flex flex-col items-center rounded-md overflow-y-auto mt-[10px] overflow-x-hidden p-10 z-[99999999] bg-slate-100 min-w-[300px] max-w-[500px] w-[400px] max-sm:w-[330px] max-sm:h-[300px] h-[500px]'>
+            <section className='flex items-center flex-col gap-3 text-black h-[100% + 100px]'>
+              <div className='h-full w-full flex justify-center border-b-[4px] border-page-lightblue'>
                 <NavLink 
-                  to={'/search'} 
+                  to='/search' 
                   onClick={handleClickCategories} 
-                  className={'hover:text-page-lightblue max-sm:text-xl text-2xl duration-300 font-bold'}>
+                  className='hover:text-page-lightblue max-sm:text-xl text-2xl duration-300 font-bold'>
                   Todos los productos
                 </NavLink>
               </div>
 
               {/*Mapear Categorias */}
               {uniqueCategories.map((category, index) => (
-              <div className="max-md:w-full min-w-[280px]" key={category}>
-                <ul 
-                  className='flex flex-wrap justify-between py-4'
-                >
+              <div className="w-full min-w-[280px] h-full" key={category}>
+                <ul className='flex flex-wrap justify-between py-4'>
                   <li className='hover:text-page-lightblue duration-300 border-b-[3px] border-page-blue-normal'>
                     <NavLink 
                       to={`/search/?category=${category.toLowerCase()}`} 
@@ -98,7 +96,7 @@ export default function CategoriesMenu () {
                 </ul>
 
                 {/*Mapear subcategorias */}
-                <ul className='flex flex-col gap-4 flex-wrap justify-between pl-2'>
+                <ul className='flex flex-col gap-3 flex-wrap justify-between pl-2'>
                 {uniqueSubCategories
                   .filter(sub_category => products.some(product => product.category === category && product.sub_category === sub_category))
                   .map(sub_category => (
@@ -117,7 +115,7 @@ export default function CategoriesMenu () {
               ))}
             </section>
           </div>
-          : ''}
+        ) : ''}
       </div>
 
       {/*Categorias for full screen and xl screen */}

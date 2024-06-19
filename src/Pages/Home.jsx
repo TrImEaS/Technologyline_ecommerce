@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import ProductsCarousel from '../Components/ProductsCarousel'
 import BannersCards from '../Components/Home-Components/BannersCards.jsx'
 import BannerCarousel from '../Components/Home-Components/BannerCarousel.jsx'
@@ -7,15 +7,12 @@ import homeicon1 from '../Assets/Some-icons/home-icon1.svg'
 import homeicon2 from '../Assets/Some-icons/home-icon3.svg'
 import homeicon3 from '../Assets/Some-icons/home-icon2.svg'
 import Spinner from '../Components/Products/Spinner.jsx'
-import "react-responsive-carousel/lib/styles/carousel.min.css"
 import BrandsCarrousel from '../Components/Home-Components/BrandsCarrousel.jsx'
+import "react-responsive-carousel/lib/styles/carousel.min.css"
 
 export default function Home() {
   const [products, setProducts] = useState(null)
   const [loading, setLoading] = useState(true)
-  let firstCarrousel
-  let secondCarrousel
-  let thirdCarrousel
 
   useEffect(() => {
     (async function () {
@@ -39,7 +36,7 @@ export default function Home() {
     try {
       fetch('https://technologyline.com.ar/api/clients/addView',{
         method: 'POST',
-        headers: {'Content-Type': 'application/json'} 
+        headers: { 'Content-Type': 'application/json' } 
       })
       .then(res => {
         if(!res.ok){
@@ -56,44 +53,42 @@ export default function Home() {
   }, [])
 
 
-  if(!loading){
-    firstCarrousel = products.filter(product => 
+  const firstCarousel = useMemo(() => {
+    if (!products) return [];
+    return products.filter(product => 
       product.sub_category.toLowerCase().includes('calefones') || 
       product.sub_category.toLowerCase().includes('aires') ||
-      product.sub_category.toLowerCase().includes('calefaccion'))
-      .sort((a,b) => parseFloat(b.price) - parseFloat(a.price))
-    
-    secondCarrousel = products.filter(product => 
+      product.sub_category.toLowerCase().includes('calefaccion')
+    ).sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+  }, [products]);
+
+  const secondCarousel = useMemo(() => {
+    if (!products) return [];
+    return products.filter(product => 
       product.sub_category.toLowerCase().includes('televisores') || 
       product.sub_category.toLowerCase().includes('notebook') || 
       product.sub_category.toLowerCase().includes('auriculares') || 
       product.sub_category.toLowerCase().includes('tv') &&
-      !product.name.toLowerCase().includes('control'))
-    
-    thirdCarrousel = products.filter(product => 
+      !product.name.toLowerCase().includes('control')
+    );
+  }, [products]);
+
+  const thirdCarousel = useMemo(() => {
+    if (!products) return [];
+    return products.filter(product => 
       product.sub_category.toLowerCase().includes('cocina') || 
       product.sub_category.toLowerCase().includes('coccion') || 
       product.sub_category.toLowerCase().includes('electrodomesticos') || 
       product.sub_category.toLowerCase().includes('heladeras') && 
       !product.name.toLowerCase().includes('ventilador') && 
-      !product.name.toLowerCase().includes('control'))
-    
-    // hotSale = products.filter(product => 
-    //   product.sub_category.toLowerCase().includes('lavarropas') ||
-    //   product.sub_category.toLowerCase().includes('heladeras') ||
-    //   product.name.toLowerCase().includes('tv 60 lg') ||
-    //   product.sub_category.toLowerCase().includes('televisores') ||
-    //   product.name.toLowerCase().includes('planchita') ||
-    //   product.name.toLowerCase().includes('secador') ||
-    //   product.name.toLowerCase().includes('cocina') ||
-    //   product.sub_category.toLowerCase().includes('notebook'))
-  }
+      !product.name.toLowerCase().includes('control')
+    );
+  }, [products]);
 
   return (
       <div 
         name='home' 
         className={`flex flex-col items-center gap-10 min-h-screen h-full w-full pb-5`}>
-        
         <BannerCarousel/>
         {/*Banners*/}
         <section className='flex flex-col items-center w-full gap-y-10'>
@@ -144,7 +139,7 @@ export default function Home() {
             <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4 text-page-blue-normal'>
               OFERTAS CLIMATIZACION
             </h1>
-            <ProductsCarousel style={'pb-5'} rows={1} filterProducts={firstCarrousel}/>
+            <ProductsCarousel style={'pb-5'} rows={1} filterProducts={firstCarousel}/>
           </section>
 
           {/*Products news carousel*/}
@@ -152,7 +147,7 @@ export default function Home() {
             <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4 text-page-blue-normal'>
               OFERTAS TECNOLOGIA
             </h1> 
-              <ProductsCarousel style={'pb-5'} rows={1} filterProducts={secondCarrousel}/>
+              <ProductsCarousel style={'pb-5'} rows={1} filterProducts={secondCarousel}/>
           </section>
 
           {/*Products recomendations carousel*/}
@@ -160,14 +155,17 @@ export default function Home() {
             <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4 text-page-blue-normal'>
               OFERTAS PARA HOGAR
             </h1>
-              <ProductsCarousel style={'pb-5'} rows={1} filterProducts={thirdCarrousel}/>
+              <ProductsCarousel style={'pb-5'} rows={1} filterProducts={thirdCarousel}/>
           </section>
         </div>
         }
 
         <section className='w-3/4 h-fit flex flex-col gap-y-5 pt-10'>
           <span className='font-bold text-2xl w-full'>Conoce nuestras marcas</span>
-          <div><BrandsCarrousel/></div>
+
+          <div className='select-none'>
+            <BrandsCarrousel/>
+          </div>
         </section>
       </div>
   )

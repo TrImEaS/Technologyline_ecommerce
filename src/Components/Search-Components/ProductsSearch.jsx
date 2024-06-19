@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 import { useLocation } from "react-router-dom"
 import ProductCard from "../ProductCard"
 
-
 export default function ProductsSearch({ products }) {
   const [currentPage, setCurrentPage] = useState(1)
   const [productsPerPage, setProductsPerPage] = useState(9)
@@ -10,8 +9,8 @@ export default function ProductsSearch({ products }) {
   const location = useLocation();
 
   const handlePageChange = (newPage) => {
+    window.scrollTo(200, 200)
     setCurrentPage(newPage)
-    window.scrollTo(0, 0)
   }
 
   const totalPages = Math.ceil(products.length / productsPerPage)

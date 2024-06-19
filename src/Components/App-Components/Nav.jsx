@@ -20,7 +20,7 @@ export default function Nav() {
         </NavLink>
 
         {/*Search input*/}
-        <div className='max-xl:hidden flex w-[75%]'>
+        <div className='max-xl:hidden flex w-[80%]'>
           <SearchInput/> 
         </div>
         {/*User items*/}
@@ -42,7 +42,7 @@ export default function Nav() {
         {/* Categorias */}
         <CategoriesMenu/>        
        
-        <article className='rounded-full w-1/2 max-md:w-full'>
+        <article className='rounded-full w-[70%] max-md:w-full'>
           <SearchInput/>
         </article>
         
