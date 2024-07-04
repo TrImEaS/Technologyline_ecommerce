@@ -119,7 +119,7 @@ export default function CategoriesMenu () {
       </div>
 
       {/*Categorias for full screen and xl screen */}
-      <section className='hidden xl:flex justify-center min-w-[530px] w-full pr-[150px]'>
+      <section className='hidden md:flex justify-center min-w-[200px] w-full'>
         <ul className='flex gap-x-2'>
           {uniqueCategories.map((category, index) => (
             <li 

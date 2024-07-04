@@ -14,6 +14,7 @@ export default function Home() {
   const [products, setProducts] = useState(null)
   const [loading, setLoading] = useState(true)
 
+  /* Get products */
   useEffect(() => {
     (async function () {
       try {
@@ -32,6 +33,7 @@ export default function Home() {
     })()
   }, [])
 
+  /* Add new view to web */
   useEffect(() => {
     try {
       fetch('https://technologyline.com.ar/api/clients/addView',{
@@ -51,7 +53,6 @@ export default function Home() {
       console.log(err)
     }
   }, [])
-
 
   const firstCarousel = useMemo(() => {
     if (!products) return [];
@@ -136,7 +137,7 @@ export default function Home() {
         <div className='flex flex-col gap-y-20 w-[82%] max-sm:w-[71%]'>
           {/*Products sale carousel*/}
           <section className='relative flex flex-col justify-center w-full gap-y-10'>
-            <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4 text-page-blue-normal'>
+            <h1 className='font-medium text-3xl max-[680px]:w-full text-page-blue-normal w-fit'>
               OFERTAS CLIMATIZACION
             </h1>
             <ProductsCarousel style={'pb-5'} rows={1} filterProducts={firstCarousel}/>
@@ -144,7 +145,7 @@ export default function Home() {
 
           {/*Products news carousel*/}
           <section className='relative flex flex-col justify-center w-full gap-y-10'>
-            <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4 text-page-blue-normal'>
+            <h1 className='font-medium text-3xl max-[680px]:w-full text-page-blue-normal w-fit'>
               OFERTAS TECNOLOGIA
             </h1> 
               <ProductsCarousel style={'pb-5'} rows={1} filterProducts={secondCarousel}/>
@@ -152,7 +153,7 @@ export default function Home() {
 
           {/*Products recomendations carousel*/}
           <section className='relative flex flex-col justify-center w-full gap-y-10'>
-            <h1 className='font-bold text-3xl max-[680px]:w-full w-3/4 text-page-blue-normal'>
+            <h1 className='font-medium text-3xl max-[680px]:w-full text-page-blue-normal w-fit'>
               OFERTAS PARA HOGAR
             </h1>
               <ProductsCarousel style={'pb-5'} rows={1} filterProducts={thirdCarousel}/>
