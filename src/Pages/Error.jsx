@@ -1,34 +1,59 @@
 import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import error_img from '../Assets/error-img.avif'
 
 export default function Error() {
   const navigate = useNavigate()
 
   useEffect(() => {
     document.title = `No se ha encontrado la ruta | Technology Line`
+    
+    document.documentElement.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.documentElement.style.overflow = 'auto'
+      document.body.style.overflow = 'auto'
+    }
   }, [location.search, navigate])
 
+  const handleBackToHome = () => {
+    // Restaurar el overflow antes de navegar a la página principal
+    document.documentElement.style.overflow = 'auto'
+    document.body.style.overflow = 'auto'
+  }
   return (
-    <div className='flex relative flex-col min-h-[520px] justify-between gap-2 py-7 px-3'>
-      <img 
-        src="404-error.jpg"
-        className='absolute bottom-5 w-full h-[450px]'
-        />
+    <header
+      id='error'
+      class="flex flex-col absolute items-center h-screen w-screen px-10 justify-center p-4 bg-[#fafafa]"
+    >
+      <section
+        class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8"
+      >
+        <article class="text-center md:text-left">
+          <h1 class="text-4xl font-bold">Real Color</h1>
+          <p class="mt-2 text-xl font-semibold">404. That's an error.</p>
+          <p class="mt-2 text-muted-foreground">
+            The requested URL was not found on this server. That's all we know.
+          </p>
+        </article>
+        <aside>
+          <img
+            src={error_img}
+            alt="Robot Illustration"
+            class="w-[280px] h-[280px] rounded-lg"
+          />
+        </aside>
+      </section>
 
-      <div className='z-20 flex flex-col gap-2'>
-        <h1 className='text-4xl font-bold'>Error 404</h1>
-        <span className='text-xl'>
-          Lo sentimos, no hemos encontrado la ruta que estas buscando...
-        </span>
-      </div>
-
-      <div className='flex items-center justify-center z-20'>
-        <button 
-          onClick={() => navigate('/')}
-          className='border border-black py-2 px-4 rounded-lg hover:bg-black hover:text-white duration-500 font-bold'>
-          Volver a home
-        </button>
-      </div>
-    </div>
+      <NavLink
+        to="/"
+        id="btn"
+        onClick={handleBackToHome}
+        class="z-50 border-2 h-fit hover:scale-105 px-4 py-2 rounded-lg shadow-md duration-300"
+      >
+        Back to Home
+      </NavLink>
+    </header>
   )
 }

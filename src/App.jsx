@@ -15,16 +15,8 @@ function App() {
       <Nav/>
       <Routes>
         <Route path="/" element={<Home/>}/>
-        
-        <Route path="/products" element={<Products/>}>
-          <Route path=":product/*" element={<Products/>}/>
-        </Route>
-
-        <Route path="/search" element={<Search />}>
-          <Route path=":category/*" element={<Search />} />
-          <Route path=":category/:subcategory/*" element={<Search />} />
-          <Route path=":category/:subcategory/:brand" element={<Search />} />
-        </Route>
+        <Route path="/products" element={<Products/>}/>
+        <Route path="/search" element={<Search />}/>
 
         <Route path="/others" element={<Others/>}>
           <Route path="about_us" element={<About_Us/>}/>
@@ -38,13 +30,7 @@ function App() {
 
         <Route path="*" element={<Error/>}/>
       </Routes>
-      {/* <a 
-        href="https://wa.me/541133690584" 
-        id='wpp-icon'
-        target={'_blank'}
-        className={`flex fixed justify-center items-center bottom-[145px] right-10 cursor-pointer w-12 h-12 bg-[#25d366] rounded-2xl duration-300 hover:w-14 hover:h-14 max-sm:hidden`}>
-        <FaWhatsapp className="text-white text-[40px]"/>
-      </a> */}
+
       <a 
         className='flex fixed justify-center items-center bottom-[145px] right-10 cursor-pointer w-12 h-12 bg-[#25d366] rounded-2xl duration-300 hover:w-14 hover:h-14 max-sm:hidden' 
         id='wpp-icon'
@@ -67,12 +53,3 @@ function ScrollToTopOnLocationChange() {
 }
 
 export default App
-
-  // useEffect(() => {
-  //   Swal.fire({
-  //     title: '¡Esto es una demo!',
-  //     text: 'Aun seguimos en desarrollo, pero sientete libre de echarle un vistazo!',
-  //     icon: 'info',
-  //     confirmButtonText: 'Entendido'
-  //   })
-  // }, [])

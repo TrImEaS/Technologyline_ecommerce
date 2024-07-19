@@ -78,7 +78,7 @@ export default function Footer() {
     <div className="flex flex-col justify-center items-center w-full">
       
       {/*Top Footer*/}
-      <section className="w-3/4 bg-page-gray-light h-28 flex gap-x-5 justify-center items-center max-lg:flex-wrap max-lg:w-full">
+      <section className="bg-page-gray-light h-28 flex gap-x-5 justify-center items-center max-lg:flex-wrap w-full">
         <h1 className="font-bold text-[20px] max-sm:text-[16px]">
           No pierdas la oportunidad de suscribirte
         </h1>

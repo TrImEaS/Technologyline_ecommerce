@@ -35,9 +35,9 @@ export default function CategoriesMenu () {
   const selectedCategories = [
     'Informatica',
     'Electro y Aires',
-    'TV y Audio',
     'Mas categorias',
     'Tecnologia',
+    'TV y Audio',
   ]
 
   if(loading){

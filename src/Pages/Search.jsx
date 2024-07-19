@@ -201,12 +201,8 @@ export default function Search () {
             </span>
 
             <div className={`flex-col gap-y-5 rounded w-[210px] h-[330px] overflow-x-hidden absolute top-[40px] left-[-80px] bg-white border-2 p-3 ${filterMenu ? 'flex' : 'hidden'}`}>
-              <CategoriesFilters 
-                onFilterChange={setFilters}
-                products={filteredProducts}/>
-                <button onClick={handleResetFilters} className='h-10 flex items-center justify-center bg-white rounded-lg hover:bg-black hover:text-white duration-500 active:text-sm active:duration-0 font-bold border border-black'>
-                  Limpiar Filtros
-                </button>
+              <CategoriesFilters onFilterChange={setFilters} products={filteredProducts}/>
+              <NavLink to='/search' className='h-10 flex items-center justify-center bg-white rounded-lg duration-500 active:text-sm active:duration-0 font-bold border border-black'>Limpiar Filtros</NavLink>
             </div>
           </div>
 
@@ -217,12 +213,8 @@ export default function Search () {
       {/*Aside filters max screen*/}
       <aside className="max-[1366px]:hidden flex flex-col gap-y-8 min-w-[15%] w-[15%] pt-2">
         <div className='max-[1366px]:hidden flex flex-col gap-y-8'>
-          <CategoriesFilters 
-            onFilterChange={setFilters} 
-            products={filteredProducts}/>
-          <button onClick={handleResetFilters} className='h-10 flex items-center justify-center bg-white rounded-lg hover:bg-black hover:text-white duration-500 active:text-sm active:duration-0 font-bold border border-black'>
-            Limpiar Filtros
-          </button>
+          <CategoriesFilters onFilterChange={setFilters} products={filteredProducts}/>
+          <NavLink to='/search' className='h-10 flex items-center justify-center bg-white rounded-lg duration-500 active:text-sm active:duration-0 font-bold border border-black'>Limpiar Filtros</NavLink>
         </div>
       </aside>
       

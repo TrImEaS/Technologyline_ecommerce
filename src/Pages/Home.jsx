@@ -69,7 +69,9 @@ export default function Home() {
       product.sub_category.toLowerCase().includes('televisores') || 
       product.sub_category.toLowerCase().includes('notebook') || 
       product.sub_category.toLowerCase().includes('auriculares') || 
-      product.sub_category.toLowerCase().includes('tv') &&
+      product.sub_category.toLowerCase().includes('tv') ||
+      product.sub_category.toLowerCase().includes('lavado') || 
+      product.sub_category.toLowerCase().includes('hardware') && 
       !product.name.toLowerCase().includes('control')
     );
   }, [products]);
@@ -86,10 +88,15 @@ export default function Home() {
     );
   }, [products]);
 
+  const fourthCarousel = useMemo(() => {
+    if (!products) return [];
+    return products.filter(product => 
+      product.brand.toLowerCase().includes('gama') 
+    );
+  }, [products]);
+  
   return (
-      <div 
-        name='home' 
-        className={`flex flex-col items-center gap-10 min-h-screen h-full w-full pb-5`}>
+      <div name='home' className={`flex bg-lok flex-col items-center gap-10 min-h-screen h-full w-full pb-5`}>
         <BannerCarousel/>
         {/*Banners*/}
         <section className='flex flex-col items-center w-full gap-y-10'>
@@ -137,7 +144,7 @@ export default function Home() {
         <div className='flex flex-col gap-y-20 w-[82%] max-sm:w-[71%]'>
           {/*Products sale carousel*/}
           <section className='relative flex flex-col justify-center w-full gap-y-10'>
-            <h1 className='font-medium text-3xl max-[680px]:w-full text-page-blue-normal w-fit'>
+            <h1 className='font-medium text-3xl max-[680px]:w-full text-gray-800 w-fit'>
               OFERTAS CLIMATIZACION
             </h1>
             <ProductsCarousel style={'pb-5'} rows={1} filterProducts={firstCarousel}/>
@@ -145,7 +152,7 @@ export default function Home() {
 
           {/*Products news carousel*/}
           <section className='relative flex flex-col justify-center w-full gap-y-10'>
-            <h1 className='font-medium text-3xl max-[680px]:w-full text-page-blue-normal w-fit'>
+            <h1 className='font-medium text-3xl max-[680px]:w-full text-gray-800 w-fit'>
               OFERTAS TECNOLOGIA
             </h1> 
               <ProductsCarousel style={'pb-5'} rows={1} filterProducts={secondCarousel}/>
@@ -153,16 +160,24 @@ export default function Home() {
 
           {/*Products recomendations carousel*/}
           <section className='relative flex flex-col justify-center w-full gap-y-10'>
-            <h1 className='font-medium text-3xl max-[680px]:w-full text-page-blue-normal w-fit'>
+            <h1 className='font-medium text-3xl max-[680px]:w-full text-gray-800 w-fit'>
               OFERTAS PARA HOGAR
             </h1>
               <ProductsCarousel style={'pb-5'} rows={1} filterProducts={thirdCarousel}/>
+          </section>
+
+          {/*Products gama carousel*/}
+          <section className='relative flex flex-col justify-center w-full gap-y-10'>
+            <h1 className='font-medium text-3xl max-[680px]:w-full text-gray-800 w-fit'>
+              OFERTAS PARA CUIDADO PERSONAL
+            </h1> 
+              <ProductsCarousel style={'pb-5'} rows={1} filterProducts={fourthCarousel}/>
           </section>
         </div>
         }
 
         <section className='w-3/4 h-fit flex flex-col gap-y-5 pt-10'>
-          <span className='font-bold text-2xl w-full'>Conoce nuestras marcas</span>
+          <span className='font-bold text-2xl text-gray-800 w-full'>Conoce nuestras marcas</span>
 
           <div className='select-none'>
             <BrandsCarrousel/>

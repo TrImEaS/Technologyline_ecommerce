@@ -1,9 +1,8 @@
-import React from 'react';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import Slider from 'react-slick';
 import ProductCard from './ProductCard';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 export default function ProductsCarousel({ filterProducts, rows, style }) {
   const NextArrow = (props) =>{
@@ -32,8 +31,8 @@ export default function ProductsCarousel({ filterProducts, rows, style }) {
 
   const settings = {
     dots: true,
-    infinite: true,
-    autoplay: true,
+    infinite: products.length > 1,
+    autoplay: products.length > 1,
     autoplaySpeed: 3000,
     rows: rows,
     speed: 500,
@@ -49,7 +48,7 @@ export default function ProductsCarousel({ filterProducts, rows, style }) {
         settings: {
           slidesToShow: filterProducts.length > 3 ? 3 : filterProducts.length,
           slidesToScroll: filterProducts.length > 3 ? 3 : filterProducts.length,
-          dots: true
+          initialSlide: 2
         }
       },
       {
@@ -70,6 +69,10 @@ export default function ProductsCarousel({ filterProducts, rows, style }) {
       }
     ]
   };
+  
+  if (products.length === 0) {
+    return '';
+  }
 
   return (
     <Slider className={`${style}`} {...settings}>
