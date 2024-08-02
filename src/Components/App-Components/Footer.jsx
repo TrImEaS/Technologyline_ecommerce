@@ -126,10 +126,17 @@ export default function Footer() {
             <span>
               E-mail: pcamio@real-color.com.ar
             </span>
+
+            <span className='flex font-bold w-full pb-2 pt-3 text-white'>
+              ¿QUERES SER REVENDEDOR? 
+            </span>
+            <span>
+              Escribinos: administracion14@real-color.com.ar
+            </span>
           </ul>
         </article>
 
-        <div className='flex w-full max-md:flex-col items-center justify-center max-md:gap-0 pb-5 pr-24 max-lg:pr-0 max-sm:gap-y-5 max-sm:pr-24'>
+        <div className='flex w-full max-sm:w-4/5 max-md:flex-col items-center justify-center max-md:gap-0 pb-5 pr-24 max-lg:pr-0 max-sm:gap-y-5 max-sm:pr-24'>
           <article className="min-w-[200px] min-h-[140px] max-lg:min-h-[170px] max-sm:min-h-[0] flex flex-col gap-y-1 text-page-gray-light">
             <h1 className="font-bold text-white">
               Categorías
