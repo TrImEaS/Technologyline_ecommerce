@@ -1,13 +1,8 @@
-import naranjaIcon from '../../Assets/Some-icons/card-icon1.svg'
-import visaIcon from '../../Assets/Some-icons/card-icon2.svg'
-import mastercardIcon from '../../Assets/Some-icons/card-icon3.svg'
-import cabalIcon from '../../Assets/Some-icons/card-icon4.svg'
-import americanexpressIcon from '../../Assets/Some-icons/card-icon5.svg'
-import Swal from 'sweetalert2'
 import { MdOutlineEmail } from "react-icons/md"
 import { NavLink } from "react-router-dom"
 import { FaFacebook, FaInstagram, FaTiktok, FaAngleUp } from 'react-icons/fa'
 import { useState } from 'react'
+import Swal from 'sweetalert2'
 
 export default function Footer() {
   const [email, setEmail] = useState('')
@@ -110,7 +105,7 @@ export default function Footer() {
       <section className="relative flex items-center justify-center max-lg:flex-col w-full box-border bg-page-blue-normal text-white gap-5 pt-5">
         <article className="flex w-full flex-col justify-center px-1 gap-x-5 items-center max-[900px]:flex-col max-[900px]:pb-10 max-sm:pl-[10px]">
           <img 
-            src="/logo-tline.svg"
+            src="https://technologyline.com.ar/banners-images/Assets/logo-tline.svg"
             className="rounded-3xl h-[140px] object-cover min-w-[300px] max-w-[300px] max-[900px]:object-cover max-[900px]:w-[350px]"
           />
           <ul className="flex flex-col text-page-gray-light min-w-[300px] max-[1500px]:justify-center pt-8">
@@ -198,11 +193,11 @@ export default function Footer() {
         <div className="flex w-[400px] gap-x-24 items-center justify-start max-[1500px]:justify-between max-sm:flex-wrap max-sm:justify-start max-sm:gap-y-5">
           {/* Card icons */}
           <ul className="flex text-3xl justify-between items-end min-w-[200px] w-[300px] ml-[110px] max-[1500px]:ml-0 gap-x-4">
-            <img src={visaIcon} width={50}/>
-            <img src={mastercardIcon} width={50}/>
-            <img src={americanexpressIcon} width={50}/>
-            <img src={cabalIcon} width={50}/>
-            <img src={naranjaIcon} width={50}/>
+            <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon2.svg'} width={50}/>
+            <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon3.svg'} width={50}/>
+            <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon4.svg'} width={50}/>
+            <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon5.svg'} width={50}/>
+            <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon1.svg'} width={50}/>
           </ul>
         </div>
             

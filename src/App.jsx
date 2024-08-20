@@ -3,12 +3,10 @@ import Footer from "./Components/App-Components/Footer.jsx"
 import { FaWhatsapp } from "react-icons/fa"
 import { useEffect } from "react"
 import { Route, Routes, useLocation } from "react-router-dom"
-import { Home, Error, Search, Products, Others } from './Pages/Routes.jsx'
+import { Home, Search, Products, Others } from './Pages/Routes.jsx'
 import { About_Us, Garantia, Sucursales, Centro_de_ayuda, Trabaja_con_nosotros, Politicas_de_devolucion, Mayoristas } from './Components/Others-Components/Components.jsx'
 
-function App() {
-  const mesagge = "Hola me comunico desde Technology-Line"
-
+export default function App() {
   return (
     <main className='relative flex flex-col items-center font-body justify-between bg-white text-black min-h-screen min-w-[390px] h-full p-0 m-0'>
       <ScrollToTopOnLocationChange />
@@ -28,7 +26,7 @@ function App() {
           <Route path="centro_de_ayuda" element={<Centro_de_ayuda/>}/>
         </Route>
 
-        <Route path="*" element={<Error/>}/>
+        {/* <Route path="*" element={<Error/>}/> */}
       </Routes>
 
       <a 
@@ -51,5 +49,3 @@ function ScrollToTopOnLocationChange() {
 
   return null
 }
-
-export default App

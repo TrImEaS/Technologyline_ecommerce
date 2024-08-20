@@ -1,17 +1,9 @@
-import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { FaAngleRight } from "react-icons/fa"
 import { FaAngleLeft } from "react-icons/fa"
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import image1 from '../../Assets/CategoriesCarousel-images/img1.jpg'
-import image3 from '../../Assets/CategoriesCarousel-images/img6.jpg'
-import image4 from '../../Assets/CategoriesCarousel-images/img3.jpg'
-import image5 from '../../Assets/CategoriesCarousel-images/img4.jpg'
-import image6 from '../../Assets/CategoriesCarousel-images/img5.jpg'
-import image7 from '../../Assets/CategoriesCarousel-images/img2.jpg'
-import hotsale_icon from '../../Assets/sale-icon.svg'
 
 export default function ProductsCarousel () {
 
@@ -81,20 +73,20 @@ export default function ProductsCarousel () {
       <div>
         <NavLink to={'/search/?sub_category=televisores'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
-            src={image1 ? image1 : defaultImage} 
+            src={'https://technologyline.com.ar/banners-images/Assets/CategoriesCarousel-images/img1.jpg'} 
             className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[4px] shadow-xl bg-marine-100'>
           </img>
           <p>
             <span>TELEVISORES</span>
           </p>
-          {/* <img className='h-10 w-10 absolute top-0 right-0' src={hotsale_icon} alt="" /> */}
+          {/* <img className='h-10 w-10 absolute top-0 right-0' src={'https://technologyline.com.ar/banners-images/Assets/sale-icon.svg'} alt="" /> */}
         </NavLink>
       </div>
       
       <div>
         <NavLink to={'/search/?search=calefaccion'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
-            src={image7 ? image7 : defaultImage} 
+            src={'https://technologyline.com.ar/banners-images/Assets/CategoriesCarousel-images/img2.jpg'} 
             className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[3px] shadow-xl bg-marine-100'>
           </img>
           <p className='text-center'>
@@ -107,7 +99,7 @@ export default function ProductsCarousel () {
       <div>
         <NavLink to={'/search/?search=lavado'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
-            src={image4 ? image4 : defaultImage} 
+            src={'https://technologyline.com.ar/banners-images/Assets/CategoriesCarousel-images/img3.jpg'} 
             className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[4px] shadow-xl bg-marine-100'>
           </img>
           <p className='text-center'>
@@ -120,7 +112,7 @@ export default function ProductsCarousel () {
       <div>
         <NavLink to={'/search/?search=cocina'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
-            src={image5 ? image5 : defaultImage} 
+            src={'https://technologyline.com.ar/banners-images/Assets/CategoriesCarousel-images/img4.jpg'} 
             className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[4px] shadow-xl bg-marine-100'>
           </img>
           <p className='text-center'>
@@ -133,7 +125,7 @@ export default function ProductsCarousel () {
       <div>
         <NavLink to={'/search/?search=heladeras'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
-            src={image6 ? image6 : defaultImage} 
+            src={'https://technologyline.com.ar/banners-images/Assets/CategoriesCarousel-images/img5.jpg'} 
             className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[4px] shadow-xl bg-marine-100'>
           </img>
           <p className='text-center'>
@@ -146,7 +138,7 @@ export default function ProductsCarousel () {
       <div>
         <NavLink to={'/search/?search=secador'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
-            src={image3 ? image3 : defaultImage} 
+            src={'https://technologyline.com.ar/banners-images/Assets/CategoriesCarousel-images/img6.jpg'} 
             className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[4px] shadow-xl bg-marine-100'>
           </img>
           <p className='text-center'>

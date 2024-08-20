@@ -1,7 +1,5 @@
 import { NavLink } from "react-router-dom"
 import { useState } from "react"
-import page_icon from '../Assets/page-icon.jpeg'
-import saleImg from '../Assets/sale-icon.svg'
 
 export default function ProductCard({ price, name, sku, img, discount }) {
   const [imageError, setImageError] = useState(false)
@@ -36,12 +34,12 @@ export default function ProductCard({ price, name, sku, img, discount }) {
       <header className="relative w-full flex-grow-[0.55] box-border">
         {discount > 0
         ?
-          <img className="absolute h-10 w-10 right-0" src={saleImg} alt="" />
+          <img className="absolute h-10 w-10 right-0" src={'https://technologyline.com.ar/banners-images/Assets/sale-icon.svg'} alt="" />
         :
           ''
         }
         <img 
-          src={imageError ? page_icon : img}
+          src={imageError ? 'https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg' : img}
           alt={name}
           loading="eager" 
           className="w-full h-full object-contain rounded-lg"

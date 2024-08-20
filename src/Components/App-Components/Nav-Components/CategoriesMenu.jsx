@@ -32,14 +32,6 @@ export default function CategoriesMenu () {
     setCategoriesHideMenu(false);
   }, [location.search]);
 
-  const selectedCategories = [
-    'Informatica',
-    'Electro y Aires',
-    'Mas categorias',
-    'Tecnologia',
-    'TV y Audio',
-  ]
-
   if(loading){
     return(<Spinner/>)
   }
@@ -121,13 +113,13 @@ export default function CategoriesMenu () {
       {/*Categorias for full screen and xl screen */}
       <section className='hidden md:flex justify-center min-w-[200px] w-full'>
         <ul className='flex gap-x-2'>
-          {uniqueCategories.map((category, index) => (
+          {uniqueCategories.map((category) => (
             <li 
               key={category.toLowerCase()}
               className='hover:bg-white hover:text-black rounded-full p-1 px-2 duration-300'>
               <NavLink 
                 to={`/search/?category=${category.toLowerCase()}`}>
-                {selectedCategories[index]}
+                {category}
               </NavLink>
             </li>
           ))}

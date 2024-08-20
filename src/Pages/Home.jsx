@@ -3,9 +3,6 @@ import ProductsCarousel from '../Components/ProductsCarousel'
 import BannersCards from '../Components/Home-Components/BannersCards.jsx'
 import BannerCarousel from '../Components/Home-Components/BannerCarousel.jsx'
 import CategoriesCarousel from '../Components/Home-Components/CategoriesCarousel.jsx'
-import homeicon1 from '../Assets/Some-icons/home-icon1.svg'
-import homeicon2 from '../Assets/Some-icons/home-icon3.svg'
-import homeicon3 from '../Assets/Some-icons/home-icon2.svg'
 import Spinner from '../Components/Products/Spinner.jsx'
 import BrandsCarrousel from '../Components/Home-Components/BrandsCarrousel.jsx'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
@@ -104,7 +101,7 @@ export default function Home() {
           <div className='flex items-center justify-center w-4/5 h-[130px] rounded-3xl bg-gray-300 text-black font-bold xl:text-xl text-sm px-5 gap-x-5'>
               <p className='flex gap-x-3 justify-center items-center w-full'>
                 <i className='flex justify-center items-center border-2 border-black rounded-full xl:min-w-[100px] xl:min-h-[100px] min-w-[65px] min-h-[65px]'>
-                  <img src={homeicon1}/>
+                  <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/home-icon1.svg'}/>
                 </i>
 
                 <span className='hidden md:block text-pretty'>
@@ -113,7 +110,7 @@ export default function Home() {
               </p>
               <p className='flex gap-x-3 justify-center items-center w-full'>
                 <i className='flex justify-center items-center border-2 border-black rounded-full xl:min-w-[100px] xl:min-h-[100px] min-w-[65px] min-h-[65px]'>
-                  <img src={homeicon2}/>
+                  <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/home-icon2.svg'}/>
                 </i>
 
                 <span className='hidden md:block text-pretty'>
@@ -122,7 +119,7 @@ export default function Home() {
               </p>
               <p className='flex gap-x-3 justify-center items-center w-full'>
                 <i className='flex justify-center items-center border-2 border-black rounded-full xl:min-w-[100px] xl:min-h-[100px] min-w-[65px] min-h-[65px]'>
-                  <img src={homeicon3}/>
+                  <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/home-icon3.svg'}/>
                 </i>
 
                 <span className='hidden md:block text-pretty'>

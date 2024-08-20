@@ -12,7 +12,7 @@ export default function Nav() {
       <section className='flex gap-x-5 max-sm:gap-x-2 justify-between max-sm:justify-center items-center h-28 w-3/4 max-lg:w-full px-2'>
         {/*Logo*/}
         <NavLink to='/' className='h-[100px] flex items-center max-xl:justify-center'>
-          <img src="/logo-tline.svg" alt="company-logo" className='w-[200px] max-w-[200px] pb-3'/>
+          <img src="https://technologyline.com.ar/banners-images/Assets/logo-tline.svg" alt="company-logo" className='w-[200px] max-w-[200px] pb-3'/>
         </NavLink>
 
         {/*Search input*/}
@@ -22,7 +22,7 @@ export default function Nav() {
         {/*User items o Link to realcolor shop*/}
         <article className='flex gap-x-6 max-sm:gap-x-3 justify-end max-xl:justify-center w-[190px] max-sm:hidden'>
           {/* <UserIcons/> */}
-          <a href="https://www.technology-line.com.ar/" className='w-full hover:scale-110 items-center duration-300 flex-col'>
+          <a href="/" className='w-full hover:scale-110 items-center duration-300 flex-col'>
             <p className='border rounded-3xl text-white p-1 text-center font-bold text-base max-sm:text-base w-[100%] duration-300'>
               ¡Visitanos en<br />Mercado shop!
             </p>

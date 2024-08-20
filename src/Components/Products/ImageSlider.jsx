@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import Slider from "react-slick"
 import Spinner from './Spinner.jsx'
-import page_icon from '../../Assets/page-icon.jpeg'
 
 export default function ImageSlider({ loadedImages }) {
   const [nav1, setNav1] = useState(null)
@@ -52,7 +51,7 @@ export default function ImageSlider({ loadedImages }) {
           {loading 
           ? <Spinner />
           : <img
-              src={error ? page_icon : loadedImages[0]}
+              src={error ? 'https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg' : loadedImages[0]}
               onError={handleImageError}
               loading="eager"
               alt="Image 1"

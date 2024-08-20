@@ -2,7 +2,6 @@ import React from 'react'
 import ProductsCarousel from '../Components/ProductsCarousel.jsx'
 import ImageSlider from '../Components/Products/ImageSlider.jsx'
 import Spinner from '../Components/Products/Spinner.jsx'
-import saleImg from '../Assets/sale-icon.svg'
 import DOMPurify from 'dompurify'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -182,7 +181,7 @@ export default function Products () {
         <section className='relative w-[55%] max-sm:w-full h-full min-h-[450px]'>
         {product.discount > 0
         ?
-          <img className="absolute h-14 w-14 right-7 top-10" src={saleImg} alt="" />
+          <img className="absolute h-14 w-14 right-7 top-10" src={'https://technologyline.com.ar/banners-images/Assets/sale-icon.svg'} alt="" />
         :
           ''
         }

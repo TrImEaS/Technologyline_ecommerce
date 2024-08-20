@@ -1,4 +1,4 @@
-import Error from "./Error"
+// import Error from "./Error"
 import Home from "./Home"
 import Search from "./Search"
 import Login from "./Login"
@@ -10,7 +10,7 @@ import Others from './Others.jsx'
 
 export { 
   Home, 
-  Error, 
+  // Error, 
   Search, 
   Login, 
   Cart, 

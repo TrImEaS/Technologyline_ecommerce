@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import error_img from '../Assets/error-img.avif'
 
 export default function Error() {
   const navigate = useNavigate()
@@ -39,7 +38,7 @@ export default function Error() {
         </article>
         <aside>
           <img
-            src={error_img}
+            src={'https://technologyline.com.ar/banners-images/Assets/error-img.avif'}
             alt="Robot Illustration"
             class="w-[280px] h-[280px] rounded-lg"
           />
