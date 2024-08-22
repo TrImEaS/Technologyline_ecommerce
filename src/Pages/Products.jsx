@@ -5,7 +5,6 @@ import Spinner from '../Components/Products/Spinner.jsx'
 import DOMPurify from 'dompurify'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Products () {
   const [loadedImages, setLoadedImages] = useState([])
