@@ -175,7 +175,7 @@ export default function Products () {
   }
 
   return (
-    <section className={`flex flex-col items-center h-full w-full gap-y-10 pb-14 max-md:pt-10`}>
+    <section className={`flex flex-col items-center h-full w-full min-h-[600px] gap-y-10 pb-14 max-md:pt-10`}>
       <header className='w-[90%] relative h-full flex max-md:flex-col max-md:items-center sm:p-5 rounded-3xl py-5'>
         <section className='relative w-[55%] max-sm:w-full h-full min-h-[450px]'>
         {product.discount > 0

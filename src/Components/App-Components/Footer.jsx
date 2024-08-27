@@ -126,7 +126,7 @@ export default function Footer() {
               ¿QUERES SER REVENDEDOR? 
             </span>
             <span>
-              Escribinos: administracion14@real-color.com.ar
+              Escribinos: revendedores@realcolor.com.ar
             </span>
           </ul>
         </article>

@@ -30,27 +30,6 @@ export default function Home() {
     })()
   }, [])
 
-  /* Add new view to web */
-  useEffect(() => {
-    try {
-      fetch('https://technologyline.com.ar/api/clients/addView',{
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' } 
-      })
-      .then(res => {
-        if(!res.ok){
-          throw new Error('Bad request')
-        }
-        return res.json()
-      })
-      .then(data => console.log('Success: ', data))
-      .catch(e => console.error('Error: ', e))
-    } 
-    catch (err) {
-      console.log(err)
-    }
-  }, [])
-
   const firstCarousel = useMemo(() => {
     if (!products) return [];
     return products.filter(product => 

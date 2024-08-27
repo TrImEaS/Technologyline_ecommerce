@@ -14,6 +14,7 @@ export default function Search () {
     search_category: '',
     search_subCat: '',
     search_brand: '',
+    search_white_line: 0,
     search: '',
   })
   const [filterMenu, setFilterMenu] = useState(false)
@@ -38,6 +39,7 @@ export default function Search () {
       }
     })()
   }, [])
+  console.log(products)
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search)
@@ -47,6 +49,7 @@ export default function Search () {
       search_name: queryParams.get('name') || '',
       search_category: queryParams.get('category') || '',
       search_subCat: queryParams.get('sub_category') || '',
+      search_white_line: queryParams.get('white_line') || 0,
       search_brand: queryParams.get('brand') || '',
       search: queryParams.get('search') || ''
     }))
@@ -90,6 +93,8 @@ export default function Search () {
         product.category.toUpperCase().includes(filters.search_category.toUpperCase()) 
         &&
         product.sub_category.toUpperCase().includes(filters.search_subCat.toUpperCase()) 
+        &&
+        (filters.search_white_line == 1 ? product.white_line == 1 : true)
         &&
         (filters.search_brand.length === 0 || filters.search_brand.includes(product.brand.toLowerCase())) 
         &&
