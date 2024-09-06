@@ -13,7 +13,7 @@ export default function BannerCarousel() {
     {
       id: 1,
       banner: 'https://technologyline.com.ar/banners-images/banner.jpg',
-      to:'search?white_line=1',
+      to:'search?sub_category=calefaccion',
     },
     {
       id: 2,
@@ -23,12 +23,12 @@ export default function BannerCarousel() {
     {
       id: 3,
       banner: 'https://technologyline.com.ar/banners-images/banner3.jpg',
-      to:'',
+      to:'search?sub_category=tv',
     },
     {
       id: 4,
       banner: 'https://technologyline.com.ar/banners-images/banner4.jpg',
-      to:'search?sub_category=tv',
+      to:'search?sub_category=CALEFONES',
     },
     {
       id: 5,
@@ -41,7 +41,7 @@ export default function BannerCarousel() {
     {
       id: 1,
       banner: 'https://technologyline.com.ar/banners-images/banner-mobile.jpg',
-      to:'search?white_line=1',
+      to:'search?sub_category=calefaccion',
     },
     {
       id: 2,
@@ -51,12 +51,12 @@ export default function BannerCarousel() {
     {
       id: 3,
       banner: 'https://technologyline.com.ar/banners-images/banner-mobile3.jpg',
-      to:'',
+      to:'search?sub_category=tv',
     },
     {
       id: 4,
       banner: 'https://technologyline.com.ar/banners-images/banner-mobile4.jpg',
-      to:'search?sub_category=tv',
+      to:'search?sub_category=CALEFONES',
     },
     {
       id: 5,

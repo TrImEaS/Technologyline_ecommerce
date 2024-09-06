@@ -39,7 +39,6 @@ export default function Search () {
       }
     })()
   }, [])
-  console.log(products)
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search)
@@ -73,7 +72,7 @@ export default function Search () {
         case 'Z-A':
           return b.name.localeCompare(a.name)
         default:
-          return 0
+          return parseFloat(b.price) - parseFloat(a.price)
       }
     })
     

@@ -4,7 +4,7 @@ import { FaWhatsapp } from "react-icons/fa"
 import { useEffect } from "react"
 import { Route, Routes, useLocation } from "react-router-dom"
 import { Home, Search, Products, Others } from './Pages/Routes.jsx'
-import { About_Us, Garantia, Sucursales, Centro_de_ayuda, Trabaja_con_nosotros, Politicas_de_devolucion, Mayoristas } from './Components/Others-Components/Components.jsx'
+import { About_Us, Garantia, Sucursales, Centro_de_ayuda, Trabaja_con_nosotros, Politicas_de_devolucion, Revendedores } from './Components/Others-Components/Components.jsx'
 
 export default function App() {
   return (
@@ -18,7 +18,7 @@ export default function App() {
 
         <Route path="/others" element={<Others/>}>
           <Route path="about_us" element={<About_Us/>}/>
-          <Route path="mayoristas" element={<Mayoristas/>}/>
+          <Route path="revendedores" element={<Revendedores/>}/>
           <Route path="garantia" element={<Garantia/>}/>
           <Route path="sucursales" element={<Sucursales/>}/>       
           <Route path="politicas_de_devolucion" element={<Politicas_de_devolucion/>}/>        

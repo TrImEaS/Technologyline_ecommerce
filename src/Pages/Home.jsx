@@ -41,7 +41,7 @@ export default function Home() {
 
   const secondCarousel = useMemo(() => {
     if (!products) return [];
-    return products.filter(product => 
+    return products.reverse().filter(product => 
       product.sub_category.toLowerCase().includes('televisores') || 
       product.sub_category.toLowerCase().includes('notebook') || 
       product.sub_category.toLowerCase().includes('auriculares') || 

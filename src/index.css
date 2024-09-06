@@ -75,14 +75,24 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+/* 
+.slick-track {
+  display: flex;
+  gap: 15px;
+} */
 
 .slider-container {
   max-width: 700px; /* Establece el ancho máximo */
   min-width: 300px; /* Establece el ancho mínimo */
-  width: 70%; /* Establece el ancho en un 80% del ancho de su contenedor principal */
+  width: 75%; /* Establece el ancho en un 80% del ancho de su contenedor principal */
   margin: 0px auto;
   padding-bottom: 10px; /* Centra el contenedor horizontalmente */
 }
+/* 
+.slick-slide, .slick-current {
+  border: 1px solid rgb(193, 193, 193);
+  border-radius: 
+} */
 
 .dots-slider {
   width: 90%;
@@ -117,4 +127,9 @@
 
 #error {
   z-index: 999999999;
+}
+
+b {
+  color: rgb(49, 155, 197);
+  font-weight: 500;
 }

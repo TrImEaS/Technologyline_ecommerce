@@ -44,7 +44,7 @@ export default function ImageSlider({ loadedImages }) {
   }
 
   return (
-    <div className=" min-h-[300px]">
+    <div className="min-h-[300px]">
       {loadedImages.length === 1 
       ? (
         <div className="h-full flex items-center justify-center" onClick={() => handleZoomImage(loadedImages[0])}>
@@ -75,12 +75,12 @@ export default function ImageSlider({ loadedImages }) {
             }}
           >
             {loadedImages.map((image, index) => (
-              <div key={index} onClick={() => handleZoomImage(image)}>
+              <div className="" key={index} onClick={() => handleZoomImage(image)}>
                 <img
                   src={image}
                   loading="eager"
                   alt={`Image ${index + 1}`}
-                  className="object-cover rounded-lg max-w-[450px] w-full cursor-pointer"
+                  className="object-cover border-2 rounded-lg max-w-[450px] w-full cursor-zoom-in"
                 />
               </div>
             ))}
@@ -101,12 +101,12 @@ export default function ImageSlider({ loadedImages }) {
             className="dots-slider"
           >
             {loadedImages.map((image, index) => (
-              <div className="cursor-pointer border border-black rounded-3xl" key={index}>
+              <div className="cursor-pointer" key={index}>
                 <img
                   src={image}
                   loading="eager"
                   alt={`Image ${index + 1}`}
-                  className="object-contain rounded-lg"
+                  className="object-contain "
                 />
               </div>
             ))}
@@ -118,7 +118,7 @@ export default function ImageSlider({ loadedImages }) {
         <section onClick={() => handleZoomImage(null)}>
           <article className="fixed flex p-5 items-center justify-center z-[9999999] bg-black bg-opacity-75 h-screen w-screen top-0 right-[0] max-sm:min-w-[390px] max-sm:min-h-[650px]">
             <span className="absolute top-5 right-10 text-white font-bold text-4xl cursor-pointer">x</span>
-            <img src={zoomedImage} className="rounded-lg object-contain cursor-zoom-in w-[550px]" />
+            <img src={zoomedImage} className="rounded-lg object-contain cursor-zoom-out w-[550px]" />
           </article>
         </section>
       )}

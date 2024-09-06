@@ -1,6 +1,6 @@
 import { MdOutlineEmail } from "react-icons/md"
 import { NavLink } from "react-router-dom"
-import { FaFacebook, FaInstagram, FaTiktok, FaAngleUp } from 'react-icons/fa'
+import { FaInstagram, FaAngleUp } from 'react-icons/fa'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 
@@ -180,8 +180,8 @@ export default function Footer() {
             <NavLink to={`/others/about_us`} className="hover:text-white duration-300">
               Sobre nosotros
             </NavLink>
-            <NavLink to={`/others/mayoristas`} className="hover:text-white duration-300">
-              Venta a mayoristas
+            <NavLink to={`/others/revendedores`} className="hover:text-white duration-300">
+              Revendedores
             </NavLink>
           </article>
         </div>

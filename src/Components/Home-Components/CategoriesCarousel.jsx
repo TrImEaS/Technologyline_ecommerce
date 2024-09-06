@@ -71,7 +71,7 @@ export default function ProductsCarousel () {
   return(
     <Slider {...settings}>
       <div>
-        <NavLink to={'/search/?sub_category=televisores'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
+        <NavLink to={'/search/?sub_category=tv'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={'https://technologyline.com.ar/banners-images/Assets/CategoriesCarousel-images/img1.jpg'} 
             className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[4px] shadow-xl bg-marine-100'>

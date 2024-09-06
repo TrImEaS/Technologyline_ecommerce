@@ -78,10 +78,10 @@ export default function Products () {
     return new Promise((resolve) => {
       const img = new Image()
       img.onload = () => {
-        resolve(true) // La imagen se ha cargado correctamente
+        resolve(true)
       }
       img.onerror = () => {
-        resolve(false) // La imagen no se pudo cargar
+        resolve(false)
       }
       img.src = url
     })
@@ -96,14 +96,11 @@ export default function Products () {
   const message = encodeURIComponent(`Hola me comunico desde la pagina Technology-Line, me interesaria saber mas informacion acerca de este articulo: ${product.sku} - ${product.name} - ${product.price}`)
 
   const totalDiscount = (price, discount) => {
-    // Convertir los precios a números
     const normalPrice = parseFloat(price);
     const discountedPrice = parseFloat(discount);
   
-    // Calcular el porcentaje de descuento
     const percentage = ((normalPrice - discountedPrice) / normalPrice) * 100;
   
-    // Devolver el porcentaje como un número entero
     return Math.round(percentage);
   }
 
@@ -112,10 +109,10 @@ export default function Products () {
   let cat = product.sub_category || ''
   let name = product.name || ''
   const recomendProducts = products
-  .filter(product => 
-    product.sub_category.toLowerCase().includes(cat.toLowerCase()) && 
-    !product.name.toLowerCase().includes(name.toLowerCase()))
-  .sort((a, b) => parseFloat(b.price) - parseFloat(a.price)).slice(0,9)
+    .filter(product => 
+      product.sub_category.toLowerCase().includes(cat.toLowerCase()) && 
+      !product.name.toLowerCase().includes(name.toLowerCase()))
+    .sort((a, b) => parseFloat(b.price) - parseFloat(a.price)).slice(0,9)
 
   const handleStockQuantity = () => {
     const quantity = product.stock
@@ -178,12 +175,7 @@ export default function Products () {
     <section className={`flex flex-col items-center h-full w-full min-h-[600px] gap-y-10 pb-14 max-md:pt-10`}>
       <header className='w-[90%] relative h-full flex max-md:flex-col max-md:items-center sm:p-5 rounded-3xl py-5'>
         <section className='relative w-[55%] max-sm:w-full h-full min-h-[450px]'>
-        {product.discount > 0
-        ?
-          <img className="absolute h-14 w-14 right-7 top-10" src={'https://technologyline.com.ar/banners-images/Assets/sale-icon.svg'} alt="" />
-        :
-          ''
-        }
+          {product.discount > 0 && <img className="absolute h-14 w-14 right-7 top-10" src={'https://technologyline.com.ar/banners-images/Assets/sale-icon.svg'} alt="" />}
           {loadingImages ? <Spinner /> : <ImageSlider loadedImages={loadedImages}/>}
         </section>
 
@@ -265,14 +257,13 @@ export default function Products () {
 
       <section className='flex flex-col gap-y-10 w-[82%] max-sm:w-[70%]'>
         {/* Seccion de descripcion */}
-        { recomendProducts.length > 0 ?
+        { recomendProducts.length > 0 &&
           <div className='w-full flex flex-col gap-y-10'>
             <span className='text-3xl font-bold max-sm:text-2xl'>
               Tambien te recomendamos
             </span>
             <ProductsCarousel rows={1} filterProducts={recomendProducts}/>
           </div>
-          : ''
         }
       </section>
     </section>

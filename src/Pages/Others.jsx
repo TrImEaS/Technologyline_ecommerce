@@ -51,8 +51,8 @@ export default function Others () {
           </li> */}
           <li className="hover:bg-black hover:text-white text-center bg-page-gray-light font-semibold rounded-full w-[250px] px-5 py-1 duration-300">
             <NavLink 
-              to={'/others/mayoristas'}>
-              Venta a mayoristas
+              to={'/others/revendedores'}>
+              Revendedores
             </NavLink>
           </li>
         </ul>
@@ -104,8 +104,8 @@ export default function Others () {
           </li> */}
           <li className="hover:bg-black hover:text-white text-center bg-page-gray-light font-semibold rounded-full w-[220px] px-5 py-1 duration-300">
             <NavLink 
-              to={'/others/mayoristas'}>
-              Venta a mayoristas
+              to={'/others/revendedores'}>
+              Revendedores
             </NavLink>
           </li>
         </ul>
