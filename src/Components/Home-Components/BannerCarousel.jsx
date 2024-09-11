@@ -1,128 +1,82 @@
-import { useEffect, useState } from 'react'
-import { Carousel } from 'react-responsive-carousel'
-import Spinner from '../Products/Spinner';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Carousel } from 'react-responsive-carousel';
+import { useNavigate } from 'react-router-dom';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 export default function BannerCarousel() {
-  const [currentBanners, setCurrentBanners] = useState([]);
-  const [loading, setLoading] = useState(true)
-  const mobileScreen = 768
+  const [desktopBanners, setDesktopBanners] = useState([]);
+  const [mobileBanners, setMobileBanners] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
   const navigate = useNavigate();
 
-  const desktopBanners = [
-    {
-      id: 1,
-      banner: 'https://technologyline.com.ar/banners-images/banner.jpg',
-      to:'search?sub_category=calefaccion',
-    },
-    {
-      id: 2,
-      banner: 'https://technologyline.com.ar/banners-images/banner2.jpg',
-      to:'products/?product=CEL1689',
-    },
-    {
-      id: 3,
-      banner: 'https://technologyline.com.ar/banners-images/banner3.jpg',
-      to:'search?sub_category=tv',
-    },
-    {
-      id: 4,
-      banner: 'https://technologyline.com.ar/banners-images/banner4.jpg',
-      to:'search?sub_category=CALEFONES',
-    },
-    {
-      id: 5,
-      banner: 'https://technologyline.com.ar/banners-images/banner5.jpg',
-      to:'',
-    },
-  ];
-
-  const mobileBanners = [
-    {
-      id: 1,
-      banner: 'https://technologyline.com.ar/banners-images/banner-mobile.jpg',
-      to:'search?sub_category=calefaccion',
-    },
-    {
-      id: 2,
-      banner: 'https://technologyline.com.ar/banners-images/banner-mobile2.jpg',
-      to:'products/?product=CEL1689',
-    },
-    {
-      id: 3,
-      banner: 'https://technologyline.com.ar/banners-images/banner-mobile3.jpg',
-      to:'search?sub_category=tv',
-    },
-    {
-      id: 4,
-      banner: 'https://technologyline.com.ar/banners-images/banner-mobile4.jpg',
-      to:'search?sub_category=CALEFONES',
-    },
-    {
-      id: 5,
-      banner: 'https://technologyline.com.ar/banners-images/banner-mobile5.jpg',
-      to:'',
-    },
-  ];
-
-  const checkImageExists = (url) => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.src = url;
-      img.onload = () => resolve(true);
-      img.onerror = () => resolve(false);
-    });
-  };
-
-  const fetchAvailableBanners = async (banners) => {
-    const checkImages = banners.map(banner => checkImageExists(banner));
-    const results = await Promise.all(checkImages);
-    return banners.filter((banner, index) => results[index]);
-  };
-
-  const updateBanners = async () => {
-    setLoading(true);
-    const bannersToCheck = window.innerWidth < mobileScreen ? mobileBanners : desktopBanners;
-    const availableBanners = await fetchAvailableBanners(bannersToCheck);
-    setCurrentBanners(availableBanners.length ? availableBanners : bannersToCheck);
-    setLoading(false);
-  };
-
   useEffect(() => {
-    updateBanners();
-    window.addEventListener('resize', updateBanners);
-    return () => window.removeEventListener('resize', updateBanners);
+    fetchBanners();
+    const handleResize = () => setIsMobile(window.innerWidth <= 640);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const fetchBanners = () => {
+    fetch('https://technologyline.com.ar/api/page/getBanners')
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Error fetching banners');
+        }
+        return res.json();
+      })
+      .then(data => {
+        // Filtrar banners según el nombre para móvil y escritorio
+        const mobile = data.filter(banner => banner.name.includes('mobile') && banner.path);
+        const desktop = data.filter(banner => banner.name.includes('desktop') && banner.path);
+
+        setMobileBanners(mobile);
+        setDesktopBanners(desktop);
+      })
+      .catch(error => console.error(error));
+  };
+
+  // Determinar qué banners mostrar basado en la resolución
+  const bannersToShow = isMobile ? mobileBanners : desktopBanners;
+  const shouldShowCarousel = bannersToShow.length > 0;
+
+  console.log(bannersToShow)
+
   const handleClick = (index) => {
-    const banner = currentBanners[index];
-    if (banner.to) {
-      navigate(banner.to); // Navegar a la ruta especificada
+    const banner = bannersToShow[index];
+    if (banner.path_to) {
+      navigate(banner.path_to); // Navegar a la ruta especificada
     }
   };
 
   return (
-    <Carousel 
-      autoPlay={5000}
-      showStatus={false}
-      infiniteLoop
-      transitionTime={500}
-      showThumbs={false}
-      stopOnHover={true}
-      swipeable={true}
-      onClickItem={handleClick}
-    >
-      {loading ? <Spinner/> :
-       currentBanners.map((banner) => (
-        <div key={banner.id + banner.banner} className={`w-full h-full min-h-[200px]`}>
-          <img
-            src={banner.banner}
-            className={`h-full w-full object-fill select-none`}
-            loading="eager"
-            alt={`banner ${banner.id + banner.banner}`}
-          />
-        </div>
-      ))}
-    </Carousel>
-  )
+    <div className='flex flex-col w-full items-center gap-3 sm:pb-3'>
+      {shouldShowCarousel ? (
+        <Carousel
+          autoPlay
+          interval={5000}
+          showStatus={false}
+          infiniteLoop
+          transitionTime={500}
+          showThumbs={false}
+          stopOnHover
+          swipeable
+          emulateTouch
+          onClickItem={handleClick}
+        >
+          {bannersToShow.map((banner, index) => (
+            <div key={index + new Date()} className="w-full h-full min-h-[200px] max-h-[550px]">
+              <img
+                src={banner.path}
+                className="h-full w-full object-fill select-none"
+                loading="eager"
+                alt={`banner ${index + 1}`}
+              />
+            </div>
+          ))}
+        </Carousel>
+      ) : ''}
+    </div>
+  );
 }
+
+{/* <div>No banners available</div> */}
