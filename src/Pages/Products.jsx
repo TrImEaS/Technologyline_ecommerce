@@ -246,7 +246,7 @@ export default function Products () {
           {
             descriptionMenu === 'desc' 
             ? <section className='flex flex-col px-4 py-2'>
-                <article dangerouslySetInnerHTML={{ __html: product.description ? DOMPurify.sanitize(manipulateHTML(product.description)) : 'Este articulo no posee descripciones.' }} />
+                <article dangerouslySetInnerHTML={{ __html: product.descriptions ? DOMPurify.sanitize(manipulateHTML(product.descriptions)) : 'Este articulo no posee descripciones.' }} />
               </section>
             : <section className='flex flex-col px-4 py-2'>
                 <article dangerouslySetInnerHTML={{ __html: product.specifications ? DOMPurify.sanitize(manipulateHTML(product.specifications)) : 'Este articulo no posee descripciones.' }} />
