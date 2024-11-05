@@ -22,25 +22,20 @@ export default function Error() {
     document.body.style.overflow = 'auto'
   }
   return (
-    <header
-      id='error'
-      class="flex flex-col absolute items-center h-screen w-screen px-10 justify-center p-4 bg-[#fafafa]"
-    >
-      <section
-        class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8"
-      >
-        <article class="text-center md:text-left">
-          <h1 class="text-4xl font-bold">Real Color</h1>
-          <p class="mt-2 text-xl font-semibold">404. That's an error.</p>
-          <p class="mt-2 text-muted-foreground">
-            The requested URL was not found on this server. That's all we know.
+    <header id='error' className="flex flex-col absolute items-center h-screen w-screen justify-center p-4 bg-[#fafafa]">
+      <section className="flex flex-col items-center gap-5 w-3/4 space-y-4 md:space-y-0 md:space-x-8">
+        <article className="text-center md:text-left">
+          <h1 className="text-4xl font-bold">Real Color</h1>
+          <p className="mt-2 text-xl font-semibold">Opps, Error 404</p>
+          <p className="mt-2 text-muted-foreground">
+            La URL consultada no es valida. Si era URL a un producto puede que no tenga mas stock o simplemente fue eliminado.
           </p>
         </article>
         <aside>
           <img
             src={'https://technologyline.com.ar/banners-images/Assets/error-img.avif'}
             alt="Robot Illustration"
-            class="w-[280px] h-[280px] rounded-lg"
+            className="w-[280px] h-[280px] rounded-lg mb-5"
           />
         </aside>
       </section>
@@ -49,7 +44,7 @@ export default function Error() {
         to="/"
         id="btn"
         onClick={handleBackToHome}
-        class="z-50 border-2 h-fit hover:scale-105 px-4 py-2 rounded-lg shadow-md duration-300"
+        className="z-50 border-2 border-black h-fit hover:scale-105 px-4 py-2 rounded-lg shadow-md duration-300"
       >
         Back to Home
       </NavLink>

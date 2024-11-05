@@ -4,6 +4,7 @@ import BannersCards from '../Components/Home-Components/BannersCards.jsx'
 import BannerCarousel from '../Components/Home-Components/BannerCarousel.jsx'
 import CategoriesCarousel from '../Components/Home-Components/CategoriesCarousel.jsx'
 import Spinner from '../Components/Products/Spinner.jsx'
+import HotSale from '../Components/HotSale.jsx'
 import BrandsCarrousel from '../Components/Home-Components/BrandsCarrousel.jsx'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 
@@ -33,21 +34,16 @@ export default function Home() {
   const firstCarousel = useMemo(() => {
     if (!products) return [];
     return products.filter(product => 
-      product.sub_category.toLowerCase().includes('calefones') || 
-      product.sub_category.toLowerCase().includes('aires') ||
-      product.sub_category.toLowerCase().includes('calefaccion')
+      product.sub_category.toLowerCase().includes('aires')
     ).sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
   }, [products]);
 
   const secondCarousel = useMemo(() => {
     if (!products) return [];
-    return products.reverse().filter(product => 
-      product.sub_category.toLowerCase().includes('televisores') || 
-      product.sub_category.toLowerCase().includes('notebook') || 
-      product.sub_category.toLowerCase().includes('auriculares') || 
+    return products.filter(product => 
+      product.sub_category.toLowerCase().includes('celular') ||
       product.sub_category.toLowerCase().includes('tv') ||
-      product.sub_category.toLowerCase().includes('lavado') || 
-      product.sub_category.toLowerCase().includes('hardware') && 
+      product.sub_category.toLowerCase().includes('televisores') && 
       !product.name.toLowerCase().includes('control')
     );
   }, [products]);
@@ -57,8 +53,7 @@ export default function Home() {
     return products.filter(product => 
       product.sub_category.toLowerCase().includes('cocina') || 
       product.sub_category.toLowerCase().includes('coccion') || 
-      product.sub_category.toLowerCase().includes('electrodomesticos') || 
-      product.sub_category.toLowerCase().includes('heladeras') && 
+      product.sub_category.toLowerCase().includes('electrodomesticos') && 
       !product.name.toLowerCase().includes('ventilador') && 
       !product.name.toLowerCase().includes('control')
     );
@@ -67,14 +62,16 @@ export default function Home() {
   const fourthCarousel = useMemo(() => {
     if (!products) return [];
     return products.filter(product => 
-      product.brand.toLowerCase().includes('gama') 
+      product.sub_category.toLowerCase().includes('silla gamer') 
     );
   }, [products]);
   
   return (
       <div name='home' className={`flex bg-lok flex-col items-center gap-10 min-h-screen h-full w-full pb-5`}>
-        <BannerCarousel/>
         {/*Banners*/}
+        <BannerCarousel/>
+        {/* <HotSale/> */}
+
         <section className='flex flex-col items-center w-full gap-y-10'>
           <BannersCards/>
           <div className='flex items-center justify-center w-4/5 h-[130px] rounded-3xl bg-gray-300 text-black font-bold xl:text-xl text-sm px-5 gap-x-5'>
@@ -145,7 +142,7 @@ export default function Home() {
           {/*Products gama carousel*/}
           <section className='relative flex flex-col justify-center w-full gap-y-10'>
             <h1 className='font-medium text-3xl max-[680px]:w-full text-gray-800 w-fit'>
-              OFERTAS PARA CUIDADO PERSONAL
+              OFERTAS EN SILLAS GAMER
             </h1> 
               <ProductsCarousel style={'pb-5'} rows={1} filterProducts={fourthCarousel}/>
           </section>

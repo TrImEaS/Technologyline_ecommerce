@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
@@ -49,7 +50,7 @@ export default function BannerCarousel() {
   };
 
   return (
-    <div className='flex flex-col w-full items-center gap-3 sm:pb-3'>
+    <div className='flex flex-col w-full items-center sm:pb-3'>
       {shouldShowCarousel ? (
         <Carousel
           autoPlay
@@ -68,15 +69,21 @@ export default function BannerCarousel() {
               <img
                 src={banner.path}
                 className="h-full w-full object-fill select-none"
-                loading="eager"
+                loading="lazy"
                 alt={`banner ${index + 1}`}
               />
             </div>
           ))}
         </Carousel>
       ) : ''}
+      <section className='h-20 w-full flex items-center justify-center bg-page-blue-normal text-xl text-gray-50 font-bold'>
+        <a 
+          href='https://technology-line.com.ar/' 
+          target='_blank' 
+          className='flex gap-2 items-center relative bg-blue-400 p-3 px-8 rounded-3xl text-xl max-sm:text-lg -tracking-wider hover:scale-105 text-center max-sm:w-[80%] duration-300 cursor-pointer max-sm:max-h-[80%]'>
+          ¡Hace click aca y visitanos en Mercado Shops!
+        </a>
+      </section>
     </div>
   );
 }
-
-{/* <div>No banners available</div> */}

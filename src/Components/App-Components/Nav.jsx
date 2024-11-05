@@ -16,17 +16,17 @@ export default function Nav() {
         </NavLink>
 
         {/*Search input*/}
-        <div className='max-md:hidden flex w-[50%]'>
+        <div className='max-md:hidden flex w-[100%] mt-3'>
           <SearchInput/> 
         </div>
         {/*User items o Link to realcolor shop*/}
         <article className='flex gap-x-6 max-sm:gap-x-3 justify-end max-xl:justify-center w-[190px] max-sm:hidden'>
           {/* <UserIcons/> */}
-          <a href="/" className='w-full hover:scale-110 items-center duration-300 flex-col'>
+          {/* <a href="/" className='w-full hover:scale-110 items-center duration-300 flex-col'>
             <p className='border rounded-3xl text-white p-1 text-center font-bold text-base max-sm:text-base w-[100%] duration-300'>
               ¡Visitanos en<br />Mercado shop!
             </p>
-          </a>
+          </a> */}
         </article>
       </section>
 

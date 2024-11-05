@@ -3,7 +3,7 @@ import Footer from "./Components/App-Components/Footer.jsx"
 import { FaWhatsapp } from "react-icons/fa"
 import { useEffect } from "react"
 import { Route, Routes, useLocation } from "react-router-dom"
-import { Home, Search, Products, Others } from './Pages/Routes.jsx'
+import { Home, Search, Products, Others, Error } from './Pages/Routes.jsx'
 import { About_Us, Garantia, Sucursales, Centro_de_ayuda, Trabaja_con_nosotros, Politicas_de_devolucion, Revendedores } from './Components/Others-Components/Components.jsx'
 
 export default function App() {
@@ -26,7 +26,7 @@ export default function App() {
           <Route path="centro_de_ayuda" element={<Centro_de_ayuda/>}/>
         </Route>
 
-        {/* <Route path="*" element={<Error/>}/> */}
+        <Route path="/error" element={<Error/>}/>
       </Routes>
 
       <a 

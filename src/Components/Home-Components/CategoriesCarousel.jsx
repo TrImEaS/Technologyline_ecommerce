@@ -74,7 +74,7 @@ export default function ProductsCarousel () {
         <NavLink to={'/search/?sub_category=tv'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={'https://technologyline.com.ar/banners-images/Assets/CategoriesCarousel-images/img1.jpg'} 
-            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[4px] shadow-xl bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[2px] shadow-xl object-cover bg-marine-100'>
           </img>
           <p>
             <span>TELEVISORES</span>
@@ -84,13 +84,13 @@ export default function ProductsCarousel () {
       </div>
       
       <div>
-        <NavLink to={'/search/?search=calefaccion'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
+        <NavLink to={'/search/?search=aires'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={'https://technologyline.com.ar/banners-images/Assets/CategoriesCarousel-images/img2.jpg'} 
-            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[3px] shadow-xl bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[2px] shadow-xl object-cover bg-marine-100'>
           </img>
           <p className='text-center'>
-            <span>CALEFACCION</span>
+            <span>AIRES</span>
           </p>
           {/* <img className='h-10 w-10 absolute top-0 right-0' src={hotsale_icon} alt="" /> */}
         </NavLink>
@@ -100,7 +100,7 @@ export default function ProductsCarousel () {
         <NavLink to={'/search/?search=lavado'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={'https://technologyline.com.ar/banners-images/Assets/CategoriesCarousel-images/img3.jpg'} 
-            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[4px] shadow-xl bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[2px] shadow-xl object-cover bg-marine-100'>
           </img>
           <p className='text-center'>
             <span>LAVADO</span>
@@ -113,7 +113,7 @@ export default function ProductsCarousel () {
         <NavLink to={'/search/?search=cocina'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={'https://technologyline.com.ar/banners-images/Assets/CategoriesCarousel-images/img4.jpg'} 
-            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[4px] shadow-xl bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[2px] shadow-xl object-cover bg-marine-100'>
           </img>
           <p className='text-center'>
             <span>COCINAS</span>
@@ -126,7 +126,7 @@ export default function ProductsCarousel () {
         <NavLink to={'/search/?search=heladeras'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={'https://technologyline.com.ar/banners-images/Assets/CategoriesCarousel-images/img5.jpg'} 
-            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[4px] shadow-xl bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[2px] shadow-xl object-cover bg-marine-100'>
           </img>
           <p className='text-center'>
             <span>HELADERAS</span>
@@ -136,13 +136,13 @@ export default function ProductsCarousel () {
       </div>
 
       <div>
-        <NavLink to={'/search/?search=secador'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
+        <NavLink to={'/search/?search=HORNO%20ELECTRICO'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img 
             src={'https://technologyline.com.ar/banners-images/Assets/CategoriesCarousel-images/img6.jpg'} 
-            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[4px] shadow-xl bg-marine-100'>
+            className='w-28 h-28 rounded-full hover:border-[#333] duration-500 border-[2px] shadow-xl object-cover bg-marine-100'>
           </img>
           <p className='text-center'>
-            <span>SECADOR</span>
+            <span>HORNITOS ELECTRICOS</span>
           </p>
           {/* <img className='h-10 w-10 absolute top-0 right-0' src={hotsale_icon} alt="" /> */}
         </NavLink>

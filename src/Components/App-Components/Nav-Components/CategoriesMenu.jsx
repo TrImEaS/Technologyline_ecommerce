@@ -46,15 +46,15 @@ export default function CategoriesMenu () {
   return(
     <>
     {/*Categorias hamburger hide menu*/}
-      <div className='group rounded-full'>
+      <div className='group rounded-full -tracking-widest'>
         <button
           onClick={handleClickCategories} 
           className={`group`}
         >
-          <p className={`${categoriesHideMenu ? 'bg-page-lightblue rounded-full' : ''} group group-hover:bg-white flex items-center gap-x-2 px-2 py-1 pl-3 duration-300 max-md:px-3 rounded-full`}>
-            <FaBars className='mb-[1px] group-hover:text-black duration-300'/>
+          <p className={`${categoriesHideMenu ? 'bg-page-lightblue rounded-full' : ''} group group-hover:bg-white flex items-center px-2 py-1 pl-3 duration-300 max-md:px-3 rounded-full`}>
+            <FaBars className='group-hover:text-black duration-300'/>
             <span className="max-md:hidden group group-hover:text-black rounded-full p-1 px-2 duration-300">
-              Categorías
+              CATEGORIAS
             </span>
           </p>
         </button>
@@ -62,7 +62,7 @@ export default function CategoriesMenu () {
         {/*Categorias hide menu */}
         {categoriesHideMenu 
         ? (
-          <div className='absolute flex flex-col items-center rounded-md overflow-y-auto mt-[10px] overflow-x-hidden p-10 z-[99999999] bg-slate-100 min-w-[300px] max-w-[500px] w-[400px] max-sm:w-[330px] max-sm:h-[300px] h-[500px]'>
+          <div className='absolute tracking-normal flex flex-col items-center rounded-md overflow-y-auto mt-[10px] overflow-x-hidden p-10 z-[99999999] bg-slate-100 min-w-[300px] max-w-[500px] w-[400px] max-sm:w-[330px] max-sm:h-[300px] h-[500px]'>
             <section className='flex items-center flex-col gap-3 text-black h-[100% + 100px]'>
               <div className='h-full w-full flex justify-center border-b-[4px] border-page-lightblue'>
                 <NavLink 
@@ -111,7 +111,7 @@ export default function CategoriesMenu () {
       </div>
 
       {/*Categorias for full screen and xl screen */}
-      <section className='hidden md:flex justify-center min-w-[200px] w-full'>
+      <section className='hidden -tracking-wider md:flex justify-center min-w-[200px] w-full'>
         <ul className='flex gap-x-2'>
           {uniqueCategories.map((category) => (
             <li 
