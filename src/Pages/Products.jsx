@@ -116,7 +116,7 @@ export default function Products () {
 
   const handleStockQuantity = () => {
     const quantity = product.stock
-    if(quantity === 3){
+    if(quantity === 1){
       return (
         <span className='text-red-600'>
           Ultima unidad
