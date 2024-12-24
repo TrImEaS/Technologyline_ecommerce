@@ -62,7 +62,11 @@ export default function Home() {
   const fourthCarousel = useMemo(() => {
     if (!products) return [];
     return products.filter(product => 
-      product.sub_category.toLowerCase().includes('silla gamer') 
+      product.sub_category.toLowerCase().includes('consolas') ||
+      product.sub_category.toLowerCase().includes('tablet') ||
+      product.sub_category.toLowerCase().includes('celular') ||
+      product.sub_category.toLowerCase().includes('parlante') ||
+      product.name.toLowerCase().includes('0700306605861')
     );
   }, [products]);
   
@@ -142,7 +146,7 @@ export default function Home() {
           {/*Products gama carousel*/}
           <section className='relative flex flex-col justify-center w-full gap-y-10'>
             <h1 className='font-medium text-3xl max-[680px]:w-full text-gray-800 w-fit'>
-              OFERTAS EN SILLAS GAMER
+              MAS OFERTAS
             </h1> 
               <ProductsCarousel style={'pb-5'} rows={1} filterProducts={fourthCarousel}/>
           </section>
