@@ -39,22 +39,25 @@ export default function SearchInput() {
 
   return(
     <form 
-      className='flex relative rounded-full bg-gray-100 max-sm:bg-transparent flex-col w-full max-sm:w-fit text-black gap-2 justify-between  duration-500 items-center px-2 z-[9999]'
+      className='flex relative rounded-full bg-gray-100 max-sm:bg-transparent group flex-col w-full text-black gap-2 justify-between duration-500 items-center px-2 z-[9999]'
       onSubmit={handleSubmit}
       ref={inputRef}
     >
-      <div className='flex sm:w-full sm:px-2 gap-2 items-center group rounded-full duration-500'>
-        <FaSearch className='text-gray-700 max-sm:text-white duration-500 max-sm:h-7 max-sm:w-9 max-sm:mb-[2px] group-hover:bg-white group-hover:text-black group-hover:p-1 rounded-lg group'/>
-
+      <label htmlFor='inputSearch' className='flex w-full sm:px-2 items-center min-w-8 rounded-full duration-500 justify-end'>
+        <span className='max-sm:text-white duration-500 max-sm:h-8 max-sm:rounded-r-none w-10 max-sm:mb-[1px] group-hover:bg-gray-200 group-hover:text-black text-lg group-hover:p-1 rounded-full flex items-center justify-center'>
+          <FaSearch/>
+        </span>
+        
         <input 
           type="text" 
-          className='w-full max-sm:w-0 max-sm:mr-[-45px] max-sm:group-hover:mr-0 max-sm:bg-transparent max-sm:group-hover:w-full max-sm:group-hover:bg-gray-100 duration-500 placeholder:text-gray-500 rounded-full bg-gray-100 outline-none px-3 py-1'
+          id='inputSearch'
+          className='w-full max-sm:w-0 max-sm:group-hover:w-full max-sm:mr-[-45px] max-sm:group-hover:mr-0 max-sm:bg-transparent max-sm:group-hover:bg-gray-100 duration-500 max-sm:rounded-l-none placeholder:text-gray-500 rounded-full bg-gray-100 outline-none px-3 py-1'
           placeholder='Buscar'
           value={keyword}
           onChange={handleChange}
           onFocus={handleFocusMenu}
         />
-      </div>
+      </label>
       {searchMenu !== false && keyword !== '' && <SearchResults keyword={keyword} />}
     </form>
   )

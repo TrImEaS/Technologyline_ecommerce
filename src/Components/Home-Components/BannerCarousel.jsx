@@ -40,8 +40,6 @@ export default function BannerCarousel() {
   const bannersToShow = isMobile ? mobileBanners : desktopBanners;
   const shouldShowCarousel = bannersToShow.length > 0;
 
-  console.log(bannersToShow)
-
   const handleClick = (index) => {
     const banner = bannersToShow[index];
     if (banner.path_to) {
@@ -65,7 +63,7 @@ export default function BannerCarousel() {
           onClickItem={handleClick}
         >
           {bannersToShow.map((banner, index) => (
-            <div key={index + new Date()} className="w-full h-full min-h-[200px] max-h-[550px]">
+            <div key={index + new Date()} className="w-full h-full min-h-[500px] max-h-[550px]">
               <img
                 src={banner.path}
                 className="h-full w-full object-fill select-none"

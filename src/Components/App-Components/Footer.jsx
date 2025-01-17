@@ -158,10 +158,10 @@ export default function Footer() {
             <NavLink to={`/others/about_us`} className="hover:text-white duration-300">
               Sobre nosotros
             </NavLink>
-            <NavLink to={`/others/mayoristas`} className="hover:text-white duration-300">
+            <NavLink to={`/others/revendedores`} className="hover:text-white duration-300">
               Venta a mayoristas
             </NavLink>
-            <span to={`/others/trabaja_con_nosotros`} className="text-[#ebebe446] duration-300 cursor-default">
+            <span className="text-[#ebebe446] duration-300 cursor-default">
               Trabaja con nosotros
             </span>
           </article>
