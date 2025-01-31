@@ -90,11 +90,7 @@ export default function ProductsSearch({ products }) {
               (product) => (
                 <ProductCard
                   key={product.id}
-                  sku={product.sku}
-                  img={product.img_base}
-                  price={product.price}
-                  name={product.name}
-                  discount={product.discount}
+                  product={product}
                 />
               )
             )}

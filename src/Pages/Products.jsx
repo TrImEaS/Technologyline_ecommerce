@@ -5,6 +5,7 @@ import Spinner from '../Components/Products/Spinner.jsx'
 import DOMPurify from 'dompurify'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
 
 export default function Products () {
   const [loadedImages, setLoadedImages] = useState([])
@@ -19,7 +20,7 @@ export default function Products () {
   useEffect(() => {
     (async function () {
       try {
-        const response = await fetch('https://technologyline.com.ar/api/products');
+        const response = await fetch(`${API_URL}/api/products`);
         if (!response.ok) {
           throw new Error('Error al obtener productos');
         }
@@ -45,7 +46,7 @@ export default function Products () {
   useEffect(() => {
     const loadImages = async (product) => {
       const images = []
-      const baseUrl = 'https://technologyline.com.ar/products-images'
+      const baseUrl = `${API_URL}/products-images`
       let notFoundCount = 0
       // Cargar la imagen principal
       const mainImage = `${baseUrl}/${product.sku}.jpg`
@@ -140,7 +141,7 @@ export default function Products () {
   }
 
   const handleAddViewToProduct = async () => {
-    await fetch(`https://technologyline.com.ar/api/products/addView/${product.id}`,{
+    await fetch(`${API_URL}/api/products/addView/${product.id}`,{
       method: 'POST',
       headers: {'Content-Type': 'application/json'}
     })
@@ -174,12 +175,11 @@ export default function Products () {
   return (
     <section className={`flex flex-col items-center h-full w-full min-h-[600px] gap-y-10 pb-14 max-md:pt-10`}>
       <header className='w-[90%] relative h-full flex max-md:flex-col max-md:items-center sm:p-5 rounded-3xl py-5'>
-        <section className='relative w-[55%] max-sm:w-full h-full min-h-[450px]'>
-          {product.discount > 0 && <img className="absolute h-14 w-14 right-7 top-10" src={'https://technologyline.com.ar/banners-images/Assets/sale-icon.svg'} alt="" />}
+        <section className='relative w-[55%] max-sm:w-full h-full sm:mt-5 -mt-5 min-h-[450px]'>
           {loadingImages ? <Spinner /> : <ImageSlider loadedImages={loadedImages}/>}
         </section>
 
-        <section className='flex flex-col w-[45%] sm:mt-12 justify-start max-sm:px-10 items-start h-fit max-md:w-full border-2 rounded-lg p-8 sm:mb-10 shadow-lg'>
+        <section className='flex flex-col w-[45%] mt-5 justify-start max-sm:px-10 items-start h-fit max-md:w-full border-2 rounded-lg p-8 sm:mb-10 shadow-lg'>
           <div className='min-h-[200px] flex flex-col gap-y-2'>
             <span className='text-sm text-gray-500'>
               SKU: {product.sku}
@@ -189,22 +189,11 @@ export default function Products () {
               {product.name}
             </h1>
 
-            <div className='flex flex-col w-full gap-y-3 justify-center'>
-              {product.discount > 0
-              ?
-                <div>
-                  <div className='flex items-center gap-x-1'>
-                    <p className="text-sm line-through">${formattedPrice}</p>
-                    <span className='text-sm mb-1 bg-orange-400 text-white px-2 rounded-full'>{percentageOff}% OFF</span>
-                  </div>
-                  <p className="font-bold text-2xl">${formattedDiscount}</p>
-                </div>
-              :
-                <h2 className='text-2xl font-semibold'>
-                  {`$${formattedPrice}`}
-                </h2>
-              }
-              <div className='flex gap-x-5 text-xl w-full items-center'>
+            <div className='flex flex-col w-full gap-y-5 justify-center'>
+              <h2 className='text-2xl font-semibold'>
+                {`$${formattedPrice}`}
+              </h2>
+              <div className='flex gap-x-5  text-xl w-full items-center'>
                 <span>
                   Stock:
                 </span>
@@ -216,14 +205,24 @@ export default function Products () {
             </div>
           </div>
 
-          <div className='w-full flex max-md:justify-center items-center'>
-            <a
+          <div className='w-full flex max-md:justify-center flex-col gap-5 items-center'>
+            <span
               href={`https://wa.me/541133690584?text=${message}`} 
               target='_blank'
-              onClick={handleAddViewToProduct}
-              className='rounded-xl flex items-center justify-center text-lg border-2 border-black font-bold hover:bg-black hover:text-white active:text-sm active:duration-0 py-1 px-2 duration-300 w-[200px] h-[50px]'>
-              Consultar Articulo
-            </a>
+              onClick={()=>console.log('+')}
+              className='rounded-xl flex items-center justify-center text-lg font-bold bg-page-blue-normal text-white active:text-sm active:duration-0 py-1 px-2 duration-300 w-full h-[50px]'
+            >
+              Comprar
+            </span>
+
+            <span
+              href={`https://wa.me/541133690584?text=${message}`} 
+              target='_blank'
+              onClick={()=> console.log('+')}
+              className='rounded-xl flex items-center justify-center text-lg font-bold bg-blue-100 text-page-blue-normal active:text-sm active:duration-0 py-1 px-2 duration-300 w-full h-[50px]'
+            >
+              Agregar a carrito
+            </span>
           </div>
         </section>
       </header>
@@ -245,12 +244,16 @@ export default function Products () {
         <div className='p-2 bg-gray-100 min-h-[100px]'>
           {
             descriptionMenu === 'desc' 
-            ? <section className='flex flex-col px-4 py-2'>
+            ? (
+              <section className='flex flex-col px-4 py-2'>
                 <article dangerouslySetInnerHTML={{ __html: product.descriptions ? DOMPurify.sanitize(manipulateHTML(product.descriptions)) : 'Este articulo no posee descripciones.' }} />
               </section>
-            : <section className='flex flex-col px-4 py-2'>
+            )
+            : (
+              <section className='flex flex-col px-4 py-2'>
                 <article dangerouslySetInnerHTML={{ __html: product.specifications ? DOMPurify.sanitize(manipulateHTML(product.specifications)) : 'Este articulo no posee descripciones.' }} />
               </section>
+            )
           }
         </div>
       </div>

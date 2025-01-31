@@ -79,12 +79,7 @@ export default function ProductsCarousel({ filterProducts, rows, style }) {
       {products.map((product) => (
         <ProductCard
           key={product.id}
-          id={product.id}
-          sku={product.sku}
-          img={product.img_base}
-          price={product.price}
-          name={product.name}
-          discount={product.discount}
+          product={product}
         />
       ))}
     </Slider>

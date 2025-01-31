@@ -1,5 +1,7 @@
 import { FaWhatsapp } from "react-icons/fa"
 import Swal from "sweetalert2"
+const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+
 
 export default function Revendedores () {
   const handleSubmit = (e) => {
@@ -16,7 +18,7 @@ export default function Revendedores () {
       view: 0
     }
 
-    fetch('https://technologyline.com.ar/api/page',{
+    fetch(`${API_URL}/api/page`,{
       method: 'POST',
       headers:{ 'Content-Type': 'application/json' },
       body: JSON.stringify(body)

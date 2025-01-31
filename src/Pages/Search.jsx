@@ -3,6 +3,8 @@ import CategoriesFilters from '../Components/Search-Components/CategoriesFilters
 import { useState, useEffect } from 'react'
 import { useLocation, Outlet, NavLink } from 'react-router-dom'
 import Spinner from '../Components/Products/Spinner.jsx'
+import axios from 'axios'
+const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
 
 export default function Search () {
   const location = useLocation()
@@ -23,21 +25,13 @@ export default function Search () {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    (async function () {
-      try {
-        const response = await fetch('https://technologyline.com.ar/api/products');
-        if (!response.ok) {
-          throw new Error('Error al obtener productos');
-        }
-        const data = await response.json();
-        setProducts(data);
-        setLoading(false);
-        document.title = `Buscar | Technology Line`
-      } 
-      catch (err) {
-        console.log(err)
-      }
-    })()
+    axios.get(`${API_URL}/api/products`)
+    .then(res =>{
+      setProducts(res.data)
+      document.title = `Buscar | Technology Line`
+    })
+    .catch(e => console.log(e))
+    .finally(() => setLoading(false))
   }, [])
 
   useEffect(() => {
@@ -105,18 +99,6 @@ export default function Search () {
     })
   }
   
-  const handleResetFilters = () => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      search_category: '',
-      search_subCat: '',
-      search_brand: '',
-      category: 'all',
-      minPrice: 0.00,
-      maxPrice: 99999999999.00,
-    }))
-  }
-
   const filteredProducts = filterProducts(products) 
 
   const handleFilterMenu = () => setFilterMenu(!filterMenu)

@@ -1,69 +1,44 @@
 import { NavLink } from "react-router-dom"
-import { useState } from "react"
 
-export default function ProductCard({ price, name, sku, img, discount }) {
-  const [imageError, setImageError] = useState(false)
-  const maxNameLength = 50
-  const limitedName = name.length > maxNameLength ? `${name.substring(0, maxNameLength)}...`: name
-  const formattedPrice = parseFloat(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-  const formattedDiscount = parseFloat(discount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+export default function ProductCard({ product }) {
+  console.log(product)
+  const limitedName = product.name.length > 40 ? `${product.name.substring(0, 40)}...`: product.name
   
-  const handleImageError = () => {
-    setImageError(true)
-  }
-  
-  const totalDiscount = (price, discount) => {
-    // Convertir los precios a números
-    const normalPrice = parseFloat(price);
-    const discountedPrice = parseFloat(discount);
-  
-    // Calcular el porcentaje de descuento
-    const percentage = ((normalPrice - discountedPrice) / normalPrice) * 100;
-  
-    // Devolver el porcentaje como un número entero
-    return Math.round(percentage);
+  const formattedPrice = (price) => { 
+    return parseFloat(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
   }
 
-  const percentageOff = totalDiscount(price, discount)
+  // const formattedDiscount = parseFloat(discount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  
+  // const totalDiscount = (price, discount) => {
+  //   const normalPrice = parseFloat(price);
+  //   const discountedPrice = parseFloat(discount);
+
+  //   const percentage = ((normalPrice - discountedPrice) / normalPrice) * 100;
+  
+  //   return Math.round(percentage);
+  // }
 
   return(
     <NavLink
-      to={`/products/?product=${sku}`} 
+      to={`/products/?product=${product.sku}`} 
       className="flex flex-col hover:scale-105 box-border items-center my-3 justify-between bg-white p-2 mx-auto max-[430px]:ml-4 max-[375px]:ml-1 duration-300 hover:cursor-pointer shadow-border border-2 rounded-md"
       style={{ minHeight: '400px', minWidth: '270px', height: '400px', width: '270px' }}>
       <header className="relative w-full flex-grow-[0.55] box-border">
-        {discount > 0
-        ?
-          <img className="absolute h-10 w-10 right-0" src={'https://technologyline.com.ar/banners-images/Assets/sale-icon.svg'} alt="" />
-        :
-          ''
-        }
         <img 
-          src={imageError ? 'https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg' : img}
-          alt={name}
-          loading="eager" 
+          src={product.img_base}
+          alt={product.name}
           className="w-full h-full object-contain rounded-lg"
-          onError={handleImageError}
+          onError={(e) => e.target.src = `https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg`}
         />
       </header>
 
       <article className="w-full flex-grow-[0.35] box-border flex flex-col justify-between">
         <p className="flex flex-col">
-          <span className="text-xs text-gray-500">SKU: {sku}</span>
+          <span className="text-xs text-gray-500">SKU: {product.sku}</span>
           <span>{limitedName}</span>
         </p> 
-        {discount 
-        ? 
-          <div>
-            <div className="flex items-center gap-x-1">
-              <p className="text-sm line-through">${formattedPrice}</p>
-              <span className="text-sm mb-1 bg-orange-400 text-white px-2 rounded-full">{percentageOff}% OFF</span>
-            </div>
-            <p className="font-bold text-2xl">${formattedDiscount}</p>
-          </div>
-        : 
-          <p className="font-bold text-2xl">${formattedPrice}</p>
-        }
+        <p className="font-bold text-2xl">${formattedPrice(product.price)}</p>
       </article>
     </NavLink>
   )

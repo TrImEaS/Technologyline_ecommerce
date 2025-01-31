@@ -3,6 +3,8 @@ import CategoriesMenu from './Nav-Components/CategoriesMenu.jsx'
 import SearchInput from './Nav-Components/SearchInput.jsx'
 import { FaShoppingCart } from "react-icons/fa";
 import { PiUserCircleFill } from "react-icons/pi";
+const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+
 
 export default function Nav() {
   return (
@@ -12,7 +14,7 @@ export default function Nav() {
       <section className='flex gap-x-5 max-sm:gap-x-2 justify-between max-sm:justify-center items-center h-28 w-3/4 max-lg:w-full px-2'>
         {/*Logo*/}
         <NavLink to='/' className='h-[100px] flex items-center max-xl:justify-center'>
-          <img src="https://technologyline.com.ar/banners-images/Assets/logo-tline.svg" alt="company-logo" className='w-[200px] max-w-[200px] pb-3'/>
+          <img src={`https://technologyline.com.ar/banners-images/Assets/logo-tline.svg`} alt="company-logo" className='w-[200px] max-w-[200px] pb-3'/>
         </NavLink>
 
         {/*Search input*/}

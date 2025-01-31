@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import { useLocation, NavLink } from "react-router-dom"
 import { FaBars } from 'react-icons/fa'
 import Spinner from "../../Products/Spinner"
+const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+
 
 export default function CategoriesMenu () {
   const [categoriesHideMenu, setCategoriesHideMenu] = useState(false)
@@ -14,7 +16,7 @@ export default function CategoriesMenu () {
   useEffect(() => {
     (async function () {
       try {
-        const response = await fetch('https://technologyline.com.ar/api/products');
+        const response = await fetch(`${API_URL}/api/products`);
         if (!response.ok) {
           throw new Error('Error al obtener productos');
         }

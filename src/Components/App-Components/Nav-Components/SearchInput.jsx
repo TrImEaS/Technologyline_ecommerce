@@ -2,6 +2,8 @@ import { FaSearch } from 'react-icons/fa'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import Spinner from '../../Products/Spinner'
+const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+
 
 export default function SearchInput() {
   const [keyword, setKeyword] = useState('')
@@ -70,7 +72,7 @@ function SearchResults({ keyword }) {
   useEffect(() => {
     (async function () {
       try {
-        const response = await fetch('https://technologyline.com.ar/api/products');
+        const response = await fetch(`${API_URL}/api/products`);
         if (!response.ok) {
           throw new Error('Error al obtener productos');
         }
@@ -129,8 +131,6 @@ function SearchResults({ keyword }) {
           key={product.id} 
           className="flex box-border items-center justify-between bg-white p-1 duration-500 border-2 rounded-sm hover:cursor-pointer z-[99999] w-full min-h-[180px] max-h-[150px] shadow-border">
           <header className="relative w-[50%] h-full box-border">
-            { product.discount > 0 ? <img className="absolute h-10 w-10 right-5" src={'https://technologyline.com.ar/banners-images/Assets/sale-icon.svg'} alt="" /> : '' }
-            
             <img 
               src={product.img_base} 
               loading="eager"

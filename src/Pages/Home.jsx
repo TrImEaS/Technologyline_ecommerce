@@ -4,19 +4,18 @@ import BannersCards from '../Components/Home-Components/BannersCards.jsx'
 import BannerCarousel from '../Components/Home-Components/BannerCarousel.jsx'
 import CategoriesCarousel from '../Components/Home-Components/CategoriesCarousel.jsx'
 import Spinner from '../Components/Products/Spinner.jsx'
-import HotSale from '../Components/HotSale.jsx'
 import BrandsCarrousel from '../Components/Home-Components/BrandsCarrousel.jsx'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
+const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
 
 export default function Home() {
   const [products, setProducts] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  /* Get products */
   useEffect(() => {
     (async function () {
       try {
-        const response = await fetch('https://technologyline.com.ar/api/products');
+        const response = await fetch(`${API_URL}/api/products`);
         if (!response.ok) {
           throw new Error('Error al obtener productos');
         }

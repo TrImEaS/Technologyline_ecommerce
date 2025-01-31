@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
-import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+
 
 export default function BannerCarousel() {
   const [desktopBanners, setDesktopBanners] = useState([]);
@@ -18,7 +19,7 @@ export default function BannerCarousel() {
   }, []);
 
   const fetchBanners = () => {
-    fetch('https://technologyline.com.ar/api/page/getBanners')
+    fetch(`${API_URL}/api/page/getBanners`)
       .then(res => {
         if (!res.ok) {
           throw new Error('Error fetching banners');
@@ -26,7 +27,6 @@ export default function BannerCarousel() {
         return res.json();
       })
       .then(data => {
-        // Filtrar banners según el nombre para móvil y escritorio
         const mobile = data.filter(banner => banner.name.includes('mobile') && banner.path);
         const desktop = data.filter(banner => banner.name.includes('desktop') && banner.path);
 
@@ -43,7 +43,7 @@ export default function BannerCarousel() {
   const handleClick = (index) => {
     const banner = bannersToShow[index];
     if (banner.path_to) {
-      navigate(banner.path_to); // Navegar a la ruta especificada
+      navigate(banner.path_to); 
     }
   };
 
@@ -74,14 +74,6 @@ export default function BannerCarousel() {
           ))}
         </Carousel>
       ) : ''}
-      <section className='h-20 w-full flex items-center justify-center bg-page-blue-normal text-xl text-gray-50 font-bold'>
-        <a 
-          href='https://technology-line.com.ar/' 
-          target='_blank' 
-          className='flex gap-2 items-center relative bg-blue-400 p-3 px-8 rounded-3xl text-xl max-sm:text-lg -tracking-wider hover:scale-105 text-center max-sm:w-[80%] duration-300 cursor-pointer max-sm:max-h-[80%]'>
-          ¡Hace click aca y visitanos en Mercado Shops!
-        </a>
-      </section>
     </div>
   );
 }

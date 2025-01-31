@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom"
 import { FaInstagram, FaAngleUp } from 'react-icons/fa'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
+const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+
 
 export default function Footer() {
   const [email, setEmail] = useState('')
@@ -35,7 +37,7 @@ export default function Footer() {
       }
     })
 
-    fetch('https://technologyline.com.ar/api/clients/subscribe', {
+    fetch(`${API_URL}/api/clients/subscribe`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email })
