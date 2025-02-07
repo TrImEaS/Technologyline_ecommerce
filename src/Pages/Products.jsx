@@ -1,119 +1,59 @@
+import { useState, useEffect } from 'react'
+import { useProducts } from '../Context/ProductsContext.jsx'
+import { useNavigate } from 'react-router-dom'
 import React from 'react'
 import ProductsCarousel from '../Components/ProductsCarousel.jsx'
 import ImageSlider from '../Components/Products/ImageSlider.jsx'
 import Spinner from '../Components/Products/Spinner.jsx'
 import DOMPurify from 'dompurify'
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { FaCcAmex, FaCcMastercard, FaCcVisa } from 'react-icons/fa'
+
 const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
 
 export default function Products () {
-  const [loadedImages, setLoadedImages] = useState([])
-  const [loadingImages, setLoadingImages] = useState(false)
+  const { products } = useProducts()
   const [product, setProduct] = useState(null)
-  const [products, setProducts] = useState(null)
   const [loading, setLoading] = useState(true)
   const [descriptionMenu, setDescriptionMenu] = useState('desc')
   const productQuery = new URLSearchParams(location.search).get('product')
   const navigate = useNavigate()
 
   useEffect(() => {
-    (async function () {
-      try {
-        const response = await fetch(`${API_URL}/api/products`);
-        if (!response.ok) {
-          throw new Error('Error al obtener productos');
-        }
-        const data = await response.json();
-        const newProduct = data.find(product => product.sku === productQuery)
-        if (!newProduct) {
-          navigate('/error')
-        } 
-        else {
-          setLoadingImages(true)
-          setProduct(newProduct)
-          setProducts(data)
-          document.title = `${newProduct.name} | Technology Line`
-          setLoading(false);
-        }
-      } 
-      catch (err) {
-        console.log(err)
-      }
-    })()
+    axios.get(`${API_URL}/api/products?sku=${productQuery}`)
+    .then(response => {
+      if (!response.status === 200)
+        throw new Error('Error al obtener productos');
+      
+      const newProduct = response.data[0]
+      console.log(newProduct)
+      setProduct(newProduct)
+      document.title = `${newProduct.name} | Technology Line`
+    })
+    .catch (err => {
+      console.log(err)
+      navigate('/error')
+    }) 
+    .finally(() => setLoading(false))
   }, [location.search, navigate])
   
-  useEffect(() => {
-    const loadImages = async (product) => {
-      const images = []
-      const baseUrl = `${API_URL}/products-images`
-      let notFoundCount = 0
-      // Cargar la imagen principal
-      const mainImage = `${baseUrl}/${product.sku}.jpg`
-      if (await imageExists(mainImage)) {
-        images.push(mainImage)
-      }
-      
-      // Cargar las imágenes adicionales
-      for (let i = 1; i <= 10; i++) {
-        const additionalImage = `${baseUrl}/${product.sku}_${i}.jpg`
-        if (await imageExists(additionalImage)) {
-          images.push(additionalImage)
-        } else {
-          notFoundCount++
-          if(notFoundCount === 2) {
-            break
-          }
-        }
-      }
-      setLoadedImages(images)
-      setLoadingImages(false)
-    }
-  
-    if (product) {
-      loadImages(product)
-    }
-  }, [product])
-  
-  const imageExists = (url) => {
-    return new Promise((resolve) => {
-      const img = new Image()
-      img.onload = () => {
-        resolve(true)
-      }
-      img.onerror = () => {
-        resolve(false)
-      }
-      img.src = url
-    })
-  }
-
-  if(loading){
+  if(loading)
     return(<Spinner/>)
+
+  const formattedPrice = (price) => {
+    return parseFloat(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
   }
 
-  const formattedPrice = parseFloat(product.price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-  const formattedDiscount = parseFloat(product.discount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-  const message = encodeURIComponent(`Hola me comunico desde la pagina Technology-Line, me interesaria saber mas informacion acerca de este articulo: ${product.sku} - ${product.name} - ${product.price}`)
-
-  const totalDiscount = (price, discount) => {
-    const normalPrice = parseFloat(price);
-    const discountedPrice = parseFloat(discount);
-  
-    const percentage = ((normalPrice - discountedPrice) / normalPrice) * 100;
-  
-    return Math.round(percentage);
-  }
-
-  const percentageOff = totalDiscount(product.price, product.discount)
+  const message = encodeURIComponent(`Hola me comunico desde la pagina Technology-Line, me interesaria saber mas informacion acerca de este articulo: ${product.sku} - ${product.name} - ${product.price_list_3}`)
 
   let cat = product.sub_category || ''
   let name = product.name || ''
   const recomendProducts = products
     .filter(product => 
       product.sub_category.toLowerCase().includes(cat.toLowerCase()) && 
-      !product.name.toLowerCase().includes(name.toLowerCase()))
-    .sort((a, b) => parseFloat(b.price) - parseFloat(a.price)).slice(0,9)
+      !product.name.toLowerCase().includes(name.toLowerCase())
+    )
+    .sort((a, b) => parseFloat(b.price_list_3) - parseFloat(a.price_list_3)).slice(0,9)
 
   const handleStockQuantity = () => {
     const quantity = product.stock
@@ -125,17 +65,25 @@ export default function Products () {
         )
     }
 
-    if(quantity < 10){
+    if(quantity < 5){
       return (
         <span className='text-orange-400 font-semibold'>
-          Ultimas unidades
+          Bajo
+        </span>
+        )
+    }
+
+    if(quantity < 10){
+      return (
+        <span className='text-yellow-400 font-semibold'>
+          Medio
         </span>
         )
     }
 
     return (
       <span className='text-green-600 font-semibold'>
-        Existente
+        Alto
       </span>
     )
   }
@@ -173,34 +121,90 @@ export default function Products () {
   }
 
   return (
-    <section className={`flex flex-col items-center h-full w-full min-h-[600px] gap-y-10 pb-14 max-md:pt-10`}>
-      <header className='w-[90%] relative h-full flex max-md:flex-col max-md:items-center sm:p-5 rounded-3xl py-5'>
-        <section className='relative w-[55%] max-sm:w-full h-full sm:mt-5 -mt-5 min-h-[450px]'>
-          {loadingImages ? <Spinner /> : <ImageSlider loadedImages={loadedImages}/>}
+    <section className={`flex flex-col items-center h-full w-[90%] min-h-[600px] gap-y-10 pb-14 max-md:pt-10`}>
+      <header className='w-[100%] relative h-full flex max-md:flex-col max-md:items-center sm:p-5 rounded-3xl py-5'>
+        <section className='relative w-[60%] max-md:w-full h-full sm:mt-5 -mt-5 min-h-[450px]'>
+          { loading ? <div><Spinner /></div> : <ImageSlider loadedImages={product.img_urls}/>}
         </section>
 
-        <section className='flex flex-col w-[45%] mt-5 justify-start max-sm:px-10 items-start h-fit max-md:w-full border-2 rounded-lg p-8 sm:mb-10 shadow-lg'>
+        <section className='flex tracking-wider flex-col w-[40%] mt-5 max-w-[550px] justify-start items-start h-fit max-md:w-full border rounded-lg p-8 sm:mb-10 shadow-lg'>
           <div className='min-h-[200px] flex flex-col gap-y-2'>
-            <span className='text-sm text-gray-500'>
+            <span className='text-sm'>
               SKU: {product.sku}
             </span>
 
-            <h1 className='text-2xl'>
-              {product.name}
+            <h1 className='text-2xl font-semibold'>
+              {product.name.replace(/EAN.*/,'')}
             </h1>
 
-            <div className='flex flex-col w-full gap-y-5 justify-center'>
-              <h2 className='text-2xl font-semibold'>
-                {`$${formattedPrice}`}
-              </h2>
-              <div className='flex gap-x-5  text-xl w-full items-center'>
-                <span>
-                  Stock:
-                </span>
-                <span className='font-bold'>
-                  {handleStockQuantity()}
-                </span>
-              </div>
+            <div className='flex flex-col w-full gap-y-3 justify-center'>
+              <section className='flex flex-col text-lg w-full gap-2 border-b pb-3 border-dashed border-page-blue-normal'>
+                <p className='flex flex-col text-center text-[#333333] tracking-widest my-2 text-xl'>
+                  <span className='tracking-normal'>
+                    PRECIO LISTA
+                  </span>
+                  <span>
+                    <b className='font-semibold text-[#333333]'>{`$${formattedPrice(product.price_list_3)}`}</b>
+                  </span>
+                </p>
+
+                <div className='flex font-semibold text-red-600 flex-col items-center text-base tracking-normal'>
+                  <span>PROMO EFECTIVO ó transferencia bancaria: </span>
+                  <p className='pl-5 font-semibold flex gap-1 text-[#15803d] items-center'>
+                    <span>{`$${formattedPrice(product.price_list_2)}`}</span>
+                    <span className='text-xs text-[#dc7b26]'>(Ahorras: ${((product.price_list_2 - product.price_list_3)*-1).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})})</span>
+                  </p>
+                </div>
+              </section>
+              
+              <section className='flex flex-col items-center mb-5 w-full gap-y-3 justify-center'>
+                <span className='font-bold text-[#2563eb]'>¡Opcion de compra en cuotas fijas!</span>
+
+                <article className='flex flex-col'>
+                  <p className='flex w-fit justify-center gap-1 p-1'>
+                    <span className='text-[#1e40af] font-semibold'>3</span> 
+                    <span className='text-[#1e40af]'>cuotas</span>
+                    <span>de:</span> 
+                    <span className='text-[#1e40af] font-semibold'>{`$${(parseFloat(product.price_list_3)/3).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</span>
+                  </p>
+                </article>  
+
+                <article className='flex flex-col'>
+                  <p className='flex w-fit justify-center gap-1 p-1'>
+                    <span className='text-[#1e40af] font-semibold'>6</span> 
+                    <span className='text-[#1e40af]'>cuotas</span>
+                    <span>de:</span> 
+                    <span className='text-[#1e40af] font-semibold'>{`$${(parseFloat(product.price_list_4)/6).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</span>
+                  </p>
+                </article>  
+
+                <article className='flex flex-col'>
+                  <p className='flex w-fit justify-center gap-1 p-1'>
+                    <span className='text-[#1e40af] font-semibold'>9</span> 
+                    <span className='text-[#1e40af]'>cuotas</span>
+                    <span>de:</span> 
+                    <span className='text-[#1e40af] font-semibold'>{`$${(parseFloat(product.price_list_5)/9).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</span>
+                  </p>
+                </article>  
+
+                <article className='flex flex-col'>
+                  <p className='flex w-fit justify-center gap-1 p-1'>
+                    <span className='text-[#1e40af] font-semibold'>12</span> 
+                    <span className='text-[#1e40af]'>cuotas</span>
+                    <span>de:</span> 
+                    <span className='text-[#1e40af] font-semibold'>{`$${(parseFloat(product.price_list_6)/12).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}</span>
+                  </p>
+
+                </article>  
+
+                <ul className="flex text-3xl max-[1500px]:ml-0 gap-x-4">
+                  <img className='bg-gray-700 rounded-lg w-[45px] h-[30px]' src='https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon2.svg'/>
+                  <img className='bg-red-600 rounded-lg w-[45px] h-[30px]' src='https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon3.svg'/>
+                  <img className='bg-blue-500 rounded-lg w-[45px] h-[30px]' src='https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon4.svg'/>
+                  <img className='bg-yellow-500 rounded-lg w-[45px] h-[30px]' src='https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon5.svg'/>
+                  <img className='bg-orange-500 rounded-lg w-[45px] h-[30px]' src='https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon1.svg'/>
+                </ul>
+              </section>
               <span>{product.ean && 'EAN: ' + product.ean}</span>
             </div>
           </div>
@@ -212,17 +216,17 @@ export default function Products () {
               onClick={()=>console.log('+')}
               className='rounded-xl flex items-center justify-center text-lg font-bold bg-page-blue-normal text-white active:text-sm active:duration-0 py-1 px-2 duration-300 w-full h-[50px]'
             >
-              Comprar
+              Agregar al carrito
             </span>
 
-            <span
+            {/* <span
               href={`https://wa.me/541133690584?text=${message}`} 
               target='_blank'
               onClick={()=> console.log('+')}
               className='rounded-xl flex items-center justify-center text-lg font-bold bg-blue-100 text-page-blue-normal active:text-sm active:duration-0 py-1 px-2 duration-300 w-full h-[50px]'
             >
               Agregar a carrito
-            </span>
+            </span> */}
           </div>
         </section>
       </header>

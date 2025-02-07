@@ -1,23 +1,15 @@
 import { NavLink } from "react-router-dom"
 
 export default function ProductCard({ product }) {
-  console.log(product)
   const limitedName = product.name.length > 40 ? `${product.name.substring(0, 40)}...`: product.name
   
   const formattedPrice = (price) => { 
     return parseFloat(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
   }
 
-  // const formattedDiscount = parseFloat(discount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-  
-  // const totalDiscount = (price, discount) => {
-  //   const normalPrice = parseFloat(price);
-  //   const discountedPrice = parseFloat(discount);
-
-  //   const percentage = ((normalPrice - discountedPrice) / normalPrice) * 100;
-  
-  //   return Math.round(percentage);
-  // }
+  const getDiscountPercentage = (price_1, price_2) => { 
+    return formattedPrice(Math.round((1 - (price_1 / price_2)) * 100))
+  }
 
   return(
     <NavLink
@@ -38,7 +30,10 @@ export default function ProductCard({ product }) {
           <span className="text-xs text-gray-500">SKU: {product.sku}</span>
           <span>{limitedName}</span>
         </p> 
-        <p className="font-bold text-2xl">${formattedPrice(product.price)}</p>
+        <div className="flex gap-3">
+          <p className="font-bold text-sm text-black text-opacity-30 line-through ">${formattedPrice(product.price_list_3)}</p>
+        </div>
+        <p className="font-bold text-xl">${formattedPrice(product.price_list_2)}</p>
       </article>
     </NavLink>
   )

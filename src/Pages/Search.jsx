@@ -1,12 +1,12 @@
-import ProductsSearch from '../Components/Search-Components/ProductsSearch.jsx'
-import CategoriesFilters from '../Components/Search-Components/CategoriesFilters.jsx'
 import { useState, useEffect } from 'react'
 import { useLocation, Outlet, NavLink } from 'react-router-dom'
+import { useProducts } from '../Context/ProductsContext'
+import ProductsSearch from '../Components/Search-Components/ProductsSearch.jsx'
+import CategoriesFilters from '../Components/Search-Components/CategoriesFilters.jsx'
 import Spinner from '../Components/Products/Spinner.jsx'
-import axios from 'axios'
-const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
 
 export default function Search () {
+  const { products, loading } = useProducts()
   const location = useLocation()
   const [filters, setFilters] = useState({
     category: 'all',
@@ -21,17 +21,9 @@ export default function Search () {
   })
   const [filterMenu, setFilterMenu] = useState(false)
   const [sortOption, setSortOption] = useState('default')
-  const [products, setProducts] = useState(null)
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios.get(`${API_URL}/api/products`)
-    .then(res =>{
-      setProducts(res.data)
-      document.title = `Buscar | Technology Line`
-    })
-    .catch(e => console.log(e))
-    .finally(() => setLoading(false))
+    document.title = `Buscar | Technology Line`
   }, [])
 
   useEffect(() => {
@@ -58,23 +50,23 @@ export default function Search () {
     const sortedProducts = products.sort((a, b) => {
       switch (sortOption) {
         case 'min':
-          return parseFloat(a.price) - parseFloat(b.price)
+          return parseInt(a.price_list_3) - parseInt(b.price_list_3)
         case 'max':
-          return parseFloat(b.price) - parseFloat(a.price)
+          return parseInt(b.price_list_3) - parseInt(a.price_list_3)
         case 'A-Z':
           return a.name.localeCompare(b.name)
         case 'Z-A':
           return b.name.localeCompare(a.name)
         default:
-          return parseFloat(b.price) - parseFloat(a.price)
+          return parseInt(b.price_list_3) - parseInt(a.price_list_3)
       }
     })
     
     return sortedProducts.filter(product => {
       return (
-        parseFloat(product.price) >= filters.minPrice 
+        parseFloat(product.price_list_3) >= filters.minPrice 
         &&
-        parseFloat(product.price) <= filters.maxPrice 
+        parseFloat(product.price_list_3) <= filters.maxPrice 
         &&
         (
           filters.category === 'all' ||
