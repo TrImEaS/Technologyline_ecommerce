@@ -4,7 +4,6 @@ import { FaBars } from 'react-icons/fa'
 import Spinner from "../../Products/Spinner"
 const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
 
-
 export default function CategoriesMenu () {
   const [categoriesHideMenu, setCategoriesHideMenu] = useState(false)
   const [products, setProducts] = useState(null)

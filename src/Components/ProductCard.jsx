@@ -20,7 +20,7 @@ export default function ProductCard({ product }) {
         <img 
           src={product.img_base}
           alt={product.name}
-          className="w-full h-full object-contain rounded-lg"
+          className="w-full h-full object-cover rounded-lg"
           onError={(e) => e.target.src = `https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg`}
         />
       </header>
@@ -30,10 +30,7 @@ export default function ProductCard({ product }) {
           <span className="text-xs text-gray-500">SKU: {product.sku}</span>
           <span>{limitedName}</span>
         </p> 
-        <div className="flex gap-3">
-          <p className="font-bold text-sm text-black text-opacity-30 line-through ">${formattedPrice(product.price_list_3)}</p>
-        </div>
-        <p className="font-bold text-xl">${formattedPrice(product.price_list_2)}</p>
+        <p className="font-bold text-xl">${formattedPrice(product.price_list_3)}</p>
       </article>
     </NavLink>
   )

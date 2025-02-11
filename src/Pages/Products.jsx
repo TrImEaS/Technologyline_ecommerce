@@ -7,12 +7,13 @@ import ImageSlider from '../Components/Products/ImageSlider.jsx'
 import Spinner from '../Components/Products/Spinner.jsx'
 import DOMPurify from 'dompurify'
 import axios from 'axios'
-import { FaCcAmex, FaCcMastercard, FaCcVisa } from 'react-icons/fa'
+import { useCart } from '../Context/CartContext.jsx'
 
 const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
 
 export default function Products () {
   const { products } = useProducts()
+  const { addProductToCart } = useCart()
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
   const [descriptionMenu, setDescriptionMenu] = useState('desc')
@@ -29,6 +30,15 @@ export default function Products () {
       console.log(newProduct)
       setProduct(newProduct)
       document.title = `${newProduct.name} | Technology Line`
+
+      axios.post(`${API_URL}/api/products/addView/${newProduct.id}`)
+      .then(res => {
+        if(!res.ok){
+          return console.log(`Error (${res.status}). Error al sumar una view: `)
+        }
+        console.log('view updated')
+      })
+      .catch(e => console.error('Error al sumar view al producto: ', e))
     })
     .catch (err => {
       console.log(err)
@@ -43,8 +53,6 @@ export default function Products () {
   const formattedPrice = (price) => {
     return parseFloat(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
   }
-
-  const message = encodeURIComponent(`Hola me comunico desde la pagina Technology-Line, me interesaria saber mas informacion acerca de este articulo: ${product.sku} - ${product.name} - ${product.price_list_3}`)
 
   let cat = product.sub_category || ''
   let name = product.name || ''
@@ -88,20 +96,6 @@ export default function Products () {
     )
   }
 
-  const handleAddViewToProduct = async () => {
-    await fetch(`${API_URL}/api/products/addView/${product.id}`,{
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'}
-    })
-    .then(response => {
-      if(!response.ok){
-        return console.log('Error al sumar una view')
-      }
-      console.log('view updated')
-    })
-    .catch(e => console.error('Error al sumar view al producto: ', e))
-  }
-
   const manipulateHTML = (html) => {
     // Crear un contenedor temporal para el HTML
     const container = document.createElement('div');
@@ -122,25 +116,28 @@ export default function Products () {
 
   return (
     <section className={`flex flex-col items-center h-full w-[90%] min-h-[600px] gap-y-10 pb-14 max-md:pt-10`}>
-      <header className='w-[100%] relative h-full flex max-md:flex-col max-md:items-center sm:p-5 rounded-3xl py-5'>
-        <section className='relative w-[60%] max-md:w-full h-full sm:mt-5 -mt-5 min-h-[450px]'>
-          { loading ? <div><Spinner /></div> : <ImageSlider loadedImages={product.img_urls}/>}
+      <header className='w-[100%] relative h-full flex max-md:flex-col max-md:items-center sm:p-5 rounded-3xl py-5 gap-5'>
+        <section className='relative w-[60%] max-md:w-full h-full sm:mt-5 -mt-5 sm:min-h-[620px] min-h-[550px] sm:pb-10 p-5 rounded-lg shadow-lg'>
+          <span className='text-sm tracking-wide w-full'>
+            SKU: {product.sku}
+          </span>
+
+          <h1 className='text-2xl font-semibold'>
+            {product.name.replace(/EAN.*/,'')}
+          </h1>
+
+          {loading 
+            ? <div><Spinner /></div> 
+            : <ImageSlider loadedImages={product.img_urls}/>
+          }
         </section>
 
-        <section className='flex tracking-wider flex-col w-[40%] mt-5 max-w-[550px] justify-start items-start h-fit max-md:w-full border rounded-lg p-8 sm:mb-10 shadow-lg'>
+        <section className='flex tracking-wider flex-col w-[40%] mt-5 min-h-[620px] justify-center items-center h-fit max-md:w-full border rounded-lg p-8 max-sm:py-0 sm:mb-10 shadow-lg'>
           <div className='min-h-[200px] flex flex-col gap-y-2'>
-            <span className='text-sm'>
-              SKU: {product.sku}
-            </span>
-
-            <h1 className='text-2xl font-semibold'>
-              {product.name.replace(/EAN.*/,'')}
-            </h1>
-
             <div className='flex flex-col w-full gap-y-3 justify-center'>
               <section className='flex flex-col text-lg w-full gap-2 border-b pb-3 border-dashed border-page-blue-normal'>
-                <p className='flex flex-col text-center text-[#333333] tracking-widest my-2 text-xl'>
-                  <span className='tracking-normal'>
+                <p className='flex flex-col text-center text-[#333333] tracking-widest mb-2 text-2xl'>
+                  <span>
                     PRECIO LISTA
                   </span>
                   <span>
@@ -148,9 +145,9 @@ export default function Products () {
                   </span>
                 </p>
 
-                <div className='flex font-semibold text-red-600 flex-col items-center text-base tracking-normal'>
-                  <span>PROMO EFECTIVO ó transferencia bancaria: </span>
-                  <p className='pl-5 font-semibold flex gap-1 text-[#15803d] items-center'>
+                <div className='flex font-semibold text-red-600 flex-col text-center items-center text-base tracking-tighter'>
+                  <span>PROMO: EFECTIVO / TRANSFERENCIA BANCARIA: </span>
+                  <p className='pl-5 font-semibold flex gap-1 text-[#15803d] items-center tracking-normal'>
                     <span>{`$${formattedPrice(product.price_list_2)}`}</span>
                     <span className='text-xs text-[#dc7b26]'>(Ahorras: ${((product.price_list_2 - product.price_list_3)*-1).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})})</span>
                   </p>
@@ -205,28 +202,19 @@ export default function Products () {
                   <img className='bg-orange-500 rounded-lg w-[45px] h-[30px]' src='https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon1.svg'/>
                 </ul>
               </section>
-              <span>{product.ean && 'EAN: ' + product.ean}</span>
             </div>
           </div>
 
           <div className='w-full flex max-md:justify-center flex-col gap-5 items-center'>
-            <span
-              href={`https://wa.me/541133690584?text=${message}`} 
-              target='_blank'
-              onClick={()=>console.log('+')}
-              className='rounded-xl flex items-center justify-center text-lg font-bold bg-page-blue-normal text-white active:text-sm active:duration-0 py-1 px-2 duration-300 w-full h-[50px]'
+            <span className='text-sm uppercase tracking-wide font-semibold text-gray-700'>
+              DISPONIBILIDAD: {handleStockQuantity()}
+            </span>
+            <button
+              onClick={()=> addProductToCart({ product })}
+              className='rounded-xl flex items-center justify-center text-lg font-bold bg-page-blue-normal text-white active:text-sm active:duration-0 py-1 px-2 duration-300 w-full h-[50px] hover:bg-page-lightblue hover:text-xl'
             >
               Agregar al carrito
-            </span>
-
-            {/* <span
-              href={`https://wa.me/541133690584?text=${message}`} 
-              target='_blank'
-              onClick={()=> console.log('+')}
-              className='rounded-xl flex items-center justify-center text-lg font-bold bg-blue-100 text-page-blue-normal active:text-sm active:duration-0 py-1 px-2 duration-300 w-full h-[50px]'
-            >
-              Agregar a carrito
-            </span> */}
+            </button>
           </div>
         </section>
       </header>

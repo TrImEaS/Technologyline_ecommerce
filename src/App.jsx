@@ -6,10 +6,12 @@ import { Route, Routes, useLocation } from "react-router-dom"
 import { Home, Search, Products, Others, Error } from './Pages/Routes.jsx'
 import { About_Us, Garantia, Sucursales, Centro_de_ayuda, Trabaja_con_nosotros, Politicas_de_devolucion, Revendedores } from './Components/Others-Components/Components.jsx'
 import { ProductsProvider } from './Context/ProductsContext.jsx'
+import { CartProvider } from './Context/CartContext.jsx'
 
 export default function App() {
   return (
     <ProductsProvider>
+    <CartProvider>
       <main className='relative flex flex-col items-center font-body justify-between bg-white text-black min-h-screen min-w-[390px] h-full p-0 m-0'>
         <ScrollToTopOnLocationChange />
         <Nav/>
@@ -40,6 +42,7 @@ export default function App() {
         </a>
         <Footer/>
       </main>
+    </CartProvider>
     </ProductsProvider>
   )
 }

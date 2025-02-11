@@ -1,12 +1,16 @@
 import { NavLink } from 'react-router-dom'
-import CategoriesMenu from './Nav-Components/CategoriesMenu.jsx'
-import SearchInput from './Nav-Components/SearchInput.jsx'
+import { useCart } from '../../Context/CartContext.jsx';
 import { FaShoppingCart } from "react-icons/fa";
 import { PiUserCircleFill } from "react-icons/pi";
-const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
-
+import Cart from '../../Pages/Cart.jsx';
+import SearchInput from './Nav-Components/SearchInput.jsx'
+import CategoriesMenu from './Nav-Components/CategoriesMenu.jsx'
+import { useState } from 'react';
 
 export default function Nav() {
+  const { getTotalOfProducts } = useCart()
+  const [showCart, setShowCart] = useState(3)
+
   return (
     <nav 
       className='z-50 flex flex-col w-full relative items-center bg-blue-400'>
@@ -30,8 +34,15 @@ export default function Nav() {
               <span className='max-sm:hidden'>Mi cuenta</span>
             </button>
 
-            <button className='text-2xl relative hover:scale-110 duration-300' title='Ir al carrito'>
-              <span className='bg-white w-5 h-5 text-black text-xs flex justify-center items-center -top-2 -right-3 rounded-full border border-blue-500 absolute'>1</span>
+            <button 
+              className='text-2xl relative hover:scale-110 duration-300'
+              onClick={()=> setShowCart(true)}
+              title='Ir al carrito'
+            >
+              <span className='bg-white w-5 h-5 text-black text-xs flex justify-center items-center -top-2 -right-3 rounded-full border border-blue-500 absolute'>
+                {getTotalOfProducts()}
+              </span>
+
               <FaShoppingCart />
             </button>
           </div>
@@ -54,6 +65,8 @@ export default function Nav() {
           <SearchInput/>
         </article>
       </section>
+
+      <Cart showCart={showCart} setShowCart={setShowCart}/>
     </nav>
   )
 }
