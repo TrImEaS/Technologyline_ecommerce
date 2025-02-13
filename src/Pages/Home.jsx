@@ -54,7 +54,7 @@ export default function Home() {
   return (
       <div name='home' className={`flex bg-lok flex-col items-center gap-10 min-h-screen h-full w-full pb-5`}>
         {/*Banners*/}
-        <section className='min-h-[550px]'>
+        <section>
           <BannerCarousel/>
         </section>
 
