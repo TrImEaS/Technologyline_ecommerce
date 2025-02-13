@@ -61,7 +61,7 @@ export default function Products () {
       product.sub_category.toLowerCase().includes(cat.toLowerCase()) && 
       !product.name.toLowerCase().includes(name.toLowerCase())
     )
-    .sort((a, b) => parseFloat(b.price_list_3) - parseFloat(a.price_list_3)).slice(0,9)
+    .sort((a, b) => parseFloat(b.price_list_1) - parseFloat(a.price_list_1)).slice(0,9)
 
   const handleStockQuantity = () => {
     const quantity = product.stock
@@ -115,7 +115,7 @@ export default function Products () {
   }
 
   return (
-    <section className={`flex flex-col items-center h-full w-[90%] min-h-[600px] gap-y-10 pb-14 max-md:pt-10`}>
+    <section className={`flex relative flex-col items-center h-full w-[90%] min-h-[600px] gap-y-10 pb-14 max-md:pt-10`}>
       <header className='w-[100%] relative h-full flex max-md:flex-col max-md:items-center sm:p-5 rounded-3xl py-5 gap-5'>
         <section className='relative w-[60%] max-md:w-full h-full sm:mt-5 -mt-5 sm:min-h-[620px] min-h-[550px] sm:pb-10 p-5 rounded-lg shadow-lg'>
           <span className='text-sm tracking-wide w-full'>
@@ -132,7 +132,7 @@ export default function Products () {
           }
         </section>
 
-        <section className='flex tracking-wider flex-col w-[40%] mt-5 min-h-[620px] justify-center items-center h-fit max-md:w-full border rounded-lg p-8 max-sm:py-0 sm:mb-10 shadow-lg'>
+        <section className='flex tracking-wider flex-col w-[40%] mt-5 min-h-[620px] max-sm:min-h-[500px] justify-center items-center h-fit max-md:w-full border rounded-lg p-8 max-sm:py-0 sm:mb-10 shadow-lg'>
           <div className='min-h-[200px] flex flex-col gap-y-2'>
             <div className='flex flex-col w-full gap-y-3 justify-center'>
               <section className='flex flex-col text-lg w-full gap-2 border-b pb-3 border-dashed border-page-blue-normal'>
@@ -141,7 +141,7 @@ export default function Products () {
                     PRECIO LISTA
                   </span>
                   <span>
-                    <b className='font-semibold text-[#333333]'>{`$${formattedPrice(product.price_list_3)}`}</b>
+                    <b className='font-semibold text-[#333333]'>{`$${formattedPrice(product.price_list_1)}`}</b>
                   </span>
                 </p>
 
@@ -206,14 +206,14 @@ export default function Products () {
           </div>
 
           <div className='w-full flex max-md:justify-center flex-col gap-5 items-center'>
-            <span className='text-sm uppercase tracking-wide font-semibold text-gray-700'>
+            <span className='text-sm uppercase tracking-widest font-semibold text-gray-700'>
               DISPONIBILIDAD: {handleStockQuantity()}
             </span>
             <button
               onClick={()=> addProductToCart({ product })}
-              className='rounded-xl flex items-center justify-center text-lg font-bold bg-page-blue-normal text-white active:text-sm active:duration-0 py-1 px-2 duration-300 w-full h-[50px] hover:bg-page-lightblue hover:text-xl'
+              className='max-sm:hidden bg-page-blue-normal active:text-sm active:duration-0 hover:bg-page-lightblue rounded-xl flex items-center justify-center text-sm font-bold bg-gradient-to-l from-sky-400 to-sky-800 duration-300 border border-gray-300 text-white py-1 px-2 w-[90%] h-[50px] cart hover:brightness-125'
             >
-              Agregar al carrito
+              AGREGAR AL CARRITO
             </button>
           </div>
         </section>
@@ -261,6 +261,13 @@ export default function Products () {
           </div>
         }
       </section>
+
+      <button
+        onClick={()=> addProductToCart({ product })}
+        className='sm:hidden fixed bottom-5 rounded-xl flex items-center justify-center text-sm font-bold bg-gradient-to-l from-sky-400 to-sky-800 duration-300 border border-gray-300 text-white py-1 px-2 w-[90%] h-[50px] cart hover:brightness-125'
+      >
+        AGREGAR AL CARRITO
+      </button>
     </section>
   )
 }

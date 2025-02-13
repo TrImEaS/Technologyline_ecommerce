@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+#root {
+  box-sizing: border-box;
+}
+
 .bg-lok {
   background: rgb(250,250,250);
   background: linear-gradient(130deg, rgba(250,250,250,1) 35%, rgba(6,134,174,0.0760679271708683) 50%, rgba(250,250,250,1) 65%);
@@ -119,13 +123,13 @@
 }
 
 .cart {
-  z-index: 999999;
+  z-index: 9999999;
   transition: transform 0.3s ease-in-out;
 }
 
 .modal {
   transition: transform 0.3s ease-in-out;
-  z-index: 9999999;
+  z-index: 99999;
 }
 
 .show {

@@ -1,11 +1,10 @@
 import { NavLink } from 'react-router-dom'
 import { useCart } from '../../Context/CartContext.jsx';
 import { FaShoppingCart } from "react-icons/fa";
-import { PiUserCircleFill } from "react-icons/pi";
-import Cart from '../../Pages/Cart.jsx';
+import { useState } from 'react';
 import SearchInput from './Nav-Components/SearchInput.jsx'
 import CategoriesMenu from './Nav-Components/CategoriesMenu.jsx'
-import { useState } from 'react';
+import MiniCart from '../../Pages/MiniCart.jsx';
 
 export default function Nav() {
   const { getTotalOfProducts } = useCart()
@@ -29,10 +28,10 @@ export default function Nav() {
         {/*User items o Link to realcolor shop*/}
         <article className='flex gap-x-6 max-sm:gap-x-3 pr-3 items-center mt-[8px] w-[190px]'>
           <div className='flex text-white items-center w-full gap-2 justify-between max-sm:justify-end'>
-            <button className='hover:scale-110 flex items-center text-nowrap gap-1' title='Mi cuenta'>
+            {/* <button disabled className='flex items-center text-nowrap gap-1 text-opacity-15' title='Lo sentimos, esta opcion esta en mantenimiento, opcion en mantenimiento'>
               <PiUserCircleFill className='text-3xl'/>
               <span className='max-sm:hidden'>Mi cuenta</span>
-            </button>
+            </button> */}
 
             <button 
               className='text-2xl relative hover:scale-110 duration-300'
@@ -66,7 +65,7 @@ export default function Nav() {
         </article>
       </section>
 
-      <Cart showCart={showCart} setShowCart={setShowCart}/>
+      <MiniCart showCart={showCart} setShowCart={setShowCart}/>
     </nav>
   )
 }

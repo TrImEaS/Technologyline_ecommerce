@@ -1,42 +1,40 @@
 import { useEffect, useState } from "react";
 
-export default function Modal({ progress, product }) {
+export default function Modal({ progress, product, toAdd = 1 }) {
   const [visible, setVisible] = useState(false);
-  const limitedName = product.name.length > 75 ? `${product.name.substring(0, 40)}...`: product.name
 
   useEffect(() => {
-    if (progress > 0) { 
+    if (progress === 1) { 
       setVisible(true);
     } 
     
     setTimeout(() => 
       setVisible(false)
-    , 4000);
+    , 3000);
   }, [progress]);
 
   return (
-    <div className={`fixed top-10 right-0 flex rounded-sm gap-5 modal bg-white w-full max-w-[350px] h-[180px] border-2 transition-transform duration-300 ease-in-out transform ${visible ? "show" : "hide"}`} >
-      <main className="flex flex-col w-full items-center gap-5 justify-between">
-        <header className="font-bold w-full text-page-lightblue text-center">
-          Producto agregado con exito al carrito!
+    <div className={`fixed top-2 right-0 flex rounded-sm modal bg-white w-full max-w-[300px] h-[120px] border-2 transition-transform duration-300 ease-in-out transform ${visible ? "show" : "hide"}`}>
+      <main className="flex flex-col w-full h-full items-center gap-2 justify-between relative">
+        <header className={`${toAdd ? 'text-page-lightblue' : 'text-red-500'} font-bold w-full text-center text-xs leading-tight px-2`}>
+          {toAdd ? "Producto agregado con éxito al carrito!" : "Producto eliminado del carrito con éxito!"}
         </header>
 
-        <section className="flex justify-center px-1 border-gray-100 w-full h-full gap-5">
-          <div className="flex-1 flex justify-around items-center">
-            <img 
-              src={product.img_base} 
-              className="w-full max-w-[110px] h-[65px] object-cover" 
-            />
+        <section className="flex justify-between w-full px-2 items-center">
+          <div className="w-[40%] flex justify-center">
+            <img src={product.img_base} className="w-[65px] h-[65px] object-cover" />
           </div>
-          <p className="flex-1 flex flex-col font-semibold text-sm">
-            <span className="uppercase font-bold text-page-blue-normal">{product.brand}</span>
-            <span className="text-gray-800">{limitedName.replace(/EAN.*/,'')}</span>
+          <p className="w-[55%] flex flex-col font-semibold text-xs">
+            <span className={`${toAdd ? 'text-page-blue-normal' : 'text-red-500'} uppercase font-bold`}>{product.brand}</span>
+            <span className="text-gray-800 truncate whitespace-normal">{product.name.replace(/EAN.*/, '')}</span>
           </p>
         </section>
 
-        <footer className="w-full bg-gray-300 h-2">
-          <div className="w-full h-full bg-page-blue-normal" style={{ width: `${progress}%`, transition: 'width 4s ease-out' }} />
+        <footer className="w-full bg-gray-300 h-1">
+          <div className={`h-full ${toAdd ? 'bg-page-lightblue' : 'bg-red-400'}`} style={{ width: `${progress}%`, transition: 'width 3s ease-out' }} />
         </footer>
+
+        <span className={`${toAdd ? 'text-sky-500' : 'text-red-500'} font-bold absolute top-[45%] left-2 text-xs`}>{toAdd ? '+1' : '-1'}</span>
       </main>
     </div>
   );

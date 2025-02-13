@@ -1,6 +1,7 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import Modal from '../Components/Modal';
+import Cookies from 'js-cookie';
 
 export const CartContext = createContext();
 export const useCart = () => useContext(CartContext);
@@ -10,6 +11,19 @@ export const CartProvider = ({ children }) => {
   const [modalProduct, setModalProduct] = useState(null);
   const [cartProducts, setCartProducts] = useState([]);
   const [progress, setProgress] = useState(0);
+  const [toAdd, setToAdd] = useState(true);
+
+  useEffect(() => {
+    const savedCart = Cookies.get('cartProducts');
+    if (savedCart) {
+      setCartProducts(JSON.parse(savedCart));
+    }
+  }, []);
+
+  useEffect(() => {
+    Cookies.set('cartProducts', JSON.stringify(cartProducts), { expires: 2 });
+  }, [cartProducts]);
+
 
   const addProductToCart = ({ product, quantity_selected = 1 }) => {
     const productExistInCart = cartProducts.find(p => cartProducts.length > 0 && parseInt(product.id) === parseInt(p.id))
@@ -52,22 +66,38 @@ export const CartProvider = ({ children }) => {
     console.log('unidad nueva agregada')
   } 
 
-  const deleteProductOfCart = ({ productID, quantity = 1 }) => {
-    if(quantity === 1) {
-      const product = cartProducts.find(product => parseInt(product.id) === parseInt(productID))
-      return product.quantity_selected--
-    }
+  const deleteOneProductOfCart = ({ productID, quantity = 1 }) => {
+    setCartProducts(prevCart =>
+      prevCart.flatMap(p => {
+        if (p.id === parseInt(productID)) {
+          const newQuantity = p.quantity_selected - quantity;
+          showSuccessModal(p, false)
+          return newQuantity > 0 ? { ...p, quantity_selected: newQuantity } : [];
+        }
 
-    cartProducts.filter(product => parseInt(product.id) !== parseInt(productID))
-  }
+        showSuccessModal(p, false)
+        return p; 
+      })
+    );
+  };
 
+  const deleteProductOfCart = ({ productID }) => {
+    const newCart = cartProducts.filter(p => parseInt(p.id) !== parseInt(productID))
+    setCartProducts(newCart)
+  };
+
+  const cleanCart = () => {
+    setCartProducts([])
+  };
+  
   const getTotalOfProducts = () => {
     return cartProducts.length
   }
 
-  const showSuccessModal = (product) => {
+  const showSuccessModal = (product, add = true) => {
     setShowModal(true);
     setProgress(1);
+    setToAdd(add);    
     setModalProduct(product);
 
     setTimeout(() => {
@@ -77,13 +107,13 @@ export const CartProvider = ({ children }) => {
     setTimeout(() => {
       setShowModal(false); 
       setProgress(0);
-    }, 5000); 
+    }, 4000); 
   };
 
   return (
-    <CartContext.Provider value={{ cartProducts, addProductToCart, deleteProductOfCart, getTotalOfProducts }}>
+    <CartContext.Provider value={{ cartProducts, addProductToCart, deleteOneProductOfCart, deleteProductOfCart, getTotalOfProducts, cleanCart }}>
       {children}
-      {showModal && <Modal progress={progress} product={modalProduct} />}
+      {showModal && <Modal progress={progress} product={modalProduct} toAdd={toAdd} />}
     </CartContext.Provider>
   )
 }

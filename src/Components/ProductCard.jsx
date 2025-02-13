@@ -7,9 +7,9 @@ export default function ProductCard({ product }) {
     return parseFloat(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
   }
 
-  const getDiscountPercentage = (price_1, price_2) => { 
-    return formattedPrice(Math.round((1 - (price_1 / price_2)) * 100))
-  }
+  // const getDiscountPercentage = (price_1, price_2) => { 
+  //   return formattedPrice(Math.round((1 - (price_1 / price_2)) * 100))
+  // }
 
   return(
     <NavLink
@@ -30,7 +30,7 @@ export default function ProductCard({ product }) {
           <span className="text-xs text-gray-500">SKU: {product.sku}</span>
           <span>{limitedName}</span>
         </p> 
-        <p className="font-bold text-xl">${formattedPrice(product.price_list_3)}</p>
+        <p className="font-bold text-xl">${formattedPrice(product.price_list_1)}</p>
       </article>
     </NavLink>
   )
