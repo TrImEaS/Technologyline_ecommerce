@@ -20,7 +20,7 @@ export default function Search () {
     search: '',
   })
   const [filterMenu, setFilterMenu] = useState(false)
-  const [sortOption, setSortOption] = useState('default')
+  const [sortOption, setSortOption] = useState('')
 
   useEffect(() => {
     document.title = `Buscar | Technology Line`
@@ -47,51 +47,36 @@ export default function Search () {
   }
 
   const filterProducts = (products) => {
-    const sortedProducts = products.sort((a, b) => {
-      switch (sortOption) {
-        case 'min':
-          return parseInt(a.price_list_3) - parseInt(b.price_list_3)
-        case 'max':
-          return parseInt(b.price_list_3) - parseInt(a.price_list_3)
-        case 'A-Z':
-          return a.name.localeCompare(b.name)
-        case 'Z-A':
-          return b.name.localeCompare(a.name)
-        default:
-          return parseInt(b.price_list_3) - parseInt(a.price_list_3)
-      }
-    })
-    
+    const sortedProducts = [...products].sort((a, b) => {
+      if (sortOption === 'min') return parseFloat(a.price_list_1) - parseFloat(b.price_list_1);
+      if (sortOption === 'max') return parseFloat(b.price_list_1) - parseFloat(a.price_list_1);
+      if (sortOption === 'A-Z') return a.name.localeCompare(b.name);
+      if (sortOption === 'Z-A') return b.name.localeCompare(a.name);
+      if (sortOption === '') return parseFloat(b.price_list_1) - parseFloat(a.price_list_1); 
+    });
     return sortedProducts.filter(product => {
       return (
-        parseFloat(product.price_list_3) >= filters.minPrice 
-        &&
-        parseFloat(product.price_list_3) <= filters.maxPrice 
-        &&
-        (
+       parseFloat(product.price_list_1) >= filters.minPrice 
+        && parseFloat(product.price_list_1) <= filters.maxPrice 
+        && (
           filters.category === 'all' ||
           product.category === filters.category
         ) 
-        &&
-        product.name.toUpperCase().includes(filters.search_name.toUpperCase()) 
-        &&
-        product.category.toUpperCase().includes(filters.search_category.toUpperCase()) 
-        &&
-        product.sub_category.toUpperCase().includes(filters.search_subCat.toUpperCase()) 
-        &&
-        (filters.search_white_line == 1 ? product.white_line == 1 : true)
-        &&
-        (filters.search_brand.length === 0 || filters.search_brand.includes(product.brand.toLowerCase())) 
-        &&
-        (
+        && product.name.toUpperCase().includes(filters.search_name.toUpperCase()) 
+        && product.category.toUpperCase().includes(filters.search_category.toUpperCase()) 
+        && product.sub_category.toUpperCase().includes(filters.search_subCat.toUpperCase()) 
+        && (filters.search_white_line == 1 ? product.white_line == 1 : true) 
+        && (filters.search_brand.length === 0 || filters.search_brand.includes(product.brand.toLowerCase())) 
+        && (
           product.name.toLowerCase().includes(filters.search.toLowerCase()) ||
           product.sub_category.toLowerCase().includes(filters.search.toLowerCase())
         )
-      )
-    })
-  }
+      );
+    });
+  };
   
-  const filteredProducts = filterProducts(products) 
+  
+  const filteredProducts = products && filterProducts(products) 
 
   const handleFilterMenu = () => setFilterMenu(!filterMenu)
 
@@ -152,7 +137,7 @@ export default function Search () {
             onChange={(e) => setSortOption(e.target.value)}
             value={sortOption}
           >
-            <option className='max-[1366px]:text-sm' value="default">
+            <option className='max-[1366px]:text-sm' value="">
               Orden por defecto
             </option>
             <option className='max-[1366px]:text-sm' value="min">
