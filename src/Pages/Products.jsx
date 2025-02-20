@@ -149,7 +149,7 @@ export default function Products () {
                   <span>PROMO: EFECTIVO / TRANSFERENCIA BANCARIA: </span>
                   <p className='pl-5 font-semibold flex gap-1 text-[#15803d] items-center tracking-normal'>
                     <span>{`$${formattedPrice(product.price_list_2)}`}</span>
-                    <span className='text-xs text-[#dc7b26]'>(Ahorras: ${((product.price_list_2 - product.price_list_3)*-1).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})})</span>
+                    <span className='text-xs text-[#dc7b26]'>(Ahorras: ${((product.price_list_2 - product.price_list_1)*-1).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})})</span>
                   </p>
                 </div>
               </section>

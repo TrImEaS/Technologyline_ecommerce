@@ -112,12 +112,12 @@ export default function CategoriesMenu () {
       </div>
 
       {/*Categorias for full screen and xl screen */}
-      <section className='hidden -tracking-wider md:flex justify-center min-w-[200px] w-full'>
-        <ul className='flex gap-x-2'>
-          {uniqueCategories.map((category) => (
+      <section className='hidden tracking-tighter md:flex justify-center min-w-[200px] w-full'>
+        <ul className='flex gap-x-2 max-[1024px]:text-sm'>
+          {uniqueCategories.map((category) => (!category.includes('Cargar') &&
             <li 
               key={category.toLowerCase()}
-              className='hover:bg-white hover:text-black rounded-full p-1 px-2 duration-300'>
+              className='hover:bg-white whitespace-nowrap hover:text-black rounded-full p-1 px-2 duration-300'>
               <NavLink 
                 to={`/search/?category=${category.toLowerCase()}`}>
                 {category}

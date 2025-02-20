@@ -7,7 +7,7 @@ export default function MiniCart({ showCart, setShowCart }) {
   const { cartProducts, getTotalOfProducts, deleteOneProductOfCart, addProductToCart, cleanCart } = useCart()
 
   return (
-    <div className={`fixed top-0 right-0 w-[80%] max-sm:w-full min-h-[100%] cart flex flex-col max-w-[500px] overflow-y-auto gap-5 p-3 bg-gray-100 border-2 text-gray-800 cart ${showCart === 3 && 'hidden'} ${showCart ? 'show' : 'hide'}`}>
+    <div className={`fixed top-0 z-[999999] right-0 w-[80%] max-sm:w-full min-h-[100%] cart flex flex-col max-w-[500px] overflow-y-auto gap-5 p-3 bg-gray-100 border-2 text-gray-800 ${showCart === 3 && 'hidden'} ${showCart ? 'show' : 'hide'}`}>
       <button onClick={()=> setShowCart(0)}>
         <FaTimesCircle className="text-xl text-sky-500"/>
       </button>

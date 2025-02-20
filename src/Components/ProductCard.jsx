@@ -7,9 +7,9 @@ export default function ProductCard({ product }) {
     return parseFloat(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
   }
 
-  // const getDiscountPercentage = (price_1, price_2) => { 
-  //   return formattedPrice(Math.round((1 - (price_1 / price_2)) * 100))
-  // }
+  if(product.img_base){
+    console.log(product.img_base)
+  }
 
   return(
     <NavLink

@@ -14,10 +14,10 @@ export default function Nav() {
     <nav 
       className='z-50 flex flex-col w-full relative items-center bg-blue-400'>
     {/*---Nav top---*/}
-      <section className='flex gap-x-5 max-sm:gap-x-2 justify-between max-sm:justify-center items-center h-28 w-3/4 max-lg:w-full px-2'>
+      <section className='flex gap-x-5 max-sm:gap-x-2 max-sm:max-h-[100px] justify-between max-sm:justify-center items-center h-28 w-3/4 max-lg:w-full px-2'>
         {/*Logo*/}
-        <NavLink to='/' className='h-[100px] flex items-center max-xl:justify-center'>
-          <img src={`https://technologyline.com.ar/banners-images/Assets/logo-tline.svg`} alt="company-logo" className='w-[200px] max-w-[200px] pb-3'/>
+        <NavLink to='/' className='h-[100px] min-w-[200px] flex items-center max-xl:justify-center'>
+          <img src={`https://technologyline.com.ar/banners-images/Assets/logo-tline.svg`} alt="company-logo" className='max-sm:w-[90%] w-full max-sm:max-w-[200px] max-w-[200px] pb-3'/>
         </NavLink>
 
         {/*Search input*/}
@@ -26,7 +26,7 @@ export default function Nav() {
         </div>
 
         {/*User items o Link to realcolor shop*/}
-        <article className='flex gap-x-6 max-sm:gap-x-3 pr-3 items-center mt-[8px] w-[190px]'>
+        <article className='flex gap-x-6 max-sm:gap-x-3 pr-5 max-sm:pr-8 items-center mt-[8px] w-[190px]'>
           <div className='flex text-white items-center w-full gap-2 justify-between max-sm:justify-end'>
             {/* <button disabled className='flex items-center text-nowrap gap-1 text-opacity-15' title='Lo sentimos, esta opcion esta en mantenimiento, opcion en mantenimiento'>
               <PiUserCircleFill className='text-3xl'/>
@@ -56,7 +56,7 @@ export default function Nav() {
       </section>
 
       {/*---Nav bottom  MD screen---*/}
-      <section className='md:hidden flex h-[60px] w-full items-center justify-center gap-x-5 bg-page-blue-normal text-slate-50 max-md:justify-start max-sm:justify-between max-md:px-20 max-sm:px-10'>
+      <section className='md:hidden flex h-[50px] w-full items-center justify-center gap-x-5 bg-page-blue-normal text-slate-50 max-md:justify-start max-sm:justify-between max-md:px-20 max-sm:px-10'>
         {/* Categorias */}
         <CategoriesMenu/>        
         

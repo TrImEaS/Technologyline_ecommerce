@@ -63,7 +63,7 @@ export default function BannerCarousel() {
           onClickItem={handleClick}
         >
           {bannersToShow.map((banner, index) => (
-            <div key={index + new Date()} className="w-full h-full min-h-[500px] max-h-[550px] max-sm:min-h-[350px] max-sm:max-h-[350px]">
+            <div key={index + new Date()} className="w-full h-full min-h-[500px] max-h-[550px] max-sm:min-h-[380px] max-sm:max-h-[380px]">
               <img
                 src={banner.path}
                 className="h-full w-full object-fill select-none"

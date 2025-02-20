@@ -116,7 +116,7 @@ export default function ImageSlider({ loadedImages }) {
 
       {zoomedImage && (
         <section onClick={() => handleZoomImage(null)}>
-          <article className="fixed flex p-5 items-center justify-center z-[9999999] bg-black bg-opacity-75 h-screen w-screen top-0 right-[0] max-sm:min-w-[390px] max-sm:min-h-[650px]">
+          <article className="fixed flex p-5 items-center justify-center z-[9999999999] bg-black bg-opacity-80 h-screen w-screen top-0 right-[0] max-sm:min-w-[390px] max-sm:min-h-[660px]">
             <span className="absolute top-5 right-10 text-white font-bold text-4xl cursor-pointer">x</span>
             <img src={zoomedImage} className="rounded-lg object-contain cursor-zoom-out w-[550px]" />
           </article>

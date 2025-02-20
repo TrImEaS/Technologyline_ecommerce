@@ -4,6 +4,8 @@
 
 #root {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 .bg-lok {
@@ -56,7 +58,11 @@
 }
 
 .slick-slider {
-  width: 102%;
+  width: 105%; 
+}
+
+.slick-list {
+  margin-right: 10px;
 }
 
 .spinner-container {
@@ -123,7 +129,6 @@
 }
 
 .cart {
-  z-index: 9999999;
   transition: transform 0.3s ease-in-out;
 }
 
