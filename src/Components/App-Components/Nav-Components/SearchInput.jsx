@@ -2,8 +2,7 @@ import { FaSearch } from 'react-icons/fa'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import Spinner from '../../Products/Spinner'
-const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
-
+import { useProducts } from '../../../Context/ProductsContext';
 
 export default function SearchInput() {
   const [keyword, setKeyword] = useState('')
@@ -66,25 +65,7 @@ export default function SearchInput() {
 }
 
 function SearchResults({ keyword }) {
-  const [products, setProducts] = useState(null)
-  const [loading, setLoading] = useState(true)
-  
-  useEffect(() => {
-    (async function () {
-      try {
-        const response = await fetch(`${API_URL}/api/products`);
-        if (!response.ok) {
-          throw new Error('Error al obtener productos');
-        }
-        const data = await response.json();
-        setProducts(data);
-        setLoading(false);
-      } 
-      catch (err) {
-        console.log(err)
-      }
-    })()
-  }, [])
+  const { products, loading } = useProducts()
 
   if(loading){
     return(
@@ -97,25 +78,13 @@ function SearchResults({ keyword }) {
   const maxNameLength = 50
   const formattedPrice = (price) => parseFloat(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
-  const totalDiscount = (price, discount) => {
-    // Convertir los precios a números
-    const normalPrice = parseFloat(price);
-    const discountedPrice = parseFloat(discount);
-  
-    // Calcular el porcentaje de descuento
-    const percentage = ((normalPrice - discountedPrice) / normalPrice) * 100;
-  
-    // Devolver el porcentaje como un número entero
-    return Math.round(percentage);
-  }
-
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(keyword.toLowerCase()) ||
     product.sku.toLowerCase().includes(keyword.toLowerCase()) ||
     product.sub_category.toLowerCase().includes(keyword.toLowerCase())
   )
   return (
-    <section className={`flex flex-col absolute top-10 gap-2 w-full max-h-[500px] min-h-[100px] bg-white border-2 rounded-lg z-[9999] overflow-y-auto p-3 ${filteredProducts.length === 0 ? 'h-14' : 'h-[500px]'}`}>
+    <section className={`flex flex-col absolute top-9 gap-2 w-full max-h-[500px] min-h-[100px] bg-white border-2 rounded-lg z-[9999] overflow-y-auto p-3 ${filteredProducts.length === 0 ? 'h-14' : 'h-[500px]'}`}>
     {filteredProducts.length === 0 
     ? (
       <div>
@@ -135,7 +104,7 @@ function SearchResults({ keyword }) {
               src={product.img_base} 
               loading="eager"
               alt={product.name}
-              onError={(e) => e.target.src = 'page-icon.jpeg'}
+              onError={(e) => e.target.src = 'https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg'}
               className="w-full h-full object-contain" />
           </header>
 
@@ -144,19 +113,7 @@ function SearchResults({ keyword }) {
               <span className='text-xs text-gray-500'>SKU: {product.sku}</span>
               <span>{product.name.length > maxNameLength ? `${product.name.substring(0, maxNameLength)}...`: product.name}</span>
             </p>
-
-            {product.discount 
-            ? 
-              <div>
-                <div className='flex items-center gap-x-1'>
-                  <p className="text-sm line-through">${formattedPrice(product.price)}</p>
-                  <span className='text-sm mb-1 bg-orange-400 text-white px-2 rounded-full'>{totalDiscount(product.price, product.discount)}% OFF</span>
-                </div>
-                <p className="font-bold text-2xl">${formattedPrice(product.discount)}</p>
-              </div>
-            : 
-              <p className="font-bold text-2xl max-[1025px]:text-sm">${formattedPrice(product.price)}</p>
-            }
+            <p className="font-bold text-xl max-[1025px]:text-sm">${formattedPrice(product.price_list_1)}</p>
           </article>
         </NavLink>
       ))

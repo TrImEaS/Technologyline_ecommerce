@@ -52,16 +52,15 @@ export default function Home() {
   }, [products]);
   
   return (
-      <div name='home' className={`flex bg-lok flex-col items-center gap-10 min-h-screen h-full w-full pb-5`}>
+      <div name='home' className={`flex box-border flex-col items-center gap-10 min-h-screen h-full w-full pb-5`}>
         {/*Banners*/}
         <section>
           <BannerCarousel/>
         </section>
 
-        {/* <HotSale/> */}
         <section className='flex flex-col items-center w-full gap-y-10'>
-          <BannersCards/>
-          <div className='flex items-center justify-center w-4/5 h-[130px] rounded-3xl bg-gray-300 text-black font-bold xl:text-xl text-sm px-5 gap-x-5'>
+          {/* <BannersCards/> */}
+          <div className='flex items-center justify-center w-4/5 h-[130px] max-sm:h-[100px] rounded-3xl bg-gray-300 text-black font-bold xl:text-xl text-sm px-5 gap-x-5'>
               <p className='flex gap-x-3 justify-center items-center w-full'>
                 <i className='flex justify-center items-center border-2 border-black rounded-full xl:min-w-[100px] xl:min-h-[100px] min-w-[65px] min-h-[65px]'>
                   <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/home-icon1.svg'}/>
@@ -93,7 +92,7 @@ export default function Home() {
         </section>
 
         {/*Categories*/}
-        <section className='w-4/5'>
+        <section className='w-4/5 max-sm:w-full max-sm:pr-5'>
           <CategoriesCarousel/>
         </section>
 

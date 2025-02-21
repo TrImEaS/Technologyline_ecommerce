@@ -66,7 +66,7 @@ export default function BannerCarousel() {
             <div key={index + new Date()} className="w-full h-full min-h-[500px] max-h-[550px] max-sm:min-h-[380px] max-sm:max-h-[380px]">
               <img
                 src={banner.path}
-                className="h-full w-full object-fill select-none"
+                className="h-full w-full object-container select-none"
                 loading="lazy"
                 alt={`banner ${index + 1}`}
               />

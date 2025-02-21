@@ -250,7 +250,7 @@ export default function Products () {
         </div>
       </div>
 
-      <section className='flex flex-col gap-y-10 w-[82%] max-sm:w-[70%]'>
+      <section className='flex flex-col gap-y-10 w-[90%] max-sm:w-[70%]'>
         {/* Seccion de descripcion */}
         { recomendProducts.length > 0 &&
           <div className='w-full flex flex-col gap-y-10'>

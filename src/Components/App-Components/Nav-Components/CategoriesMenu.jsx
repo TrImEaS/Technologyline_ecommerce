@@ -2,32 +2,14 @@ import { useState, useEffect } from "react"
 import { useLocation, NavLink } from "react-router-dom"
 import { FaBars } from 'react-icons/fa'
 import Spinner from "../../Products/Spinner"
-const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+import { useProducts } from "../../../Context/ProductsContext";
 
 export default function CategoriesMenu () {
+  const { products, loading } = useProducts()
   const [categoriesHideMenu, setCategoriesHideMenu] = useState(false)
-  const [products, setProducts] = useState(null)
-  const [loading, setLoading] = useState(true)
   const location = useLocation()
   let uniqueCategories
   let uniqueSubCategories
-
-  useEffect(() => {
-    (async function () {
-      try {
-        const response = await fetch(`${API_URL}/api/products`);
-        if (!response.ok) {
-          throw new Error('Error al obtener productos');
-        }
-        const data = await response.json();
-        setProducts(data);
-        setLoading(false);
-      } 
-      catch (err) {
-        console.log(err)
-      }
-    })()
-  }, [])
 
   useEffect(() => {
     setCategoriesHideMenu(false);
@@ -63,7 +45,7 @@ export default function CategoriesMenu () {
         {/*Categorias hide menu */}
         {categoriesHideMenu 
         ? (
-          <div className='absolute tracking-normal flex flex-col items-center rounded-md overflow-y-auto mt-[10px] overflow-x-hidden p-10 z-[99999999] bg-slate-100 min-w-[300px] max-w-[500px] w-[400px] max-sm:w-[330px] max-sm:h-[300px] h-[500px]'>
+          <div className='absolute tracking-normal flex flex-col items-center rounded-md overflow-y-auto mt-[10px] overflow-x-hidden p-10 z-[99999999] bg-slate-100 min-w-[300px] max-w-[500px] w-[80%] max-sm:h-[300%] h-[250%]'>
             <section className='flex items-center flex-col gap-3 text-black h-[100% + 100px]'>
               <div className='h-full w-full flex justify-center border-b-[4px] border-page-lightblue'>
                 <NavLink 
