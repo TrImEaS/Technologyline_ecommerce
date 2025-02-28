@@ -5,7 +5,7 @@ import ProductCard from "../ProductCard"
 export default function ProductsSearch({ products }) {
   const [currentPage, setCurrentPage] = useState(1)
   const [productsPerPage, setProductsPerPage] = useState(9)
-  const maxPageButtons = 5
+  const maxPageButtons = 4
   const location = useLocation();
 
   const handlePageChange = (newPage) => {

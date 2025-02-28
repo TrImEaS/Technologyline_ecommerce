@@ -27,7 +27,6 @@ export default function Products () {
         throw new Error('Error al obtener productos');
       
       const newProduct = response.data[0]
-      console.log(newProduct)
       setProduct(newProduct)
       document.title = `${newProduct.name} | Technology Line`
 

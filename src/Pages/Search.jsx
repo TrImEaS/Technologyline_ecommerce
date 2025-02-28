@@ -47,34 +47,39 @@ export default function Search () {
   }
 
   const filterProducts = (products) => {
-    const sortedProducts = [...products].sort((a, b) => {
-      if (sortOption === 'min') return parseFloat(a.price_list_1) - parseFloat(b.price_list_1);
-      if (sortOption === 'max') return parseFloat(b.price_list_1) - parseFloat(a.price_list_1);
-      if (sortOption === 'A-Z') return a.name.localeCompare(b.name);
-      if (sortOption === 'Z-A') return b.name.localeCompare(a.name);
-      if (sortOption === '') return parseFloat(b.price_list_1) - parseFloat(a.price_list_1); 
-    });
-    return sortedProducts.filter(product => {
+    const filtered = products.filter(product => {
       return (
-       parseFloat(product.price_list_1) >= filters.minPrice 
-        && parseFloat(product.price_list_1) <= filters.maxPrice 
-        && (
-          filters.category === 'all' ||
-          product.category === filters.category
-        ) 
-        && product.name.toUpperCase().includes(filters.search_name.toUpperCase()) 
-        && product.category.toUpperCase().includes(filters.search_category.toUpperCase()) 
-        && product.sub_category.toUpperCase().includes(filters.search_subCat.toUpperCase()) 
-        && (filters.search_white_line == 1 ? product.white_line == 1 : true) 
-        && (filters.search_brand.length === 0 || filters.search_brand.includes(product.brand.toLowerCase())) 
-        && (
+        parseFloat(product.price_list_1) >= filters.minPrice &&
+        parseFloat(product.price_list_1) <= filters.maxPrice &&
+        (filters.category === 'all' || product.category === filters.category) &&
+        product.name.toUpperCase().includes(filters.search_name.toUpperCase()) &&
+        product.category.toUpperCase().includes(filters.search_category.toUpperCase()) &&
+        product.sub_category.toUpperCase().includes(filters.search_subCat.toUpperCase()) &&
+        (filters.search_white_line == 1 ? product.white_line == 1 : true) &&
+        (filters.search_brand.length === 0 || filters.search_brand.includes(product.brand.toLowerCase())) &&
+        (
           product.name.toLowerCase().includes(filters.search.toLowerCase()) ||
           product.sub_category.toLowerCase().includes(filters.search.toLowerCase())
         )
       );
     });
-  };
   
+    return filtered.sort((a, b) => {
+      if (sortOption === 'min') {
+        return parseFloat(a.price_list_1) - parseFloat(b.price_list_1);
+      }
+      if (sortOption === 'max' || sortOption === '') {
+        return parseFloat(b.price_list_1) - parseFloat(a.price_list_1);
+      }
+      if (sortOption === 'A-Z') {
+        return a.name.localeCompare(b.name);
+      }
+      if (sortOption === 'Z-A') {
+        return b.name.localeCompare(a.name);
+      }
+      return 0;
+    });
+  };
   
   const filteredProducts = products && filterProducts(products) 
 
@@ -173,18 +178,19 @@ export default function Search () {
       </header>
       
       <main className="flex max-lg:flex-col gap-x-3 w-full h-full">
-      {/*Aside filters max screen*/}
-      <aside className="max-[1366px]:hidden flex flex-col gap-y-8 min-w-[15%] w-[15%] pt-2">
-        <div className='max-[1366px]:hidden flex flex-col gap-y-8'>
-          <CategoriesFilters onFilterChange={setFilters} products={filteredProducts}/>
-          <NavLink to='/search' className='h-10 flex items-center justify-center bg-white rounded-lg duration-500 active:text-sm active:duration-0 font-bold border border-black'>Limpiar Filtros</NavLink>
-        </div>
-      </aside>
-      
-      <section className='w-full'>
-        <ProductsSearch products={filteredProducts}/>
-      </section>
+        {/*Aside filters max screen*/}
+        <aside className="max-[1366px]:hidden flex flex-col gap-y-8 min-w-[15%] w-[15%] pt-2">
+          <div className='max-[1366px]:hidden flex flex-col gap-y-8'>
+            <CategoriesFilters onFilterChange={setFilters} products={filteredProducts}/>
+            <NavLink to='/search' className='h-10 flex items-center justify-center bg-white rounded-lg duration-500 active:text-sm active:duration-0 font-bold border border-black'>Limpiar Filtros</NavLink>
+          </div>
+        </aside>
+        
+        <section className='w-full'>
+          <ProductsSearch products={filteredProducts}/>
+        </section>
       </main>
+      
       <Outlet/>
     </section>
   )    

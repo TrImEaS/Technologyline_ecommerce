@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom"
 export default function BannersCards() {
   return (
     <div className='flex justify-center items-center gap-3 max-sm:flex-wrap w-4/5'>
-
       <article className='flex select-none relative items-center justify-center rounded-full group text-4xl text-white hover:scale-95 duration-500 w-full max-sm:max-w-[300px] z-10'>
         <img 
           src={'https://technologyline.com.ar/banners-images/Assets/BannerCards-images/banner-1.jpg'}

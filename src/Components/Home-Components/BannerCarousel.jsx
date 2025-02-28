@@ -1,19 +1,22 @@
 import { useEffect, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import { useNavigate } from 'react-router-dom';
+// import { useProducts } from '../../Context/ProductsContext';
+// import banner from '../../Assets/banner.jpg'
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
 
+const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
 
 export default function BannerCarousel() {
   const [desktopBanners, setDesktopBanners] = useState([]);
   const [mobileBanners, setMobileBanners] = useState([]);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 830);
+  // const { mostViewed } = useProducts()
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchBanners();
-    const handleResize = () => setIsMobile(window.innerWidth <= 640);
+    const handleResize = () => setIsMobile(window.innerWidth <= 830);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -63,15 +66,27 @@ export default function BannerCarousel() {
           onClickItem={handleClick}
         >
           {bannersToShow.map((banner, index) => (
-            <div key={index + new Date()} className="w-full h-full min-h-[500px] max-h-[550px] max-sm:min-h-[380px] max-sm:max-h-[380px]">
+            <div key={index + new Date()} className="w-full relative overflow-hidden">
               <img
                 src={banner.path}
-                className="h-full w-full object-container select-none"
+                className="h-full w-full object-scale-down inset-0 select-none"
                 loading="lazy"
                 alt={`banner ${index + 1}`}
               />
             </div>
           ))}
+            {/* <div className="w-full relative overflow-hidden">
+              <img
+                src={banner}
+                className="h-full w-full object-scale-down inset-0 select-none"
+                loading="lazy"
+                alt={`banner`}
+              />
+
+              <div className='absolute z-[50] right-[20.7%] top-[7.8%] text-black w-[13.2%] h-[85%] rounded-md text-3xl font-bold'>
+                <img className='w-full h-full rounded-md' src={mostViewed} alt="" />
+              </div>
+            </div> */}
         </Carousel>
       ) : ''}
     </div>

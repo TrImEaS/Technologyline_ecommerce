@@ -64,12 +64,15 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-
+      lineClamp: {
+        2: '2',
+      },
       fontFamily:{
         'body': ['Rubik', 'sans-serif']
       }
     },
   },
-  plugins: [],
+  plugins: [
+  ],
 }
 
