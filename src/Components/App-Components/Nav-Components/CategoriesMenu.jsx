@@ -44,53 +44,54 @@ export default function CategoriesMenu () {
 
         {/*Categorias hide menu */}
         {categoriesHideMenu 
-        ? (
-          <div className='absolute tracking-normal flex flex-col items-center rounded-md overflow-y-auto mt-[10px] overflow-x-hidden p-10 z-[99999999] bg-slate-100 min-w-[300px] max-w-[500px] w-[80%] max-sm:h-[300%] h-[250%]'>
-            <section className='flex items-center flex-col gap-3 text-black h-[100% + 100px]'>
-              <div className='h-full w-full flex justify-center border-b-[4px] border-page-lightblue'>
-                <NavLink 
-                  to='/search' 
-                  onClick={handleClickCategories} 
-                  className='hover:text-page-lightblue max-sm:text-xl text-2xl duration-300 font-bold'>
-                  Todos los productos
-                </NavLink>
-              </div>
+          && (
+            <div className='absolute tracking-normal flex flex-col items-center rounded-md overflow-y-auto mt-[10px] overflow-x-hidden p-10 z-[99999999] bg-slate-100 min-w-[300px] max-w-[500px] w-[80%] max-sm:h-[300%] h-[250%]'>
+              <section className='flex items-center flex-col gap-3 text-black h-[100% + 100px]'>
+                <div className='h-full w-full flex justify-center border-b-[4px] border-page-lightblue'>
+                  <NavLink 
+                    to='/search' 
+                    onClick={handleClickCategories} 
+                    className='hover:text-page-lightblue max-sm:text-xl text-2xl duration-300 font-bold'>
+                    Todos los productos
+                  </NavLink>
+                </div>
 
-              {/*Mapear Categorias */}
-              {uniqueCategories.map((category, index) => (
-              <div className="w-full min-w-[280px] h-full" key={category}>
-                <ul className='flex flex-wrap justify-between py-4'>
-                  <li className='hover:text-page-lightblue duration-300 border-b-[3px] border-page-blue-normal'>
-                    <NavLink 
-                      to={`/search/?category=${category.toLowerCase()}`} 
-                      className={'font-semibold'}
-                      onClick={handleClickCategories}>
-                      {category.toUpperCase()}
-                    </NavLink>
-                  </li>
-                </ul>
-
-                {/*Mapear subcategorias */}
-                <ul className='flex flex-col gap-3 flex-wrap justify-between pl-2'>
-                {uniqueSubCategories
-                  .filter(sub_category => products.some(product => product.category === category && product.sub_category === sub_category))
-                  .map(sub_category => (
-                    <li 
-                      key={sub_category} 
-                      className='hover:text-page-lightblue text-xs duration-300'>
+                {/*Mapear Categorias */}
+                {uniqueCategories.map((category, index) => (
+                <div className="w-full min-w-[280px] h-full" key={category}>
+                  <ul className='flex flex-wrap justify-between py-4'>
+                    <li className='hover:text-page-lightblue duration-300 border-b-[3px] border-page-blue-normal'>
                       <NavLink 
-                        to={`/search/?category=${category.toLowerCase()}&sub_category=${sub_category.toLowerCase()}`}
+                        to={`/search/?category=${category.toLowerCase()}`} 
+                        className={'font-semibold'}
                         onClick={handleClickCategories}>
-                        {sub_category.replace(';', ',')}
+                        {category.toUpperCase()}
                       </NavLink>
                     </li>
-                  ))}
-                </ul>
-              </div>
-              ))}
-            </section>
-          </div>
-        ) : ''}
+                  </ul>
+
+                  {/*Mapear subcategorias */}
+                  <ul className='flex flex-col gap-3 flex-wrap justify-between pl-2'>
+                  {uniqueSubCategories
+                    .filter(sub_category => products.some(product => product.category === category && product.sub_category === sub_category))
+                    .map(sub_category => (
+                      <li 
+                        key={sub_category} 
+                        className='hover:text-page-lightblue text-xs duration-300'>
+                        <NavLink 
+                          to={`/search/?category=${category.toLowerCase()}&sub_category=${sub_category.toLowerCase()}`}
+                          onClick={handleClickCategories}>
+                          {sub_category.replace(';', ',')}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                ))}
+              </section>
+            </div>
+          )
+        }
       </div>
 
       {/*Categorias for full screen and xl screen */}

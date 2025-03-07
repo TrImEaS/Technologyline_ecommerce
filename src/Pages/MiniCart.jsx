@@ -59,7 +59,7 @@ export default function MiniCart({ showCart, setShowCart }) {
               <aside className="w-[60%] min-h-[100px] flex flex-col text-xs gap-y-2 justify-between">
                 <NavLink onClick={()=> setShowCart(0)} className='flex flex-col'  to={`/products?product=${product.sku}`}>
                   <span className="uppercase font-bold text-page-blue-normal">{product.brand}</span>
-                  <span className="truncate whitespace-normal">{product.name.replace(/EAN.*/,'')}</span>
+                  <span className="truncate whitespace-normal">{product.name.replace(/EAN(?::\s*|\s+)\d{5,}/gi, '')}</span>
                   <span className="pt-1 font-bold text-gray-700">Precio Lista - ${product.price_list_3.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                 </NavLink> 
 

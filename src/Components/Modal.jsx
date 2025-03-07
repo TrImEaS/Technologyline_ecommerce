@@ -26,7 +26,7 @@ export default function Modal({ progress, product, toAdd = 1 }) {
           </div>
           <p className="w-[55%] flex flex-col font-semibold text-xs">
             <span className={`${toAdd ? 'text-page-blue-normal' : 'text-red-500'} uppercase font-bold`}>{product.brand}</span>
-            <span className="text-gray-800 truncate whitespace-normal">{product.name.replace(/EAN.*/, '')}</span>
+            <span className="text-gray-800 truncate whitespace-normal">{product.name.replace(/EAN(?::\s*|\s+)\d{5,}/gi, '')}</span>
           </p>
         </section>
 

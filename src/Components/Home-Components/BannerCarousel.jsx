@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
-import { useNavigate } from 'react-router-dom';
-// import { useProducts } from '../../Context/ProductsContext';
-// import banner from '../../Assets/banner.jpg'
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useProducts } from '../../Context/ProductsContext';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
@@ -11,7 +10,8 @@ export default function BannerCarousel() {
   const [desktopBanners, setDesktopBanners] = useState([]);
   const [mobileBanners, setMobileBanners] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 830);
-  // const { mostViewed } = useProducts()
+  const { mostViewed } = useProducts()
+  const bannerName = !isMobile ? 'static_baner_home.jpg' : 'static_baner_home_mobile.jpg'
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,8 +51,9 @@ export default function BannerCarousel() {
   };
 
   return (
-    <div className='flex flex-col w-full items-center sm:pb-3'>
-      {shouldShowCarousel ? (
+    <div  className='flex flex-col w-full items-center sm:pb-3'>
+      {shouldShowCarousel && (
+        
         <Carousel
           autoPlay
           interval={5000}
@@ -65,7 +66,26 @@ export default function BannerCarousel() {
           emulateTouch
           onClickItem={handleClick}
         >
-          {bannersToShow.map((banner, index) => (
+          <div className='w-full h-full' onClick={() => navigate(`/products/?product=${mostViewed.sku}`)}>
+            <div className="w-full cursor-pointer relative overflow-hidden">
+              <img
+                src={`https://technologyline.com.ar/banners-images/${bannerName}`}
+                className="h-full w-full object-scale-down inset-0 select-none"
+                loading="lazy"
+                alt={`banner`}
+              />
+
+              <div className='absolute z-[70] flex flex-col gap-2 right-[25.7%] top-[20.8%] text-white w-[30.2%] h-[85%] rounded-md text-2xl'>
+                <span className='w-full rounded-md uppercase font-bold'> {mostViewed.brand}  </span>
+                <span className='w-full rounded-md'> {mostViewed.name.replace(/EAN(?::\s*|\s+)\d{5,}/gi, '')}  </span>
+              </div>
+
+              <div className='absolute z-[50] right-[10.7%] top-[7.8%] text-black w-[13.2%] h-[85%] rounded-md text-3xl font-bold'>
+                <img className='w-full h-full rounded-md' src={mostViewed.img_base} />
+              </div>
+            </div>
+          </div>
+          {/* {bannersToShow.map((banner, index) => (
             <div key={index + new Date()} className="w-full relative overflow-hidden">
               <img
                 src={banner.path}
@@ -74,21 +94,9 @@ export default function BannerCarousel() {
                 alt={`banner ${index + 1}`}
               />
             </div>
-          ))}
-            {/* <div className="w-full relative overflow-hidden">
-              <img
-                src={banner}
-                className="h-full w-full object-scale-down inset-0 select-none"
-                loading="lazy"
-                alt={`banner`}
-              />
-
-              <div className='absolute z-[50] right-[20.7%] top-[7.8%] text-black w-[13.2%] h-[85%] rounded-md text-3xl font-bold'>
-                <img className='w-full h-full rounded-md' src={mostViewed} alt="" />
-              </div>
-            </div> */}
+          ))} */}
         </Carousel>
-      ) : ''}
+      )}
     </div>
   );
 }

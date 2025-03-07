@@ -122,7 +122,7 @@ export default function Products () {
           </span>
 
           <h1 className='text-2xl font-semibold'>
-            {product.name.replace(/EAN.*/,'')}
+            {product.name.replace(/EAN(?::\s*|\s+)\d{5,}/gi, '')}
           </h1>
 
           {loading 

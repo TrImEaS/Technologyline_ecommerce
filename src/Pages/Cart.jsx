@@ -16,6 +16,7 @@ export default function Cart() {
     fullname: '',
     dni: '',
     address: '',
+    email: '',
     postalCode: '',
     phone: ''
   })
@@ -45,7 +46,7 @@ export default function Cart() {
       'marketing@realcolor.com.ar'
     ];
   
-    if (!price || !address || !postalCode || !clientData.address || !clientData.fullname || !clientData.dni || !clientData.postalCode || !clientData.phone) {
+    if (!price || !address || !postalCode || !clientData.address || !clientData.email || !clientData.fullname || !clientData.dni || !clientData.postalCode || !clientData.phone) {
       return Swal.fire('Atención', 'Faltan campos a completar', 'warning');
     }
   
@@ -75,7 +76,8 @@ export default function Cart() {
           dni: clientData.dni,
           direccion: clientData.address,
           cp: clientData.postalCode,
-          celular: clientData.phone
+          celular: clientData.phone,
+          email: clientData.email
         },
         productos: cartProducts.map(p => ({
           sku: p.sku,
@@ -89,8 +91,8 @@ export default function Cart() {
           direccion: address || '-'
         },
         abona_en:
-          price === 1 ? 'Efectivo - Transferencia' :
-          price === 2 ? '1 Pago Débito - Crédito' :
+          price === 1 ? '1 Pago Débito - Crédito' :
+          price === 2 ? 'Efectivo - Transferencia' :
           price === 3 ? '3 cuotas fijas' :
           price === 4 ? '6 cuotas fijas' :
           price === 5 ? '9 cuotas fijas' :
@@ -171,7 +173,7 @@ export default function Cart() {
 
                 <NavLink to={`/products?product=${p.sku}`} className="flex flex-col justify-center items-center gap-2">
                   <span className="uppercase text-page-blue-normal font-bold">{p.brand}</span>
-                  <span className="text-center tracking-wide px-5 text-gray-800 text-sm">{p.name.replace(/EAN.*/, '')}</span>
+                  <span className="text-center tracking-wide px-5 text-gray-800 text-sm">{p.name.replace(/EAN(?::\s*|\s+)\d{5,}/gi, '')}</span>
                 </NavLink>
                 
                 <section className="w-full flex justify-center text-white items-center">
@@ -268,6 +270,21 @@ export default function Cart() {
 
                 <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                   Celular <b>*</b>
+                </span>
+              </label>  
+
+              <label htmlFor="Email" className="relative flex rounded-md items-center px-2 border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+                <input
+                  type="email"
+                  id="Email"
+                  value={clientData.email}
+                  onChange={(e) => setClientData(prev => ({ ...prev, email: e.target.value }))}
+                  className="peer bg-transparent border-transparent w-full placeholder-transparent h-14 px-3 focus:ring-0 placeholder:text-xs outline-none"
+                  placeholder="Email"
+                />
+
+                <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                  Email <b>*</b>
                 </span>
               </label>  
             </>
@@ -513,12 +530,12 @@ export default function Cart() {
               <span className="font-bold text-2xl text-page-blue-normal">$ {totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </footer>
 
-            {price === 2 && 
+            {/* {price === 2 && 
               <div className="flex items-center gap-2">
                 <b className="bg-yellow-400 rounded-full text-white border-yellow-400 border-2 text-lg"><FaInfoCircle/></b>
                 <span className="text-sm">¡Importante! La cuenta desde la que transfieras debe coincidir con tu cuenta de facturación.</span>
               </div>
-            }
+            } */}
           </section>
 
           <button onClick={handleSubmit} className="flex flex-col justify-center items-center rounded-lg border shadow-lg h-16 w-full bg-gradient-to-l from-sky-400 to-sky-800 text-white hover:brightness-125 max-w-[360px]">

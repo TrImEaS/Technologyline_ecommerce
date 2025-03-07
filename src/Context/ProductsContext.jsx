@@ -9,13 +9,13 @@ export const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // const [mostViewed, setMostViewed] = useState(null);
+  const [mostViewed, setMostViewed] = useState(null);
 
   useEffect(() => {
     axios.get(`${API_URL}/api/products`)
       .then(res => {
-        // const sortedByViews = [...res.data].sort((a, b) => b.total_views - a.total_views);
-        // setMostViewed(sortedByViews[0].img_base)
+        const sortedByViews = [...res.data].sort((a, b) => b.total_views - a.total_views);
+        setMostViewed(sortedByViews[0])
         setProducts(res.data)
         setLoading(false)
       })
@@ -23,7 +23,7 @@ export const ProductsProvider = ({ children }) => {
   }, [])
 
   return (
-    <ProductsContext.Provider value={{ products, loading, setLoading, error }}>
+    <ProductsContext.Provider value={{ products, loading, setLoading, error, mostViewed }}>
       {children}
     </ProductsContext.Provider>
   )

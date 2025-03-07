@@ -75,7 +75,6 @@ function SearchResults({ keyword }) {
     )
   }
 
-  const maxNameLength = 50
   const formattedPrice = (price) => parseFloat(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
   const filteredProducts = products.filter((product) =>
@@ -111,7 +110,7 @@ function SearchResults({ keyword }) {
           <article className="w-[50%] h-full box-border flex flex-col justify-between">
             <p className='flex flex-col text-sm'>
               <span className='text-xs text-gray-500'>SKU: {product.sku}</span>
-              <span>{product.name.length > maxNameLength ? `${product.name.substring(0, maxNameLength)}...`: product.name}</span>
+              <span className='line-clamp-3'>{product.name.replace(/EAN(?::\s*|\s+)\d{5,}/gi, '')}</span>
             </p>
             <p className="font-bold text-xl max-[1025px]:text-sm">${formattedPrice(product.price_list_1)}</p>
           </article>
