@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLocation, Outlet, NavLink } from 'react-router-dom'
 import { useProducts } from '../Context/ProductsContext'
+import { FaAngleDown } from 'react-icons/fa'
 import ProductsSearch from '../Components/Search-Components/ProductsSearch.jsx'
 import CategoriesFilters from '../Components/Search-Components/CategoriesFilters.jsx'
 import Spinner from '../Components/Products/Spinner.jsx'
@@ -87,58 +88,74 @@ export default function Search () {
 
   {/*Componente search*/}
   return (
-    <section className="flex flex-col w-3/4 items-center py-10">
-      <header className="flex w-4/5 justify-end gap-y-5 pb-14 max-sm:flex-col max-sm:w-full max-sm:items-center max-sm:pb-8">
+    <section className="flex flex-col w-4/5 items-center py-10">
+      <header className="flex w-full justify-end gap-y-5 pb-14 max-sm:flex-col max-sm:w-full max-sm:items-center max-sm:pb-8">
         <article className="flex items-center w-full max-sm:w-4/5">
-          <div>
+          <nav className="flex items-center flex-wrap space-x-2 text-sm font-medium">
             <NavLink
-              className={'group font-semibold hover:text-page-lightblue duration-300'} 
-              to={'/search'}>
-              TODOS
-              <span className='group-hover:text-black'>/</span>
+              className="flex items-center w-fit text-gray-600 hover:text-page-lightblue transition-colors duration-200" 
+              to="/search">
+              <span className="font-semibold w-fit whitespace-nowrap">TODOS</span>
             </NavLink>
 
-            {filters.search ?
-              <NavLink
-                className={'group font-semibold hover:text-page-lightblue duration-300'} 
-                to={`/search/${filters.search}`}>
-                {filters.search.toLocaleUpperCase()}
-                <span className='group-hover:text-black'>/</span>
-              </NavLink>
-            : ''}
+            {(filters.search || filters.search_category || filters.search_subCat || filters.search_brand) && 
+              <span className="text-gray-400">/</span>
+            }
 
-            {filters.search_category ?
-              <NavLink
-                className={'group font-semibold hover:text-page-lightblue duration-300'} 
-                to={`/search/?category=${filters.search_category}`}>
-                {filters.search_category.toLocaleUpperCase()}
-                <span className='group-hover:text-black'>/</span>
-              </NavLink>
-            : ''}
+            {filters.search &&
+              <div className="flex items-center">
+                <NavLink
+                  className="text-gray-600 w-fit hover:text-page-lightblue transition-colors duration-200" 
+                  to={`/search/?search=${filters.search}`}>
+                  <span className="font-semibold w-fit whitespace-nowrap">{filters.search.toLocaleUpperCase()}</span>
+                </NavLink>
+                {(filters.search_category || filters.search_subCat || filters.search_brand) && 
+                  <span className="text-gray-400 ml-2">/</span>
+                }
+              </div>
+            }
 
-            {filters.search_subCat ? 
-              <NavLink
-                className={'group font-semibold hover:text-page-lightblue duration-300'}
-                to={filters.search_category ?  `?&sub_category=${filters.search_subCat.toLowerCase()}` : `?sub_category=${filters.search_subCat.toLowerCase()}`}>
-                {filters.search_subCat.toLocaleUpperCase()}
-                <span className='group-hover:text-black'>/</span>
-              </NavLink> 
-            :''}
+            {filters.search_category &&
+              <div className="flex items-center">
+                <NavLink
+                  className="text-gray-600 w-fit hover:text-page-lightblue transition-colors duration-200" 
+                  to={`/search/?category=${filters.search_category}`}>
+                  <span className="font-semibold w-fit whitespace-nowrap">{filters.search_category.toLocaleUpperCase()}</span>
+                </NavLink>
+                {(filters.search_subCat || filters.search_brand) && 
+                  <span className="text-gray-400 ml-2">/</span>
+                }
+              </div>
+            }
+
+            {filters.search_subCat &&
+              <div className="flex items-center">
+                <NavLink
+                  className="text-gray-600 w-fit hover:text-page-lightblue transition-colors duration-200"
+                  to={`/search/?${filters.search_category ? `category=${filters.search_category}&` : ''}sub_category=${filters.search_subCat.toLowerCase()}`}>
+                  <span className="font-semibold w-fit whitespace-nowrap">{filters.search_subCat.toLocaleUpperCase()}</span>
+                </NavLink>
+                {filters.search_brand && 
+                  <span className="text-gray-400 ml-2">/</span>
+                }
+              </div>
+            }
             
-            {filters.search_brand ? 
+            {filters.search_brand &&
               <NavLink
-                className={'font-semibold hover:text-page-lightblue duration-300'}
-                to={`${window.location.pathname}${window.location.search ? `${window.location.search}&` : '/?'}brand=${filters.search_brand.toLowerCase()}`}>
-                {filters.search_brand.toLocaleUpperCase()}
-              </NavLink> 
-            :''}
-          </div>
+              className="text-gray-600 w-fit hover:text-page-lightblue transition-colors duration-200"
+              to={`/search/?${filters.search_category ? `category=${filters.search_category}&` : ''}${filters.search_subCat ? `sub_category=${filters.search_subCat.toLowerCase()}&` : ''}brand=${filters.search_brand.toLowerCase()}`}>
+                <span className="font-semibold w-fit whitespace-nowrap">{filters.search_brand.toLocaleUpperCase()}</span>
+              </NavLink>
+            }
+          </nav>
         </article>
 
-        <article className="flex gap-x-2 items-center max-sm:justify-center">
+        {/*Aside filters for mobile*/}
+        <article className="max-[1366px]:flex hidden flex-wrap gap-5 text-gray-600 items-center max-sm:justify-center">
           <select 
             name="filter"
-            className="px-2 py-1 border-2 font-bold border-black rounded-lg"
+            className="w-[240px] max-sm:text-sm text-center h-9 outline-none border font-medium shadow-lg hover:shadow-xl rounded-lg"
             onChange={(e) => setSortOption(e.target.value)}
             value={sortOption}
           >
@@ -159,30 +176,54 @@ export default function Search () {
             </option>
           </select>
           
-          {/*Aside filters for mobile*/}
-          <div 
-            className='max-[1366px]:text-sm max-[1366px]:flex hidden relative z-10'>
-            <span 
-              className='text-black border-2 border-black px-2 py-1 font-bold rounded-lg cursor-pointer'
+          <div className='relative z-10'>
+            <p 
+              className='text-gray-600 max-sm:text-sm w-[240px] flex justify-center items-center h-9 border font-medium rounded-lg shadow-lg hover:shadow-xl cursor-pointer'
               onClick={handleFilterMenu}>
-              Filtros
-            </span>
+              <span className='w-full text-center'>Filtros</span>
+              <FaAngleDown className='text-base'/>
+            </p>
 
-            <div className={`flex-col gap-y-5 rounded w-[210px] h-[330px] overflow-x-hidden absolute top-[40px] left-[-80px] bg-white border-2 p-3 ${filterMenu ? 'flex' : 'hidden'}`}>
+            <div className={`flex-col gap-y-5 rounded w-[240px] h-[330px] overflow-x-hidden absolute top-[40px] bg-white border-2 p-3 ${filterMenu ? 'flex' : 'hidden'}`}>
               <CategoriesFilters onFilterChange={setFilters} products={filteredProducts}/>
-              <NavLink to='/search' className='h-10 flex items-center justify-center bg-white rounded-lg duration-500 active:text-sm active:duration-0 font-bold border border-black'>Limpiar Filtros</NavLink>
+              <NavLink to='/search' className='h-10 py-2 flex items-center justify-center bg-white rounded-lg duration-500 active:text-sm active:duration-0 font-medium border shadow-lg hover:shadow-xl'>
+                Limpiar Filtros
+              </NavLink>
             </div>
           </div>
-
         </article>
       </header>
       
       <main className="flex max-lg:flex-col gap-x-3 w-full h-full">
         {/*Aside filters max screen*/}
-        <aside className="max-[1366px]:hidden flex flex-col gap-y-8 min-w-[15%] w-[15%] pt-2">
+        <aside className="max-[1366px]:hidden flex flex-col gap-y-8 min-w-[20%] w-[20%] pt-2">
+          <select 
+            name="filter"
+            className="w-[180px] max-sm:text-sm text-center h-9 outline-none border font-medium shadow-lg hover:shadow-xl rounded-lg"
+            onChange={(e) => setSortOption(e.target.value)}
+            value={sortOption}
+          >
+            <option className='max-[1366px]:text-sm' value="">
+              Orden por defecto
+            </option>
+            <option className='max-[1366px]:text-sm' value="min">
+              Menor precio
+            </option>
+            <option className='max-[1366px]:text-sm' value="max">
+              Mayor precio
+            </option>
+            <option className='max-[1366px]:text-sm' value="A-Z">
+              A-Z
+            </option>
+            <option className='max-[1366px]:text-sm' value="Z-A">
+              Z-A
+            </option>
+          </select>
           <div className='max-[1366px]:hidden flex flex-col gap-y-8'>
             <CategoriesFilters onFilterChange={setFilters} products={filteredProducts}/>
-            <NavLink to='/search' className='h-10 flex items-center justify-center bg-white rounded-lg duration-500 active:text-sm active:duration-0 font-bold border border-black'>Limpiar Filtros</NavLink>
+            <NavLink to='/search' className='h-10 flex items-center justify-center bg-white rounded-lg duration-500 active:text-sm active:duration-0 font-medium border shadow-lg hover:shadow-xl'>
+              Limpiar Filtros
+            </NavLink>
           </div>
         </aside>
         

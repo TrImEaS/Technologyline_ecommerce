@@ -2,15 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-#root {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
 .bg-lok {
   background: rgb(250,250,250);
   background: linear-gradient(130deg, rgba(250,250,250,1) 35%, rgba(6,134,174,0.0760679271708683) 50%, rgba(250,250,250,1) 65%);
+}
+
+.bg-color {
+  @apply bg-gradient-to-b from-page-blue-normal to-[#1a4167];
 }
 
 .isActive {
@@ -23,15 +21,6 @@
 
 #wpp-icon {
   z-index: 9999;
-}
-
-#hotsale {
-  z-index: 9999;
-}
-
-#hotSale-sale {
-  background-image: url(./Assets/fire.gif);
-  background-position: center;
 }
 
 @keyframes moveRight {
@@ -58,11 +47,7 @@
 }
 
 .slick-slider {
-  width: 105%; 
-}
-
-.slick-list {
-  margin-right: 10px;
+  width: 100%;
 }
 
 .spinner-container {
@@ -87,11 +72,17 @@
 }
 
 .slider-container {
-  min-width: 300px;
-  width: 75%; 
+  min-width: 300px; /* Establece el ancho mínimo */
+  width: 75%; /* Establece el ancho en un 80% del ancho de su contenedor principal */
   margin: 0px auto;
-  padding-bottom: 10px; 
+  padding-bottom: 10px; /* Centra el contenedor horizontalmente */
 }
+
+/* 
+.slick-slide, .slick-current {
+  border: 1px solid rgb(193, 193, 193);
+  border-radius: 
+} */
 
 .dots-slider {
   width: 60%;
@@ -100,8 +91,8 @@
 
 .large-cursor {
   cursor: pointer;
-  width: 32px; 
-  height: 32px;
+  width: 32px; /* Ajusta el ancho del cursor */
+  height: 32px; /* Ajusta la altura del cursor */
 }
 
 /* width */
@@ -125,7 +116,12 @@
 }
 
 #error {
-  z-index: 99999;
+  z-index: 999999999;
+}
+
+b {
+  color: rgb(49, 155, 197);
+  font-weight: 500;
 }
 
 .cart {
@@ -161,10 +157,4 @@
   to {
     transform: translateX(100%);
   }
-}
-
-
-b {
-  color: rgb(49, 155, 197);
-  font-weight: 500;
 }

@@ -12,6 +12,7 @@ export const CartProvider = ({ children }) => {
   const [cartProducts, setCartProducts] = useState([]);
   const [progress, setProgress] = useState(0);
   const [toAdd, setToAdd] = useState(true);
+  const [productToShow, setProductToShow] = useState(null);
 
   useEffect(() => {
     const savedCart = Cookies.get('cartProducts');
@@ -26,13 +27,13 @@ export const CartProvider = ({ children }) => {
 
 
   const addProductToCart = ({ product, quantity_selected = 1 }) => {
-    const productExistInCart = cartProducts.find(p => cartProducts.length > 0 && parseInt(product.id) === parseInt(p.id))
+    const productExistInCart = cartProducts.find(p => cartProducts.length > 0 && product.sku === p.sku)
     if(productExistInCart){
       if ((productExistInCart.quantity_selected + quantity_selected) > product.stock)
         return Swal.fire('Atención', 'No hay más stock disponible para agregar al carrito', 'info');
 
       setCartProducts(cartProducts.map(p => 
-        p.id === productExistInCart.id 
+        p.sku === productExistInCart.sku 
           ? { ...p, quantity_selected: p.quantity_selected + quantity_selected } 
           : p
       ));
@@ -75,15 +76,28 @@ export const CartProvider = ({ children }) => {
           return newQuantity > 0 ? { ...p, quantity_selected: newQuantity } : [];
         }
 
-        showSuccessModal(p, false)
         return p; 
       })
     );
   };
 
   const deleteProductOfCart = ({ productID }) => {
-    const newCart = cartProducts.filter(p => parseInt(p.id) !== parseInt(productID))
-    setCartProducts(newCart)
+    const productToRemove = cartProducts.find(p => p.id === productID);
+    
+    if (productToRemove) {
+      setProductToShow(productToRemove); // Set the product before modifying the cart
+      setProgress(1);
+
+      if (productToRemove.quantity_selected > 1) {
+        setCartProducts(prev => prev.map(p => 
+          p.id === productID 
+            ? { ...p, quantity_selected: p.quantity_selected - 1 }
+            : p
+        ));
+      } else {
+        setCartProducts(prev => prev.filter(p => p.id !== productID));
+      }
+    }
   };
 
   const cleanCart = () => {
@@ -95,10 +109,10 @@ export const CartProvider = ({ children }) => {
   }
 
   const showSuccessModal = (product, add = true) => {
-    setShowModal(true);
-    setProgress(1);
     setToAdd(add);    
     setModalProduct(product);
+    setShowModal(true);
+    setProgress(1);
 
     setTimeout(() => {
       setProgress(100);

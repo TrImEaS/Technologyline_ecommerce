@@ -75,21 +75,21 @@ export default function Footer() {
     <div className="flex flex-col justify-center items-center w-full">
       
       {/*Top Footer*/}
-      <section className="bg-page-gray-light h-28 flex gap-x-5 justify-center items-center max-lg:flex-wrap w-full">
-        <h1 className="font-bold text-[20px] max-sm:text-[16px]">
+      <section className="bg-gradient-to-r from-page-gray-light to-gray-100 py-6 flex flex-col md:flex-row gap-4 justify-center items-center w-full px-4">
+        <h1 className="font-bold text-xl md:text-[22px] text-gray-800 text-center">
           No pierdas la oportunidad de suscribirte
         </h1>
         <form 
           onSubmit={handleSubscribe}
-          className="flex rounded-lg"
+          className="flex w-full max-w-[500px] rounded-lg outline-none shadow-md hover:shadow-lg transition-shadow duration-300"
         >
-          <div className="flex bg-page-white justify-center items-center rounded-md">
-            <span className="text-3xl px-2 text-gray-400">
+          <div className="flex flex-1 bg-page-white justify-around items-center rounded-l-lg border-l border-t border-b border-gray-200">
+            <span className="text-2xl md:text-3xl px-3 text-gray-400 hover:text-gray-600 transition-colors duration-300">
               <MdOutlineEmail/>
             </span>
             <input 
               type="email" 
-              className="rounded-md outline-none px-2 w-[200px]"
+              className="rounded-none outline-none px-3 py-2 md:py-3 w-full border-none transition-all duration-300"
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder="Ingresa tu mail"
@@ -97,181 +97,136 @@ export default function Footer() {
           </div>
           <button 
             type='submit'
-            className="bg-page-lightblue text-page-white py-2 px-3 rounded-lg hover:bg-page-blue-dark duration-300">
+            className="bg-page-lightblue text-page-white py-2 md:py-3 px-4 md:px-6 rounded-r-lg hover:bg-page-blue-dark transition-all duration-300 font-medium whitespace-nowrap">
             Suscribir
           </button>
         </form>
       </section>
       
       {/* Mid Footer */}
-      <section className="relative flex items-center justify-center max-lg:flex-col w-full box-border bg-page-blue-normal text-white gap-5 pt-5">
-        <article className="flex w-full flex-col justify-center px-1 gap-x-5 items-center max-[900px]:flex-col max-[900px]:pb-10 max-sm:pl-[10px]">
+      <section className="relative flex flex-col xl:flex-row items-center justify-center w-full box-border bg-color text-white gap-8 py-8 px-4 md:px-6">
+        <article className="flex w-full max-w-[500px] flex-col justify-center items-center gap-5">
           <img 
             src="https://technologyline.com.ar/banners-images/Assets/logo-tline.svg"
-            className="rounded-3xl h-[140px] object-cover min-w-[300px] max-w-[300px] max-[900px]:object-cover max-[900px]:w-[350px]"
+            className="h-[200px] md:h-[250px] object-contain max-w-[280px] md:max-w-[300px] hover:opacity-90 transition-opacity duration-300"
           />
-          <ul className="flex flex-col text-page-gray-light min-w-[300px] max-[1500px]:justify-center pt-8">
-            <span className='flex font-bold w-full pb-2 text-white'>
+          <ul className="flex flex-col text-page-gray-light text-center lg:text-left space-y-2">
+            <span className='flex justify-center lg:justify-start font-bold w-full pb-2 text-white text-lg'>
               ¡CONTACTANOS!
             </span>
-            <span>
+            <span className="hover:text-white transition-colors duration-300">
               Lunes a Viernes de 09:00hs a 18:30hs
             </span>
-            <span>
+            <span className="hover:text-white transition-colors duration-300">
               Tel.: 11 3369-0584
             </span>
-            <span>
+            <span className="hover:text-white transition-colors duration-300">
               E-mail: pcamio@real-color.com.ar
             </span>
 
-            <span className='flex font-bold w-full pb-2 pt-3 text-white'>
+            <span className='flex justify-center lg:justify-start font-bold w-full pb-2 pt-6 text-white text-lg'>
               ¿QUERES SER REVENDEDOR? 
             </span>
-            <span>
+            <span className="hover:text-white transition-colors duration-300">
               Escribinos: revendedores@realcolor.com.ar
             </span>
           </ul>
         </article>
 
-        <div className='flex w-full max-sm:w-4/5 max-md:flex-col items-center justify-center max-md:gap-0 pb-5 pr-24 max-lg:pr-0 max-sm:gap-y-5 max-sm:pr-24'>
-          <article className="min-w-[200px] min-h-[140px] max-lg:min-h-[170px] max-sm:min-h-[0] flex flex-col gap-y-1 text-page-gray-light">
-            <h1 className="font-bold text-white">
+        <div className='flex flex-col md:flex-row xl:flex-row justify-center items-center lg:items-start gap-8 w-full max-w-[1200px]'>
+          <article className="min-w-[200px] flex flex-col gap-y-3 text-page-gray-light text-center lg:text-left">
+            <h1 className="font-bold text-white text-lg border-b border-page-lightblue pb-2">
               Categorías
             </h1>
-            <NavLink to={`/search/?category=electro y aires`} className="hover:text-white duration-300">
+            <NavLink to={`/search/?category=electro y aires`} className="hover:text-white transition-colors duration-300 hover:translate-x-1 transform">
               Electrodomésticos
             </NavLink>
-            <NavLink to={`/search/?category=informatica`} className="hover:text-white duration-300">
+            <NavLink to={`/search/?category=informatica`} className="hover:text-white transition-colors duration-300 hover:translate-x-1 transform">
               Informática
             </NavLink>
-            <NavLink to={`/search/?category=tecnologia`} className="hover:text-white duration-300">
+            <NavLink to={`/search/?category=tecnologia`} className="hover:text-white transition-colors duration-300 hover:translate-x-1 transform">
               Tecnología
             </NavLink>
-            <NavLink to={`/search/?category=mas categorias`} className="hover:text-white duration-300">
+            <NavLink to={`/search/?category=mas categorias`} className="hover:text-white transition-colors duration-300 hover:translate-x-1 transform">
               Mas Categorías
             </NavLink>
           </article>
 
           {/*Company description*/}
-          <article className="min-w-[200px] min-h-[140px] max-lg:min-h-[170px] max-sm:min-h-[0] flex flex-col text-page-gray-light gap-y-1">
-            <h1 className="font-bold text-white">
+          <article className="min-w-[200px] flex flex-col gap-y-3 text-page-gray-light text-center lg:text-left">
+            <h1 className="font-bold text-white text-lg border-b border-page-lightblue pb-2">
               Technology Line
             </h1>
-            <NavLink to={`/others/about_us`} className="hover:text-white duration-300">
+            <NavLink to={`/others/about_us`} className="hover:text-white transition-colors duration-300 hover:translate-x-1 transform">
               Sobre nosotros
             </NavLink>
-            <NavLink to={`/others/revendedores`} className="hover:text-white duration-300">
+            <NavLink to={`/others/revendedores`} className="hover:text-white transition-colors duration-300 hover:translate-x-1 transform">
               Venta a mayoristas
             </NavLink>
-            <span className="text-[#ebebe446] duration-300 cursor-default">
+            <span className="text-[#ebebe446] transition-colors duration-300 cursor-default">
               Trabaja con nosotros
             </span>
           </article>
 
           {/*Other information*/}
-          <article className="min-w-[200px] min-h-[140px] max-lg:min-h-[170px] max-sm:min-h-[0] flex flex-col gap-y-1 text-page-gray-light">
-            <h1 className="font-bold text-white">
+          <article className="min-w-[200px] flex flex-col gap-y-3 text-page-gray-light text-center lg:text-left">
+            <h1 className="font-bold text-white text-lg border-b border-page-lightblue pb-2">
               Ayuda y información
             </h1>
-            <NavLink to={`/others/centro_de_ayuda`} className="hover:text-white duration-300">
+            <NavLink to={`/others/centro_de_ayuda`} className="hover:text-white transition-colors duration-300 hover:translate-x-1 transform">
               Centro de ayuda
             </NavLink>
-            <NavLink to={`/others/garantia`} className="hover:text-white duration-300">
+            <NavLink to={`/others/garantia`} className="hover:text-white transition-colors duration-300 hover:translate-x-1 transform">
               Garantia
             </NavLink>
-            <NavLink to={`/others/about_us`} className="hover:text-white duration-300">
+            <NavLink to={`/others/about_us`} className="hover:text-white transition-colors duration-300 hover:translate-x-1 transform">
               Sobre nosotros
             </NavLink>
-            <NavLink to={`/others/revendedores`} className="hover:text-white duration-300">
+            <NavLink to={`/others/revendedores`} className="hover:text-white transition-colors duration-300 hover:translate-x-1 transform">
               Revendedores
             </NavLink>
           </article>
         </div>
       </section>
 
-
       {/* Social icons/card icons/ button */}
-      <article className="flex w-full justify-center items-center px-[100px] max-md:px-5 max-[1250px]:flex-wrap pt-5 max-[1500px]:pt-8 bg-page-blue-normal">
-        <div className="flex w-[400px] gap-x-24 items-center justify-start max-[1500px]:justify-between max-sm:flex-wrap max-sm:justify-start max-sm:gap-y-5">
+      <article className="flex flex-col-reverse md:flex-row w-full justify-between items-center gap-4 px-4 md:px-8 py-6 bg-gradient-to-b from-[#1a4167] to-page-blue-normal border-t border-page-lightblue/20">
+        <div className="flex items-center justify-center w-full md:w-auto">
           {/* Card icons */}
-          <ul className="flex text-3xl justify-between items-end min-w-[200px] w-[300px] ml-[110px] max-[1500px]:ml-0 gap-x-4">
-            <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon2.svg'} width={50}/>
-            <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon3.svg'} width={50}/>
-            <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon4.svg'} width={50}/>
-            <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon5.svg'} width={50}/>
-            <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon1.svg'} width={50}/>
+          <ul className="flex items-center flex-wrap justify-center gap-4">
+            <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon2.svg'} className="w-10 md:w-12 h-8 hover:opacity-80 transition-opacity duration-300"/>
+            <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon3.svg'} className="w-10 md:w-12 h-8 hover:opacity-80 transition-opacity duration-300"/>
+            <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon4.svg'} className="w-10 md:w-12 h-8 hover:opacity-80 transition-opacity duration-300"/>
+            <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon5.svg'} className="w-10 md:w-12 h-8 hover:opacity-80 transition-opacity duration-300"/>
+            <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon1.svg'} className="w-10 md:w-12 h-8 hover:opacity-80 transition-opacity duration-300"/>
           </ul>
         </div>
             
-        <div className="flex justify-evenly items-center max-[1500px]:justify-end gap-x-5 max-sm:px-0 max-[1250px]:pt-8 max-[1250px]:justify-between px-10 pb-5">
-          <div className='flex gap-x-5'>
-            {/* <button className="bg-white px-4 h-14 py-1 max-[1500px]:ml-0 text-sm w-[300px] max-sm:w-[150px] max-sm:h-18 text-black rounded-full font-semibold hover:bg-black hover:text-white duration-300">
-              BOTÓN DE ARREPENTIMIENTO
-            </button> */}
+        <div className="flex items-center gap-4 md:gap-6">
+          <button
+            onClick={scrollToTop} 
+            className="bg-page-lightblue hover:bg-page-blue-dark text-white rounded-full p-2 md:p-3 transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-page-lightblue focus:ring-offset-2 focus:ring-offset-page-blue-normal">
+            <FaAngleUp className="text-xl md:text-2xl"/>
+          </button>
 
-            <button className="px-4 h-14 cursor-default py-1 max-[1500px]:ml-0 text-sm w-[300px] max-sm:w-[150px] max-sm:h-18 text-black rounded-full font-semibold duration-300">
-            </button>
-
-            <button
-              onClick={scrollToTop} 
-              className="group text-black flex justify-center items-center rounded-xl w-16 h-16 border-2 ">
-              <FaAngleUp className="text-[50px] group-hover:animate-bounce text-white duration-300"/>
-            </button>
-          </div>
-          <a href='https://www.instagram.com/realcoloroficial/' className="rounded-full">
-            <FaInstagram className='text-5xl text-white duration-300 hover:text-black hover:scale-110'/>
+          <a href='https://www.instagram.com/realcoloroficial/' className="text-white hover:text-page-lightblue transition-colors duration-300 transform hover:scale-110">
+            <FaInstagram className='text-2xl md:text-3xl'/>
           </a>
                     
-          <div>
-            <a href="http://qr.afip.gob.ar/?qr=ZvNKTXvJURZjjL1woDCRkg,," target="_F960AFIPInfo">
-              <img className="rounded-lg min-w-[30px] max-w-[60px]" src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg" border="0"></img>
-            </a>
-          </div>
+          <a href="http://qr.afip.gob.ar/?qr=ZvNKTXvJURZjjL1woDCRkg,," target="_F960AFIPInfo" className="hover:opacity-90 transition-opacity duration-300">
+            <img className="rounded-lg w-[40px] md:w-[45px]" src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg" />
+          </a>
         </div>
       </article>
 
-      <section className="flex flex-col justify-center items-center w-full bg-page-gray-light">
-        <h1 className="font-bold text-gray-800 py-2">
+      <section className="flex flex-col justify-center items-center w-full bg-gradient-to-r from-page-gray-light to-gray-100 py-4 px-4 text-center">
+        <h1 className="font-bold text-gray-800 mb-2">
           ©️ 2024 Technology Line SRL
         </h1>
-        <p className="font-bold text-gray-800 text-center p-2 pb-4">
+        <p className="text-gray-600 text-sm">
           Las imagenes son a modo ilustrativo. Los precios pueden cambiar sin previo aviso.
         </p>
       </section>
     </div>
   )
 }
-
-{/*Userconfig 
-        <article className="min-h-[140px] max-lg:min-h-[170px] max-sm:min-h-[0] max-sm:pb-6 flex flex-col gap-y-2 max-md:col-span-2 max-sm:col-span-4 w-full">
-        <h1 className="font-bold opacity-50">
-          Usuarios
-        </h1>
-          
-          <ul className="text-page-gray-light flex flex-col gap-y-1">
-            <li>
-              <a 
-                className="opacity-50 duration-300">
-                Login
-              </a>
-            </li>
-            <li>
-              <a 
-                className="opacity-50 duration-300">
-                Registrarse
-              </a>
-            </li>
-            <li>
-              <a 
-                className="opacity-50 duration-300">
-                Opciones
-              </a>
-            </li>
-            <li>
-              <a 
-                className="opacity-50 duration-300">
-                Mis pedidos
-              </a>
-            </li>
-          </ul> 
-        </article> */}

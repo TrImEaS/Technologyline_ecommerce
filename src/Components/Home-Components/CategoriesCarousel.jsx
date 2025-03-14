@@ -9,6 +9,7 @@ export default function CategoriesCarousel() {
   const [categories, setCategories] = useState([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [itemsPerPage, setItemsPerPage] = useState(7)
+  const [isHovering, setIsHovering] = useState(false)
 
   const updateItemsPerPage = () => {
     const width = window.innerWidth
@@ -21,7 +22,7 @@ export default function CategoriesCarousel() {
   }
 
   useEffect(() => {
-    updateItemsPerPage() // Initial check
+    updateItemsPerPage()
     window.addEventListener('resize', updateItemsPerPage)
     
     return () => {
@@ -52,37 +53,42 @@ export default function CategoriesCarousel() {
   }
   
   return (
-    <div className="relative w-full">
+    <div 
+      className="relative w-full py-4"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+    >
       <div className="flex items-center">
         <button 
           onClick={prev}
-          className="absolute flex items-center justify-center left-0 max-sm:-left-5 z-10 h-5 w-5 p-2 bg-slate-950 rounded-full text-white active:bg-gray-700 duration-300"
+          className={`absolute flex items-center justify-center left-2 z-10 h-10 w-10 bg-white/80 backdrop-blur-sm shadow-lg rounded-full text-gray-800 hover:bg-white hover:text-page-blue-normal transition-all duration-300 transform ${isHovering ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}
         >
-          <FaAngleLeft />
+          <FaAngleLeft className="text-xl" />
         </button>
   
-        <div className="overflow-hidden w-full">
+        <div className="overflow-hidden w-full px-2">
           <div 
-            className="flex transition-transform duration-300 ease-in-out"
+            className="flex transition-transform duration-500 ease-out"
             style={{ transform: `translateX(-${currentIndex * (100 / itemsPerPage)}%)` }}
           >
             {categories.map(c => (
               <div 
                 key={c.id} 
-                className="flex-shrink-0 flex flex-col mx-auto items-center px-2"
+                className="flex-shrink-0 flex flex-col mx-auto items-center px-3"
                 style={{ width: `${100 / itemsPerPage}%` }}
               >
                 <NavLink
                   to={`/search/?sub_category=${c.category.trim().toLowerCase()}`}
-                  className="w-[7rem] h-[7rem] max-sm:w-[5rem] max-sm:h-[5rem]"
+                  className="group relative w-[7rem] h-[7rem] max-sm:w-[5rem] max-sm:h-[5rem] overflow-hidden rounded-full"
                 >
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <img 
                     src={c.img_url} 
-                    className="w-full h-full rounded-full hover:bg-blend-lighten duration-500 border-[2px] shadow-xl object-cover"
+                    className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
                     alt={c.category}
                   />
                 </NavLink>
-                <p className="uppercase w-full text-center text-sm max-sm:text-xs mt-2">
+                <p className="uppercase w-full text-center font-medium text-sm max-sm:text-xs mt-3 text-gray-700 tracking-wide">
                   {c.category}
                 </p>
               </div>
@@ -90,11 +96,11 @@ export default function CategoriesCarousel() {
           </div>
         </div>
   
-        <button 
+        <button
           onClick={next}
-          className="absolute flex items-center justify-center right-0 max-sm:-right-5 z-10 h-5 w-5 p-2 bg-slate-950 rounded-full text-white active:bg-gray-700 duration-300"
+          className={`absolute flex items-center justify-center right-2 z-10 h-10 w-10 bg-white/80 backdrop-blur-sm shadow-lg rounded-full text-gray-800 hover:bg-white hover:text-page-blue-normal transition-all duration-300 transform ${isHovering ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`}
         >
-          <FaAngleRight />
+          <FaAngleRight className="text-xl" />
         </button>
       </div>
     </div>

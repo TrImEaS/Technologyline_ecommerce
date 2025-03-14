@@ -9,7 +9,7 @@ export default function ProductsSearch({ products }) {
   const location = useLocation();
 
   const handlePageChange = (newPage) => {
-    window.scrollTo(200, 200)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
     setCurrentPage(newPage)
   }
 
@@ -58,10 +58,10 @@ export default function ProductsSearch({ products }) {
   }, [location])
   
   return (
-    <section className="flex flex-col w-full rounded-lg p-2">
+    <section className="flex flex-col w-full rounded-lg">
       {/* Renderizar productos */}
       {products.length === 0 && (
-        <div className="text-pretty flex flex-col gap-y-3 px-10">
+        <div className="text-pretty flex flex-col gap-y-4 px-10 py-8 bg-gray-50 rounded-lg">
           <p className="text-xl font-semibold">
             No se han encontrado resultados para tu búsqueda.
           </p>
@@ -81,7 +81,7 @@ export default function ProductsSearch({ products }) {
       {products.length > 0 && (
         <div className="flex w-full justify-center min-h-[500px]">
           <div className="
-            grid grid-cols-5 gap-5
+            grid grid-cols-5 gap-6
             max-[2100px]:grid-cols-4
             max-[1680px]:grid-cols-3
             max-lg:grid-cols-2
@@ -98,18 +98,18 @@ export default function ProductsSearch({ products }) {
         </div>
       )}
       {/* Paginación */}
-      <div className="flex w-full justify-center items-center mt-20">
+      <div className="flex w-full justify-center items-center mt-12 mb-8 gap-2">
         
         {/* Primer página */}
         {currentPage > 3 && (
-          <span onClick={() => handlePageChange(1)} className="cursor-pointer mx-2 p-2 bg-gray-200">
+          <span onClick={() => handlePageChange(1)} className="cursor-pointer p-2 px-4 bg-gray-100 hover:bg-gray-200 rounded transition-colors">
             1
           </span>
         )}
 
         {/* Elipsis a la izquierda si hay más páginas */}
         {currentPage > Math.floor(maxPageButtons / 2) + 1 && (
-          <span className="mx-2">...</span>
+          <span className="px-2">...</span>
         )}
 
         {/* Números de página */}
@@ -117,8 +117,8 @@ export default function ProductsSearch({ products }) {
           <span
             key={page}
             onClick={() => handlePageChange(page)}
-            className={`cursor-pointer mx-2 p-2 ${
-              currentPage === page ? 'bg-gray-500 text-white' : 'bg-gray-200'
+            className={`cursor-pointer p-2 px-4 rounded transition-colors ${
+              currentPage === page ? 'bg-gray-800 text-white' : 'bg-gray-100 hover:bg-gray-200'
             }`}
           >
             {page}
@@ -127,12 +127,12 @@ export default function ProductsSearch({ products }) {
 
         {/* Elipsis a la derecha si hay más páginas */}
         {currentPage <= totalPages - Math.floor(maxPageButtons / 2) && (
-          <span className="mx-2">...</span>
+          <span className="px-2">...</span>
         )}
 
         {/* Última página */}
         {currentPage < totalPages && totalPages > maxPageButtons && (
-          <span onClick={() => handlePageChange(totalPages)} className="cursor-pointer mx-2 p-2 bg-gray-200">
+          <span onClick={() => handlePageChange(totalPages)} className="cursor-pointer p-2 px-4 bg-gray-100 hover:bg-gray-200 rounded transition-colors">
             {totalPages}
           </span>
         )}

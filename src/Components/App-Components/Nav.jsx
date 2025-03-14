@@ -11,13 +11,12 @@ export default function Nav() {
   const [showCart, setShowCart] = useState(3)
 
   return (
-    <nav 
-      className='z-50 flex flex-col w-full relative items-center bg-blue-400'>
+    <nav className='z-50 flex flex-col w-full relative items-center bg-color'>
     {/*---Nav top---*/}
-      <section className='flex gap-x-5 max-sm:gap-x-2 max-sm:max-h-[100px] justify-between max-sm:justify-center items-center h-28 w-3/4 max-lg:w-full px-2 max-sm:px-0'>
+      <section className='flex gap-x-5 max-sm:gap-x-2 max-sm:max-h-[100px] justify-between items-center h-28 w-3/4 max-lg:w-full px-2 max-sm:px-0'>
         {/*Logo*/}
         <NavLink to='/' className='h-[100px] min-w-[200px] flex items-center max-xl:justify-center'>
-          <img src={`https://technologyline.com.ar/banners-images/Assets/logo-tline.svg`} alt="company-logo" className='max-sm:w-[90%] w-full max-sm:max-w-[200px] max-w-[200px] pb-3'/>
+          <img src={`https://technologyline.com.ar/banners-images/Assets/logo-tline.svg`} alt="company-logo" className='w-full max-sm:max-w-[170px] max-w-[200px] pb-3'/>
         </NavLink>
 
         {/*Search input*/}
@@ -26,7 +25,7 @@ export default function Nav() {
         </div>
 
         {/*User items */}
-        <article className='flex gap-x-6 max-sm:gap-x-3 pr-5 max-sm:pr-8 items-center mt-[8px] w-[190px]'>
+        <article className='flex gap-x-6 max-sm:gap-x-3 pr-5 max-sm:pr-8 items-center mt-[8px] w-fit'>
           <div className='flex text-white items-center w-full gap-2 justify-between max-sm:justify-end'>
             {/* <button disabled className='flex items-center text-nowrap gap-1 text-opacity-15' title='Lo sentimos, esta opcion esta en mantenimiento, opcion en mantenimiento'>
               <PiUserCircleFill className='text-3xl'/>
@@ -49,18 +48,18 @@ export default function Nav() {
       </section>
 
       {/*---Nav bottom Full Screen---*/}
-      <section className='hidden md:flex z-50 w-full items-center justify-around gap-x-5 bg-page-blue-normal text-slate-50 text-[15px]'>
+      <section className='hidden md:flex z-50 w-full items-center justify-around gap-x-5 text-slate-50 text-[15px]'>
         <article className='w-3/4 max-lg:w-full px-10 flex h-[60px] items-center justify-around min-w-[640px]'>
           <CategoriesMenu/>
         </article>
       </section>
 
       {/*---Nav bottom  MD screen---*/}
-      <section className='md:hidden flex h-[50px] w-full items-center justify-center bg-page-blue-normal text-slate-50 max-md:justify-start max-sm:justify-between max-md:px-20 max-sm:px-2'>
+      <section className='md:hidden flex h-[50px] pb-3 w-full items-center justify-between text-slate-50 max-sm:justify-between max-md:px-5 max-sm:px-2 max-sm:pl-4'> 
         {/* Categorias */}
         <CategoriesMenu/>        
         
-        <article className='flex items-center rounded-full w-full'>
+        <article className='flex items-center w-full rounded-full max-sm:hover:w-full duration-300 max-sm:w-fit'>
           <SearchInput/>
         </article>
       </section>

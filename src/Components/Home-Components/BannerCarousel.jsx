@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useProducts } from '../../Context/ProductsContext';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
@@ -51,9 +51,8 @@ export default function BannerCarousel() {
   };
 
   return (
-    <div  className='flex flex-col w-full items-center sm:pb-3'>
+    <div  className='flex flex-col w-full items-center sm:pb-1'>
       {shouldShowCarousel && (
-        
         <Carousel
           autoPlay
           interval={5000}
@@ -66,26 +65,22 @@ export default function BannerCarousel() {
           emulateTouch
           onClickItem={handleClick}
         >
-          <div className='w-full h-full' onClick={() => navigate(`/products/?product=${mostViewed.sku}`)}>
-            <div className="w-full cursor-pointer relative overflow-hidden">
-              <img
-                src={`https://technologyline.com.ar/banners-images/${bannerName}`}
-                className="h-full w-full object-scale-down inset-0 select-none"
-                loading="lazy"
-                alt={`banner`}
-              />
-
-              <div className='absolute z-[70] flex flex-col gap-2 right-[25.7%] top-[20.8%] text-white w-[30.2%] h-[85%] rounded-md text-2xl'>
-                <span className='w-full rounded-md uppercase font-bold'> {mostViewed.brand}  </span>
-                <span className='w-full rounded-md'> {mostViewed.name.replace(/EAN(?::\s*|\s+)\d{5,}/gi, '')}  </span>
-              </div>
-
-              <div className='absolute z-[50] right-[10.7%] top-[7.8%] text-black w-[13.2%] h-[85%] rounded-md text-3xl font-bold'>
-                <img className='w-full h-full rounded-md' src={mostViewed.img_base} />
+          {mostViewed && 
+            <div className='w-full h-full' onClick={() => navigate(`/products/?product=${mostViewed && mostViewed.sku}`)}>
+              <div className="w-full cursor-pointer relative overflow-hidden">
+                <img
+                  src={`https://technologyline.com.ar/banners-images/${bannerName}`}
+                  className="h-full w-full object-scale-down inset-0 select-none"
+                  loading="lazy"
+                  alt={`banner`}
+                />
+                <div className='absolute z-[50] rounded-full right-[28%] top-[16%] max-md:right-[25.7%] max-md:top-[10%] text-black w-[15.2%] h-[75%] max-md:w-[20%] max-md:h-[85%] text-3xl font-bold'>
+                  <img className='w-full h-full rounded-full object-contain' src={mostViewed && mostViewed.img_base} />
+                </div>
               </div>
             </div>
-          </div>
-          {/* {bannersToShow.map((banner, index) => (
+          }
+          {bannersToShow.map((banner, index) => (
             <div key={index + new Date()} className="w-full relative overflow-hidden">
               <img
                 src={banner.path}
@@ -94,7 +89,7 @@ export default function BannerCarousel() {
                 alt={`banner ${index + 1}`}
               />
             </div>
-          ))} */}
+          ))}
         </Carousel>
       )}
     </div>

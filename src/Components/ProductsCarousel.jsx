@@ -5,27 +5,33 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 export default function ProductsCarousel({ filterProducts, rows, style }) {
-  const NextArrow = (props) =>{
-    const { onClick, style, className } = props 
+  const NextArrow = (props) => {
+    const { onClick, style } = props;
     return (
-      <FaAngleRight 
-        onClick={onClick} 
-        style={{...style, color: 'white', background: 'black', borderRadius: '100%'}} 
-        className={className}
-      />
-    )
-  }
+      <div
+        onClick={onClick}
+        className="absolute -right-5 top-1/2 -translate-y-1/2 z-10 cursor-pointer"
+      >
+        <div className="flex items-center justify-center w-7 h-7 bg-black/20 hover:bg-white text-black hover: rounded-full shadow-lg transition-all duration-300 hover:scale-110">
+          <FaAngleRight className="text-xl" />
+        </div>
+      </div>
+    );
+  };
   
-  const PrevArrow = (props) =>{
-    const { onClick, style, className } = props 
+  const PrevArrow = (props) => {
+    const { onClick, style } = props;
     return (
-      <FaAngleLeft
-        onClick={onClick} 
-        style={{...style, color: 'white', background: 'black', borderRadius: '100%'}} 
-        className={className}
-      />
-    )
-  }
+      <div
+        onClick={onClick}
+        className="absolute -left-5 top-1/2 -translate-y-1/2 z-10 cursor-pointer"
+      >
+        <div className="flex items-center justify-center w-7 h-7 bg-black/20 hover:bg-white text-black hover: rounded-full shadow-lg transition-all duration-300 hover:scale-110">
+          <FaAngleLeft className="text-xl" />
+        </div>
+      </div>
+    );
+  };
 
   const products = filterProducts;
 
@@ -39,12 +45,13 @@ export default function ProductsCarousel({ filterProducts, rows, style }) {
     slidesToShow: filterProducts.length > 4 ? 4 : filterProducts.length,
     slidesToScroll: filterProducts.length > 4 ? 4 : filterProducts.length,
     pauseOnDotsHover: true,
-    class: 'spinner-container',
-    nextArrow: <NextArrow/>,
-    prevArrow: <PrevArrow/>,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    dotsClass: 'slick-dots custom-dots',
+    cssEase: 'cubic-bezier(0.87, 0, 0.13, 1)',
     responsive: [
       {
-        breakpoint: 1025,
+        breakpoint: 1280,
         settings: {
           slidesToShow: filterProducts.length > 3 ? 3 : filterProducts.length,
           slidesToScroll: filterProducts.length > 3 ? 3 : filterProducts.length,
@@ -52,7 +59,7 @@ export default function ProductsCarousel({ filterProducts, rows, style }) {
         }
       },
       {
-        breakpoint: 768,
+        breakpoint: 975,
         settings: {
           slidesToShow: filterProducts.length > 2 ? 2 : filterProducts.length,
           slidesToScroll: filterProducts.length > 2 ? 2 : filterProducts.length,
@@ -75,13 +82,15 @@ export default function ProductsCarousel({ filterProducts, rows, style }) {
   }
 
   return (
-    <Slider className={`${style}`} {...settings}>
-      {products.map((product) => (
-        <ProductCard
-          key={product.id}
-          product={product}
-        />
-      ))}
-    </Slider>
+    <div className="relative group">
+      <Slider className={`${style} product-carousel`} {...settings}>
+        {products.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+          />
+        ))}
+      </Slider>
+    </div>
   );
 }

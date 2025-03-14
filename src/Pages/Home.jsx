@@ -53,40 +53,65 @@ export default function Home() {
   return (
       <div name='home' className={`flex box-border flex-col items-center gap-5 min-h-screen h-full w-full pb-5`}>
         {/*Banners*/}
-        <section>
+        <section className='max-sm:min-h-[150px] max-md:min-h-[200px] min-h-[230px]'>
           <BannerCarousel/>
         </section>
 
         <section className='flex flex-col items-center w-full'>
-          {/* <BannersCards/> */}
-          <div className='flex items-center justify-center w-4/5 max-sm:w-[90%] h-[130px] max-sm:h-[80px] rounded-3xl bg-gray-300 text-black font-bold xl:text-xl text-sm max-sm:p-5 px-5 gap-x-5'>
-              <p className='flex gap-x-3 justify-center items-center w-full'>
-                <i className='flex justify-center items-center border-2 border-black rounded-full xl:min-w-[100px] xl:min-h-[100px] min-w-[65px] min-h-[65px]'>
-                  <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/home-icon1.svg'}/>
-                </i>
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-6 w-4/5 max-w-7xl'>
+              <div className='group max-sm:w-[100%] max-sm:h-[85%] flex flex-col items-center justify-center bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1'>
+                <div className='flex flex-col xl:flex-row items-center gap-4'>
+                  <div className='flex-shrink-0'>
+                    <div className='w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center p-4 group-hover:scale-110 transition-transform duration-300'>
+                      <img 
+                        src='https://technologyline.com.ar/banners-images/Assets/Some-icons/home-icon1.svg'
+                        className='w-10 h-10 md:w-12 md:h-12 object-contain brightness-0 invert'
+                        alt='Delivery icon'
+                      />
+                    </div>
+                  </div>
+                  <div className='flex flex-col items-center md:items-start'>
+                    <h3 className='text-lg md:text-xl font-semibold text-gray-800 mb-1'>Envíos a domicilio</h3>
+                    <p className='text-sm text-gray-600 text-center md:text-left'>Entrega rápida y segura a tu puerta</p>
+                  </div>
+                </div>
+              </div>
 
-                <span className='hidden md:block text-pretty'>
-                  Envíos a domicilio
-                </span>
-              </p>
-              <p className='flex gap-x-3 justify-center items-center w-full'>
-                <i className='flex justify-center items-center border-2 border-black rounded-full xl:min-w-[100px] xl:min-h-[100px] min-w-[65px] min-h-[65px]'>
-                  <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/home-icon2.svg'}/>
-                </i>
+              <div className='group max-sm:w-[100%] max-sm:h-[85%] flex flex-col items-center justify-center bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1'>
+                <div className='flex flex-col xl:flex-row items-center gap-4'>
+                  <div className='flex-shrink-0'>
+                    <div className='w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center p-4 group-hover:scale-110 transition-transform duration-300'>
+                      <img 
+                        src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/home-icon2.svg'}
+                        className='w-10 h-10 md:w-12 md:h-12 object-contain brightness-0 invert'
+                        alt='Payment icon'
+                      />
+                    </div>
+                  </div>
+                  <div className='flex flex-col items-center md:items-start'>
+                    <h3 className='text-lg md:text-xl font-semibold text-gray-800 mb-1'>Múltiples formas de pago</h3>
+                    <p className='text-sm text-gray-600 text-center md:text-left'>Crédito, débito y más opciones</p>
+                  </div>
+                </div>
+              </div>
 
-                <span className='hidden md:block text-pretty'>
-                  Pagos en creditos y débitos
-                </span>
-              </p>
-              <p className='flex gap-x-3 justify-center items-center w-full'>
-                <i className='flex justify-center items-center border-2 border-black rounded-full xl:min-w-[100px] xl:min-h-[100px] min-w-[65px] min-h-[65px]'>
-                  <img src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/home-icon3.svg'}/>
-                </i>
-
-                <span className='hidden md:block text-pretty'>
-                  Centro de preguntas
-                </span>
-              </p>
+              <div className='group max-sm:w-[100%] max-sm:h-[85%] flex flex-col items-center justify-center bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1'>
+                <div className='flex flex-col xl:flex-row items-center gap-4'>
+                  <div className='flex-shrink-0'>
+                    <div className='w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center p-4 group-hover:scale-110 transition-transform duration-300'>
+                      <img 
+                        src={'https://technologyline.com.ar/banners-images/Assets/Some-icons/home-icon3.svg'}
+                        className='w-10 h-10 md:w-12 md:h-12 object-contain brightness-0 invert'
+                        alt='Support icon'
+                      />
+                    </div>
+                  </div>
+                  <div className='flex flex-col items-center md:items-start'>
+                    <h3 className='text-lg md:text-xl font-semibold text-gray-800 mb-1'>Centro de ayuda</h3>
+                    <p className='text-sm text-gray-600 text-center md:text-left'>Soporte personalizado 24/7</p>
+                  </div>
+                </div>
+              </div>
           </div>
         </section>
 
@@ -97,44 +122,48 @@ export default function Home() {
 
         {/*Products sale carousel*/}
         {
-        loading ? <Spinner/>
-        :
-        <div className='flex flex-col gap-y-20 pt-10 w-[82%] max-sm:w-[71%]'>
-          {/*Products sale carousel*/}
-          <section className='relative flex flex-col justify-center w-full gap-y-10'>
-            <h1 className='font-medium text-3xl max-[680px]:w-full text-gray-800 w-fit'>
-              OFERTAS CLIMATIZACION
-            </h1>
-            <ProductsCarousel style={'pb-5'} rows={1} filterProducts={firstCarousel}/>
-          </section>
+        loading 
+        ? (
+          <Spinner/>
+        )
+        : (
+          <div className='flex flex-col gap-y-20 pt-10 w-[85%]'>
+            {/*Products sale carousel*/}
+            <section className='relative flex flex-col justify-center w-full gap-y-10'>
+              <h1 className='font-medium text-3xl max-[680px]:w-full text-gray-800 w-fit'>
+                OFERTAS CLIMATIZACION
+              </h1>
+              <ProductsCarousel style={'pb-5'} rows={1} filterProducts={firstCarousel}/>
+            </section>
 
-          {/*Products news carousel*/}
-          <section className='relative flex flex-col justify-center w-full gap-y-10'>
-            <h1 className='font-medium text-3xl max-[680px]:w-full text-gray-800 w-fit'>
-              OFERTAS TECNOLOGIA
-            </h1> 
-              <ProductsCarousel style={'pb-5'} rows={1} filterProducts={secondCarousel}/>
-          </section>
+            {/*Products news carousel*/}
+            <section className='relative flex flex-col justify-center w-full gap-y-10'>
+              <h1 className='font-medium text-3xl max-[680px]:w-full text-gray-800 w-fit'>
+                OFERTAS TECNOLOGIA
+              </h1> 
+                <ProductsCarousel style={'pb-5'} rows={1} filterProducts={secondCarousel}/>
+            </section>
 
-          {/*Products recomendations carousel*/}
-          <section className='relative flex flex-col justify-center w-full gap-y-10'>
-            <h1 className='font-medium text-3xl max-[680px]:w-full text-gray-800 w-fit'>
-              OFERTAS PARA HOGAR
-            </h1>
-              <ProductsCarousel style={'pb-5'} rows={1} filterProducts={thirdCarousel}/>
-          </section>
+            {/*Products recomendations carousel*/}
+            <section className='relative flex flex-col justify-center w-full gap-y-10'>
+              <h1 className='font-medium text-3xl max-[680px]:w-full text-gray-800 w-fit'>
+                OFERTAS PARA HOGAR
+              </h1>
+                <ProductsCarousel style={'pb-5'} rows={1} filterProducts={thirdCarousel}/>
+            </section>
 
-          {/*Products gama carousel*/}
-          <section className='relative flex flex-col justify-center w-full gap-y-10'>
-            <h1 className='font-medium text-3xl max-[680px]:w-full text-gray-800 w-fit'>
-              MAS OFERTAS
-            </h1> 
-              <ProductsCarousel style={'pb-5'} rows={1} filterProducts={fourthCarousel}/>
-          </section>
-        </div>
+            {/*Products gama carousel*/}
+            <section className='relative flex flex-col justify-center w-full gap-y-10'>
+              <h1 className='font-medium text-3xl max-[680px]:w-full text-gray-800 w-fit'>
+                MAS OFERTAS
+              </h1> 
+                <ProductsCarousel style={'pb-5'} rows={1} filterProducts={fourthCarousel}/>
+            </section>
+          </div>
+        )
         }
 
-        <section className='w-3/4 h-fit flex flex-col gap-y-5 pt-10'>
+        <section className='w-[82%] h-fit flex flex-col gap-y-5 pt-10'>
           <span className='font-bold text-2xl text-gray-800 w-full'>Conoce nuestras marcas</span>
 
           <div className='select-none'>

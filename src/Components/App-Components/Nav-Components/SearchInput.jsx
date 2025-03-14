@@ -44,32 +44,32 @@ export default function SearchInput() {
       onSubmit={handleSubmit}
       ref={inputRef}
     >
-      <label htmlFor='inputSearch' className='flex w-full sm:px-2 items-center min-w-8 rounded-full duration-500 justify-end'>
-        <span className='max-sm:text-white duration-500 max-sm:h-8 max-sm:rounded-r-none w-10 max-sm:mb-[1px] group-hover:bg-gray-200 group-hover:text-black text-lg group-hover:p-1 rounded-full flex items-center justify-center'>
+      <label htmlFor='inputSearch' className='flex w-full group sm:px-2 items-center min-w-8 rounded-full duration-500 justify-end'>
+        <span className='max-sm:text-white duration-500 max-sm:h-8 max-sm:rounded-r-none max-sm:mb-[1px] max-sm:group-hover:bg-gradient-to-b from-[#1a4167] to-page-blue-normal max-sm:group-hover:w-10 text-lg sm:pr-5 max-sm:group-hover:p-1 rounded-full flex items-center justify-center cursor-pointer'>
           <FaSearch/>
         </span>
         
         <input 
           type="text" 
           id='inputSearch'
-          className='w-full max-sm:w-0 max-sm:group-hover:w-full max-sm:mr-[-45px] max-sm:group-hover:mr-0 max-sm:bg-transparent max-sm:group-hover:bg-gray-100 duration-500 max-sm:rounded-l-none placeholder:text-gray-500 rounded-full bg-gray-100 outline-none px-3 py-1'
+          className='w-full max-sm:w-0 max-sm:group-hover:w-full max-sm:px-2 max-sm:bg-transparent max-sm:group-hover:bg-gray-100 duration-500 max-sm:rounded-l-none placeholder:text-gray-500 rounded-full bg-gray-100 outline-none py-1'
           placeholder='Buscar'
           value={keyword}
           onChange={handleChange}
           onFocus={handleFocusMenu}
         />
       </label>
-      {searchMenu !== false && keyword !== '' && <SearchResults keyword={keyword} />}
+      {searchMenu !== false && keyword !== '' && <SearchResults keyword={keyword} setKeyword={setKeyword} />}
     </form>
   )
 }
 
-function SearchResults({ keyword }) {
+function SearchResults({ keyword, setKeyword }) {
   const { products, loading } = useProducts()
 
   if(loading){
     return(
-      <section className='flex flex-col absolute top-10 gap-2 w-full max-h-[500px] bg-white border-2 rounded-lg z-[9999] overflow-y-auto p-3 h-[500px]'>
+      <section className='flex flex-col absolute top-10 gap-2 w-full max-w-[600px] bg-white border-2 rounded-lg z-[9999] overflow-y-auto p-3 h-[500px]'>
         <Spinner />
       </section>
     )
@@ -83,7 +83,7 @@ function SearchResults({ keyword }) {
     product.sub_category.toLowerCase().includes(keyword.toLowerCase())
   )
   return (
-    <section className={`flex flex-col absolute top-9 gap-2 w-full max-h-[500px] min-h-[100px] bg-white border-2 rounded-lg z-[9999] overflow-y-auto p-3 ${filteredProducts.length === 0 ? 'h-14' : 'h-[500px]'}`}>
+    <section className={`flex flex-col absolute top-9 gap-2 w-full max-w-[600px] min-h-[100px] bg-white border-2 rounded-lg z-[9999] overflow-y-auto p-3 ${filteredProducts.length === 0 ? 'h-14' : 'h-[500px]'}`}>
     {filteredProducts.length === 0 
     ? (
       <div>
@@ -97,6 +97,7 @@ function SearchResults({ keyword }) {
         <NavLink 
           to={`/products/?product=${product.sku}`}
           key={product.id} 
+          onClick={()=> setKeyword('')}
           className="flex box-border items-center justify-between bg-white p-1 duration-500 border-2 rounded-sm hover:cursor-pointer z-[99999] w-full min-h-[180px] max-h-[150px] shadow-border">
           <header className="relative w-[50%] h-full box-border">
             <img 
