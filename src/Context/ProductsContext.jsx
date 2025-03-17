@@ -15,6 +15,7 @@ export const ProductsProvider = ({ children }) => {
     axios.get(`${API_URL}/api/products`)
       .then(res => {
         const sortedByViews = [...res.data].sort((a, b) => b.week_views - a.week_views);
+        console.log(sortedByViews[0])
         setMostViewed(sortedByViews[0])
         setProducts(res.data)
         setLoading(false)
