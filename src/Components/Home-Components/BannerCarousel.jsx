@@ -22,7 +22,7 @@ export default function BannerCarousel() {
   }, []);
 
   const fetchBanners = () => {
-    fetch(`${API_URL}/api/page/getBanners`)
+    fetch(`${API_URL}/api/page/getBanners?ts=${Date.now()}`)
       .then(res => {
         if (!res.ok) {
           throw new Error('Error fetching banners');
@@ -32,20 +32,19 @@ export default function BannerCarousel() {
       .then(data => {
         const mobile = data.filter(banner => banner.name.includes('mobile') && banner.path);
         const desktop = data.filter(banner => banner.name.includes('desktop') && banner.path);
-
         setMobileBanners(mobile);
         setDesktopBanners(desktop);
       })
       .catch(error => console.error(error));
   };
 
-  // Determinar qué banners mostrar basado en la resolución
   const bannersToShow = isMobile ? mobileBanners : desktopBanners;
   const shouldShowCarousel = bannersToShow.length > 0;
 
   const handleClick = (index) => {
-    const banner = bannersToShow[index];
-    if (banner.path_to) {
+    const adjustedIndex = mostViewed ? index - 1 : index;
+    const banner = bannersToShow[adjustedIndex];
+    if (banner && banner.path_to) {
       navigate(banner.path_to); 
     }
   };
@@ -64,6 +63,7 @@ export default function BannerCarousel() {
           swipeable
           emulateTouch
           onClickItem={handleClick}
+          className="cursor-pointer"
         >
           {mostViewed && 
             <div className='w-full h-full' onClick={() => navigate(`/products/?product=${mostViewed && mostViewed.sku}`)}>
