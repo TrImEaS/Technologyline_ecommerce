@@ -28,7 +28,7 @@ export default function Modal({ progress, product, toAdd = 1 }) {
 
         <section className="flex justify-between w-full px-3 items-center">
           <div className="w-[35%] flex justify-center">
-            <img src={product.img_base} className="w-[70px] h-[70px] object-cover rounded-md shadow-sm" />
+            <img src={product.img_url} className="w-[70px] h-[70px] object-cover rounded-md shadow-sm" />
           </div>
           <p className="w-[60%] flex flex-col font-semibold text-xs">
             <span className={`${toAdd ? 'text-page-blue-normal' : 'text-red-500'} uppercase font-bold`}>{product.brand}</span>

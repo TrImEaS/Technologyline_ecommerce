@@ -53,7 +53,7 @@ export default function MiniCart({ showCart, setShowCart }) {
           cartProducts.map(product => (
             <article key={product.id} className="flex items-center max-h-[180px] p-3 gap-5 w-full shadow-lg rounded-xl bg-white text-gray-800 hover:shadow-xl transition-all duration-300 border border-transparent hover:border-sky-100">
               <header className="w-[40%] overflow-hidden rounded-xl">
-                <img className="w-full h-full object-contain rounded-xl hover:scale-105 transition-transform duration-300" src={product.img_base}/>
+                <img className="w-full h-full object-contain rounded-xl hover:scale-105 transition-transform duration-300" src={product.img_url}/>
               </header>
 
               <aside className="w-[60%] min-h-[100px] flex flex-col text-xs gap-y-2 justify-between">

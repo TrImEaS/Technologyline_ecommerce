@@ -88,7 +88,7 @@ export default function Search () {
 
   {/*Componente search*/}
   return (
-    <section className="flex flex-col w-4/5 items-center py-10">
+    <section className="flex flex-col w-4/5 max-sm:w-full items-center py-10">
       <header className="flex w-full justify-end gap-y-5 pb-14 max-sm:flex-col max-sm:w-full max-sm:items-center max-sm:pb-8">
         <article className="flex items-center w-full max-sm:w-4/5">
           <nav className="flex items-center flex-wrap space-x-2 text-sm font-medium">

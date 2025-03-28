@@ -5,7 +5,6 @@ import { useState } from 'react'
 import Swal from 'sweetalert2'
 const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
 
-
 export default function Footer() {
   const [email, setEmail] = useState('')
   const scrollToTop = () => {
@@ -37,7 +36,7 @@ export default function Footer() {
       }
     })
 
-    fetch(`${API_URL}/api/clients/subscribe`, {
+    fetch(`${API_URL}/api/clients/addSubscriptor`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email })
@@ -178,9 +177,6 @@ export default function Footer() {
             </NavLink>
             <NavLink to={`/others/garantia`} className="hover:text-white transition-colors duration-300 hover:translate-x-1 transform">
               Garantia
-            </NavLink>
-            <NavLink to={`/others/about_us`} className="hover:text-white transition-colors duration-300 hover:translate-x-1 transform">
-              Sobre nosotros
             </NavLink>
             <NavLink to={`/others/revendedores`} className="hover:text-white transition-colors duration-300 hover:translate-x-1 transform">
               Revendedores

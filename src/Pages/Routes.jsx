@@ -6,7 +6,7 @@ import Favorites from "./Favorites"
 import Products from './Products'
 import Others from './Others.jsx'
 import Error from "./Error"
-
+import Shipments from "./Shipments.jsx"
 
 export { 
   Home, 
@@ -16,5 +16,6 @@ export {
   Favorites,
   Products,
   Others,
-  Error
+  Error,
+  Shipments
 }

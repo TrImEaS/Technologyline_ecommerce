@@ -174,7 +174,7 @@ export default function Cart() {
                 className="flex flex-col relative gap-3 box-border border-b-2 border-sky-100 pb-5 justify-center items-center"
               >
                 <section className="w-[150px]">
-                  <img src={p.img_base} className="w-full h-full object-contain rounded-xl hover:scale-105 transition-transform duration-300" />
+                  <img src={p.img_url} className="w-full h-full object-contain rounded-xl hover:scale-105 transition-transform duration-300" />
                 </section>
 
                 <NavLink to={`/products?product=${p.sku}`} className="flex flex-col justify-center items-center gap-2">

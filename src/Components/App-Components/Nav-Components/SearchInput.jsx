@@ -101,7 +101,7 @@ function SearchResults({ keyword, setKeyword }) {
           className="flex box-border items-center justify-between bg-white p-1 duration-500 border-2 rounded-sm hover:cursor-pointer z-[99999] w-full min-h-[180px] max-h-[150px] shadow-border">
           <header className="relative w-[50%] h-full box-border">
             <img 
-              src={product.img_base} 
+              src={product.img_url} 
               loading="eager"
               alt={product.name}
               onError={(e) => e.target.src = 'https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg'}

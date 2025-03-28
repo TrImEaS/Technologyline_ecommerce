@@ -3,7 +3,7 @@ import Footer from "./Components/App-Components/Footer.jsx"
 import { FaWhatsapp } from "react-icons/fa"
 import { useEffect } from "react"
 import { Route, Routes, useLocation } from "react-router-dom"
-import { Home, Search, Products, Others, Error, Cart } from './Pages/Routes.jsx'
+import { Home, Search, Products, Others, Error, Cart, Login, Shipments } from './Pages/Routes.jsx'
 import { About_Us, Garantia, Sucursales, Centro_de_ayuda, Trabaja_con_nosotros, Politicas_de_devolucion, Revendedores } from './Components/Others-Components/Components.jsx'
 import { ProductsProvider } from './Context/ProductsContext.jsx'
 import { CartProvider } from './Context/CartContext.jsx'
@@ -20,6 +20,8 @@ export default function App() {
           <Route path="/products" element={<Products/>}/>
           <Route path="/search" element={<Search />}/>
           <Route path="/cart" element={<Cart/>}/>
+          {/* <Route path="/login" element={<Login/>}/> */}
+          <Route path="/shipments" element={<Shipments/>}/>
 
           <Route path="/others" element={<Others/>}>
             <Route path="about_us" element={<About_Us/>}/>
