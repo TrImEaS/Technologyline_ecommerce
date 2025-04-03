@@ -28,7 +28,7 @@ export default function ProductCard({ product }) {
         <img 
           src={product.img_url ? product.img_url : `https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg`}
           alt={product.name}
-          className="w-full h-full object-contain rounded-lg"
+          className="w-full h-full max-h-[250px] object-contain rounded-lg"
           onError={(e) => e.target.src = `https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg`}
         />
       </header>
