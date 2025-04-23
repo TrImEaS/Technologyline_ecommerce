@@ -1,11 +1,8 @@
-import { useEffect } from "react"
 import { NavLink, Outlet } from "react-router-dom"
+import useDocumentTitle from '../Utils/useDocumentTitle'
 
 export default function Others () {
-
-  useEffect(() => {
-    document.title = `Acerca de nosotros | Technology Line`
-  }, [])
+  useDocumentTitle('Acerca de nosotros')
 
   return (
     <section className="flex max-md:flex-col py-10 max-md:gap-0 gap-10 min-h-screen w-4/5">

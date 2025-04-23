@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import Spinner from '../../Products/Spinner'
 import { useProducts } from '../../../Context/ProductsContext';
+import useFormattedPrice from '../../../Utils/useFormattedPrice'
 
 export default function SearchInput() {
   const [keyword, setKeyword] = useState('')
@@ -75,8 +76,6 @@ function SearchResults({ keyword, setKeyword }) {
     )
   }
 
-  const formattedPrice = (price) => parseFloat(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(keyword.toLowerCase()) ||
     product.sku.toLowerCase().includes(keyword.toLowerCase()) ||
@@ -113,7 +112,7 @@ function SearchResults({ keyword, setKeyword }) {
               <span className='text-xs text-gray-500'>SKU: {product.sku}</span>
               <span className='line-clamp-3'>{product.name.replace(/EAN(?::\s*|\s+)\d{5,}/gi, '')}</span>
             </p>
-            <p className="font-bold text-xl max-[1025px]:text-sm">${formattedPrice(product.price_list_1)}</p>
+            <p className="font-bold text-xl max-[1025px]:text-sm">${useFormattedPrice(product.price_list_1)}</p>
           </article>
         </NavLink>
       ))

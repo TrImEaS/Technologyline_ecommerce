@@ -1,12 +1,9 @@
-import axios from "axios"
 import { NavLink } from "react-router-dom"
+import axios from "axios"
+import useFormattedPrice from '../Utils/useFormattedPrice'
 const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
 
 export default function ProductCard({ product }) {
-  const formattedPrice = (price) => { 
-    return parseFloat(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-  }
-
   const addViewToProduct = () => {
     axios.patch(`${API_URL}/api/products/addView/${product.id}`)
     .then(res => {
@@ -38,7 +35,7 @@ export default function ProductCard({ product }) {
           <span className="text-xs text-gray-500 max-sm:text-[9px]">SKU: {product.sku}</span>
           <span className="line-clamp-2 font-medium max-sm:text-[10px]">{product.name.replace(/EAN(?::\s*|\s+)\d{5,}/gi, '')}</span>
         </p> 
-        <p className="font-bold text-xl max-sm:text-base">${formattedPrice(product.price_list_1)}</p>
+        <p className="font-bold text-xl max-sm:text-base">${useFormattedPrice(product.price_list_1)}</p>
       </article>
     </NavLink>
   )

@@ -1,3 +1,5 @@
+import useDocumentTitle from '../Utils/useDocumentTitle'
+
 export default function Shipments() {
   const localidades = [
     { id: 1, localidad: "Rosario" },
@@ -56,8 +58,10 @@ export default function Shipments() {
     { id: 54, localidad: "San Rafael (Mdz)" },
     { id: 55, localidad: "Rincon de los Sauces" },
     { id: 56, localidad: "San Julian" }
-  ];
+  ].sort((a, b) => a.localidad.localeCompare(b.localidad));
   
+  useDocumentTitle('Zonas de Envio')
+
   return (
     <div className="flex flex-col items-center min-h-[600px] p-5 py-10 w-full bg-gray-100 text-gray-900">
       <h1 className="text-3xl max-sm:text-2xl font-bold mb-6">Zonas de Envío</h1>

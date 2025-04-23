@@ -5,6 +5,7 @@ import { FaAngleDown } from 'react-icons/fa'
 import ProductsSearch from '../Components/Search-Components/ProductsSearch.jsx'
 import CategoriesFilters from '../Components/Search-Components/CategoriesFilters.jsx'
 import Spinner from '../Components/Products/Spinner.jsx'
+import useDocumentTitle from '../Utils/useDocumentTitle'
 
 export default function Search () {
   const { products, loading } = useProducts()
@@ -23,9 +24,7 @@ export default function Search () {
   const [filterMenu, setFilterMenu] = useState(false)
   const [sortOption, setSortOption] = useState('')
 
-  useEffect(() => {
-    document.title = `Buscar | Technology Line`
-  }, [])
+  useDocumentTitle('Buscar')
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search)
