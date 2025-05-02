@@ -48,6 +48,9 @@ export default function Search () {
 
   const filterProducts = (products) => {
     const filtered = products.filter(product => {
+      const searchWords = filters.search.toLowerCase().split(' ').filter(Boolean);
+      const target = `${product.name} ${product.sub_category}`.toLowerCase();
+  
       return (
         parseFloat(product.price_list_1) >= filters.minPrice &&
         parseFloat(product.price_list_1) <= filters.maxPrice &&
@@ -57,10 +60,7 @@ export default function Search () {
         product.sub_category.toUpperCase().includes(filters.search_subCat.toUpperCase()) &&
         (filters.search_white_line == 1 ? product.white_line == 1 : true) &&
         (filters.search_brand.length === 0 || filters.search_brand.includes(product.brand.toLowerCase())) &&
-        (
-          product.name.toLowerCase().includes(filters.search.toLowerCase()) ||
-          product.sub_category.toLowerCase().includes(filters.search.toLowerCase())
-        )
+        searchWords.every(word => target.includes(word))
       );
     });
   

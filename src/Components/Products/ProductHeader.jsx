@@ -56,7 +56,7 @@ export default function ProductHeader({ product, loading }) {
         }
       </section>
 
-      <section className='flex tracking-wider flex-col w-[40%] mt-5 min-h-[620px] max-sm:min-h-[500px] justify-center items-center h-fit max-md:w-full border rounded-lg p-8 max-sm:py-0 sm:mb-10 shadow-lg'>
+      <section className='flex tracking-wider flex-col w-[40%] mt-5 min-h-[620px] max-sm:min-h-[500px] justify-center items-center h-fit max-md:w-full border rounded-lg p-8 max-sm:py-5 sm:mb-10 shadow-lg'>
         <div className='min-h-[200px] flex flex-col gap-y-2'>
           <div className='flex flex-col w-full gap-y-3 justify-center'>
             <section className='flex flex-col items-center text-lg w-full gap-2 border-b pb-3 border-dashed border-page-blue-normal'>

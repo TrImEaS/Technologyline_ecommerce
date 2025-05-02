@@ -76,11 +76,12 @@ function SearchResults({ keyword, setKeyword }) {
     )
   }
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(keyword.toLowerCase()) ||
-    product.sku.toLowerCase().includes(keyword.toLowerCase()) ||
-    product.sub_category.toLowerCase().includes(keyword.toLowerCase())
-  )
+  const filteredProducts = products.filter(product => {
+    const searchWords = keyword.toLowerCase().split(' ').filter(Boolean);
+    const target = `${product.name} ${product.sku} ${product.sub_category}`.toLowerCase();
+    return searchWords.every(word => target.includes(word));
+  });
+
   return (
     <section className={`flex flex-col absolute top-9 gap-2 w-full max-w-[600px] min-h-[100px] bg-white border-2 rounded-lg z-[9999] overflow-y-auto p-3 ${filteredProducts.length === 0 ? 'h-14' : 'h-[500px]'}`}>
     {filteredProducts.length === 0 

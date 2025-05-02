@@ -60,7 +60,7 @@ export default function MiniCart({ showCart, setShowCart }) {
                 <NavLink onClick={()=> setShowCart(0)} className='flex flex-col hover:text-sky-700 transition-colors duration-300'  to={`/products?product=${product.sku}`}>
                   <span className="uppercase font-bold text-page-blue-normal">{product.brand}</span>
                   <span className="truncate whitespace-normal font-medium">{product.name.replace(/EAN(?::\s*|\s+)\d{5,}/gi, '')}</span>
-                  <span className="pt-1 font-bold text-gray-700">Precio Lista - <span className="text-green-600">${useFormattedPrice(product.price_list_3)}</span></span>
+                  <span className="pt-1 font-bold text-gray-700">Precio Lista - <span className="text-green-600">${useFormattedPrice(product.price_list_1)}</span></span>
                 </NavLink> 
 
                 <div className="w-full flex justify-center text-white items-center mt-1">
