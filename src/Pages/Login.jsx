@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import GoogleLoginBtn from "../Components/Login/GoogleLoginBtn";
+const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
 
 export default function Login() {
   const [isRegister, setIsRegister] = useState(false);
@@ -15,7 +18,15 @@ export default function Login() {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/myaccount');
+    }
+  }, []);
+  
   const validateForm = () => {
     let newErrors = {};
 
@@ -40,13 +51,56 @@ export default function Login() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-
-    console.log("Datos enviados:", formData);
+  
+    try {
+      if (isRegister) {
+        await axios.post(`${API_URL}/api/page/registerUser`, formData)
+        .then(res => {
+          localStorage.setItem('token', res.data.token);
+          navigate('/myaccount');
+        })
+        .catch(e => console.error(e))
+      } 
+      else {
+        await axios.post(`${API_URL}/api/page/loginUser`, {
+          email: formData.email,
+          password: formData.password,
+        })
+        .then(res => {
+          localStorage.setItem('token', res.data.token);
+          navigate('/myaccount');
+        })
+        .catch(e => console.error(e))
+      }
+      console.log("Éxito en la autenticación");
+    } catch (err) {
+      console.error("Error en la autenticación:", err);
+    }
   };
 
+  const handleGoogleLogin = async (user) => {
+    try {
+      await axios.post(`${API_URL}/api/page/loginGoogle`, {
+        email: user.email,
+        name: user.name,
+        sub: user.sub,
+      })
+      .then(res => {
+        localStorage.setItem('token', res.data.token);
+        navigate('/myaccount');
+      })
+      .catch(e => console.error(e))
+      console.log("Login con Google exitoso");
+    } 
+    catch (err) {
+      console.error("Error en login con Google:", err);
+    }
+  };
+  
+  
   return (
     <div className={`${isRegister && 'py-10'} flex justify-center items-center min-h-[600px] max-sm:p-5 w-full bg-gray-100`}>
       <section className="w-full max-w-lg min-h-[400px] bg-[#fafafa] flex flex-col items-center gap-5 p-6 rounded-2xl shadow-lg">
@@ -82,7 +136,7 @@ export default function Login() {
         </div>
 
         <article className="w-full">
-          <GoogleLoginBtn />
+          <GoogleLoginBtn onSuccess={handleGoogleLogin} />
         </article>
 
         <p className="text-center mt-4 text-sm">

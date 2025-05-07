@@ -7,6 +7,7 @@ import { Home, Search, Products, Others, Error, Cart, Login, Shipments } from '.
 import { About_Us, Garantia, Sucursales, Centro_de_ayuda, Trabaja_con_nosotros, Politicas_de_devolucion, Revendedores } from './Components/Others-Components/Components.jsx'
 import { ProductsProvider } from './Context/ProductsContext.jsx'
 import { CartProvider } from './Context/CartContext.jsx'
+import MyAccount from './Pages/MyAccount.jsx'
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/search" element={<Search />}/>
           <Route path="/cart" element={<Cart/>}/>
           <Route path="/login" element={<Login/>}/>
+          <Route path="/myaccount" element={<MyAccount/>}/>
           <Route path="/shipments" element={<Shipments/>}/>
 
           <Route path="/others" element={<Others/>}>

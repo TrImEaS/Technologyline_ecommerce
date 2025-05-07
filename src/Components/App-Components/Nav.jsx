@@ -5,6 +5,7 @@ import { useState } from 'react';
 import SearchInput from './Nav-Components/SearchInput.jsx'
 import CategoriesMenu from './Nav-Components/CategoriesMenu.jsx'
 import MiniCart from '../../Pages/MiniCart.jsx';
+import { PiUserCircleFill } from 'react-icons/pi';
 
 export default function Nav() {
   const { getTotalOfProducts } = useCart()
@@ -31,10 +32,11 @@ export default function Nav() {
         {/*User items */}
         <article className='flex gap-x-6 max-sm:gap-x-3 pr-5 max-sm:pr-8 items-center mt-[8px] w-fit'>
           <div className='flex text-white items-center w-full gap-2 justify-between max-sm:justify-end'>
-            {/* <button disabled className='flex items-center text-nowrap gap-1 text-opacity-15' title='Lo sentimos, esta opcion esta en mantenimiento, opcion en mantenimiento'>
-              <PiUserCircleFill className='text-3xl'/>
-              <span className='max-sm:hidden'>Mi cuenta</span>
-            </button> */}
+            <NavLink to='/login' className='flex items-center'>
+              <button className='flex items-center text-nowrap gap-1 text-opacity-15' title='Ir a mi cuenta'>
+                <PiUserCircleFill className='text-3xl'/>
+              </button>
+            </NavLink>
 
             <button 
               className='text-2xl relative hover:scale-110 duration-300'

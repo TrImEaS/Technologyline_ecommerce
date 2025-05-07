@@ -108,15 +108,6 @@ export default function BrandsCarrousel() {
           </img>
         </NavLink>
       </section>
-
-      <section>
-        <NavLink to={'/search?brand=asus'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
-          <img 
-            src={'https://technologyline.com.ar/banners-images/Assets/Brands/brand-9.svg'} 
-            className='w-28 h-28 rounded-full max-sm:px-1'>
-          </img>
-        </NavLink>
-      </section>
     </Slider>
   )
 }

@@ -78,8 +78,6 @@ export default function ProductHeader({ product, loading }) {
                 </p>
               </div>
 
-
-
               <div className='flex font-semibold text-red-600 flex-col text-center items-center text-base tracking-tighter'>
                 <span>PROMO: EFECTIVO / TRANSFERENCIA BANCARIA: </span>
                 <p className='pl-5 font-semibold flex gap-1 text-[#15803d] items-center tracking-normal'>
