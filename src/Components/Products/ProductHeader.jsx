@@ -41,6 +41,8 @@ export default function ProductHeader({ product, loading }) {
 
   return (
     <header className='w-[100%] relative h-full flex max-md:flex-col max-md:items-center sm:p-5 rounded-3xl py-5 max-sm:pt-10 sm:gap-5'>
+      <img className="absolute top-12 right-8 object-contain h-12 w-12 rounded-lg" src="https://technologyline.com.ar//banners-images/Assets/sale-icon.svg"/>
+
       <section className='relative w-[60%] max-md:w-full h-full sm:mt-5 sm:min-h-[620px] min-h-[500px] sm:pb-10 sm:p-5 max-sm:px-1 rounded-lg'>
         <span className='text-sm tracking-wide w-full'>
           SKU: {product.sku}

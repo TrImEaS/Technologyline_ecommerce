@@ -6,6 +6,7 @@ import SearchInput from './Nav-Components/SearchInput.jsx'
 import CategoriesMenu from './Nav-Components/CategoriesMenu.jsx'
 import MiniCart from '../../Pages/MiniCart.jsx';
 import { PiUserCircleFill } from 'react-icons/pi';
+import HotSale from '../../Components/HotSale.jsx'
 
 export default function Nav() {
   const { getTotalOfProducts } = useCart()
@@ -13,6 +14,7 @@ export default function Nav() {
 
   return (
     <nav className='z-50 flex flex-col w-full relative items-center bg-color'>
+      <HotSale/>
       <NavLink to='/shipments' className='flex z-50 h-8 text-center max-sm:h-10 gap-2 px-3 max-sm:gap-1 max-sm:px-5 cursor-pointer bg-slate-100 w-full items-center text-slate-900 justify-center text-[14px] max-sm:text-[12px]'>
         <FaArrowUp className='text-[10px] mt-1 animate-bounce'/>
         <span className='select-none font-medium duration-300'>Envios a todo el pais con precio promocional a las sigueintes localidades</span>
@@ -32,11 +34,11 @@ export default function Nav() {
         {/*User items */}
         <article className='flex gap-x-6 max-sm:gap-x-3 pr-5 max-sm:pr-8 items-center mt-[8px] w-fit'>
           <div className='flex text-white items-center w-full gap-2 justify-between max-sm:justify-end'>
-            <NavLink to='/login' className='flex items-center'>
+            {/* <NavLink to='/login' className='flex items-center'>
               <button className='flex items-center text-nowrap gap-1 text-opacity-15' title='Ir a mi cuenta'>
                 <PiUserCircleFill className='text-3xl'/>
               </button>
-            </NavLink>
+            </NavLink> */}
 
             <button 
               className='text-2xl relative hover:scale-110 duration-300'

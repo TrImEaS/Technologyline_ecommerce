@@ -52,15 +52,18 @@ export default function Search () {
       const target = `${product.name} ${product.sub_category}`.toLowerCase();
   
       return (
-        parseFloat(product.price_list_1) >= filters.minPrice &&
-        parseFloat(product.price_list_1) <= filters.maxPrice &&
-        (filters.category === 'all' || product.category === filters.category) &&
-        product.name.toUpperCase().includes(filters.search_name.toUpperCase()) &&
-        product.category.toUpperCase().includes(filters.search_category.toUpperCase()) &&
-        product.sub_category.toUpperCase().includes(filters.search_subCat.toUpperCase()) &&
-        (filters.search_white_line == 1 ? product.white_line == 1 : true) &&
-        (filters.search_brand.length === 0 || filters.search_brand.includes(product.brand.toLowerCase())) &&
-        searchWords.every(word => target.includes(word))
+        (
+          parseFloat(product.price_list_1) >= filters.minPrice &&
+          parseFloat(product.price_list_1) <= filters.maxPrice &&
+          (filters.category === 'all' || product.category === filters.category) &&
+          product.name.toUpperCase().includes(filters.search_name.toUpperCase()) &&
+          product.category.toUpperCase().includes(filters.search_category.toUpperCase()) &&
+          product.sub_category.toUpperCase().includes(filters.search_subCat.toUpperCase()) &&
+          (filters.search_white_line == 1 ? product.white_line == 1 : true) &&
+          (filters.search_brand.length === 0 || filters.search_brand.includes(product.brand.toLowerCase())) &&
+          searchWords.every(word => target.includes(word))
+        ) 
+        || product.sku.toUpperCase().includes(filters.search.toUpperCase()) 
       );
     });
   
