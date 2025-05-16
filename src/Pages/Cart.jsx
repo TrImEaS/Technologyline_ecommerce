@@ -18,6 +18,7 @@ export default function Cart() {
     fullname: '',
     dni: '',
     address: '',
+    location: '',
     email: '',
     postalCode: '',
     phone: ''
@@ -83,7 +84,7 @@ export default function Cart() {
         datos_cliente: {
           nombre_completo: clientData.fullname,
           dni: clientData.dni,
-          direccion: clientData.address,
+          direccion: `${clientData.address} - ${clientData.location}`,
           cp: clientData.postalCode,
           celular: clientData.phone,
           email: clientData.email
@@ -249,6 +250,21 @@ export default function Cart() {
 
                 <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                   Direccion <b>*</b>
+                </span>
+              </label>   
+
+              <label htmlFor="Location" className="relative flex rounded-md items-center px-2 border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+                <input
+                  type="text"
+                  id="Location"
+                  value={clientData.location}
+                  onChange={(e) => setClientData(prev => ({ ...prev, location: e.target.value }))}
+                  className="peer bg-transparent border-transparent w-full placeholder-transparent h-14 px-3 focus:ring-0 placeholder:text-xs outline-none"
+                  placeholder="Localidad"
+                />
+
+                <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                  Localidad <b>*</b>
                 </span>
               </label>   
 
