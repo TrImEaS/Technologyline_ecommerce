@@ -28,7 +28,7 @@ export default function ProductCard({ product }) {
           className="w-full h-full max-h-[250px] object-contain rounded-lg"
           onError={(e) => e.target.src = `https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg`}
         />
-        <img className="absolute top-1 right-1 object-contain h-10 w-10 rounded-lg" src="https://technologyline.com.ar//banners-images/Assets/sale-icon.svg"/>
+        {/* <img className="absolute top-1 right-1 object-contain h-10 w-10 rounded-lg" src="https://technologyline.com.ar//banners-images/Assets/sale-icon.svg"/> */}
       </header>
 
       <article className="w-full flex-grow-[0.35] box-border flex flex-col justify-between">

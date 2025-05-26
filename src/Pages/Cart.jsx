@@ -124,7 +124,7 @@ export default function Cart() {
   
       Swal.fire({
         title: 'Orden enviada con éxito',
-        text: `¡Gracias por su compra! Su orden #${orderMovement} ha sido confirmada. Hemos enviado el detalle completo de su pedido a su correo electrónico. Si no lo encuentra, por favor revise su carpeta de correo no deseado o spam.`,
+        text: `¡Gracias por elegirnos! Su pedido #${orderMovement} esta siendo procesado, para finalizar su compra un operador se pondra en contacto via whatsapp y o mail (De Lunes a Viernes de 09:00 a 18:00hs), de no recibir respuesta, llame al este numero: 1133690584. Hemos enviado el detalle completo de su pedido a su correo electrónico, de no encontrarlo, por favor revise su carpeta de correo no deseado o spam.`,
         icon: 'success',
         showConfirmButton: true,
         confirmButtonText: 'Cerrar',
