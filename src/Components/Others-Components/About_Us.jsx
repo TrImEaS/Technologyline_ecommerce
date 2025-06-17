@@ -6,7 +6,7 @@ export default function About_Us () {
           TECHNOLOGY LINE
         </span>
         <p>
-          Somos una empresa Argentina con más de 3 años comercializando insumos, accesorios y productos de 
+          Somos una empresa Argentina con más de 5 años comercializando insumos, accesorios y productos de 
           computación y electrónicos con sucursales distribuidas en todo el país. 
           Se ha desarrollado sobre fuertes pilares basados en el compromiso, la responsabilidad y la honestidad. 
           Valores que son compartidos por importantes empresas y personas que depositan su confianza en nosotros. 

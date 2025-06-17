@@ -57,7 +57,7 @@ export default function Login() {
   
     try {
       if (isRegister) {
-        await axios.post(`${API_URL}/api/page/registerUser`, formData)
+        await axios.post(`${API_URL}/api/page/registerUser`, formData, {withCredentials: true})
         .then(res => {
           localStorage.setItem('token', res.data.token);
           navigate('/myaccount');
@@ -65,10 +65,10 @@ export default function Login() {
         .catch(e => console.error(e))
       } 
       else {
-        await axios.post(`${API_URL}/api/page/loginUser`, {
-          email: formData.email,
-          password: formData.password,
-        })
+        await axios.post(`${API_URL}/api/page/loginUser`, 
+          { email: formData.email, password: formData.password }, 
+          { withCredentials: true }
+        )
         .then(res => {
           localStorage.setItem('token', res.data.token);
           navigate('/myaccount');
@@ -83,11 +83,10 @@ export default function Login() {
 
   const handleGoogleLogin = async (user) => {
     try {
-      await axios.post(`${API_URL}/api/page/loginGoogle`, {
-        email: user.email,
-        name: user.name,
-        sub: user.sub,
-      })
+      await axios.post(`${API_URL}/api/page/loginGoogle`, 
+        { email: user.email, name: user.name, sub: user.sub }, 
+        { withCredentials: true }
+      )
       .then(res => {
         localStorage.setItem('token', res.data.token);
         navigate('/myaccount');
@@ -99,7 +98,6 @@ export default function Login() {
       console.error("Error en login con Google:", err);
     }
   };
-  
   
   return (
     <div className={`${isRegister && 'py-10'} flex justify-center items-center min-h-[600px] max-sm:p-5 w-full bg-gray-100`}>

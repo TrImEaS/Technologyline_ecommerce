@@ -5,8 +5,26 @@ const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API
 export const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) {
+    return decodeURIComponent(parts.pop().split(';').shift());
+  }
+  return '';
+};
+
 export const AuthProvider = ({ children }) => {
   const [userIsLoged, setUserIsLoged] = useState(false);
+  const [userData, setUserData] = useState({
+    name: getCookie('name') || '',
+    username: getCookie('username') || '',
+    dni: getCookie('dni') || '',
+    address: getCookie('address') || '',
+    postalCode: getCookie('postalCode') || '',
+    phone: getCookie('phone') || '',
+    email: getCookie('email') || '',
+  });
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -19,7 +37,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ userIsLoged, setUserIsLoged }}>
+    <AuthContext.Provider value={{ userIsLoged, setUserIsLoged, userData, setUserData }}>
       {children}
     </AuthContext.Provider>
   )
