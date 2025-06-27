@@ -4,30 +4,53 @@ import { FaInfoCircle, FaShippingFast, FaTrash } from "react-icons/fa"
 import { NavLink, useNavigate } from "react-router-dom"
 import axios from "axios"
 import Swal from "sweetalert2"
+import { useAuth } from "../Context/AuthContext";
 import useFormattedPrice from '../Utils/useFormattedPrice'
 import useDocumentTitle from "../Utils/useDocumentTitle"
 const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
 
 export default function Cart() {
+  const { userData, userIsLoged } = useAuth();
   const { cartProducts, getTotalOfProducts, deleteOneProductOfCart, addProductToCart, deleteProductOfCart, cleanCart } = useCart()
   const [price, setPrice] = useState(1)
   const [address, setAddress] = useState('')
   const [postalCode, setPostalCode] = useState('')
   const [shipment, setShipment] = useState(0)
   const [clientData, setClientData] = useState({
-    fullname: '',
-    dni: '',
-    address: '',
-    location: '',
-    email: '',
-    postalCode: '',
-    phone: ''
+    fullname: userData.fullname || '',
+    dni: userData.dni || '',
+    address: userData.address || '',
+    location: userData.location || '',
+    email: userData.email || '',
+    postalCode: userData.postal_code || '',
+    phone: userData.phone || ''
   })
   const navigate = useNavigate()
   
   useDocumentTitle('Carrito de compras')
   
   const totalPrice = cartProducts.reduce((acc, p) => acc + parseFloat(p[`price_list_${price}`]), 0);
+
+  useEffect(() => {
+    if (!userIsLoged) {
+      const redirectToLogin = async () => {
+        const result = await Swal.fire({
+          title: 'Atención',
+          text: 'Para poder ver carrito y finalizar el pedido debes iniciar sesión.',
+          icon: 'warning',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          confirmButtonText: 'Iniciar sesión',
+          customClass: {
+            confirmButton: 'bg-page-blue-normal text-white px-4 py-2 rounded hover:opacity-90',
+          }
+        });
+        if (result.isConfirmed) navigate('/login');
+      };
+
+      redirectToLogin();
+    }
+  }, [userIsLoged]);
 
   useEffect(()=> {
     if(shipment === 1) {
@@ -76,15 +99,16 @@ export default function Cart() {
         throw new Error('Error obteniendo número de orden');
   
       const orderMovement = orderMovementRes.data.movement.toString().padStart(8, '0');
-  
       const datos_de_orden = {
         movimiento_numero: orderMovement,
+        client_email: userData.email,
         company: 'Technology line',
         footer_img: 'https://technologyline.com.ar/banners-images/Assets/logo-tline.svg',
         datos_cliente: {
           nombre_completo: clientData.fullname,
           dni: clientData.dni,
-          direccion: `${clientData.address} - ${clientData.location}`,
+          direccion: clientData.address,
+          location: clientData.location,
           cp: clientData.postalCode,
           celular: clientData.phone,
           email: clientData.email
@@ -100,6 +124,7 @@ export default function Cart() {
           cp: postalCode || '-',
           direccion: address || '-'
         },
+        total: totalPrice,
         abona_en:
           price === 1 ? '1 Pago Débito - Crédito' :
           price === 2 ? 'Efectivo - Transferencia' :

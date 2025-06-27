@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 export default function NavCard({ title, icon, description, namelink, link }) {
   return (
-    <NavLink to={link} className="flex items-center h-[130px] gap-5 justify-between p-4 bg-white min-w-[400px] max-w-[400px] border border-blue-300 rounded-sm shadow-md hover:shadow-lg transition-shadow duration-300">
+    <NavLink to={link} className="flex items-center h-[130px] gap-5 justify-between p-4 bg-white w-[400px] max-sm:w-[90%] border border-blue-300 rounded-sm shadow-md hover:shadow-lg transition-shadow duration-300">
       <section className="text-3xl h-full pt-3.5 text-blue-500">
         {icon}
       </section>

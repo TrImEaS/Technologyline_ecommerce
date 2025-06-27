@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Context/AuthContext";
 import axios from "axios";
 import GoogleLoginBtn from "../Components/Login/GoogleLoginBtn";
+import Swal from "sweetalert2";
 const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
 
 export default function Login() {
   const [isRegister, setIsRegister] = useState(false);
+  const { setToken, setEmail } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     username: "",
     dni: "",
     address: "",
-    postalCode: "",
+    location: "",
+    postal_code: "",
     phone: "",
     email: "",
     password: "",
@@ -20,13 +24,6 @@ export default function Login() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      navigate('/myaccount');
-    }
-  }, []);
-  
   const validateForm = () => {
     let newErrors = {};
 
@@ -35,7 +32,8 @@ export default function Login() {
       if (!formData.username.trim()) newErrors.username = "Campo obligatorio";
       if (!/^\d+$/.test(formData.dni)) newErrors.dni = "Solo números";
       if (!formData.address.trim()) newErrors.address = "Campo obligatorio";
-      if (!/^\d+$/.test(formData.postalCode)) newErrors.postalCode = "Solo números";
+      if (!formData.location.trim()) newErrors.location = "Campo obligatorio";
+      if (!/^\d+$/.test(formData.postal_code)) newErrors.postal_code = "Solo números";
       if (!/^\d+$/.test(formData.phone)) newErrors.phone = "Solo números";
       if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Las contraseñas no coinciden";
     }
@@ -54,51 +52,57 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-  
+
     try {
       if (isRegister) {
-        await axios.post(`${API_URL}/api/page/registerUser`, formData, {withCredentials: true})
-        .then(res => {
-          localStorage.setItem('token', res.data.token);
-          navigate('/myaccount');
-        })
-        .catch(e => console.error(e))
-      } 
-      else {
-        await axios.post(`${API_URL}/api/page/loginUser`, 
-          { email: formData.email, password: formData.password }, 
+        const res = await axios.post(`${API_URL}/api/page/registerUser`, formData, { withCredentials: true });
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('email', formData.email);
+        setToken(res.data.token);
+        setEmail(formData.email);
+        navigate('/myaccount/profile');
+      } else {
+        const res = await axios.post(
+          `${API_URL}/api/page/loginUser`,
+          { email: formData.email, password: formData.password },
           { withCredentials: true }
-        )
-        .then(res => {
-          localStorage.setItem('token', res.data.token);
-          navigate('/myaccount');
-        })
-        .catch(e => console.error(e))
+        );
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('email', formData.email);
+        setToken(res.data.token);
+        setEmail(formData.email);
+        navigate('/myaccount/profile');
       }
-      console.log("Éxito en la autenticación");
     } catch (err) {
+      if (!isRegister && err.response?.status === 400) {
+        Swal.fire('Error', 'Correo o contraseña incorrectos.', 'error');
+      } else if (isRegister && err.response?.status === 409) {
+        Swal.fire('Error', 'Este correo ya se encuentra registrado.', 'error');
+      } else {
+        Swal.fire('Error', 'Ocurrió un error inesperado. Inténtalo nuevamente.', 'error');
+      }
       console.error("Error en la autenticación:", err);
     }
   };
 
   const handleGoogleLogin = async (user) => {
     try {
-      await axios.post(`${API_URL}/api/page/loginGoogle`, 
-        { email: user.email, name: user.name, sub: user.sub }, 
+      const res = await axios.post(
+        `${API_URL}/api/page/loginGoogle`,
+        { email: user.email, name: user.name, sub: user.sub },
         { withCredentials: true }
-      )
-      .then(res => {
-        localStorage.setItem('token', res.data.token);
-        navigate('/myaccount');
-      })
-      .catch(e => console.error(e))
-      console.log("Login con Google exitoso");
-    } 
-    catch (err) {
+      );
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('email', user.email);
+      setToken(res.data.token);
+      setEmail(user.email);
+      navigate('/myaccount/profile');
+    } catch (err) {
       console.error("Error en login con Google:", err);
+      Swal.fire('Error', 'Ocurrió un error inesperado. Intente nuevamente.', 'error');
     }
   };
-  
+
   return (
     <div className={`${isRegister && 'py-10'} flex justify-center items-center min-h-[600px] max-sm:p-5 w-full bg-gray-100`}>
       <section className="w-full max-w-lg min-h-[400px] bg-[#fafafa] flex flex-col items-center gap-5 p-6 rounded-2xl shadow-lg">
@@ -113,7 +117,8 @@ export default function Login() {
               <InputField name="username" placeholder="Nombre de usuario" value={formData.username} onChange={handleChange} error={errors.username} />
               <InputField name="dni" placeholder="DNI" value={formData.dni} onChange={handleChange} error={errors.dni} type="text" pattern="\d+" />
               <InputField name="address" placeholder="Dirección" value={formData.address} onChange={handleChange} error={errors.address} />
-              <InputField name="postalCode" placeholder="Código Postal" value={formData.postalCode} onChange={handleChange} error={errors.postalCode} type="text" pattern="\d+" />
+              <InputField name="location" placeholder="Localidad y Provincia" value={formData.location} onChange={handleChange} error={errors.location} />
+              <InputField name="postal_code" placeholder="Código Postal" value={formData.postal_code} onChange={handleChange} error={errors.postal_code} type="text" pattern="\d+" />
               <InputField name="phone" placeholder="Celular" value={formData.phone} onChange={handleChange} error={errors.phone} type="text" pattern="\d+" />
             </>
           )}

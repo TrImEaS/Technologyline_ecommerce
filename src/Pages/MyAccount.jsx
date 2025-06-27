@@ -2,9 +2,33 @@ import { FaUserCircle } from "react-icons/fa";
 import { BsCardChecklist } from "react-icons/bs";
 import NavCard from "../Components/My-Account-Components/NavCard";
 import Swal from "sweetalert2";
-import { GrMap } from "react-icons/gr";
+import { useAuth } from "../Context/AuthContext";
+import { useEffect } from "react";
 
 export default function MyAccount() {
+  const { setToken, setUserIsLoged, userIsLoged, setEmail } = useAuth();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!userIsLoged) {
+        Swal.fire({
+          title: 'Acceso denegado',
+          text: 'Debes iniciar sesión para acceder a esta página.',
+          icon: 'error',
+          confirmButtonText: 'Iniciar sesión',
+          customClass: {
+            confirmButton: 'bg-page-blue-normal text-white px-4 py-2 rounded hover:opacity-90'
+          }
+        }).then(() => {
+          window.location.href = '/login';
+        });
+      }
+    }, 3000);
+
+    return () => clearTimeout(timer); // limpia si se desmonta antes
+  }, [userIsLoged]);
+
+
   const handleLogout = () => {
     Swal.fire({
       title: '¿Estás seguro?',
@@ -21,6 +45,10 @@ export default function MyAccount() {
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem('token');
+        localStorage.removeItem('email');
+        setToken(null)
+        setEmail(null)
+        setUserIsLoged(false)
         window.location.href = '/login';
       }
     });
@@ -54,14 +82,14 @@ export default function MyAccount() {
           namelink={'Ir a mis favoritos'}
           link={'/myaccount/favorites'}
         /> */}
-
+{/* 
         <NavCard
           title={'Mis direcciones'}
           icon={<GrMap/>}
           description={'Administrar mis direcciones de envío.'}
           namelink={'Ir a mis direcciones'}
           link={'/myaccount/addresses'}
-        />
+        /> */}
       </section>
       
       <button 
