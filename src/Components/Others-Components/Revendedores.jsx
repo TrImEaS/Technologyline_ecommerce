@@ -74,7 +74,7 @@ export default function Revendedores () {
           Revendedores
         </h1>
         <p className="text-pretty">
-          <b>Technology Line</b> dispone de un canal de venta <b>mayorista</b>. Ejecutivos de cuenta y personal técnico <b>especializado podran brindarte</b> un servicio personalizado y pensado para <b>vos</b>. 
+          <b className="text-page-blue-darkMarine font-bold">Technology Line</b> dispone de un canal de venta <b className="text-page-blue-darkMarine font-bold">mayorista</b>. Ejecutivos de cuenta y personal técnico <b className="text-page-blue-darkMarine font-bold">especializado podran brindarte</b> un servicio personalizado y pensado para <b className="text-page-blue-darkMarine font-bold">vos</b>. 
         </p>
       </article>
 
@@ -84,7 +84,7 @@ export default function Revendedores () {
             AMPLIA VARIEDAD DE MARCAS Y PRODUCTOS:
           </h1>
           <span className="text-pretty">
-            Comprendiendo productos de <b>gama baja, media y alta</b>.
+            Comprendiendo productos de <b className="text-page-blue-darkMarine font-bold">gama baja, media y alta</b>.
           </span>
         </div>
 
@@ -93,7 +93,7 @@ export default function Revendedores () {
             PRODUCTOS CON GARANTÍA:
           </h1>
           <span className="text-pretty">
-            Poseemos el <b>respaldo y garantia oficial</b> de todas las marcas que comercializamos.
+            Poseemos el <b className="text-page-blue-darkMarine font-bold">respaldo y garantia oficial</b> de todas las marcas que comercializamos.
           </span>
         </div>
 
@@ -102,7 +102,7 @@ export default function Revendedores () {
             OPCIONES DE PAGO:
           </h1>
           <span className="text-pretty">
-            <b>Linea de credito, cuenta corriente, transferencias, entre otras mas.</b>.
+            <b className="text-page-blue-darkMarine font-bold">Linea de credito, cuenta corriente, transferencias, entre otras mas.</b>.
           </span>
         </div>
         
@@ -111,7 +111,7 @@ export default function Revendedores () {
             LOGÍSTICA:
           </h1>
           <span className="text-pretty">
-            Entregas <b>con y sin cargo</b> abarcando un <b>amplio radio</b> de distancia desde nuestra central.
+            Entregas <b className="text-page-blue-darkMarine font-bold">con y sin cargo</b> abarcando un <b className="text-page-blue-darkMarine font-bold">amplio radio</b> de distancia desde nuestra central.
           </span>
         </div>
 
@@ -120,7 +120,7 @@ export default function Revendedores () {
             INFORMACIÓN ACTUALIZADA:
           </h1>
           <span className="text-pretty">
-            Web con <b>actualizacion diaria</b> y e-mail de marketing semanal con <b>novedades y ofertas</b>.
+            Web con <b className="text-page-blue-darkMarine font-bold">actualizacion diaria</b> y e-mail de marketing semanal con <b className="text-page-blue-darkMarine font-bold">novedades y ofertas</b>.
           </span>
         </div>
       </article>
@@ -131,10 +131,10 @@ export default function Revendedores () {
         </h1>
 
         <p className="text-pretty">
-          Envianos un mail a <b><a href="mailto:revendedores@realcolor.com.ar" className="hover:underline text-sm">REVENDEDORES@REALCOLOR.COM.AR</a></b>, mandanos un <b><a className="hover:underline" href="https://wa.me/541133690584?text=Hola me comunico desde la pagina Technology-Line, porque me interesa ser revendedor, mi nombre es ">WhatsApp</a></b> o completa el siguiente formulario. 
+          Envianos un mail a <b className="text-page-blue-darkMarine font-bold"><a href="mailto:revendedores@realcolor.com.ar" className="hover:underline text-sm">REVENDEDORES@REALCOLOR.COM.AR</a></b>, mandanos un <b className="text-page-blue-darkMarine font-bold"><a className="hover:underline" href="https://wa.me/541133690584?text=Hola me comunico desde la pagina Technology-Line, porque me interesa ser revendedor, mi nombre es ">WhatsApp</a></b> o completa el siguiente formulario. 
         </p>
         <p className="text-pretty">
-          Contanos de vos y que productos estas interesado en vender asi <b>podemos armar una propuesta personalizad para vos</b> y de esta manera logres <b>la mayor rentabilidad para tu negocio</b>. 
+          Contanos de vos y que productos estas interesado en vender asi <b className="text-page-blue-darkMarine font-bold">podemos armar una propuesta personalizad para vos</b> y de esta manera logres <b className="text-page-blue-darkMarine font-bold">la mayor rentabilidad para tu negocio</b>. 
         </p>
       </article>
 

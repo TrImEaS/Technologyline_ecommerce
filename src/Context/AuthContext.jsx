@@ -35,9 +35,14 @@ export const AuthProvider = ({ children }) => {
     }
   }, [token]);
 
-  useEffect(()=> {
-    getUserData()
-  }, [])
+  useEffect(() => {
+    if (email) {
+      setUserIsLoged(true)
+      getUserData()
+    } else {
+      setUserIsLoged(false)
+    }
+  }, [email])
 
   return (
     <AuthContext.Provider value={{ userIsLoged, setUserIsLoged, userData, setUserData, getUserData, setToken, token, setEmail, email }}>
