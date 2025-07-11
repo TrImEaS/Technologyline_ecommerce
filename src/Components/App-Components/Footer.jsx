@@ -75,20 +75,21 @@ export default function Footer() {
       
       {/*Top Footer*/}
       <section className="bg-gradient-to-r from-page-gray-light to-gray-100 py-6 flex flex-col md:flex-row gap-4 justify-center items-center w-full px-4">
-        <h1 className="font-bold text-xl md:text-[22px] text-gray-800 text-center">
+        <h1 className="font-bold text-xl max-xl:text-sm text-gray-800 text-center">
           No pierdas la oportunidad de suscribirte
         </h1>
+        
         <form 
           onSubmit={handleSubscribe}
-          className="flex w-full max-w-[500px] rounded-lg outline-none shadow-md hover:shadow-lg transition-shadow duration-300"
+          className="flex w-full max-w-[400px] rounded-lg outline-none shadow-md hover:shadow-lg transition-shadow duration-300"
         >
-          <div className="flex flex-1 bg-page-white justify-around items-center rounded-l-lg border-l border-t border-b border-gray-200">
-            <span className="text-2xl md:text-3xl px-3 text-gray-400 hover:text-gray-600 transition-colors duration-300">
+          <div className="flex flex-1 bg-page-white gap-3 justify-around items-center rounded-l-lg border-l border-t border-b border-gray-200">
+            <span className="text-2xl pl-3 text-gray-400 hover:text-gray-600 transition-colors duration-300">
               <MdOutlineEmail/>
             </span>
             <input 
               type="email" 
-              className="rounded-none outline-none px-3 py-2 md:py-3 w-full border-none transition-all duration-300"
+              className="rounded-none outline-none py-2 w-full border-none transition-all duration-300"
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder="Ingresa tu mail"
@@ -96,7 +97,7 @@ export default function Footer() {
           </div>
           <button 
             type='submit'
-            className="bg-page-lightblue text-page-white py-2 md:py-3 px-4 md:px-6 rounded-r-lg hover:bg-page-blue-dark transition-all duration-300 font-medium whitespace-nowrap">
+            className="bg-page-lightblue text-page-white max-xl:text-[12px] py-2 md:py-3 px-4 md:px-6 rounded-r-lg hover:bg-page-blue-dark transition-all duration-300 font-medium whitespace-nowrap">
             Suscribir
           </button>
         </form>

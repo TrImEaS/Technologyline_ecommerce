@@ -29,7 +29,7 @@ export default function Cart() {
   
   useDocumentTitle('Carrito de compras')
   
-  const totalPrice = cartProducts.reduce((acc, p) => acc + parseFloat(p[`price_list_${price}`]), 0);
+  const totalPrice = cartProducts.reduce((acc, p) => acc + (parseFloat(p[`price_list_${price}`]) * +p.quantity_selected), 0);
 
   useEffect(() => {
     if (userData.email) {
@@ -237,7 +237,7 @@ export default function Cart() {
 
                 <button 
                   className="absolute top-2 right-2 hover:text-red-500 duration-300"
-                  onClick={()=> deleteProductOfCart({ productID: p.id })}
+                  onClick={()=> deleteOneProductOfCart({ productID: p.id, quantity: 99999999999 })}
                 >
                   <FaTrash/>
                 </button>
