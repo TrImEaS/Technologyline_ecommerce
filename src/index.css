@@ -11,6 +11,12 @@
   @apply bg-gradient-to-b from-page-blue-normal to-[#1a4167];
 }
 
+#root {
+  margin: 0;
+  padding: 0;
+  @apply bg-gradient-to-r from-page-gray-light to-gray-100;
+}
+
 .isActive {
   background-color: skyblue;
 }

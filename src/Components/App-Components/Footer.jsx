@@ -104,14 +104,14 @@ export default function Footer() {
       </section>
       
       {/* Mid Footer */}
-      <section className="relative flex flex-col xl:flex-row items-center justify-center w-full box-border bg-color text-white gap-8 py-8 px-4 md:px-6">
-        <article className="flex w-full max-w-[500px] flex-col justify-center items-center gap-5">
+      <section className="relative flex flex-col xl:flex-row items-center justify-center w-full box-border bg-color text-white gap-8 pb-8 px-4 md:px-6">
+        <article className="flex w-full max-w-[500px] flex-col justify-center items-center">
           <img 
             src="https://technologyline.com.ar/banners-images/Assets/logo-tline.svg"
-            className="h-[200px] md:h-[250px] object-contain max-w-[280px] md:max-w-[300px] hover:opacity-90 transition-opacity duration-300"
+            className="h-[180px] object-contain max-w-[280px] md:max-w-[300px] hover:opacity-90 transition-opacity duration-300 pr-10"
           />
-          <ul className="flex flex-col text-page-gray-light text-center lg:text-left space-y-2">
-            <span className='flex justify-center lg:justify-start font-bold w-full pb-2 text-white text-lg'>
+          <ul className="flex flex-col text-page-gray-light text-center lg:text-left space-y-1">
+            <span className='flex justify-center lg:justify-start font-bold w-full text-white text-lg'>
               ¡CONTACTANOS!
             </span>
             <span className="hover:text-white transition-colors duration-300">
@@ -124,7 +124,7 @@ export default function Footer() {
               E-mail: pcamio@real-color.com.ar
             </span>
 
-            <span className='flex justify-center lg:justify-start font-bold w-full pb-2 pt-6 text-white text-lg'>
+            <span className='flex justify-center lg:justify-start font-bold w-full pt-3 text-white text-lg'>
               ¿QUERES SER REVENDEDOR? 
             </span>
             <span className="hover:text-white transition-colors duration-300">
@@ -133,8 +133,8 @@ export default function Footer() {
           </ul>
         </article>
 
-        <div className='flex flex-col md:flex-row xl:flex-row justify-center items-center lg:items-start gap-8 w-full max-w-[1200px]'>
-          <article className="min-w-[200px] flex flex-col gap-y-3 text-page-gray-light text-center lg:text-left">
+        <div className='flex flex-col md:flex-row xl:flex-row justify-center items-center lg:items-start gap-8 w-fit'>
+          <article className="min-w-[200px] md:min-h-[170px] flex flex-col gap-y-2 text-page-gray-light text-center lg:text-left">
             <h1 className="font-bold text-white text-lg border-b border-page-lightblue pb-2">
               Categorías
             </h1>
@@ -153,7 +153,7 @@ export default function Footer() {
           </article>
 
           {/*Company description*/}
-          <article className="min-w-[200px] flex flex-col gap-y-3 text-page-gray-light text-center lg:text-left">
+          <article className="min-w-[200px] md:min-h-[170px] flex flex-col gap-y-2 text-page-gray-light text-center lg:text-left">
             <h1 className="font-bold text-white text-lg border-b border-page-lightblue pb-2">
               Technology Line
             </h1>
@@ -163,13 +163,13 @@ export default function Footer() {
             <NavLink to={`/others/revendedores`} className="hover:text-white transition-colors duration-300 hover:translate-x-1 transform">
               Venta a mayoristas
             </NavLink>
-            <span className="text-[#ebebe446] transition-colors duration-300 cursor-default">
+            {/* <span className="text-[#ebebe446] transition-colors duration-300 cursor-default">
               Trabaja con nosotros
-            </span>
+            </span> */}
           </article>
 
           {/*Other information*/}
-          <article className="min-w-[200px] flex flex-col gap-y-3 text-page-gray-light text-center lg:text-left">
+          <article className="min-w-[200px] md:min-h-[170px] flex flex-col gap-y-2 text-page-gray-light text-center lg:text-left">
             <h1 className="font-bold text-white text-lg border-b border-page-lightblue pb-2">
               Ayuda y información
             </h1>
@@ -187,7 +187,7 @@ export default function Footer() {
       </section>
 
       {/* Social icons/card icons/ button */}
-      <article className="flex flex-col-reverse md:flex-row w-full justify-between items-center gap-4 px-4 md:px-8 py-6 bg-gradient-to-b from-[#1a4167] to-page-blue-normal border-t border-page-lightblue/20">
+      <article className="flex flex-col-reverse md:flex-row w-full justify-around items-center gap-4 px-4 md:px-8 py-6 bg-gradient-to-b from-[#1a4167] to-page-blue-normal border-t border-page-lightblue/20">
         <div className="flex items-center justify-center w-full md:w-auto">
           {/* Card icons */}
           <ul className="flex items-center flex-wrap justify-center gap-4">
@@ -216,7 +216,7 @@ export default function Footer() {
         </div>
       </article>
 
-      <section className="flex flex-col justify-center items-center w-full bg-gradient-to-r from-page-gray-light to-gray-100 py-4 px-4 text-center">
+      <section className="flex flex-col justify-center items-center w-full bg-gradient-to-r from-page-gray-light to-gray-100 pt-4 px-4 text-center">
         <h1 className="font-bold text-gray-800 mb-2">
           ©️ 2024 Technology Line SRL
         </h1>
