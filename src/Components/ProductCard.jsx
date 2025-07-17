@@ -15,11 +15,16 @@ export default function ProductCard({ product }) {
     .catch(e => console.error('Error al sumar view al producto: ', e))
   }
 
+  const getPercentageValue = (a, b) => ((1 - (parseFloat(b)/parseFloat(a))) * 100)
+
   return(
     <NavLink
       to={`/products/?product=${product.sku}`} 
       onClick={addViewToProduct}
-      className="flex flex-col sm:hover:scale-105 box-border items-center justify-between bg-white p-2 mx-auto duration-300 hover:cursor-pointer shadow-border border-2 rounded-md h-[380px] max-sm:h-[300px] max-sm:w-[98%] w-[270px] max-md:max-w-[100%] sm:my-4"
+      className={`
+        ${product.brand.toLowerCase().includes('philco') ? 'border-cyan-300 dropshadow-cyan' : 'rounded-md'}
+        flex flex-col sm:hover:scale-[1.01] box-border items-center justify-between bg-white p-2 mx-auto duration-300 rounded-3xl rounded-tr-none rounded-bl-none border-b-cyan-400 border-t-cyan-200 hover:cursor-pointer shadow-border border-2 h-[420px] max-sm:h-[300px] max-sm:w-[98%] w-[270px] max-md:max-w-[100%] sm:my-4`
+      }
     >     
       <header className="relative w-full flex-grow-[0.55] box-border">
         <img 
@@ -28,7 +33,7 @@ export default function ProductCard({ product }) {
           className="w-full h-full max-h-[250px] object-contain rounded-lg"
           onError={(e) => e.target.src = `https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg`}
         />
-        {/* <img className="absolute top-1 right-1 object-contain h-10 w-10 rounded-lg" src="https://technologyline.com.ar//banners-images/Assets/sale-icon.svg"/> */}
+        {product.brand.toLowerCase().includes('philco') && <img className="absolute top-1 right-1 object-contain h-10 w-30 rounded-lg" src="https://technologyline.com.ar/banners-images/Assets/philco-days.webp"/>}
       </header>
 
       <article className="w-full flex-grow-[0.35] box-border flex flex-col justify-between">
@@ -36,7 +41,15 @@ export default function ProductCard({ product }) {
           <span className="text-xs text-gray-500 max-sm:text-[9px]">SKU: {product.sku}</span>
           <span className="line-clamp-2 font-medium max-sm:text-[10px]">{product.name.replace(/EAN(?::\s*|\s+)\d{5,}/gi, '')}</span>
         </p> 
-        <p className="font-bold text-xl max-sm:text-base">${product.price_list_1 ? useFormattedPrice(product.price_list_1) : '  -  -  -  -  -  -'}</p>
+
+        <p className="font-semibold text-xs flex justify-center text-page-blue-normal">
+          <span className="line-through">${product.price_list_1 ? useFormattedPrice(product.price_list_1) : '  -  -  -  -  -  -'}</span>
+        </p>
+
+        <p className="font-bold text-xl text-center flex flex-col max-sm:text-base text-cyan-700">
+          <span className="text-base tracking-tighter">PROMO EFECTIVO</span> 
+          <span className="tracking-normal text-2xl">${product.price_list_2 ? useFormattedPrice(product.price_list_2) : '  -  -  -  -  -  -'}</span>
+        </p>
       </article>
     </NavLink>
   )

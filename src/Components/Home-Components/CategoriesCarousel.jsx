@@ -54,7 +54,7 @@ export default function CategoriesCarousel() {
   
   return (
     <div 
-      className="relative w-full py-4"
+      className="relative w-full py-4 "
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -79,12 +79,12 @@ export default function CategoriesCarousel() {
               >
                 <NavLink
                   to={`/search/?sub_category=${c.category.trim().toLowerCase()}`}
-                  className="group relative w-[7rem] h-[7rem] max-sm:w-[5rem] max-sm:h-[5rem] overflow-hidden rounded-full"
+                  className="group relative w-[7rem] h-[7rem] max-sm:w-[5rem] max-sm:h-[5rem] my-3 overflow-hidden rounded-3xl border-2 rounded-bl-sm rounded-tr-sm shadow-border border-[#3669ab71] hover:rotate-6 duration-300 hover:rounded-tl-sm hover:rounded-br-sm hover:rounded-tr-3xl hover:rounded-bl-3xl"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-page-blue-marine transition-opacity duration-300" />
                   <img 
                     src={c.img_url} 
-                    className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-[1.1] group-hover:-rotate-6"
                     alt={c.category}
                   />
                 </NavLink>

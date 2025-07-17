@@ -15,9 +15,8 @@ export default function Modal({ progress, product, toAdd = 1 }) {
     , 3000);
   }, [progress, product]); 
 
-  const handleGoToCart = () => {
-    navigate("/cart");
-  };
+  const handleGoToCart = () => navigate("/cart")
+  
 
   return (
     <div className={`fixed top-2 right-0 z-50 flex rounded-md modal bg-white w-full max-w-[320px] shadow-lg border-2 ${toAdd ? 'border-page-lightblue' : 'border-red-400'} transition-all duration-300 ease-in-out transform ${visible ? "translate-x-0 opacity-100" : "translate-x-[100%] opacity-0"}`}>
