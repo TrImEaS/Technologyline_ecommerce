@@ -74,11 +74,12 @@ export default function Home() {
           <CategoriesCarousel/>
         </section>
 
-        <section className='w-4/5 max-lg:w-[90%] max-lg:rounded-full max-lg:rounded-r-sm h-[220px] hover:scale-105 rounded-tr-lg rounded-bl-lg duration-200'>
-          <NavLink to='/search?brand=philco' className='rounded-full rounded-tr-lg rounded-bl-lg'>
+        <section className='w-[90%] h-[220px] duration-200 overflow-hidden hover:scale-[1.03]'>
+          <NavLink to='/search?brand=philco' className='block h-full'>
             <img 
               src={bannerName} 
-              className='w-full h-full rounded-full rounded-tr-lg rounded-bl-lg max-lg:rounded-full max-lg:rounded-r-sm object-contain' 
+              className='w-full h-full rounded-[90px] max-md:rounded-[90px] object-contain duration-300' 
+              alt="Philco Days Promotion"
             />
           </NavLink>
         </section>
@@ -183,6 +184,8 @@ export default function Home() {
           )
         }
 
+
+
         <section className='w-[82%] h-fit flex flex-col gap-y-5 pt-10'>
           <span className='font-medium text-3xl max-sm:text-xl text-gray-800 w-full'>Conoce nuestras marcas</span>
 
@@ -190,6 +193,8 @@ export default function Home() {
             <BrandsCarrousel/>
           </div>
         </section>
+        
+
       </div>
   )
 }

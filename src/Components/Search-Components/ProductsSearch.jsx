@@ -84,7 +84,7 @@ export default function ProductsSearch({ products }) {
             grid grid-cols-5 gap-5
             max-[2100px]:grid-cols-4
             max-[1680px]:grid-cols-3
-            max-lg:grid-cols-2 max-lg:gap-5 max-sm:gap-1 max-sm:px-2">
+            max-lg:grid-cols-2 max-lg:gap-5 max-sm:gap-1 max-sm:gap-y-10 max-sm:px-2">
             {products.slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage).map(
               (product) => (
                 <ProductCard

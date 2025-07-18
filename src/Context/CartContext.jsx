@@ -50,7 +50,7 @@ export const CartProvider = ({ children }) => {
       category: product.category,
       sub_category: product.sub_category,
       brand: product.brand,
-      img_url: product.img_urls[0],
+      img_url: product.img_urls ? product.img_urls[0] : product.img_url,
       price_list_1: product.price_list_1,
       price_list_2: product.price_list_2,
       price_list_3: product.price_list_3,

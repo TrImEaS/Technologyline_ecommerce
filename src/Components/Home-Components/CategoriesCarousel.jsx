@@ -84,7 +84,7 @@ export default function CategoriesCarousel() {
                   <div className="absolute inset-0 bg-page-blue-marine transition-opacity duration-300" />
                   <img 
                     src={c.img_url} 
-                    className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-[1.1] group-hover:-rotate-6"
+                    className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-[1.2] group-hover:rotate-[6deg] "
                     alt={c.category}
                   />
                 </NavLink>
