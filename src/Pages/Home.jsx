@@ -148,7 +148,7 @@ export default function Home() {
             <Spinner/>
           )
           : (
-            <div className='flex flex-col gap-y-20 pt-10 w-[85%]'>
+            <div className='flex flex-col gap-y-20 pt-10 w-[85%] max-sm:w-[95%]'>
               {/*Products sale carousel*/}
               <section className='relative flex flex-col justify-center w-full gap-y-10'>
                 <h1 className='font-medium text-3xl max-sm:text-xl max-sm:text-center max-[680px]:w-full text-gray-800 w-fit'>
@@ -184,8 +184,6 @@ export default function Home() {
           )
         }
 
-
-
         <section className='w-[82%] h-fit flex flex-col gap-y-5 pt-10'>
           <span className='font-medium text-3xl max-sm:text-xl text-gray-800 w-full'>Conoce nuestras marcas</span>
 
@@ -193,8 +191,6 @@ export default function Home() {
             <BrandsCarrousel/>
           </div>
         </section>
-        
-
       </div>
   )
 }

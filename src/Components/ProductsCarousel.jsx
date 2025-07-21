@@ -10,7 +10,7 @@ export default function ProductsCarousel({ filterProducts, rows, style }) {
     return (
       <div
         onClick={onClick}
-        className="absolute -right-5 top-1/2 -translate-y-1/2 z-10 cursor-pointer"
+        className="absolute -right-5 max-sm:right-0 top-1/2 -translate-y-1/2 z-10 cursor-pointer"
       >
         <div className="flex items-center text-xl max-sm:text-base max-sm:w-5 max-sm:h-5 justify-center w-7 h-7 bg-black/20 hover:bg-white text-black hover: rounded-full shadow-lg transition-all duration-300 hover:scale-110">
           <FaAngleRight className="" />
@@ -24,7 +24,7 @@ export default function ProductsCarousel({ filterProducts, rows, style }) {
     return (
       <div
         onClick={onClick}
-        className="absolute -left-5 top-1/2 -translate-y-1/2 z-10 cursor-pointer"
+        className="absolute -left-5 max-sm:left-0 top-1/2 -translate-y-1/2 z-10 cursor-pointer"
       >
         <div className="flex items-center text-xl max-sm:text-base max-sm:w-5 max-sm:h-5 justify-center w-7 h-7 bg-black/20 hover:bg-white text-black hover: rounded-full shadow-lg transition-all duration-300 hover:scale-105">
           <FaAngleLeft className="" />
@@ -66,14 +66,14 @@ export default function ProductsCarousel({ filterProducts, rows, style }) {
           initialSlide: 2
         }
       },
-      // {
-      //   breakpoint: 525,
-      //   settings: {
-      //     dots: false,
-      //     slidesToShow: filterProducts.length > 1 ? 1 : filterProducts.length,
-      //     slidesToScroll: filterProducts.length > 1 ? 1 : filterProducts.length
-      //   }
-      // }
+      {
+        breakpoint: 525,
+        settings: {
+          dots: false,
+          slidesToShow: filterProducts.length > 2 ? 2 : filterProducts.length,
+          slidesToScroll: filterProducts.length > 2 ? 2 : filterProducts.length
+        }
+      }
     ]
   };
   
