@@ -61,6 +61,13 @@ export default function Home() {
       product.name.toLowerCase().includes('0700306605861')
     );
   }, [products]);
+
+  const fiveCarousel = useMemo(() => {
+    if (!products) return [];
+    return products.filter(product => 
+      product.brand.toLowerCase().includes('philco')
+    );
+  }, [products]);
   
   return (
       <div name='home' className={`flex box-border flex-col items-center gap-5 min-h-screen h-full w-full pb-5`}>
@@ -149,6 +156,14 @@ export default function Home() {
           )
           : (
             <div className='flex flex-col gap-y-20 pt-10 w-[85%] max-sm:w-[95%]'>
+              {/*Products sale carousel*/}
+              <section className='relative flex flex-col justify-center w-full gap-y-10'>
+                <h1 className='font-medium text-3xl max-sm:text-xl max-sm:text-center max-[680px]:w-full text-gray-800 w-fit'>
+                  PHILCO DAYS
+                </h1>
+                <ProductsCarousel style={'pb-5'} rows={1} filterProducts={fiveCarousel}/>
+              </section>
+
               {/*Products sale carousel*/}
               <section className='relative flex flex-col justify-center w-full gap-y-10'>
                 <h1 className='font-medium text-3xl max-sm:text-xl max-sm:text-center max-[680px]:w-full text-gray-800 w-fit'>
