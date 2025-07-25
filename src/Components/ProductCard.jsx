@@ -47,7 +47,7 @@ export default function ProductCard({ product }) {
           <p className="font-bold text-xl flex flex-col max-sm:text-base text-page-blue-darkMarine px-2">
             {/* <span className="text-base tracking-tighter">PROMO EFECTIVO</span>  */}
             <span className="text-xs text-gray-500 max-sm:text-[9px]">SKU: {product.sku}</span>
-            <span className="tracking-normal text-2xl max-sm:text-lg">${product.price_list_2 ? useFormattedPrice(product.price_list_2) : '  -  -  -  -  -  -'}</span>
+            <span className="tracking-normal text-2xl max-sm:text-lg">${product.price_list_1 ? useFormattedPrice(product.price_list_1) : '  -  -  -  -  -  -'}</span>
           </p>
       
           <p className='flex text-[#888] flex-col tracking-widest text-xs px-2'>
