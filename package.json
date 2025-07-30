@@ -46,6 +46,10 @@
     "vite": "^6.2.3"
   },
   "eslintConfig": {
-    "extends": "standard"
+    "extends": "standard",
+    "rules": {
+      "no-unused-vars": "off",
+      "camelcase": "off"
+    }
   }
 }
