@@ -65,7 +65,7 @@ export default function BrandsCarrousel () {
       </section>
 
       <section>
-        <NavLink to={'/search?brand=samsung'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
+        <NavLink to={'/search?brand=netmark'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img
             src={'https://technologyline.com.ar/banners-images/Assets/Brands/brand-11.svg'}
             className='w-28 h-28 rounded-full max-sm:px-1'>
@@ -83,7 +83,7 @@ export default function BrandsCarrousel () {
       </section>
 
       <section>
-        <NavLink to={'/search?brand=midea'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
+        <NavLink to={'/search?brand=atma'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img
             src={'https://technologyline.com.ar/banners-images/Assets/Brands/brand-10.svg'}
             className='w-28 h-28 rounded-full max-sm:px-1'>
@@ -110,7 +110,7 @@ export default function BrandsCarrousel () {
       </section>
 
       <section>
-        <NavLink to={'/search?brand=rca'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
+        <NavLink to={'/search?brand=philco'} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer'>
           <img
             src={'https://technologyline.com.ar/banners-images/Assets/Brands/brand-12.svg'}
             className='w-28 h-28 rounded-full max-sm:px-1'>
