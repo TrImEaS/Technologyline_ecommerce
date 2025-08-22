@@ -1,15 +1,15 @@
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google"
-import { jwtDecode } from "jwt-decode";
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
+import { jwtDecode } from 'jwt-decode'
 
 export default function GoogleLoginBtn ({ onSuccess }) {
   const handleSuccess = (res) => {
-    const token = res.credential;
-    const user = jwtDecode(token);
-    onSuccess(user); 
-  };
+    const token = res.credential
+    const user = jwtDecode(token)
+    onSuccess(user)
+  }
 
   const handleFailure = () => {
-    console.error("Error al iniciar sesion con Google")
+    console.error('Error al iniciar sesion con Google')
   }
 
   return (
