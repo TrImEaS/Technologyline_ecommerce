@@ -1,12 +1,12 @@
-import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-import Slider from 'react-slick';
-import ProductCard from './ProductCard';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
+import Slider from 'react-slick'
+import ProductCard from './ProductCard'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
-export default function ProductsCarousel({ filterProducts, rows, style }) {
+export default function ProductsCarousel ({ filterProducts, rows, style }) {
   const NextArrow = (props) => {
-    const { onClick, style } = props;
+    const { onClick, style } = props
     return (
       <div
         onClick={onClick}
@@ -16,11 +16,11 @@ export default function ProductsCarousel({ filterProducts, rows, style }) {
           <FaAngleRight className="" />
         </div>
       </div>
-    );
-  };
-  
+    )
+  }
+
   const PrevArrow = (props) => {
-    const { onClick, style } = props;
+    const { onClick, style } = props
     return (
       <div
         onClick={onClick}
@@ -30,17 +30,17 @@ export default function ProductsCarousel({ filterProducts, rows, style }) {
           <FaAngleLeft className="" />
         </div>
       </div>
-    );
-  };
+    )
+  }
 
-  const products = filterProducts;
+  const products = filterProducts
 
   const settings = {
     dots: true,
     infinite: products.length > 1,
     autoplay: products.length > 1,
     autoplaySpeed: 3000,
-    rows: rows,
+    rows,
     speed: 500,
     slidesToShow: filterProducts.length > 4 ? 4 : filterProducts.length,
     slidesToScroll: filterProducts.length > 4 ? 4 : filterProducts.length,
@@ -75,14 +75,14 @@ export default function ProductsCarousel({ filterProducts, rows, style }) {
         }
       }
     ]
-  };
-  
+  }
+
   if (products.length === 0) {
-    return '';
+    return ''
   }
 
   return (
-    <div className="relative group">
+    <div className="relative">
       <Slider className={`${style} product-carousel`} {...settings}>
         {products.map((product) => (
           <ProductCard
@@ -92,5 +92,5 @@ export default function ProductsCarousel({ filterProducts, rows, style }) {
         ))}
       </Slider>
     </div>
-  );
+  )
 }

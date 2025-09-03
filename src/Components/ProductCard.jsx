@@ -3,6 +3,7 @@ import axios from 'axios'
 import useFormattedPrice from '../Utils/useFormattedPrice'
 import { FaCartPlus } from 'react-icons/fa'
 import { useCart } from '../Context/CartContext'
+
 const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV
 
 export default function ProductCard ({ product }) {
@@ -10,75 +11,60 @@ export default function ProductCard ({ product }) {
 
   const addViewToProduct = () => {
     axios.patch(`${API_URL}/api/products/addView/${product.id}`)
-      .then(res => {
-        if (res.status !== 200) {
-          return console.log(res)
-        }
-      // console.log('view updated')
-      })
       .catch(e => console.error('Error al sumar view al producto: ', e))
   }
 
-  const getPercentageValue = (a, b) => ((1 - (parseFloat(b) / parseFloat(a))) * 100)
-
   return (
-    // <div className={`${product.brand.toLowerCase().includes('philco') ? 'border-cyan-300 dropshadow-cyan' : 'rounded-md'} flex flex-col h-[420px] max-sm:w-[98%] w-[270px] max-md:max-w-[100%] sm:my-4 mx-auto duration-300 rounded-3xl border-t-page-blue-normal hover:cursor-pointer group sm:hover:scale-[1.01] shadow-border border-2 bg-white rounded-b-xl border-b-transparent`}>
-    <div className={'flex flex-col h-[420px] max-sm:w-[98%] w-[270px] max-md:max-w-[100%] sm:my-4 mx-auto duration-300 rounded-3xl border-t-page-blue-normal hover:cursor-pointer group sm:hover:scale-[1.01] shadow-border border-2 bg-white rounded-b-xl border-b-transparent'}>
+    <div className="flex flex-col h-[420px] max-sm:w-[98%] w-[270px] max-md:max-w-[100%] sm:my-4 mx-auto rounded-3xl border border-gray-200 bg-white shadow-sm hover:shadow-lg duration-300 overflow-hidden group">
       <NavLink
         to={`/products/?product=${product.sku}`}
         onClick={addViewToProduct}
-        className='flex flex-col group box-border items-center justify-between h-[90%]'
+        className="flex flex-col items-center justify-between h-[90%]"
       >
-        <header className="relative w-full h-[60%] box-border">
+        {/* Imagen */}
+        <header className="relative w-full h-[55%] flex items-center justify-center overflow-hidden">
           <img
-            src={product.img_url ? product.img_url : 'https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg'}
+            src={product.img_url || 'https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg'}
             alt={product.name}
-            className="w-full h-full max-h-[250px] pt-1 object-contain rounded-3xl"
+            className="w-full h-full max-h-[250px] object-contain transition-transform duration-500 group-hover:scale-105"
             onError={(e) => { e.target.src = 'https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg' }}
           />
-          {
-            (
-              product.sub_category.toLowerCase().includes('consolas') ||
-              product.sub_category.toLowerCase().includes('tablet') ||
-              product.sub_category.toLowerCase().includes('joystick') ||
-              product.sub_category.toLowerCase().includes('parlante') ||
-              product.sub_category.toLowerCase().includes('notebooks')
-            ) &&
-              <img className="absolute top-1 right-2 object-cover h-14 w-20 rounded-lg" src="https://technologyline.com.ar/banners-images/Assets/logo_mesninies.webp"/>
-          }
         </header>
 
-        <article className="w-full h-[40%] box-border flex flex-col justify-center gap-1 border-x rounded-3xl">
-          {/*
-          <p className="font-semibold text-xs flex justify-center text-page-blue-normal">
-            <span className="line-through">${product.price_list_1 ? useFormattedPrice(product.price_list_1) : '  -  -  -  -  -  -'}</span>
-          </p> */}
+        {/* Datos */}
+        <article className="w-full h-[45%] flex flex-col justify-between px-3 py-2">
+          <div>
+            <span className="text-[11px] text-gray-400 font-medium">SKU: {product.sku}</span>
+            <p className="text-sm font-semibold text-gray-700 leading-tight line-clamp-2 mt-1">
+              {product.name.replace(/EAN(?::\s*|\s+)\d{5,}/gi, '')}
+            </p>
+          </div>
 
-          <p className="font-bold text-xl flex flex-col max-sm:text-base text-page-blue-darkMarine px-2">
-            {/* <span className="text-base tracking-tighter">PROMO EFECTIVO</span>  */}
-            <span className="text-xs text-gray-500 max-sm:text-[9px]">SKU: {product.sku}</span>
-            <span className="tracking-normal text-2xl max-sm:text-lg">${product.price_list_1 ? useFormattedPrice(product.price_list_1) : '  -  -  -  -  -  -'}</span>
-          </p>
+          <div className="mt-2">
+            <p className="text-2xl font-bold text-page-blue-darkMarine max-sm:text-lg">
+              {product.price_list_1 ? `$${useFormattedPrice(product.price_list_1)}` : '---'}
+            </p>
 
-          <p className='flex text-[#888] flex-col tracking-widest text-xs px-2'>
-            <span>
-              Precio lista s/imp. nac.
-            </span>
-            <span>
-              <b className='text-[10px] text-[#888]'>{`$${useFormattedPrice(product.price_list_1 / ((product.tax_percentage / 100) + 1))}`}</b>
-            </span>
-          </p>
+            <p className="text-xs font-medium text-red-500 mt-1">
+              OFERTA CONTADO:{' '}
+              <b className="text-sm text-red-500">{`$${useFormattedPrice(product.price_list_2)}`}</b>
+            </p>
 
-          <p className="flex flex-col px-2">
-            <span className="line-clamp-2 text-xs  text-[#333]">{product.name.replace(/EAN(?::\s*|\s+)\d{5,}/gi, '')}</span>
-          </p>
-
+            <p className="text-[11px] text-gray-500 mt-1">
+              Precio lista s/imp. nac.:{' '}
+              <b className='text-gray-500'>{`$${useFormattedPrice(product.price_list_1 / ((product.tax_percentage / 100) + 1))}`}</b>
+            </p>
+          </div>
         </article>
       </NavLink>
 
-      <button onClick={() => addProductToCart({ product })} className="bg-page-blue-darkMarine rounded-b-xl flex gap-2 justify-center items-center w-full h-[10%] text-white">
-        <span className="text-lg max-sm:text-base">AGREGAR</span>
-        <FaCartPlus className="text-2xl max-sm:text-xl"/>
+      {/* Botón */}
+      <button
+        onClick={() => addProductToCart({ product })}
+        className="bg-page-blue-darkMarine hover:bg-page-blue-normal transition-colors duration-300 rounded-b-xl flex gap-2 justify-center items-center w-full h-[10%] text-white font-medium"
+      >
+        <span className="text-base max-sm:text-sm">Agregar</span>
+        <FaCartPlus className="text-xl max-sm:text-lg"/>
       </button>
     </div>
   )
