@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react"
-import { useCart } from "../Context/CartContext"
-import { FaInfoCircle, FaShippingFast, FaTrash } from "react-icons/fa"
-import { NavLink, useNavigate } from "react-router-dom"
-import axios from "axios"
-import Swal from "sweetalert2"
-import { useAuth } from "../Context/AuthContext";
+import { useEffect, useState } from 'react'
+import { useCart } from '../Context/CartContext'
+import { FaInfoCircle, FaShippingFast, FaTrash } from 'react-icons/fa'
+import { NavLink, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import { useAuth } from '../Context/AuthContext'
 import useFormattedPrice from '../Utils/useFormattedPrice'
-import useDocumentTitle from "../Utils/useDocumentTitle"
-const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+import useDocumentTitle from '../Utils/useDocumentTitle'
+const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV
 
-export default function Cart() {
-  const { userData, userIsLoged } = useAuth();
+export default function Cart () {
+  const { userData, userIsLoged } = useAuth()
   const { cartProducts, getTotalOfProducts, deleteOneProductOfCart, addProductToCart, deleteProductOfCart, cleanCart } = useCart()
   const [price, setPrice] = useState(1)
   const [address, setAddress] = useState('')
@@ -26,10 +26,10 @@ export default function Cart() {
     phone: ''
   })
   const navigate = useNavigate()
-  
+
   useDocumentTitle('Carrito de compras')
-  
-  const totalPrice = cartProducts.reduce((acc, p) => acc + (parseFloat(p[`price_list_${price}`]) * +p.quantity_selected), 0);
+
+  const totalPrice = cartProducts.reduce((acc, p) => acc + (parseFloat(p[`price_list_${price}`]) * +p.quantity_selected), 0)
 
   useEffect(() => {
     if (userData.email) {
@@ -38,9 +38,9 @@ export default function Cart() {
         dni: userData.dni,
         address: userData.address,
         location: userData.location,
-        email:    userData.email,
+        email: userData.email,
         postalCode: userData.postal_code,
-        phone:    userData.phone
+        phone: userData.phone
       })
     }
   }, [userData])
@@ -56,49 +56,45 @@ export default function Cart() {
           allowEscapeKey: false,
           confirmButtonText: 'Iniciar sesión',
           customClass: {
-            confirmButton: 'bg-page-blue-normal text-white px-4 py-2 rounded hover:opacity-90',
+            confirmButton: 'bg-page-blue-normal text-white px-4 py-2 rounded hover:opacity-90'
           }
-        });
-        if (result.isConfirmed) navigate('/login');
-      };
+        })
+        if (result.isConfirmed) navigate('/login')
+      }
 
-      redirectToLogin();
+      redirectToLogin()
     }
-  }, [userIsLoged]);
+  }, [userIsLoged])
 
-  useEffect(()=> {
-    if(shipment === 1) {
+  useEffect(() => {
+    if (shipment === 1) {
       setPostalCode(clientData.postalCode)
       setAddress(clientData.address)
-      return
-    }
-    else if(shipment === 3){
+    } else if (shipment === 3) {
       setPostalCode('---')
       setAddress('---')
-      return
-    }
-    else {
+    } else {
       setPostalCode('')
       setAddress('')
     }
   }, [shipment])
-  
+
   const handleSubmit = async () => {
     const mails = [
       'subsistemas@real-color.com.ar',
       'revendedores@realcolor.com.ar',
       'mercadolibre4@real-color.com.ar',
       'pcamio@real-color.com.ar'
-    ];
-  
+    ]
+
     if (!clientData?.email) {
       return Swal.fire('Atención', 'Tu sesión expiró, vuelve a iniciar sesión', 'warning')
     }
 
     if (!price || !address || !postalCode || !clientData.address || !clientData.fullname || !clientData.dni || !clientData.postalCode || !clientData.phone) {
-      return Swal.fire('Atención', 'Faltan campos a completar', 'warning');
+      return Swal.fire('Atención', 'Faltan campos a completar', 'warning')
     }
-  
+
     // Mostrar loader mientras se procesa
     Swal.fire({
       title: 'Procesando pedido...',
@@ -107,16 +103,15 @@ export default function Cart() {
       allowEscapeKey: false,
       showConfirmButton: false,
       didOpen: () => {
-        Swal.showLoading();
+        Swal.showLoading()
       }
-    });
-  
+    })
+
     try {
-      const orderMovementRes = await axios.get(`${API_URL}/api/page/getOrderMovement`);
-      if (orderMovementRes.status !== 200) 
-        throw new Error('Error obteniendo número de orden');
-  
-      const orderMovement = orderMovementRes.data.movement.toString().padStart(8, '0');
+      const orderMovementRes = await axios.get(`${API_URL}/api/page/getOrderMovement`)
+      if (orderMovementRes.status !== 200) { throw new Error('Error obteniendo número de orden') }
+
+      const orderMovement = orderMovementRes.data.movement.toString().padStart(8, '0')
       const datos_de_orden = {
         movimiento_numero: orderMovement,
         client_email: userData.email,
@@ -135,7 +130,7 @@ export default function Cart() {
           sku: p.sku,
           descripcion: p.name,
           precio: parseFloat(p[`price_list_${price}`]),
-          cantidad_seleccionada: p.quantity_selected,
+          cantidad_seleccionada: p.quantity_selected
         })),
         opcion_de_entrega: {
           retira_en_local: shipment === 3 ? 'Retira en local' : 'No',
@@ -144,70 +139,72 @@ export default function Cart() {
         },
         total: totalPrice,
         abona_en:
-          price === 1 ? '1 Pago Débito - Crédito' :
-          price === 2 ? 'Efectivo - Transferencia' :
-          price === 3 ? '3 cuotas fijas' :
-          price === 4 ? '6 cuotas fijas' :
-          price === 5 ? '9 cuotas fijas' :
-          price === 6 ? '12 cuotas fijas' : ''
-      };
-  
-      const mailRes = await axios.post(`${API_URL}/api/page/sendOrderEmail`, { datos_de_orden, mails });
-  
-      if (mailRes.status === 403) {
-        throw { response: { status: 403 } };
+          price === 1
+            ? '1 Pago Débito - Crédito'
+            : price === 2
+              ? 'Efectivo - Transferencia'
+              : price === 3
+                ? '3 cuotas fijas'
+                : price === 4
+                  ? '6 cuotas fijas'
+                  : price === 5
+                    ? '9 cuotas fijas'
+                    : price === 6 ? '12 cuotas fijas' : ''
       }
-  
-      if (mailRes.status !== 200) 
-        throw new Error('Error enviando el correo');
-  
-      const setOrderRes = await axios.post(`${API_URL}/api/page/setOrderMovement`);
-      if (setOrderRes.status !== 200) 
-        throw new Error('Error actualizando el número de orden');
-  
+
+      const mailRes = await axios.post(`${API_URL}/api/page/sendOrderEmail`, { datos_de_orden, mails })
+
+      if (mailRes.status === 403) {
+        throw { response: { status: 403 } }
+      }
+
+      if (mailRes.status !== 200) { throw new Error('Error enviando el correo') }
+
+      const setOrderRes = await axios.post(`${API_URL}/api/page/setOrderMovement`)
+      if (setOrderRes.status !== 200) { throw new Error('Error actualizando el número de orden') }
+
       Swal.fire({
         title: 'Orden enviada con éxito',
         text: `¡Gracias por elegirnos! Su pedido #${orderMovement} esta siendo procesado, para finalizar su compra un operador se pondra en contacto via Whatsapp (De Lunes a Viernes de 09:00 a 18:00hs), de no recibir respuesta, en las proximas 24hs hábiles puede llamar a este numero: 1133690584. Hemos enviado el detalle completo de su pedido a su correo electrónico, de no encontrarlo, por favor revise su carpeta de correo no deseado o spam.`,
         icon: 'success',
         showConfirmButton: true,
-        confirmButtonText: 'Cerrar',
-      });
-  
-      cleanCart();
-      navigate('/');
-    } 
-    catch (error) {
-      console.error(error);
-  
-      let errorMessage = 'Lo sentimos, ocurrió un error inesperado. Intente más tarde.';
-  
+        confirmButtonText: 'Cerrar'
+      })
+
+      cleanCart()
+      navigate('/')
+    } catch (error) {
+      console.error(error)
+
+      let errorMessage = 'Lo sentimos, ocurrió un error inesperado. Intente más tarde.'
+
       if (error.response && error.response.status === 403) {
-        errorMessage = 'Excedió el límite de pedidos por hora. Intente más tarde.';
+        errorMessage = 'Excedió el límite de pedidos por hora. Intente más tarde.'
       }
-  
+
       Swal.fire({
         title: 'Error al crear pedido',
         text: errorMessage,
         icon: 'error',
         showConfirmButton: true,
-        confirmButtonText: 'Entendido',
-      });
+        confirmButtonText: 'Entendido'
+      })
     }
-  };
-  
+  }
+
   return (
     <div className="flex flex-col w-full gap-10 pb-5 items-center min-h-[700px]">
       <section className="w-full tracking-widest flex border-b-2 border-gray-200 pt-3 pb-1 font-semibold text-xl text-gray-600 justify-center items-center">
         <h1>Carrito de compras</h1>
       </section>
 
-      {getTotalOfProducts() === 0 
+      {getTotalOfProducts() === 0
         ? (
           <article className="flex w-full flex-col justify-center items-center text-center">
             <h3 className="font-bold">Tu carrito está vacío</h3>
             <span>Aún no agregaste productos al carrito.</span>
           </article>
-        )
+          )
         : (
         <>
           <section className="flex flex-col rounded-lg border shadow-lg p-5 max-sm:w-[90%] w-[80%]">
@@ -216,7 +213,7 @@ export default function Cart() {
             </h3>
 
             {cartProducts.map(p => (
-              <article 
+              <article
                 key={p.id}
                 className="flex flex-col relative gap-3 box-border border-b-2 border-sky-100 pb-5 justify-center items-center"
               >
@@ -228,16 +225,16 @@ export default function Cart() {
                   <span className="uppercase text-page-blue-normal font-bold">{p.brand}</span>
                   <span className="text-center tracking-wide px-5 font-medium text-gray-800 text-sm">{p.name.replace(/EAN(?::\s*|\s+)\d{5,}/gi, '')}</span>
                 </NavLink>
-                
+
                 <section className="w-full flex justify-center text-white items-center mt-1">
-                  <button onClick={()=> deleteOneProductOfCart({ productID: p.id })} className="w-8 h-7 bg-gradient-to-r from-sky-500 to-sky-600 rounded-l-md flex justify-center items-center border-0 hover:from-sky-600 hover:to-sky-700 transition-all duration-300 font-bold">-</button>
+                  <button onClick={() => deleteOneProductOfCart({ productID: p.id })} className="w-8 h-7 bg-gradient-to-r from-sky-500 to-sky-600 rounded-l-md flex justify-center items-center border-0 hover:from-sky-600 hover:to-sky-700 transition-all duration-300 font-bold">-</button>
                   <span className="min-w-8 min-h-7 bg-sky-500 flex justify-center items-center border-x-0 px-2 font-medium">{p.quantity_selected}</span>
-                  <button onClick={()=> addProductToCart({ product: p })} className="w-8 h-7 bg-gradient-to-r from-sky-600 to-sky-500 rounded-r-md flex justify-center items-center border-0 hover:from-sky-700 hover:to-sky-600 transition-all duration-300 font-bold">+</button>
+                  <button onClick={() => addProductToCart({ product: p })} className="w-8 h-7 bg-gradient-to-r from-sky-600 to-sky-500 rounded-r-md flex justify-center items-center border-0 hover:from-sky-700 hover:to-sky-600 transition-all duration-300 font-bold">+</button>
                 </section>
 
-                <button 
+                <button
                   className="absolute top-2 right-2 hover:text-red-500 duration-300"
-                  onClick={()=> deleteOneProductOfCart({ productID: p.id, quantity: 99999999999 })}
+                  onClick={() => deleteOneProductOfCart({ productID: p.id, quantity: 99999999999 })}
                 >
                   <FaTrash/>
                 </button>
@@ -264,7 +261,7 @@ export default function Cart() {
                 <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                   Nombre completo <b>*</b>
                 </span>
-              </label>  
+              </label>
 
               <label htmlFor="DNI" className="relative flex rounded-md items-center px-2 border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                 <input
@@ -279,8 +276,8 @@ export default function Cart() {
                 <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                   DNI <b>*</b>
                 </span>
-              </label> 
-              
+              </label>
+
               <label htmlFor="Address" className="relative flex rounded-md items-center px-2 border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                 <input
                   type="text"
@@ -294,7 +291,7 @@ export default function Cart() {
                 <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                   Direccion <b>*</b>
                 </span>
-              </label>   
+              </label>
 
               <label htmlFor="Location" className="relative flex rounded-md items-center px-2 border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                 <input
@@ -309,7 +306,7 @@ export default function Cart() {
                 <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                   Localidad <b>*</b>
                 </span>
-              </label>   
+              </label>
 
               <label htmlFor="CodigoPostal" className="relative flex rounded-md items-center px-2 border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                 <input
@@ -324,7 +321,7 @@ export default function Cart() {
                 <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                   Codigo Postal <b>*</b>
                 </span>
-              </label>   
+              </label>
 
               <label htmlFor="Phone" className="relative flex rounded-md items-center px-2 border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                 <input
@@ -339,7 +336,7 @@ export default function Cart() {
                 <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                   Celular <b>*</b>
                 </span>
-              </label>  
+              </label>
 
               <label htmlFor="Email" className="relative flex rounded-md items-center px-2 border border-gray-200 bg-opacity-55 text-opacity-55 shadow-xs ">
                 <input
@@ -355,10 +352,10 @@ export default function Cart() {
                 <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-400 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                   Email
                 </span>
-              </label>  
+              </label>
             </>
           </section>
-          
+
           <section className="flex flex-col rounded-lg border gap-3 shadow-lg p-5 max-sm:w-[90%] w-[80%]">
             <h3 className="w-full border-b border-sky-100 tracking-wider text-lg pl-1">
               Opciones de entrega <b>*</b>
@@ -423,13 +420,15 @@ export default function Cart() {
             </fieldset>
 
             {
-              shipment === 1 ? (
+              shipment === 1
+                ? (
                 <p className="flex pt-1 items-center gap-2">
                   <b className="bg-yellow-400 rounded-full mb-[1px] text-white border-yellow-400 border-2 text-lg"><FaInfoCircle/></b>
                   <span className="text-sm text-gray-700 tracking-wider"> El envio sera cotizado y compartido con usted una vez concretado el pedido</span>
                 </p>
-              ) : 
-              shipment === 2 ? (
+                  )
+                : shipment === 2
+                  ? (
                 <div className="pt-3 flex flex-col gap-3">
                   <p className="flex pt-1 items-center gap-2">
                     <b className="bg-yellow-400 rounded-full mb-[1px] text-white border-yellow-400 border-2 text-lg"><FaInfoCircle/></b>
@@ -441,7 +440,7 @@ export default function Cart() {
                       type="text"
                       id="Codigo postal"
                       value={postalCode}
-                      onChange={(e)=> setPostalCode(e.target.value)}
+                      onChange={(e) => setPostalCode(e.target.value)}
                       className="peer bg-transparent border-transparent w-full placeholder-transparent h-14 px-3 focus:ring-0 placeholder:text-xs outline-none"
                       placeholder="Codigo postal"
                     />
@@ -458,7 +457,7 @@ export default function Cart() {
                       type="text"
                       id="Direccion"
                       value={address}
-                      onChange={(e)=> setAddress(e.target.value)}
+                      onChange={(e) => setAddress(e.target.value)}
                       className="peer bg-transparent border-transparent w-full placeholder-transparent h-14 px-3 focus:ring-0 placeholder:text-xs outline-none"
                       placeholder="Direccion"
                     />
@@ -468,8 +467,9 @@ export default function Cart() {
                     </span>
                   </label>
                 </div>
-              ) : 
-              shipment === 3 ? (
+                    )
+                  : shipment === 3
+                    ? (
                 <article className="flex tracking-tight flex-col gap-3 pt-3">
                   <p className="flex flex-col text-gray-800">
                     <span><b>(*) Direccion:</b> Roma 560 (unidad 8), Versalles, Liniers</span>
@@ -481,8 +481,8 @@ export default function Cart() {
                     <span className="text-[14px] text-gray-700 tracking-wider">(La fecha y horario para retirar se debe acordar con el vendedor)</span>
                   </p>
                 </article>
-              )
-              : ''
+                      )
+                    : ''
             }
           </section>
 
@@ -510,7 +510,7 @@ export default function Cart() {
                     <span className="font-light text-gray-700">Efectivo o Transferencia desde CBU/CVU o Depósito bancario</span>
                   </div>
                 </label>
-                
+
                 <label htmlFor="lista" className="flex cursor-pointer items-start gap-4">
                   <div className="flex items-center">
                     &#8203;
@@ -528,7 +528,7 @@ export default function Cart() {
                     <span className="font-light text-gray-700">Un pago con debito o credito</span>
                   </div>
                 </label>
-                
+
                 <label htmlFor="threeQuotes" className="flex cursor-pointer items-start gap-4">
                   <div className="flex items-center">
                     &#8203;
@@ -602,13 +602,13 @@ export default function Cart() {
                 </label>
               </div>
             </fieldset>
-            
+
             <footer className="flex flex-col w-full items-center justify-center">
               <h3 className="text-xl text-page-blue-normal">Total:</h3>
               <span className="font-bold text-2xl text-page-blue-normal">$ {useFormattedPrice(totalPrice)}</span>
             </footer>
 
-            {/* {price === 2 && 
+            {/* {price === 2 &&
               <div className="flex items-center gap-2">
                 <b className="bg-yellow-400 rounded-full text-white border-yellow-400 border-2 text-lg"><FaInfoCircle/></b>
                 <span className="text-sm">¡Importante! La cuenta desde la que transfieras debe coincidir con tu cuenta de facturación.</span>
@@ -620,7 +620,7 @@ export default function Cart() {
             Generar pedido
           </button>
         </>
-        )
+          )
       }
     </div>
   )

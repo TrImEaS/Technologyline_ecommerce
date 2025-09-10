@@ -92,16 +92,16 @@ export default function Products () {
       <ProductHeader product={product} loading={loading}/>
 
       <div className='flex flex-col max-sm:w-full w-[95%] bg-blue-400 rounded-lg border shadow-lg'>
-        <div className='flex p-2 gap-x-3'>
+        <div className='flex p-2 gap-x-6'>
           <span
             onClick={() => setDescriptionMenu('desc')}
-            className={`${descriptionMenu === 'desc' ? 'text-white' : ''} font-bold hover:text-white rounded-xl px-2 py-1 duration-300 cursor-pointer`}>
+            className={`${descriptionMenu === 'desc' ? 'border-white' : 'border-white/20'} uppercase  font-bold border-b-4 text-white hover:border-white px-2 pt-1 duration-300 cursor-pointer`}>
             Descripción
           </span>
-          <span className='py-1'>|</span>
+          <span className='py-1 text-white'>|</span>
           <span
             onClick={() => setDescriptionMenu('spec')}
-            className={`${descriptionMenu === 'spec' ? 'text-white' : ''} font-bold hover:text-white rounded-xl px-2 py-1 duration-300 cursor-pointer`}>
+            className={`${descriptionMenu === 'spec' ? 'border-white' : 'border-white/20'} uppercase  font-bold border-b-4 text-white hover:border-white px-2 pt-1 duration-300 cursor-pointer`}>
             Especificaciones
           </span>
         </div>

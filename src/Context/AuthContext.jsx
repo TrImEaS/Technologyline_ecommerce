@@ -1,15 +1,15 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
-const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+import { createContext, useContext, useState, useEffect } from 'react'
+import axios from 'axios'
+const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV
 
-export const AuthContext = createContext();
-export const useAuth = () => useContext(AuthContext);
+export const AuthContext = createContext()
+export const useAuth = () => useContext(AuthContext)
 
 export const AuthProvider = ({ children }) => {
-  const [userIsLoged, setUserIsLoged] = useState(false);
+  const [userIsLoged, setUserIsLoged] = useState(false)
   const [userData, setUserData] = useState([])
-  const [token, setToken] = useState(localStorage.getItem('token'));
-  const [email, setEmail] = useState(localStorage.getItem('email'));
+  const [token, setToken] = useState(localStorage.getItem('token'))
+  const [email, setEmail] = useState(localStorage.getItem('email'))
 
   // const getCookie = (name) => {
   //   const value = `; ${document.cookie}`;
@@ -22,18 +22,17 @@ export const AuthProvider = ({ children }) => {
 
   const getUserData = () => {
     axios.get(`${API_URL}/api/page/getUserData?email=${email}`)
-    .then(res => setUserData(res.data))
-    .catch(e => console.error(e))
+      .then(res => setUserData(res.data))
+      .catch(e => console.error(e))
   }
 
   useEffect(() => {
     if (token && email) {
-      setUserIsLoged(true);
+      setUserIsLoged(true)
+    } else {
+      setUserIsLoged(false)
     }
-    else {
-      setUserIsLoged(false);
-    }
-  }, [token]);
+  }, [token])
 
   useEffect(() => {
     if (email) {
