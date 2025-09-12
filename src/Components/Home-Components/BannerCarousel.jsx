@@ -93,7 +93,7 @@ export default function BannerCarousel () {
                   alt={'banner'}
                 />
                 <div className='absolute z-[50] rounded-full right-[28%] top-[16%] max-md:right-[25.7%] max-md:top-[10%] text-black w-[15.2%] h-[75%] max-md:w-[20%] max-md:h-[85%] text-3xl font-bold'>
-                  <img className='w-full h-full rounded-full object-cover' src={mostViewed && mostViewed.img_url} />
+                  <img className='w-full h-full rounded-full object-cover' src={mostViewed && mostViewed.img_url_2 ? mostViewed.img_url_2 : mostViewed.img_url} />
                 </div>
               </div>
             </div>
