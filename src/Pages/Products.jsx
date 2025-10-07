@@ -104,6 +104,12 @@ export default function Products () {
             className={`${descriptionMenu === 'spec' ? 'border-white' : 'border-white/20'} uppercase  font-bold border-b-4 text-white hover:border-white px-2 pt-1 duration-300 cursor-pointer`}>
             Especificaciones
           </span>
+          <span className='py-1 text-white'>|</span>
+          <span
+            onClick={() => setDescriptionMenu('faq')}
+            className={`${descriptionMenu === 'faq' ? 'border-white' : 'border-white/20'} uppercase  font-bold border-b-4 text-white hover:border-white px-2 pt-1 duration-300 cursor-pointer`}>
+            FAQ
+          </span>
         </div>
         <div className='p-2 bg-gray-100 min-h-[100px]'>
           {
@@ -113,11 +119,17 @@ export default function Products () {
                 <article dangerouslySetInnerHTML={{ __html: product.descriptions ? DOMPurify.sanitize(manipulateHTML(product.descriptions)) : 'Este articulo no posee descripciones.' }} />
               </section>
                 )
-              : (
+              : descriptionMenu === 'spec'
+                ? (
               <section className='flex flex-col px-4 py-2'>
                 <article dangerouslySetInnerHTML={{ __html: product.specifications ? DOMPurify.sanitize(manipulateHTML(product.specifications)) : 'Este articulo no posee descripciones.' }} />
               </section>
-                )
+                  )
+                : (
+              <section className='flex flex-col px-4 py-2'>
+                <article dangerouslySetInnerHTML={{ __html: product.faq ? DOMPurify.sanitize(manipulateHTML(product.faq)) : 'Este articulo no posee preguntas frecuentes.' }} />
+              </section>
+                  )
           }
         </div>
       </div>

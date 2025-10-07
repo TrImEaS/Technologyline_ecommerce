@@ -12,7 +12,7 @@ export default function BannerCarousel () {
   const [mobileBanners, setMobileBanners] = useState([])
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 830)
   const { mostViewed } = useProducts()
-  const bannerName = !isMobile ? 'static_baner_home.jpg' : 'static_baner_home_mobile.jpg'
+  const bannerName = !isMobile ? 'static_baner_home_2.jpg' : 'static_baner_home_mobile_2.jpg'
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export default function BannerCarousel () {
           onClickItem={handleClick}
           className="cursor-pointer"
         >
-          {mostViewed &&
+          {/* mostViewed &&
             <div
               className='w-full h-full'
               onClick={() => {
@@ -97,7 +97,7 @@ export default function BannerCarousel () {
                 </div>
               </div>
             </div>
-          }
+          */}
           {bannersToShow.map((banner, index) => (
             <div key={index + new Date()} className="w-full h-full relative overflow-hidden">
               <img
