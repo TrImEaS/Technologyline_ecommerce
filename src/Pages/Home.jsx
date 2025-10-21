@@ -69,11 +69,7 @@ export default function Home () {
   const fiveCarousel = useMemo(() => {
     if (!products) return []
     return products.filter(product =>
-      product.sub_category.toLowerCase().includes('consolas') ||
-      product.sub_category.toLowerCase().includes('tablet') ||
-      product.sub_category.toLowerCase().includes('joystick') ||
-      product.sub_category.toLowerCase().includes('parlante') ||
-      product.sub_category.toLowerCase().includes('notebooks')
+      product.brand.toLowerCase().includes('drean')
     )
   }, [products])
 
@@ -165,12 +161,12 @@ export default function Home () {
           : (
             <div className='flex flex-col gap-y-20 pt-10 w-[85%] max-sm:w-[95%]'>
               {/* Products sale carousel */}
-              {/* <section className='relative flex flex-col justify-center w-full gap-y-10'>
+              <section className='relative flex flex-col justify-center w-full gap-y-10'>
                 <h1 className='font-medium text-3xl max-sm:text-xl max-sm:text-center max-[680px]:w-full text-gray-800 w-fit'>
-                  MES DE LA NIÑEZ
+                  DREAN WEEK
                 </h1>
                 <ProductsCarousel style={'pb-5'} rows={1} filterProducts={fiveCarousel}/>
-              </section> */}
+              </section>
 
               {/* Products sale carousel */}
               <section className='relative flex flex-col justify-center w-full gap-y-10'>

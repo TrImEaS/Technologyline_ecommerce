@@ -15,7 +15,7 @@ export default function ProductCard ({ product }) {
   }
 
   return (
-    <div className="flex flex-col h-[420px] max-sm:w-[98%] w-[270px] max-md:max-w-[100%] sm:my-4 mx-auto rounded-3xl border border-gray-200 bg-white shadow-sm hover:shadow-lg duration-300 overflow-hidden group">
+    <div className={`${product.brand.toLowerCase() === 'drean' ? 'dropshadow-cyan border-cyan-500' : 'border-gray-200'} flex flex-col h-[420px] max-sm:w-[98%] w-[270px] max-md:max-w-[100%] sm:my-4 mx-auto rounded-3xl border  bg-white shadow-sm hover:shadow-lg duration-300 overflow-hidden group`}>
       <NavLink
         to={`/products/?product=${product.sku}`}
         onClick={addViewToProduct}
@@ -29,6 +29,10 @@ export default function ProductCard ({ product }) {
             className="w-full h-full max-h-[250px] object-contain transition-transform duration-500 group-hover:scale-105"
             onError={(e) => { e.target.src = 'https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg' }}
           />
+
+          { product.brand.toLowerCase() === 'drean' &&
+            <img src='https://technologyline.com.ar/banners-images/Assets/DREAN_WEEK.svg' className='absolute h-7 top-3 left-3'/>
+          }
         </header>
 
         {/* Datos */}
