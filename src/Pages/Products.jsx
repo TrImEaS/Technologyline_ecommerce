@@ -8,6 +8,7 @@ import Spinner from '../Components/Products/Spinner.jsx'
 import DOMPurify from 'dompurify'
 import axios from 'axios'
 import { useCart } from '../Context/CartContext.jsx'
+import { FaCartPlus } from 'react-icons/fa'
 
 const API_URL = import.meta.env.MODE === 'production'
   ? import.meta.env.VITE_API_URL_PROD
@@ -15,7 +16,7 @@ const API_URL = import.meta.env.MODE === 'production'
 
 export default function Products () {
   const { products } = useProducts()
-  const { addProductToCart } = useCart()
+  const { addProductToCart, completeOrder } = useCart()
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
   const [descriptionMenu, setDescriptionMenu] = useState('desc')
@@ -148,12 +149,21 @@ export default function Products () {
         }
       </section>
 
-      <button
-        onClick={() => addProductToCart({ product })}
-        className='sm:hidden fixed bottom-5 rounded-xl flex items-center justify-center text-sm font-bold bg-gradient-to-l from-sky-400 to-sky-800 duration-300 border border-gray-300 text-white py-1 px-2 w-[90%] h-[50px] cart hover:brightness-125'
-      >
-        AGREGAR AL CARRITO
-      </button>
+      <section className='sm:hidden fixed h-[105px] bottom-4 rounded-xl flex flex-col items-center justify-center text-sm font-bold duration-300 text-white py-1 px-2 w-[90%] cart'>
+        <button
+          onClick={() => completeOrder({ product })}
+          className='sm:hidden fixed bottom-[65px] rounded-xl flex items-center bg-page-blue-normal bg-gradient-to-l from-sky-400 to-sky-800 justify-center text-sm font-bold duration-300 border border-gray-300 text-white py-1 px-2 w-[80%] h-[40px] cart hover:brightness-105'
+        >
+          REALIZAR PEDIDO
+        </button>
+        <button
+          onClick={() => addProductToCart({ product })}
+          className='sm:hidden fixed bottom-5 rounded-xl flex bg-blue-200 text-page-blue-normal items-center  justify-center text-sm font-bold duration-300 border border-gray-300 py-1 px-2 w-[80%] h-[40px] cart hover:brightness-105'
+        >
+          <FaCartPlus className="text-xl max-sm:text-lg"/>
+          <span>AGREGAR AL CARRITO</span>
+        </button>
+      </section>
     </section>
   )
 }

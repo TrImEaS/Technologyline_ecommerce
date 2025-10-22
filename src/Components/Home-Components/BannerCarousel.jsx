@@ -25,14 +25,12 @@ export default function BannerCarousel () {
   const fetchBanners = () => {
     fetch(`${API_URL}/api/page/getBanners?ts=${Date.now()}`)
       .then(res => {
-        if (!res.ok) {
-          throw new Error('Error fetching banners')
-        }
+        if (!res.ok) throw new Error('Error fetching banners')
         return res.json()
       })
       .then(data => {
-        const mobile = data.filter(banner => banner.name.includes('mobile') && banner.path).sort((a, b) => a.position - b.position)
-        const desktop = data.filter(banner => banner.name.includes('desktop') && banner.path).sort((a, b) => a.position - b.position)
+        const mobile = data.filter(b => b.name.includes('mobile') && b.path).sort((a, b) => a.position - b.position)
+        const desktop = data.filter(b => b.name.includes('desktop') && b.path).sort((a, b) => a.position - b.position)
         setMobileBanners(mobile)
         setDesktopBanners(desktop)
       })
@@ -42,20 +40,26 @@ export default function BannerCarousel () {
   const bannersToShow = isMobile ? mobileBanners : desktopBanners
   const shouldShowCarousel = bannersToShow.length > 0
 
+  // --- FIX: use direct index (no adjustedIndex) and normalize path_to ---
   const handleClick = (index) => {
-    const adjustedIndex = mostViewed ? index - 1 : index
-    const banner = bannersToShow[adjustedIndex]
-    if (banner && banner.path_to) {
-      navigate(banner.path_to)
+    const banner = bannersToShow[index]
+    if (!banner || !banner.path_to) return
+
+    const target = banner.path_to.trim()
+    // External full URL
+    if (/^https?:\/\//i.test(target)) {
+      window.location.href = target
+      return
     }
+    // Normalize to absolute internal path (add leading slash if missing)
+    const normalized = target.startsWith('/') ? target : `/${target}`
+    navigate(normalized)
   }
 
   const addViewToProduct = ({ id }) => {
     axios.patch(`${API_URL}/api/products/addView/${id}`)
       .then(res => {
-        if (res.status !== 200) {
-          return console.log(res)
-        }
+        if (res.status !== 200) return console.log(res)
         console.log('view updated')
       })
       .catch(e => console.error('Error al sumar view al producto: ', e))
@@ -77,7 +81,20 @@ export default function BannerCarousel () {
           onClickItem={handleClick}
           className="cursor-pointer"
         >
-          {/* mostViewed &&
+          {bannersToShow.map((banner, index) => (
+            // mejor key único en vez de new Date()
+            <div key={banner.id ?? `${banner.name}-${index}`} className="w-full h-full relative overflow-hidden">
+              <img
+                src={banner.path}
+                className="h-full w-full object-cover inset-0 select-none"
+                loading="lazy"
+                alt={`banner ${index + 1}`}
+              />
+            </div>
+          ))}
+        </Carousel>
+      )}
+                {/* mostViewed &&
             <div
               className='w-full h-full'
               onClick={() => {
@@ -98,18 +115,6 @@ export default function BannerCarousel () {
               </div>
             </div>
           */}
-          {bannersToShow.map((banner, index) => (
-            <div key={index + new Date()} className="w-full h-full relative overflow-hidden">
-              <img
-                src={banner.path}
-                className="h-full w-full object-cover inset-0 select-none"
-                loading="lazy"
-                alt={`banner ${index + 1}`}
-              />
-            </div>
-          ))}
-        </Carousel>
-      )}
     </div>
   )
 }
