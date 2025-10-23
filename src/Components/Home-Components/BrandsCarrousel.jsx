@@ -49,7 +49,7 @@ export default function BrandsCarrousel () {
     <Slider {...settings}>
       {brands.map((brand, index) => (
         <section key={index}>
-          <NavLink to={`/search?brand=${brand.name}`} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer w'>
+          <NavLink to={`/search?brand=${brand.brand_name}`} className='flex flex-col items-center relative justify-center gap-y-2 hover:drop-shadow-xl duration-300 cursor-pointer w'>
           <img
             src={brand.image_path.startsWith('http') ? brand.image_path : `${API_URL}/products-images/${brand.image_path.replace(/^.*[\\\/]/, '')}`}
             className='w-28 h-28 rounded-full max-sm:px-1'>
