@@ -79,12 +79,12 @@ export default function CategoriesCarousel () {
               >
                 <NavLink
                   to={`/search/?sub_category=${c.category.trim().toLowerCase()}`}
-                  className="group relative w-[7rem] h-[7rem] max-sm:w-[5rem] max-sm:h-[5rem] my-3 overflow-hidden rounded-3xl border-2 rounded-bl-sm rounded-tr-sm shadow-border border-[#3669ab71] hover:rotate-6 duration-300 hover:rounded-tl-sm hover:rounded-br-sm hover:rounded-tr-3xl hover:rounded-bl-3xl"
+                  className="group relative w-[7rem] h-[7rem] max-sm:w-[5rem] max-sm:h-[5rem] my-3 overflow-hidden rounded-3xl hover:scale-110 border-2 rounded-bl-sm rounded-tr-sm shadow-border border-[#3669ab71] hover:rotate-3 duration-300 hover:rounded-tl-sm hover:rounded-br-sm hover:rounded-tr-3xl hover:rounded-bl-3xl"
                 >
                   <div className="absolute inset-0 bg-page-blue-marine transition-opacity duration-300" />
                   <img
                     src={c.img_url}
-                    className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-[1.2] group-hover:rotate-[6deg] "
+                    className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-[1.5] group-hover:rotate-[3deg]"
                     alt={c.category}
                   />
                 </NavLink>

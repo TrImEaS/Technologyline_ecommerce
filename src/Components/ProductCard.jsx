@@ -26,13 +26,14 @@ export default function ProductCard ({ product }) {
           <img
             src={product.img_url || 'https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg'}
             alt={product.name}
-            className="w-full h-full max-h-[250px] object-contain transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full p-3 max-h-[250px] object-contain transition-transform duration-500 group-hover:scale-105"
             onError={(e) => { e.target.src = 'https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg' }}
           />
 
           { product.brand.toLowerCase() === 'drean' &&
             <img src='https://technologyline.com.ar/banners-images/Assets/DREAN_WEEK.svg' className='absolute h-7 top-3 left-3'/>
           }
+          <img src='https://technologyline.com.ar/banners-images/Assets/cyber2025.webp' className='absolute h-12 top-1 right-0.5'/>
         </header>
 
         {/* Datos */}
