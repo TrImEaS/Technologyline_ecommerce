@@ -5,7 +5,7 @@ export default function Others () {
   useDocumentTitle('Acerca de nosotros')
 
   return (
-    <section className="flex max-md:flex-col bg-red-200 py-10 max-md:gap-0 gap-10 min-h-screen w-4/5">
+    <section className="flex max-md:flex-col py-10 max-md:gap-0 gap-10 min-h-screen w-4/5">
       <div className="flex justify-center items-center w-[30%] h-[600px] max-md:h-full">
 
        {/* Menu full screen */}
