@@ -33,7 +33,7 @@ export default function ProductCard ({ product }) {
           { product.brand.toLowerCase() === 'drean' &&
             <img src='https://technologyline.com.ar/banners-images/Assets/DREAN_WEEK.svg' className='absolute h-7 top-3 left-3'/>
           }
-          <img src='https://technologyline.com.ar/banners-images/Assets/cyber2025.webp' className='absolute h-12 top-1 right-0.5'/>
+          {/* <img src='https://technologyline.com.ar/banners-images/Assets/cyber2025.webp' className='absolute h-12 top-1 right-0.5'/> */}
         </header>
 
         {/* Datos */}
