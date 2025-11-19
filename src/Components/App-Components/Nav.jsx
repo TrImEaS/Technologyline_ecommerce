@@ -81,7 +81,7 @@ export default function Nav () {
 
       <NavLink to='/shipments' className='flex z-50 h-8 text-center max-sm:h-10 gap-2 px-3 max-sm:gap-1 max-sm:px-5 cursor-pointer bg-slate-100 w-full items-center text-slate-900 justify-center text-[14px] max-sm:text-[12px]'>
         <FaArrowUp className='text-[10px] mt-1 animate-bounce'/>
-        <span className='select-none font-medium duration-300'>Envios a todo el pais con precio promocional a las sigueintes localidades</span>
+        <span className='select-none font-medium duration-300'>Envios a todo el pais con precio promocional a las siguientes localidades</span>
         <FaArrowUp className='text-[10px] mt-1 animate-bounce'/>
       </NavLink>
 
