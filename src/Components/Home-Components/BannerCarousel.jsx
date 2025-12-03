@@ -5,6 +5,7 @@ import { useProducts } from '../../Context/ProductsContext'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import axios from 'axios'
 
+// Asegúrate de que API_URL está correctamente definido
 const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV
 
 export default function BannerCarousel () {
@@ -12,7 +13,9 @@ export default function BannerCarousel () {
   const [mobileBanners, setMobileBanners] = useState([])
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 830)
   const { mostViewed } = useProducts()
-  const bannerName = !isMobile ? 'static_baner_home_2.jpg' : 'static_baner_home_mobile_2.jpg'
+
+  // Este es el nombre del banner estático (fondo) que usas para el producto más visto
+  const staticBannerImageName = !isMobile ? 'static_baner_home_2.jpg' : 'static_baner_home_mobile_2.jpg'
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -23,37 +26,16 @@ export default function BannerCarousel () {
   }, [])
 
   const fetchBanners = () => {
-    fetch(`${API_URL}/api/page/getBanners?ts=${Date.now()}`)
+    // Usamos axios para consistencia, aunque fetch también funciona
+    axios.get(`${API_URL}/api/page/getBanners?ts=${Date.now()}`)
       .then(res => {
-        if (!res.ok) throw new Error('Error fetching banners')
-        return res.json()
-      })
-      .then(data => {
+        const data = res.data
         const mobile = data.filter(b => b.name.includes('mobile') && b.path).sort((a, b) => a.position - b.position)
         const desktop = data.filter(b => b.name.includes('desktop') && b.path).sort((a, b) => a.position - b.position)
         setMobileBanners(mobile)
         setDesktopBanners(desktop)
       })
-      .catch(error => console.error(error))
-  }
-
-  const bannersToShow = isMobile ? mobileBanners : desktopBanners
-  const shouldShowCarousel = bannersToShow.length > 0
-
-  // --- FIX: use direct index (no adjustedIndex) and normalize path_to ---
-  const handleClick = (index) => {
-    const banner = bannersToShow[index]
-    if (!banner || !banner.path_to) return
-
-    const target = banner.path_to.trim()
-    // External full URL
-    if (/^https?:\/\//i.test(target)) {
-      window.location.href = target
-      return
-    }
-    // Normalize to absolute internal path (add leading slash if missing)
-    const normalized = target.startsWith('/') ? target : `/${target}`
-    navigate(normalized)
+      .catch(error => console.error('Error fetching banners:', error))
   }
 
   const addViewToProduct = ({ id }) => {
@@ -63,6 +45,58 @@ export default function BannerCarousel () {
         console.log('view updated')
       })
       .catch(e => console.error('Error al sumar view al producto: ', e))
+  }
+
+  // 1. COMBINAR LOS BANNERS (Banners Dinámicos + Banner Estático)
+  const bannersFromApi = isMobile ? mobileBanners : desktopBanners
+
+  // Crea el objeto para el banner del producto más visto, si existe
+  const mostViewedBannerData = mostViewed ? {
+    // Usamos un id que sabemos que no colisionará con los de la API, y una flag
+    id: 'most-viewed-static',
+    isStatic: true,
+    // La ruta del banner estático (fondo)
+    path: `https://technologyline.com.ar/banners-images/${staticBannerImageName}`,
+    // La ruta a la que debe navegar
+    path_to: `/products/?product=${mostViewed.sku}`,
+    product_id: mostViewed.id // El ID para la función addViewToProduct
+  } : null
+
+  // Combina el banner estático (si existe) con los banners de la API
+  const allBannersToShow = [
+    ...(mostViewedBannerData ? [mostViewedBannerData] : []),
+    ...bannersFromApi
+  ]
+
+  const shouldShowCarousel = allBannersToShow.length > 0
+
+  // 2. LÓGICA DE CLICK UNIFICADA
+  const handleClick = (index) => {
+    const banner = allBannersToShow[index]
+
+    if (!banner || !banner.path_to) return
+
+    // Maneja la lógica específica para el banner estático
+    if (banner.isStatic) {
+      // Llama a la función de contador de vistas
+      addViewToProduct({ id: banner.product_id })
+      // Navega internamente
+      navigate(banner.path_to)
+      return
+    }
+
+    // Lógica para banners dinámicos
+    const target = banner.path_to.trim()
+
+    // URL externa
+    if (/^https?:\/\//i.test(target)) {
+      window.location.href = target
+      return
+    }
+
+    // Path interno (lo normaliza)
+    const normalized = target.startsWith('/') ? target : `/${target}`
+    navigate(normalized)
   }
 
   return (
@@ -78,43 +112,36 @@ export default function BannerCarousel () {
           stopOnHover
           swipeable
           emulateTouch
-          onClickItem={handleClick}
+          onClickItem={handleClick} // Usamos el índice directo, que ahora es correcto
           className="cursor-pointer"
         >
-          {bannersToShow.map((banner, index) => (
-            // mejor key único en vez de new Date()
-            <div key={banner.id ?? `${banner.name}-${index}`} className="w-full h-full relative overflow-hidden">
+          {/* 3. Mapeo ÚNICO para todos los banners */}
+          {allBannersToShow.map((banner, index) => (
+            <div
+              key={banner.id ?? `banner-${index}`} // Usamos ID o un key combinado
+              className="w-full h-full relative overflow-hidden"
+            >
               <img
+                // Usa banner.path, que contiene la ruta de la imagen, ya sea estática o dinámica
                 src={banner.path}
                 className="h-full w-full object-cover inset-0 select-none"
                 loading="lazy"
-                alt={`banner ${index + 1}`}
+                alt={banner.isStatic ? 'Banner más visto' : `banner ${index + 1}`}
               />
+
+              {/* Contenido adicional SOLO para el banner estático */}
+              {banner.isStatic && mostViewed && mostViewed.img_url && (
+                <div className='absolute z-[50] rounded-full right-[28%] top-[16%] max-md:right-[25.7%] max-md:top-[10%] text-black w-[15.2%] h-[75%] max-md:w-[20%] max-md:h-[85%] text-3xl font-bold'>
+                  <img
+                    className='w-full h-full rounded-full object-contain'
+                    src={mostViewed.img_url_2 ? mostViewed.img_url_2 : mostViewed.img_url}
+                  />
+                </div>
+              )}
             </div>
           ))}
         </Carousel>
       )}
-                {/* mostViewed &&
-            <div
-              className='w-full h-full'
-              onClick={() => {
-                addViewToProduct({ id: mostViewed.id })
-                navigate(`/products/?product=${mostViewed && mostViewed.sku}`)
-              }
-              }>
-              <div className="w-full h-full cursor-pointer relative overflow-hidden">
-                <img
-                  src={`https://technologyline.com.ar/banners-images/${bannerName}`}
-                  className="h-full w-full object-cover inset-0 select-none"
-                  loading="lazy"
-                  alt={'banner'}
-                />
-                <div className='absolute z-[50] rounded-full right-[28%] top-[16%] max-md:right-[25.7%] max-md:top-[10%] text-black w-[15.2%] h-[75%] max-md:w-[20%] max-md:h-[85%] text-3xl font-bold'>
-                  <img className='w-full h-full rounded-full object-cover' src={mostViewed && mostViewed.img_url_2 ? mostViewed.img_url_2 : mostViewed.img_url} />
-                </div>
-              </div>
-            </div>
-          */}
     </div>
   )
 }

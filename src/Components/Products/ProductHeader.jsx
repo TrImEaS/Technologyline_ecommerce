@@ -50,7 +50,7 @@ export default function ProductHeader ({ product, loading }) {
           SKU: {product.sku}
         </span>
 
-        <h1 className='text-2xl font-semibold max-sm:text-xl'>
+        <h1 className='text-2xl font-semibold max-sm:text-xl mb-5'>
           {product.name.replace(/EAN(?::\s*|\s+)\d{5,}/gi, '')}
         </h1>
 
@@ -59,9 +59,9 @@ export default function ProductHeader ({ product, loading }) {
           : <ImageSlider loadedImages={product.img_urls}/>
         }
 
-        { product.brand.toLowerCase() === 'drean' &&
+        {/* { product.brand.toLowerCase() === 'drean' &&
           <img src='https://technologyline.com.ar/banners-images/Assets/DREAN_WEEK.svg' className='absolute h-8 top-0 right-3'/>
-        }
+        } */}
       </section>
 
       <section className='flex tracking-wider flex-col w-[40%] mt-5 min-h-[620px] max-sm:min-h-[500px] justify-center items-center h-fit max-md:w-full border rounded-lg p-8 max-sm:py-5 sm:mb-10 shadow-lg'>

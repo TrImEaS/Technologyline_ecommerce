@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef } from "react"
-import Slider from "react-slick"
+import React, { useState, useEffect, useRef } from 'react'
+import Slider from 'react-slick'
 import Spinner from './Spinner.jsx'
 
-export default function ImageSlider({ loadedImages }) {
+export default function ImageSlider ({ loadedImages }) {
   const [nav1, setNav1] = useState(null)
   const [nav2, setNav2] = useState(null)
   const [zoomedImage, setZoomedImage] = useState(null)
   const [showSecondSlider, setShowSecondSlider] = useState(true)
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
 
   let sliderRef1 = useRef(null)
   let sliderRef2 = useRef(null)
@@ -20,7 +20,7 @@ export default function ImageSlider({ loadedImages }) {
 
   useEffect(() => {
     if (loadedImages.length === 1) {
-      setShowSecondSlider(false) 
+      setShowSecondSlider(false)
       setLoading(false)
     } else {
       setShowSecondSlider(true)
@@ -37,7 +37,7 @@ export default function ImageSlider({ loadedImages }) {
     setZoomedImage(null)
     document.body.style.overflowY = 'visible'
   }
-  
+
   const handleImageError = () => {
     setError(true)
     setLoading(false)
@@ -45,33 +45,33 @@ export default function ImageSlider({ loadedImages }) {
 
   return (
     <div className="min-h-[300px]">
-      {loadedImages.length === 1 
-      ? (
+      {loadedImages.length === 1
+        ? (
         <div className="h-full flex items-center justify-center w-full max-w-[688px]" onClick={() => handleZoomImage(loadedImages[0])}>
-          {loading 
-          ? <Spinner />
-          : <img
+          {loading
+            ? <Spinner />
+            : <img
               src={error ? 'https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg' : loadedImages[0]}
               onError={handleImageError}
               loading="eager"
               alt="Image 1"
-              className="object-contain rounded-lg cursor-zoom-in min-h-[300px]"
+              className="object-contain rounded-lg cursor-zoom-in min-h-[300px] max-w-[500px] mx-auto"
             />
         }
         </div>
-      ) 
-      : (
+          )
+        : (
         <div className="slider-container min-h-[300px] w-full max-w-[688px]">
           <Slider
             asNavFor={showSecondSlider ? nav2 : null}
             ref={(slider) => (sliderRef1 = slider)}
             arrows={false}
             beforeChange={(oldIndex, newIndex) => {
-              setLoading(true);
-              setError(false);
+              setLoading(true)
+              setError(false)
             }}
             afterChange={(currentSlide) => {
-              setLoading(false);
+              setLoading(false)
             }}
           >
             {loadedImages.map((image, index) => (
@@ -80,13 +80,13 @@ export default function ImageSlider({ loadedImages }) {
                   src={image}
                   loading="eager"
                   alt={`Image ${index + 1}`}
-                  className="object-cover rounded-lg w-full cursor-zoom-in"
+                  className="object-cover rounded-lg w-full cursor-zoom-in max-w-[500px] mx-auto"
                 />
               </div>
             ))}
           </Slider>
         </div>
-      )}
+          )}
 
       {showSecondSlider && (
         <div className="slider-container">
@@ -106,7 +106,7 @@ export default function ImageSlider({ loadedImages }) {
                   src={image}
                   loading="eager"
                   alt={`Image ${index + 1}`}
-                  className="object-contain "
+                  className="object-contain max-w-[100px]"
                 />
               </div>
             ))}

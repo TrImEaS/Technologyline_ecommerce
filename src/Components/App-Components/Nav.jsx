@@ -19,7 +19,7 @@ export default function Nav () {
   const [timeLeft, setTimeLeft] = useState({ days: '00', hours: '00', minutes: '00', seconds: '00', expired: false })
 
   useEffect(() => {
-    const target = new Date('2025-11-21T00:00:00')
+    const target = new Date('2025-11-26T00:00:00')
     let timerId = null
 
     const update = () => {
@@ -87,7 +87,7 @@ export default function Nav () {
 
       <section className='flex gap-x-5 max-sm:gap-x-2 max-sm:max-h-[100px] justify-between items-center h-28 w-3/4 max-lg:w-full px-2 max-sm:px-0'>
         <NavLink to='/' className='h-[100px] min-w-[200px] flex items-center max-xl:justify-center'>
-          <img src={'https://technologyline.com.ar/banners-images/Assets/logo-tline.svg'} alt="company-logo" className='w-full max-sm:max-w-[170px] max-w-[200px] pb-3'/>
+          <img src={'https://technologyline.com.ar/banners-images/Assets/logo-tline.svg'} alt="company-logo" className='w-full max-sm:max-w-[170px] max-w-[200px] pt-3'/>
         </NavLink>
 
         {/* Search input */}
