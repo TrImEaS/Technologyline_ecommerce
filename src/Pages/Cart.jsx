@@ -116,7 +116,7 @@ export default function Cart () {
         movimiento_numero: orderMovement,
         client_email: userData.email,
         company: 'Technology line',
-        footer_img: 'https://technologyline.com.ar/banners-images/Assets/logo-tline.svg',
+        footer_img: 'https://technologyline.com.ar/banners-images/Assets/logo-tlineNew.svg',
         datos_cliente: {
           nombre_completo: clientData.fullname,
           dni: clientData.dni,

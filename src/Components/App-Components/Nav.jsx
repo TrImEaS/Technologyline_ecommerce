@@ -65,7 +65,9 @@ export default function Nav () {
   return (
     <nav className='z-50 flex flex-col w-full relative items-center bg-color'>
       {/* <HotSale/> */}
-      <section className='flex z-50 h-8 text-center max-sm:h-10 gap-2 px-3 max-sm:gap-1 max-sm:px-5 cursor-pointer bg-[#111] w-full items-center text-slate-100 justify-center text-[14px] max-sm:text-[12px]'>
+
+      {/* BlackFriday */}
+      {/* <section className='flex z-50 h-8 text-center max-sm:h-10 gap-2 px-3 max-sm:gap-1 max-sm:px-5 cursor-pointer bg-[#111] w-full items-center text-slate-100 justify-center text-[14px] max-sm:text-[12px]'>
         {
           timeLeft.expired
             ? (
@@ -77,7 +79,7 @@ export default function Nav () {
                 </span>
               )
         }
-      </section>
+      </section> */}
 
       <NavLink to='/shipments' className='flex z-50 h-8 text-center max-sm:h-10 gap-2 px-3 max-sm:gap-1 max-sm:px-5 cursor-pointer bg-slate-100 w-full items-center text-slate-900 justify-center text-[14px] max-sm:text-[12px]'>
         <FaArrowUp className='text-[10px] mt-1 animate-bounce'/>
@@ -87,7 +89,7 @@ export default function Nav () {
 
       <section className='flex gap-x-5 max-sm:gap-x-2 max-sm:max-h-[100px] justify-between items-center h-28 w-3/4 max-lg:w-full px-2 max-sm:px-0'>
         <NavLink to='/' className='h-[100px] min-w-[200px] flex items-center max-xl:justify-center'>
-          <img src={'https://technologyline.com.ar/banners-images/Assets/logo-tline.svg'} alt="company-logo" className='w-full max-sm:max-w-[170px] max-w-[200px] pt-3'/>
+          <img src={'https://technologyline.com.ar/banners-images/Assets/logo-tlineNew.svg'} alt="company-logo" className='w-full max-sm:max-w-[170px] max-w-[200px] pt-3'/>
         </NavLink>
 
         {/* Search input */}

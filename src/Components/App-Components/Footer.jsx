@@ -106,7 +106,7 @@ export default function Footer () {
       <section className="relative flex flex-col xl:flex-row items-center justify-center w-full box-border bg-color text-white gap-8 pb-8 px-4 md:px-6">
         <article className="flex w-full max-w-[500px] flex-col justify-center items-center">
           <img
-            src="https://technologyline.com.ar/banners-images/Assets/logo-tline.svg"
+            src="https://technologyline.com.ar/banners-images/Assets/logo-tlineNew.svg"
             className="h-[180px] object-contain max-w-[280px] md:max-w-[300px] hover:opacity-90 transition-opacity duration-300 pr-10"
           />
           <ul className="flex flex-col text-page-gray-light text-center lg:text-left space-y-1">
