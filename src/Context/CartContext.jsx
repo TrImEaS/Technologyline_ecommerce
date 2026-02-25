@@ -50,6 +50,7 @@ export const CartProvider = ({ children }) => {
       category: product.category,
       sub_category: product.sub_category,
       brand: product.brand,
+      volume: product.volume,
       img_url: product.img_urls ? product.img_urls[0] : product.img_url,
       price_list_1: product.price_list_1,
       price_list_2: product.price_list_2,
@@ -63,7 +64,6 @@ export const CartProvider = ({ children }) => {
 
     setCartProducts([...cartProducts, newProduct])
     showSuccessModal(newProduct)
-    console.log('unidad nueva agregada')
   }
 
   const completeOrder = ({ product, quantity_selected = 1 }) => {
@@ -88,6 +88,7 @@ export const CartProvider = ({ children }) => {
       quantity_selected: parseInt(quantity_selected),
       category: product.category,
       sub_category: product.sub_category,
+      volume: product.volume,
       brand: product.brand,
       img_url: product.img_urls ? product.img_urls[0] : product.img_url,
       price_list_1: product.price_list_1,

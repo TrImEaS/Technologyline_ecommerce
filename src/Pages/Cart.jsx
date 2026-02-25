@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useCart } from '../Context/CartContext'
-import { FaInfoCircle, FaShippingFast, FaTrash } from 'react-icons/fa'
+import { FaExclamationTriangle, FaInfoCircle, FaShippingFast, FaTrash } from 'react-icons/fa'
 import { NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
@@ -10,12 +10,15 @@ import useDocumentTitle from '../Utils/useDocumentTitle'
 const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV
 
 export default function Cart () {
-  const { userData, userIsLoged } = useAuth()
+  const { userData, userIsLoged, CPValues, calculateShipping } = useAuth()
   const { cartProducts, getTotalOfProducts, deleteOneProductOfCart, addProductToCart, deleteProductOfCart, cleanCart } = useCart()
   const [price, setPrice] = useState(1)
   const [address, setAddress] = useState('')
   const [postalCode, setPostalCode] = useState('')
   const [shipment, setShipment] = useState(0)
+  const [shippingResult, setShippingResult] = useState(null)
+  const [loadingShipping, setLoadingShipping] = useState(false)
+  const [notFound, setNotFound] = useState(false)
   const [clientData, setClientData] = useState({
     fullname: '',
     dni: '',
@@ -25,11 +28,62 @@ export default function Cart () {
     postalCode: '',
     phone: ''
   })
+
   const navigate = useNavigate()
 
   useDocumentTitle('Carrito de compras')
 
-  const totalPrice = cartProducts.reduce((acc, p) => acc + (parseFloat(p[`price_list_${price}`]) * +p.quantity_selected), 0)
+  // 1. Calculamos el volumen total de todos los productos en el carrito
+  const totalVolume = cartProducts.reduce((acc, p) => acc + (parseFloat(p.volume || 0) * +p.quantity_selected), 0);
+
+  // 2. Calculamos el total base de los productos según la lista de precios seleccionada
+  const subtotalProducts = cartProducts.reduce((acc, p) => acc + (parseFloat(p[`price_list_${price}`]) * +p.quantity_selected), 0);
+
+  // 3. RECARGO: Si elige [3, 4, 5, 6], creamos un multiplicador del 1.02 (2%) solo para el envío
+  const shippingSurcharge = [3, 4, 5, 6].includes(price) ? 1.02 : 1.0;
+
+  // 4. Calculamos el valor final del envío con el recargo aplicado (si existe resultado de envío)
+  const finalShippingValue = shippingResult ? (shippingResult.total * shippingSurcharge) : 0;
+
+  // 5. El TOTAL FINAL es la suma de los productos + el envío ya recargado
+  const totalPrice = subtotalProducts + finalShippingValue;
+
+  // const totalPrice = cartProducts.reduce((acc, p) => acc + (parseFloat(p[`price_list_${price}`]) * +p.quantity_selected), 0)
+
+  useEffect(() => {
+    // Solo calculamos si la opción es 1 (Factura) o 2 (Domicilio)
+    if (shipment === 1 || shipment === 2) {
+      const cpToCalculate = shipment === 1 ? clientData.postalCode : postalCode
+      
+      if (!cpToCalculate || cpToCalculate.length < 4) {
+        setShippingResult(null)
+        return
+      }
+
+      setLoadingShipping(true)
+      setNotFound(false)
+
+      const delayDebounceFn = setTimeout(() => {
+        // Usamos el totalVolume calculado arriba
+        const result = calculateShipping(totalVolume, cpToCalculate, CPValues)
+
+        if (result) {
+          setShippingResult(result)
+          setNotFound(false)
+        } else {
+          setShippingResult(null)
+          setNotFound(cpToCalculate.length >= 4)
+        }
+        setLoadingShipping(false)
+      }, 800)
+
+      return () => clearTimeout(delayDebounceFn)
+    } else {
+      // Si retira en local o no eligió nada, limpiamos
+      setShippingResult(null)
+      setNotFound(false)
+    }
+  }, [shipment, postalCode, clientData.postalCode, totalVolume, CPValues])
 
   useEffect(() => {
     if (userData.email) {
@@ -419,71 +473,82 @@ export default function Cart () {
               </div>
             </fieldset>
 
-            {
-              shipment === 1
-                ? (
-                <p className="flex pt-1 items-center gap-2">
-                  <b className="bg-yellow-400 rounded-full mb-[1px] text-white border-yellow-400 border-2 text-lg"><FaInfoCircle/></b>
-                  <span className="text-sm text-gray-700 tracking-wider"> El envio sera cotizado y compartido con usted una vez concretado el pedido</span>
-                </p>
-                  )
-                : shipment === 2
-                  ? (
-                <div className="pt-3 flex flex-col gap-3">
-                  <p className="flex pt-1 items-center gap-2">
-                    <b className="bg-yellow-400 rounded-full mb-[1px] text-white border-yellow-400 border-2 text-lg"><FaInfoCircle/></b>
-                    <span className="text-sm text-gray-700 tracking-wider"> El envio sera cotizado y compartido con usted una vez concretado el pedido</span>
-                  </p>
+            {shipment === 1 || shipment === 2 ? (
+              <div className='mt-4 max-w-[400px] space-y-3'>
+                {shipment === 2 && (
+                  <div className="flex flex-col gap-3">
+                    <label htmlFor="Codigo postal" className="relative flex rounded-md items-center px-2 max-w-[580px] border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+                      <input
+                        type="number"
+                        id="Codigo postal"
+                        value={postalCode}
+                        onKeyDown={(e) => ['.', ',', '-', 'e'].includes(e.key) && e.preventDefault()}
+                        onChange={(e) => setPostalCode(e.target.value)}
+                        className="peer bg-transparent border-transparent w-full h-14 px-3 outline-none"
+                        placeholder="Codigo postal"
+                      />
+                      <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                        Codigo postal de envío <b>*</b>
+                      </span>
+                      <FaShippingFast className="text-2xl text-page-blue-normal"/>
+                    </label>
 
-                  <label htmlFor="Codigo postal" className="relative flex rounded-md items-center px-2 max-w-[580px] border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                    <input
-                      type="text"
-                      id="Codigo postal"
-                      value={postalCode}
-                      onChange={(e) => setPostalCode(e.target.value)}
-                      className="peer bg-transparent border-transparent w-full placeholder-transparent h-14 px-3 focus:ring-0 placeholder:text-xs outline-none"
-                      placeholder="Codigo postal"
-                    />
+                    <label htmlFor="Direccion" className="relative flex rounded-md items-center px-2 max-w-[580px] border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+                      <input
+                        type="text"
+                        id="Direccion"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        className="peer bg-transparent border-transparent w-full h-14 px-3 outline-none"
+                        placeholder="Direccion"
+                      />
+                      <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                        Direccion de entrega <b>*</b>
+                      </span>
+                    </label>
+                  </div>
+                )}
 
-                    <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                      Codigo postal
-                    </span>
-
-                    <FaShippingFast className="text-2xl"/>
-                  </label>
-
-                  <label htmlFor="Direccion" className="relative flex rounded-md items-center px-2 max-w-[580px] border border-gray-200 shadow-xs focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                    <input
-                      type="text"
-                      id="Direccion"
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                      className="peer bg-transparent border-transparent w-full placeholder-transparent h-14 px-3 focus:ring-0 placeholder:text-xs outline-none"
-                      placeholder="Direccion"
-                    />
-
-                    <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                      Direccion <b>*</b>
-                    </span>
-                  </label>
+                {/* VISUALIZACIÓN DEL RESULTADO DEL ENVÍO */}
+                <div className='bg-slate-50 border border-slate-200 rounded-xl overflow-hidden'>
+                  <div className='p-4 min-h-[60px] flex items-center justify-center'>
+                    {loadingShipping ? (
+                      <span className='text-xs text-slate-400 animate-pulse'>Calculando costo de envío...</span>
+                    ) : notFound ? (
+                      <div className='flex items-center gap-2 text-red-600'>
+                        <FaExclamationTriangle />
+                        <span className='text-xs font-bold'>No llegamos a esa zona con estos productos.</span>
+                      </div>
+                    ) : shippingResult ? (
+                      <div className='w-full flex flex-col gap-1'>
+                        <div className='flex justify-between items-center'>
+                          <span className='text-sm text-slate-500 uppercase font-bold tracking-tighter'>Costo de Envío:</span>
+                          <span className='text-lg font-black text-page-blue-normal'>
+                            ${shippingSurcharge ? (shippingResult.total * shippingSurcharge).toLocaleString('es-AR', { minimumFractionDigits: 2 }) : shippingResult.total.toLocaleString('es-AR', { minimumFractionDigits: 2 })}
+                          </span>
+                        </div>
+                        <p className='text-[12px] text-slate-500'>
+                          Entrega estimada: <b>{shippingResult.time} días hábiles</b> a CP {shipment === 1 ? clientData.postalCode : postalCode}.
+                        </p>
+                      </div>
+                    ) : (
+                      <p className='text-xs text-slate-400 italic'>Ingresá un CP para cotizar el envío.</p>
+                    )}
+                  </div>
                 </div>
-                    )
-                  : shipment === 3
-                    ? (
-                <article className="flex tracking-tight flex-col gap-3 pt-3">
-                  <p className="flex flex-col text-gray-800">
-                    <span><b>(*) Direccion:</b> Roma 560 (unidad 8), Versalles, Liniers</span>
-                    <span><b>(*) Horarios:</b> Lunes a viernes de 09:00 a 18:00hs</span>
-                  </p>
-
-                  <p className="flex items-center gap-2">
-                    <b className="bg-yellow-400 rounded-full text-white border-yellow-400 border-2 text-lg"><FaInfoCircle/></b>
-                    <span className="text-[14px] text-gray-700 tracking-wider">(La fecha y horario para retirar se debe acordar con el vendedor)</span>
-                  </p>
-                </article>
-                      )
-                    : ''
-            }
+              </div>
+            ) : shipment === 3 ? (
+              <article className="flex tracking-tight flex-col gap-3 pt-3">
+                <p className="flex flex-col text-gray-800 text-sm">
+                  <span><b>(*) Direccion:</b> Roma 560 (unidad 8), Versalles, Liniers</span>
+                  <span><b>(*) Horarios:</b> Lunes a viernes de 09:00 a 18:00hs</span>
+                </p>
+                <div className='flex items-center gap-2 bg-blue-50 p-2 rounded'>
+                  <FaInfoCircle className='text-page-blue-normal'/>
+                  <span className="text-[12px] text-gray-700 tracking-wider">Sin costo adicional por retiro.</span>
+                </div>
+              </article>
+            ) : null}
           </section>
 
           <section className="flex flex-col rounded-lg border gap-3 shadow-lg p-5 max-sm:w-[90%] w-[80%]">

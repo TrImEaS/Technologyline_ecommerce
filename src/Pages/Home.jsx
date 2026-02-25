@@ -8,9 +8,11 @@ import BrandsCarrousel from '../Components/Home-Components/BrandsCarrousel.jsx'
 import useDocumentTitle from '../Utils/useDocumentTitle'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { NavLink } from 'react-router-dom'
+import { useAuth } from '../Context/AuthContext.jsx'
 
 export default function Home () {
   const { products, loading } = useProducts()
+  const { postalCode } = useAuth()
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 830)
   const bannerName = !isMobile ? 'https://technologyline.com.ar/banners-images/Assets/banner_desktop_1_1752775213666.webp' : 'https://technologyline.com.ar/banners-images/Assets/banner_mobile_1_1752775192695.webp'
 
