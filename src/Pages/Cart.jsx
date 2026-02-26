@@ -549,9 +549,6 @@ export default function Cart () {
                         <div className='flex justify-between items-center'>
                           <div className='flex flex-col'>
                             <span className='text-xs text-slate-500 uppercase font-bold tracking-tighter'>Costo de Envío:</span>
-                            {shippingSurcharge > 1 && (
-                              <span className='text-[9px] text-orange-600 font-bold uppercase'>+2% recargo cuotas</span>
-                            )}
                           </div>
                           <span className='text-lg font-black text-page-blue-normal'>
                             ${(shippingResult.total * shippingSurcharge).toLocaleString('es-AR', { minimumFractionDigits: 2 })}
