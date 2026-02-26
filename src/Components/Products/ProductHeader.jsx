@@ -14,20 +14,27 @@ export default function ProductHeader ({ product, loading }) {
   const [shippingResult, setShippingResult] = useState(null);
   const [loadingShipping, setLoadingShipping] = useState(false);
   const [notFound, setNotFound] = useState(false);
+  const hasNoVolume = !product.volume || parseFloat(product.volume) === 0 || product.volume === '';
 
   useEffect(() => {
+    // Si no hay volumen, limpiamos estados y no calculamos
+    if (hasNoVolume) {
+      setShippingResult(null);
+      setNotFound(false);
+      return;
+    }
+
     if (userCP.length < 4) {
       setShippingResult(null);
       setNotFound(false);
       return;
     }
 
-    // Iniciamos la carga
     setLoadingShipping(true);
     setNotFound(false);
 
-    // Simulamos un pequeño delay de 800ms para el "efecto real" y no saturar
     const delayDebounceFn = setTimeout(() => {
+      // IMPORTANTE: Asegúrate de pasar 'userCP' como segundo argumento
       const result = calculateShipping(product.volume, userCP, CPValues);
 
       if (result) {
@@ -41,7 +48,7 @@ export default function ProductHeader ({ product, loading }) {
     }, 800);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [userCP, CPValues, product.volume]);
+  }, [userCP, CPValues, product.volume, hasNoVolume]);
 
   const handleStockQuantity = () => {
     const quantity = product.stock
@@ -227,6 +234,21 @@ export default function ProductHeader ({ product, loading }) {
             {loadingShipping ? (
               <div className='flex flex-col items-center gap-2'>
                 <span className='text-[10px] text-slate-400 animate-pulse'>Calculando costos...</span>
+              </div>
+            ) : hasNoVolume ? (
+              /* MENSAJE DE WHATSAPP SI NO HAY VOLUMEN */
+              <div className='flex flex-col items-center gap-2 bg-amber-50 p-3 rounded-lg w-full border border-amber-100'>
+                <p className='text-[11px] font-bold text-amber-700 text-center uppercase tracking-tighter leading-tight'>
+                  Lo sentimos, no pudimos calcular el envío automáticamente
+                </p>
+                <a 
+                  href="https://wa.me/5491131019901" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className='text-[10px] bg-green-500 text-white px-4 py-1.5 rounded-full font-bold hover:bg-green-600 transition-colors shadow-sm'
+                >
+                  CONSULTAR POR WHATSAPP
+                </a>
               </div>
             ) : notFound ? (
               <div className='flex items-center gap-3 bg-red-50 p-3 rounded-lg w-full border border-red-100'>
