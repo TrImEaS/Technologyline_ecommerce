@@ -33,24 +33,29 @@ export default function Cart () {
 
   useDocumentTitle('Carrito de compras')
 
-  // 1. Calculamos el volumen total de todos los productos en el carrito
+  // 1. Calculamos el volumen total
   const totalVolume = cartProducts.reduce((acc, p) => acc + (parseFloat(p.volume || 0) * +p.quantity_selected), 0);
 
-  // 2. Calculamos el total base de los productos según la lista de precios seleccionada
-  const subtotalProducts = cartProducts.reduce((acc, p) => acc + (parseFloat(p[`price_list_${price}`]) * +p.quantity_selected), 0);
+  // 2. Verificamos si hay algún producto con volumen 0 o no definido
+  const hasMissingVolume = cartProducts.some(p => !p.volume || parseFloat(p.volume) === 0);
 
-  // 3. RECARGO: Si elige [3, 4, 5, 6], creamos un multiplicador del 1.02 (2%) solo para el envío
+  // 3. Recargo del 2% solo si elige cuotas
   const shippingSurcharge = [3, 4, 5, 6].includes(price) ? 1.02 : 1.0;
 
-  // 4. Calculamos el valor final del envío con el recargo aplicado (si existe resultado de envío)
+  // 4. Valores finales para el total
   const finalShippingValue = shippingResult ? (shippingResult.total * shippingSurcharge) : 0;
-
-  // 5. El TOTAL FINAL es la suma de los productos + el envío ya recargado
+  const subtotalProducts = cartProducts.reduce((acc, p) => acc + (parseFloat(p[`price_list_${price}`]) * +p.quantity_selected), 0);
   const totalPrice = subtotalProducts + finalShippingValue;
 
   // const totalPrice = cartProducts.reduce((acc, p) => acc + (parseFloat(p[`price_list_${price}`]) * +p.quantity_selected), 0)
 
   useEffect(() => {
+    if (hasMissingVolume) {
+      setShippingResult(null);
+      setLoadingShipping(false);
+      return;
+    }
+
     // Solo calculamos si la opción es 1 (Factura) o 2 (Domicilio)
     if (shipment === 1 || shipment === 2) {
       const cpToCalculate = shipment === 1 ? clientData.postalCode : postalCode
@@ -510,21 +515,46 @@ export default function Cart () {
                 )}
 
                 {/* VISUALIZACIÓN DEL RESULTADO DEL ENVÍO */}
-                <div className='bg-slate-50 border border-slate-200 rounded-xl overflow-hidden'>
-                  <div className='p-4 min-h-[60px] flex items-center justify-center'>
+                <div className='bg-slate-50 border border-slate-200 rounded-xl overflow-hidden shadow-sm'>
+                  <div className='p-4 min-h-[80px] flex items-center justify-center'>
                     {loadingShipping ? (
-                      <span className='text-xs text-slate-400 animate-pulse'>Calculando costo de envío...</span>
+                      <div className='flex flex-col items-center gap-2'>
+                        <span className='text-[10px] text-slate-400 animate-pulse'>Calculando costo de envío...</span>
+                      </div>
+                    ) : hasMissingVolume ? (
+                      /* CASO: PRODUCTO SIN VOLUMEN CARGADO */
+                      <div className='flex flex-col items-center gap-2 bg-amber-50 p-3 rounded-lg w-full border border-amber-100'>
+                        <p className='text-xs font-bold text-amber-700 text-center uppercase tracking-tighter leading-tight'>
+                          No podemos calcular el costo de envío automáticamente
+                        </p>
+                        <a 
+                          href="https://wa.me/5491131019901" 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className='text-[11px] bg-green-500 text-white px-4 py-1.5 rounded-full font-bold hover:bg-green-600 transition-colors shadow-sm'
+                        >
+                          CONSULTA POR WPP
+                        </a>
+                      </div>
                     ) : notFound ? (
-                      <div className='flex items-center gap-2 text-red-600'>
-                        <FaExclamationTriangle />
-                        <span className='text-xs font-bold'>No llegamos a esa zona con estos productos.</span>
+                      <div className='flex items-center gap-3 bg-red-50 p-3 rounded-lg w-full border border-red-100'>
+                        <FaExclamationTriangle className='text-red-400 text-xl' />
+                        <div>
+                          <p className='text-xs font-bold text-red-700'>Lo sentimos, no llegamos a tu zona.</p>
+                          <p className='text-[10px] text-red-500'>Probá con otro código postal cercano.</p>
+                        </div>
                       </div>
                     ) : shippingResult ? (
                       <div className='w-full flex flex-col gap-1'>
                         <div className='flex justify-between items-center'>
-                          <span className='text-sm text-slate-500 uppercase font-bold tracking-tighter'>Costo de Envío:</span>
+                          <div className='flex flex-col'>
+                            <span className='text-xs text-slate-500 uppercase font-bold tracking-tighter'>Costo de Envío:</span>
+                            {shippingSurcharge > 1 && (
+                              <span className='text-[9px] text-orange-600 font-bold uppercase'>+2% recargo cuotas</span>
+                            )}
+                          </div>
                           <span className='text-lg font-black text-page-blue-normal'>
-                            ${shippingSurcharge ? (shippingResult.total * shippingSurcharge).toLocaleString('es-AR', { minimumFractionDigits: 2 }) : shippingResult.total.toLocaleString('es-AR', { minimumFractionDigits: 2 })}
+                            ${(shippingResult.total * shippingSurcharge).toLocaleString('es-AR', { minimumFractionDigits: 2 })}
                           </span>
                         </div>
                         <p className='text-[12px] text-slate-500'>
