@@ -10,9 +10,9 @@ export default function Footer () {
   const [email, setEmail] = useState('')
 
   const handleFormulario = async (esQueja) => {
-    const titulo = esQueja ? 'Libro de quejas' : 'Botón de Arrepentimiento';
+    const titulo = esQueja ? 'Libro de quejas online, agradecimientos, sugerencias y reclamos' : 'Botón de Arrepentimiento';
     const subTitulo = esQueja
-      ? 'Por favor, completa tus datos para dejar tu sugerencia o queja.'
+      ? 'Por favor, completa tus datos para dejar tu agradecimiento, sugerencia o reclamo.'
       : 'De acuerdo a la Ley 24.240, tienes 10 días corridos para revocar tu compra/pedido.';
 
     const { value: data } = await Swal.fire({
@@ -62,17 +62,21 @@ export default function Footer () {
           return false;
         }
 
-        return { nombre, email, telefono, pedido, comentarios, company: 'Real Color SRL', dni };
+        return { nombre, email, telefono, pedido, comentarios, company: 'Technologyline SRL', dni };
       }
     });
 
     if (data) {
       try {
-        await axios.post(`${API_URL}/api/page/regretData`, {
+        const res = await axios.post(`${API_URL}/api/page/regretData`, {
           formData: { ...data },
           esQueja: esQueja // true o false
         });
-        Swal.fire('¡Enviado!', 'Tu solicitud ha sido enviada correctamente.', 'success');
+
+        if(res.status === 200) 
+          return Swal.fire('¡Enviado!', `Tu solicitud ha sido enviada correctamente, tu numero de reclamo es: ${res.data.codigo}`, 'success');
+
+        return Swal.fire('Error', 'Hubo un problema al enviar la solicitud, intente nuevamente.', 'error');
       } catch (error) {
         console.error(error);
         Swal.fire('Error', 'Hubo un problema al enviar la solicitud.', 'error');
@@ -243,10 +247,10 @@ export default function Footer () {
           {/* Other information */}
           <article className="min-w-[200px] md:min-h-[170px] flex flex-col gap-y-2 text-page-gray-light text-center lg:text-left">
             <h1 className="font-bold text-white text-lg border-b border-page-lightblue pb-2">
-              Ayuda y información
+              Ayuda e información
             </h1>
             <NavLink to={'/others/centro_de_ayuda'} className="hover:text-white transition-colors duration-300 hover:translate-x-1 transform">
-              Centro de ayuda
+              Centro de ayuda / Post venta
             </NavLink>
             <NavLink to={'/others/garantia'} className="hover:text-white transition-colors duration-300 hover:translate-x-1 transform">
               Garantia
@@ -262,30 +266,29 @@ export default function Footer () {
             <p className="font-bold text-gray-50 text-center md:text-left">¿Necesitas ayuda adicional?</p>
             
             <div className="flex flex-col sm:flex-row gap-3">
+              {/* Botón Defensa al Consumidor */}
+              <a 
+                href="https://buenosaires.gob.ar/jefaturadegabinete/atencion-ciudadana-y-gestion-comunal/defensa-al-consumidor" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-sky-600 max-w-[500px] hover:bg-sky-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
+              >
+                <FaShieldAlt className='min-w-5 h-5'/> Dirección General de Defensa y Protección al Consumidor: Para consultas y/o denuncias ingrese aquí
+              </a>
               {/* Botón Quejas */}
               <button 
                 onClick={() => handleFormulario(true)} // Llama unificada
                 className="flex items-center gap-2 bg-gray-800 hover:bg-gray-950 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
               >
-                <FaBook /> Libro de quejas
+                <FaBook className='min-w-5 h-5'/> Libro de quejas, agradecimientos, sugerencias y reclamos
               </button>
-
-              {/* Botón Defensa al Consumidor */}
-              <a 
-                href="https://buenosaires.gob.ar/jefaturadegabinete/atencion-ciudadana-y-gestioncomunal/defensa-al-consumidor" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
-              >
-                <FaShieldAlt /> Defensa al Consumidor
-              </a>
 
               {/* BOTÓN ARREPENTIMIENTO MEJORADO */}
               <button 
                 onClick={() => handleFormulario(false)} // Llama unificada
                 className="flex items-center gap-2 bg-red-500 hover:bg-red-500/80 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
               >
-                <FaShieldAlt /> Botón de Arrepentimiento
+                <FaShieldAlt className='min-w-5 h-5'/> Botón de Arrepentimiento
               </button>
             </div>
           </div>
