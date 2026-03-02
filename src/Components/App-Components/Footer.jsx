@@ -1,12 +1,85 @@
 import { MdOutlineEmail } from 'react-icons/md'
 import { NavLink } from 'react-router-dom'
-import { FaInstagram, FaAngleUp } from 'react-icons/fa'
+import { FaInstagram, FaAngleUp, FaBook, FaShieldAlt } from 'react-icons/fa'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
+import axios from 'axios'
 const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV
 
 export default function Footer () {
   const [email, setEmail] = useState('')
+
+  const handleFormulario = async (esQueja) => {
+    const titulo = esQueja ? 'Libro de quejas' : 'Botón de Arrepentimiento';
+    const subTitulo = esQueja
+      ? 'Por favor, completa tus datos para dejar tu sugerencia o queja.'
+      : 'De acuerdo a la Ley 24.240, tienes 10 días corridos para revocar tu compra/pedido.';
+
+    const { value: data } = await Swal.fire({
+      title: `<strong>${titulo}</strong>`,
+      icon: esQueja ? 'question' : 'info',
+      html:
+        `<p style="font-size: 0.95rem; margin-bottom: 20px; color: #555; text-align: left;">${subTitulo}</p>` +
+        '<div style="text-align: left; display: flex; flex-direction: column; gap: 8px;">' +
+          // --- Labels más chicos (font-size: 0.85rem) ---
+          '<div><label style="font-weight:bold; font-size: 0.85rem; display:block; margin-bottom:2px;">Nombre Completo (*)</label>' +
+          '<input id="swal-input-name" class="swal2-input" style="margin:0; width:95%;" placeholder="Juan Pérez"></div>' +
+
+          '<div><label style="font-weight:bold; font-size: 0.85rem; display:block; margin-bottom:2px;">DNI (*)</label>' +
+          '<input id="swal-input-dni" class="swal2-input" style="margin:0; width:95%;" placeholder="55345678"></div>' +
+
+          '<div><label style="font-weight:bold; font-size: 0.85rem; display:block; margin-bottom:2px;">Email (*)</label>' +
+          '<input id="swal-input-email" class="swal2-input" style="margin:0; width:95%;" placeholder="juan@email.com"></div>' +
+          
+          '<div><label style="font-weight:bold; font-size: 0.85rem; display:block; margin-bottom:2px;">Teléfono</label>' +
+          '<input id="swal-input-phone" class="swal2-input" style="margin:0; width:95%;" placeholder="1112345678"></div>' +
+          
+          // --- Campo de Orden condicional ---
+          (!esQueja ? 
+            '<div><label style="font-weight:bold; font-size: 0.85rem; display:block; margin-bottom:2px;">Número de pedido/factura (*)</label>' +
+            '<input id="swal-input-order" class="swal2-input" style="margin:0; width:95%;" placeholder="12345"></div>' 
+          : '') +
+          
+          '<div><label style="font-weight:bold; font-size: 0.85rem; display:block; margin-bottom:2px;">' + (esQueja ? 'Queja/Sugerencia' : 'Motivo') + ' (*)</label>' +
+          '<textarea id="swal-input-reason" class="swal2-textarea" style="margin:0; width:95%;" placeholder="Detalle aquí..."></textarea></div>' +
+        '</div>',
+      focusConfirm: false,
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        const nombre = document.getElementById('swal-input-name').value;
+        const email = document.getElementById('swal-input-email').value;
+        const telefono = document.getElementById('swal-input-phone').value;
+        const comentarios = document.getElementById('swal-input-reason').value;
+        const dni = document.getElementById('swal-input-dni').value;
+        const orderInput = document.getElementById('swal-input-order');
+        const pedido = orderInput ? orderInput.value : '-'; // 'N/A' si es queja
+
+        // --- Validación Dinámica ---
+        if (!nombre || !email || !telefono || !comentarios || (!esQueja && !pedido)) {
+          Swal.showValidationMessage('Por favor completa todos los campos obligatorios');
+          return false;
+        }
+
+        return { nombre, email, telefono, pedido, comentarios, company: 'Real Color SRL', dni };
+      }
+    });
+
+    if (data) {
+      try {
+        await axios.post(`${API_URL}/api/page/regretData`, {
+          formData: { ...data },
+          esQueja: esQueja // true o false
+        });
+        Swal.fire('¡Enviado!', 'Tu solicitud ha sido enviada correctamente.', 'success');
+      } catch (error) {
+        console.error(error);
+        Swal.fire('Error', 'Hubo un problema al enviar la solicitud.', 'error');
+      }
+    }
+  };
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -103,7 +176,7 @@ export default function Footer () {
       </section>
 
       {/* Mid Footer */}
-      <section className="relative flex flex-col xl:flex-row items-center justify-center w-full box-border bg-color text-white gap-8 pb-8 px-4 md:px-6">
+      <section className="relative flex flex-col xl:flex-row flex-wrap items-center justify-center w-full box-border bg-color text-white gap-8 pb-8 px-4 md:px-6">
         <article className="flex w-full max-w-[500px] flex-col justify-center items-center">
           <img
             src="https://technologyline.com.ar/banners-images/Assets/logo-tlineNew.svg"
@@ -132,7 +205,7 @@ export default function Footer () {
           </ul>
         </article>
 
-        <div className='flex flex-col md:flex-row xl:flex-row justify-center items-center lg:items-start gap-8 w-fit'>
+        <article className='flex flex-col md:flex-row xl:flex-row justify-center items-center lg:items-start gap-8 w-fit'>
           <article className="min-w-[200px] md:min-h-[170px] flex flex-col gap-y-2 text-page-gray-light text-center lg:text-left">
             <h1 className="font-bold text-white text-lg border-b border-page-lightblue pb-2">
               Categorías
@@ -182,7 +255,41 @@ export default function Footer () {
               Revendedores
             </NavLink>
           </article>
-        </div>
+        </article>
+
+        <article className="p-6 border-b border-gray-200">
+          <div className="max-w-7xl mx-auto flex bg-sky-500/20 flex-col md:flex-row justify-between items-center gap-4 p-4 rounded-xl shadow-sm border">
+            <p className="font-bold text-gray-50 text-center md:text-left">¿Necesitas ayuda adicional?</p>
+            
+            <div className="flex flex-col sm:flex-row gap-3">
+              {/* Botón Quejas */}
+              <button 
+                onClick={() => handleFormulario(true)} // Llama unificada
+                className="flex items-center gap-2 bg-gray-800 hover:bg-gray-950 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
+              >
+                <FaBook /> Libro de quejas
+              </button>
+
+              {/* Botón Defensa al Consumidor */}
+              <a 
+                href="https://buenosaires.gob.ar/jefaturadegabinete/atencion-ciudadana-y-gestioncomunal/defensa-al-consumidor" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
+              >
+                <FaShieldAlt /> Defensa al Consumidor
+              </a>
+
+              {/* BOTÓN ARREPENTIMIENTO MEJORADO */}
+              <button 
+                onClick={() => handleFormulario(false)} // Llama unificada
+                className="flex items-center gap-2 bg-red-500 hover:bg-red-500/80 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
+              >
+                <FaShieldAlt /> Botón de Arrepentimiento
+              </button>
+            </div>
+          </div>
+        </article>
       </section>
 
       {/* Social icons/card icons/ button */}
