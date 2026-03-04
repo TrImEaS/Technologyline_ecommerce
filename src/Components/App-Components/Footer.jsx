@@ -327,7 +327,7 @@ export default function Footer () {
 
       <section className="flex flex-col justify-center items-center w-full bg-gradient-to-r from-page-gray-light to-gray-100 pt-4 px-4 text-center">
         <h1 className="font-bold text-gray-800 mb-2">
-          ©️ 2024 Technology Line SRL
+          ©️ {new Date().getFullYear()} Technology Line SRL
         </h1>
         <p className="text-gray-600 text-sm">
           Las imagenes son a modo ilustrativo. Los precios pueden cambiar sin previo aviso.

@@ -2,10 +2,11 @@ import { useCart } from '../../Context/CartContext'
 import ImageSlider from './ImageSlider'
 import Spinner from './Spinner'
 import useFormattedPrice from '../../Utils/useFormattedPrice'
-import { FaCartPlus } from 'react-icons/fa'
+import { FaArrowAltCircleDown, FaCartPlus } from 'react-icons/fa'
 import { useAuth } from '../../Context/AuthContext'
 import { useEffect, useState } from 'react'
-import { FaTruck, FaMapMarkerAlt, FaExclamationTriangle } from 'react-icons/fa';
+import { FaTruck, FaMapMarkerAlt, FaExclamationTriangle, FaCreditCard } from 'react-icons/fa';
+import MeliStats from './MeliStats';
 
 export default function ProductHeader ({ product, loading }) {
   const { addProductToCart, completeOrder } = useCart()
@@ -112,9 +113,10 @@ export default function ProductHeader ({ product, loading }) {
         } */}
       </section>
 
-      <section className='flex tracking-wider flex-col w-[40%] mt-5 min-h-[620px] max-sm:min-h-[500px] justify-center items-center h-fit max-md:w-full border rounded-lg p-8 max-sm:py-5 sm:mb-10 shadow-lg'>
-        <div className='min-h-[200px] flex flex-col gap-y-2'>
+      <section className='flex tracking-wider gap-4 flex-col w-[40%] mt-5 min-h-[620px] max-sm:min-h-[500px] justify-center items-center h-fit max-md:w-full border rounded-lg p-8 max-sm:py-5 sm:mb-10 shadow-lg'>
+        <div className='flex flex-col gap-y-2 w-[90%]'>
           <div className='flex flex-col w-full gap-y-3 justify-center'>
+            {/*SECCION DE PRECIOS*/}
             <section className='flex flex-col items-center text-lg w-full gap-2 border-b pb-3 border-dashed border-page-blue-normal'>
               <div className='flex flex-col text-center text-[#333333] tracking-widest mb-2 text-2xl'>
                 <span>
@@ -135,7 +137,7 @@ export default function ProductHeader ({ product, loading }) {
               </div>
 
               <div className='flex font-semibold text-red-600 flex-col text-center items-center text-base tracking-tighter'>
-                <span>PROMO: EFECTIVO / TRANSFERENCIA BANCARIA: </span>
+                <span className='max-md:text-sm'>PROMO: EFECTIVO / TRANSFERENCIA BANCARIA: </span>
                 <p className='pl-5 font-semibold flex gap-1 text-[#15803d] items-center tracking-normal'>
                   <span>{`$${useFormattedPrice(product.price_list_2)}`}</span>
                   <span className='text-xs text-[#dc7b26]'>(Ahorras: ${((product.price_list_2 - product.price_list_1) * -1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })})</span>
@@ -143,59 +145,78 @@ export default function ProductHeader ({ product, loading }) {
               </div>
             </section>
 
-            <section className='flex flex-col items-center mb-5 w-full gap-y-3 justify-center'>
-              <span className='font-bold text-[#2563eb]'>¡Opcion de compra en cuotas fijas!</span>
+            {/*SECCION DE CUOTAS*/}
+            {/* <div className='bg-slate-50 border border-slate-200 rounded-2xl w-full overflow-hidden shadow-sm'>
+              <div className='p-4 bg-white border-b border-slate-100'>
+                <div className='flex items-center gap-2 text-page-blue-normal'>
+                  <FaCreditCard className='text-lg' />
+                  <span className='text-xs font-bold uppercase tracking-wider'>Opciones de cuotas fijas</span>
+                </div>
+              </div>
+              
+              <div className='p-4 pb-5'>
+                <div className='grid grid-cols-2 gap-3 text-sm'>
+                  <div className='bg-white p-2.5 rounded-xl border border-slate-200 flex flex-col items-center justify-center hover:border-page-blue-normal/50 transition-colors shadow-sm'>
+                    <span className='text-page-blue-normal font-bold text-[15px]'>3 cuotas</span>
+                    <span className='text-slate-500 text-[11px] uppercase tracking-wider mt-1'>de</span>
+                    <span className='font-bold text-slate-800 text-[15px] mt-0.5'>{`$${(parseFloat(product.price_list_3) / 3).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}</span>
+                  </div>
+                  
+                  <div className='bg-white p-2.5 rounded-xl border border-slate-200 flex flex-col items-center justify-center hover:border-page-blue-normal/50 transition-colors shadow-sm'>
+                    <span className='text-page-blue-normal font-bold text-[15px]'>6 cuotas</span>
+                    <span className='text-slate-500 text-[11px] uppercase tracking-wider mt-1'>de</span>
+                    <span className='font-bold text-slate-800 text-[15px] mt-0.5'>{`$${(parseFloat(product.price_list_4) / 6).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}</span>
+                  </div>
 
-              <article className='flex flex-col'>
-                <p className='flex w-fit justify-center gap-1 p-1'>
-                  <span className='text-[#1e40af] font-semibold'>3</span>
-                  <span className='text-[#1e40af]'>cuotas</span>
-                  <span>de:</span>
-                  <span className='text-[#1e40af] font-semibold'>{`$${(parseFloat(product.price_list_3) / 3).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}</span>
-                </p>
-              </article>
+                  <div className='bg-white p-2.5 rounded-xl border border-slate-200 flex flex-col items-center justify-center hover:border-page-blue-normal/50 transition-colors shadow-sm'>
+                    <span className='text-page-blue-normal font-bold text-[15px]'>9 cuotas</span>
+                    <span className='text-slate-500 text-[11px] uppercase tracking-wider mt-1'>de</span>
+                    <span className='font-bold text-slate-800 text-[15px] mt-0.5'>{`$${(parseFloat(product.price_list_5) / 9).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}</span>
+                  </div>
 
-              <article className='flex flex-col'>
-                <p className='flex w-fit justify-center gap-1 p-1'>
-                  <span className='text-[#1e40af] font-semibold'>6</span>
-                  <span className='text-[#1e40af]'>cuotas</span>
-                  <span>de:</span>
-                  <span className='text-[#1e40af] font-semibold'>{`$${(parseFloat(product.price_list_4) / 6).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}</span>
-                </p>
-              </article>
+                  <div className='bg-white p-2.5 rounded-xl border border-slate-200 flex flex-col items-center justify-center hover:border-page-blue-normal/50 transition-colors shadow-sm'>
+                    <span className='text-page-blue-normal font-bold text-[15px]'>12 cuotas</span>
+                    <span className='text-slate-500 text-[11px] uppercase tracking-wider mt-1'>de</span>
+                    <span className='font-bold text-slate-800 text-[15px] mt-0.5'>{`$${(parseFloat(product.price_list_6) / 12).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}</span>
+                  </div>
+                </div>
 
-              <article className='flex flex-col'>
-                <p className='flex w-fit justify-center gap-1 p-1'>
-                  <span className='text-[#1e40af] font-semibold'>9</span>
-                  <span className='text-[#1e40af]'>cuotas</span>
-                  <span>de:</span>
-                  <span className='text-[#1e40af] font-semibold'>{`$${(parseFloat(product.price_list_5) / 9).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}</span>
-                </p>
-              </article>
-
-              <article className='flex flex-col'>
-                <p className='flex w-fit justify-center gap-1 p-1'>
-                  <span className='text-[#1e40af] font-semibold'>12</span>
-                  <span className='text-[#1e40af]'>cuotas</span>
-                  <span>de:</span>
-                  <span className='text-[#1e40af] font-semibold'>{`$${(parseFloat(product.price_list_6) / 12).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}</span>
-                </p>
-
-              </article>
-
-              <ul className="flex text-3xl max-[1500px]:ml-0 gap-x-4">
-                <img className='bg-gray-700 rounded-lg w-[45px] h-[30px]' src='https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon2.svg'/>
-                <img className='bg-red-600 rounded-lg w-[45px] h-[30px]' src='https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon3.svg'/>
-                <img className='bg-blue-500 rounded-lg w-[45px] h-[30px]' src='https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon4.svg'/>
-                <img className='bg-yellow-500 rounded-lg w-[45px] h-[30px]' src='https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon5.svg'/>
-                <img className='bg-orange-500 rounded-lg w-[45px] h-[30px]' src='https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon1.svg'/>
-              </ul>
-            </section>
+                <div className='mt-5 flex justify-center'>
+                  <ul className="flex justify-between w-[85%] opacity-80 mix-blend-multiply hover:opacity-100 transition-all duration-300">
+                    <img className='w-[40px] h-[25px] object-contain' src='https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon2.svg' alt="Visa"/>
+                    <img className='w-[40px] h-[25px] object-contain' src='https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon3.svg' alt="MasterCard" />
+                    <img className='w-[40px] h-[25px] object-contain' src='https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon4.svg' alt="Amex" />
+                    <img className='w-[40px] h-[25px] object-contain' src='https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon5.svg' alt="Cabal" />
+                    <img className='w-[40px] h-[25px] object-contain' src='https://technologyline.com.ar/banners-images/Assets/Some-icons/card-icon1.svg' alt="Naranja" />
+                  </ul>
+                </div>
+              </div>
+            </div> */}
           </div>
         </div>
 
+        {/* SECCIÓN DE MERCADOLIBRE*/}
+        <div className='flex max-md:justify-center flex-col w-[90%] gap-2 items-center'>
+          <div className='w-full bg-blue-50 border flex-col border-blue-100 rounded-xl p-3 flex gap-3 items-start shadow-sm'>
+            <div className='flex gap-2'>
+              <div className='bg-blue-100 p-2 rounded-full text-blue-600 h-8 w-8'>
+                <FaExclamationTriangle className='text-sm' />
+              </div>
+              <p className='text-[13px] leading-relaxed text-blue-800 font-medium'>
+                También podés financiar tu compra en cuotas mediante nuestra tienda de Mercado Libre. <br /> (En caso de no encontrar la publicación, podés <a href={`https://wa.me/541133690584?text=Hola, queria consultar sobre la financiación en cuotas de este producto: SKU: ${product.sku} - Nombre:${product.name}`} target="_blank" rel="noreferrer" className='font-bold underline decoration-blue-300 hover:text-blue-600 transition-colors'>consultarnos por WhatsApp</a>).
+              </p>
+              </div>
+            <div className='w-full flex items-center justify-center  mt-0.5'>
+              <p className='p-2 animate-bounce rounded-full text-sm bg-blue-100 text-blue-600'>
+                <FaArrowAltCircleDown className='text-lg' />
+              </p>
+            </div>
+          </div>
+          <MeliStats /> 
+        </div>
+
         {/* SECCIÓN DE ENVÍO */}
-        <div className='w-full my-4 bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden shadow-sm'>
+        <div className='bg-slate-50 border border-slate-200 rounded-2xl w-[90%] overflow-hidden shadow-sm'>
           <div className='p-4 bg-white border-b border-slate-100'>
             <div className='flex flex-col gap-3'>
               <div className='flex items-center gap-2 text-page-blue-normal'>
@@ -279,8 +300,9 @@ export default function ProductHeader ({ product, loading }) {
             )}
           </div>
         </div>
-
-        <div className='w-full flex max-md:justify-center flex-col gap-5 items-center'>
+        
+        {/* SECCIÓN DE STOCK Y BOTONES */}
+        <div className='flex pt-5 max-md:justify-center flex-col w-full gap-5 items-center'>
           <span className='text-sm uppercase tracking-widest font-semibold text-gray-700'>
             DISPONIBILIDAD: {handleStockQuantity()}
           </span>
