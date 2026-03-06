@@ -105,24 +105,26 @@ export default function Cart () {
   }, [userData])
 
   useEffect(() => {
-    if (!userIsLoged) {
-      const redirectToLogin = async () => {
-        const result = await Swal.fire({
-          title: 'Atención',
-          text: 'Para poder ver carrito y finalizar el pedido debes iniciar sesión.',
-          icon: 'warning',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          confirmButtonText: 'Iniciar sesión',
-          customClass: {
-            confirmButton: 'bg-page-blue-normal text-white px-4 py-2 rounded hover:opacity-90'
-          }
-        })
-        if (result.isConfirmed) navigate('/login')
-      }
+    setTimeout(() => {
+      if (!userIsLoged) {
+        const redirectToLogin = async () => {
+          const result = await Swal.fire({
+            title: 'Atención',
+            text: 'Para poder ver carrito y finalizar el pedido debes iniciar sesión.',
+            icon: 'warning',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            confirmButtonText: 'Iniciar sesión',
+            customClass: {
+              confirmButton: 'bg-page-blue-normal text-white px-4 py-2 rounded hover:opacity-90'
+            }
+          })
+          if (result.isConfirmed) navigate('/login')
+        }
 
-      redirectToLogin()
-    }
+        redirectToLogin()
+      }
+    }, 2000)
   }, [userIsLoged])
 
   useEffect(() => {
@@ -436,7 +438,7 @@ export default function Cart () {
                   </div>
 
                   <div>
-                    <span className="font-light text-gray-700">Usar mismos datos de la factura</span>
+                    <span className="font-light text-gray-700">Envio a domicilio cargado en la factura</span>
                   </div>
                 </label>
 
@@ -568,7 +570,7 @@ export default function Cart () {
               <article className="flex tracking-tight flex-col gap-3 pt-3">
                 <p className="flex flex-col text-gray-800 text-sm">
                   <span><b>(*) Direccion:</b> Roma 560 (unidad 8), Versalles, Liniers</span>
-                  <span><b>(*) Horarios:</b> Lunes a viernes de 09:00 a 18:00hs</span>
+                  <span><b>(*) Horarios:</b> Lunes a viernes de 09:30 a 17:30hs</span>
                 </p>
                 <div className='flex items-center gap-2 bg-blue-50 p-2 rounded'>
                   <FaInfoCircle className='text-page-blue-normal'/>
@@ -621,7 +623,7 @@ export default function Cart () {
                   </div>
                 </label>
 
-                <label htmlFor="threeQuotes" className="flex cursor-pointer items-start gap-4">
+                {/* <label htmlFor="threeQuotes" className="flex cursor-pointer items-start gap-4">
                   <div className="flex items-center">
                     &#8203;
                     <input
@@ -691,7 +693,7 @@ export default function Cart () {
                   <div>
                     <span className="font-light text-gray-700">12 cuotas fijas</span>
                   </div>
-                </label>
+                </label> */}
               </div>
             </fieldset>
 
@@ -706,7 +708,24 @@ export default function Cart () {
                 <span className="text-sm">¡Importante! La cuenta desde la que transfieras debe coincidir con tu cuenta de facturación.</span>
               </div>
             } */}
+
           </section>
+
+          <div className="max-sm:w-[90%] w-[80%] bg-blue-50 border border-blue-100 p-4 rounded-2xl flex items-start gap-4 shadow-sm">
+            <div className="bg-white p-2 rounded-xl shadow-sm mt-0.5">
+              <FaInfoCircle className="text-page-blue-normal text-xl" />
+            </div>
+            <div className="flex flex-col gap-1">
+              <h4 className="text-xs font-bold text-blue-900 uppercase tracking-widest flex items-center gap-2">
+                📢 Aviso importante
+              </h4>
+              <p className="text-[13px] text-slate-600 leading-relaxed">
+                Recorda que esta acción <b>solo genera la solicitud de un pedido</b>, el cual sera validado cuando un operador se comunique con usted. El mismo <b>no tiene obligacion de compra, ni seran solicitados datos de tarjetas de credito.</b> <b>Verifica que tus datos sean correctos.</b> <br/>
+                
+              </p>
+              <span className='text-pretty text-[13px] text-slate-600 leading-relaxed'>Pronto estaremos en contacto para continuar con tu compra. <br/>Muchas gracias.</span>
+            </div>
+          </div>
 
           <button onClick={handleSubmit} className="flex flex-col justify-center items-center rounded-lg border shadow-lg h-16 w-full bg-gradient-to-l from-sky-400 to-sky-800 text-white hover:brightness-125 max-w-[360px]">
             Generar pedido

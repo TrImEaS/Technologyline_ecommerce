@@ -6,7 +6,7 @@ export const AuthContext = createContext()
 export const useAuth = () => useContext(AuthContext)
 
 export const AuthProvider = ({ children }) => {
-  const [userIsLoged, setUserIsLoged] = useState(false)
+  const [userIsLoged, setUserIsLoged] = useState(!!localStorage.getItem('token') && !!localStorage.getItem('email'))
   const [userData, setUserData] = useState([])
   const [token, setToken] = useState(localStorage.getItem('token'))
   const [email, setEmail] = useState(localStorage.getItem('email'))
