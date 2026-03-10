@@ -53,6 +53,14 @@ export default function ProductHeader ({ product, loading }) {
 
   const handleStockQuantity = () => {
     const quantity = product.stock
+    if (quantity < 1) {
+      return (
+        <span className='text-red-600'>
+          Sin stock
+        </span>
+      )
+    }
+
     if (quantity === 1) {
       return (
         <span className='text-red-600'>
@@ -90,9 +98,9 @@ export default function ProductHeader ({ product, loading }) {
       {/* <img src='https://technologyline.com.ar/banners-images/Assets/cyber2025.webp' className='absolute h-12 top-12 right-8'/> */}
 
       <section className='relative w-[60%] max-md:w-full h-full sm:mt-5 sm:min-h-[620px] min-h-[500px] sm:pb-10 sm:p-5 max-sm:px-1 rounded-lg'>
-        {product.pre_sell === 1 && (
-          <span className='absolute top-0 max-md:text-base max-md:-top-3 max-md:px-6 right-4 italic bg-red-400 tracking-widest text-white text-2xl px-10 font-semibold py-1 rounded'>
-            PREVENTA
+        {(product.stock <= 0) && (
+          <span className='absolute top-[35%] max-md:text-3xl max-md:top-[33%] max-md:right-[12%] max-md:px-14 right-[15%] -rotate-12 z-20 italic bg-blue-400/70 tracking-widest text-white text-5xl px-10 font-semibold py-1 rounded-full'>
+            INGRESANDO
           </span>
         )}
         <span className='text-sm tracking-wide w-full'>

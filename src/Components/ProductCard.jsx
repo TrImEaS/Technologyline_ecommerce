@@ -24,6 +24,11 @@ export default function ProductCard ({ product }) {
       >
         {/* Imagen */}
         <header className="relative w-full h-[55%] flex items-center justify-center overflow-hidden">
+          {+product.stock <= 0 && (
+            <span className='absolute -rotate-12 z-10 max-md:text-base max-md:top-[45%] max-md:right-[2%] max-md:px-12 rounded-full right-0 italic bg-blue-400/70 tracking-widest text-white text-2xl px-10 font-semibold py-1'>
+              INGRESANDO
+            </span>
+          )}
           <img
             src={product.img_url || 'https://technologyline.com.ar/banners-images/Assets/page-icon.jpeg'}
             alt={product.name}
